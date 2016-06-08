@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Band Stress App</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="steps">Steps to use this app: \n
+        1. Pair your band with the phone\n
+        2. Make sure Microsoft Health is installed\n
+        3. Give the application permission to access your heart rate
+        data by pressing the Heart Rate Consent button and then pressing
+        yes on the dialog that pops up.\n
+        4. Press the Start button\n
+        5. Data from the RR Interval sensor should be displayed.</string>
+    <string name="start">Start</string>
+    
+    <string name="consent">Heart Rate Consent</string>
+</resources>
