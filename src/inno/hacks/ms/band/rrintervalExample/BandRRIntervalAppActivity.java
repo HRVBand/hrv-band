@@ -18,6 +18,12 @@
 package inno.hacks.ms.band.rrintervalExample;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
@@ -42,6 +48,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -54,15 +61,30 @@ public class BandRRIntervalAppActivity extends Activity {
 	private BandClient client = null;
 	private Button btnStart, btnConsent;
 	private TextView txtStatus;
+	Interval ival = new Interval();
+	List rr;
+	static int duration = 10000;
+
+	public void GetRRInterval() throws InterruptedException, ExecutionException, TimeoutException {
+		Void task =  new RRIntervalSubscriptionTask().get(duration, TimeUnit.MILLISECONDS);//see results in eventlistener
+		return;
+	}
 
 	private BandRRIntervalEventListener mRRIntervalEventListener = new BandRRIntervalEventListener() {
         @Override
         public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
             if (event != null) {
-            	appendToUI(String.format("RR Interval = %.3f s\n", event.getInterval()));
+				double help = event.getInterval();
+            	appendToUI(String.format("RR Interval = %.3f s\n", help));
+				rr.add(help);
+
+				//rr.add(help);
+				//ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
             }
         }
     };
+
+	private RRIntervalSubscriptionTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +96,56 @@ public class BandRRIntervalAppActivity extends Activity {
         btnStart.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				txtStatus.setText("");
-				new RRIntervalSubscriptionTask().execute();
+				rr = new ArrayList<Double>();
+				ival.SetStartTime(new Date());
+
+				//txtStatus.setText("");
+				task = new RRIntervalSubscriptionTask();
+				task.execute();
+				CountDownTimer timer = new CountDownTimer(duration,duration) {
+					@Override
+					public void onTick(long millisUntilFinished) {
+
+					}
+
+					@Override
+					public void onFinish() {
+						try {
+							client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
+						} catch (BandIOException e) {
+							e.printStackTrace();
+						}
+						ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
+						String s = ival.printRR();
+						appendToUI(ival.printRR());
+
+					}
+				}.start();
+
+
+/*				try {
+					//GetRRInterval();
+					//new RRIntervalSubscriptionTask().get(duration, TimeUnit.MILLISECONDS);//see results in eventlistener
+				} catch (InterruptedException e) {
+					ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
+					ival.printRR();
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
+					ival.printRR();
+					e.printStackTrace();
+				} catch (TimeoutException e) {
+					ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
+					ival.printRR();
+					e.printStackTrace();
+				}
+				ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
+				ival.printRR();*/
 			}
 		});
-
+        
         final WeakReference<Activity> reference = new WeakReference<Activity>(this);
-
+        
         btnConsent = (Button) findViewById(R.id.btnConsent);
         btnConsent.setOnClickListener(new OnClickListener() {
 			@SuppressWarnings("unchecked")
@@ -93,10 +158,10 @@ public class BandRRIntervalAppActivity extends Activity {
 		CubicSplineInterpolation inter = new CubicSplineInterpolation();
 		FastFourierTransform fft = new FastFourierTransform(2048);
 
-		double[] rrTest = new double[10];
+		Double[] rrTest = new Double[10];
 		for(int i = 0; i < rrTest.length; i++)
 		{
-			rrTest[i] = (i % 2) + 1;
+			rrTest[i] = (i % 2) + 1.0;
 			//rrTest[i] = 1;
 		}
 
@@ -113,7 +178,7 @@ public class BandRRIntervalAppActivity extends Activity {
 		super.onResume();
 		txtStatus.setText("");
 	}
-
+	
     @Override
 	protected void onPause() {
 		super.onPause();
@@ -125,7 +190,7 @@ public class BandRRIntervalAppActivity extends Activity {
 			}
 		}
 	}
-
+	
     @Override
     protected void onDestroy() {
         if (client != null) {
@@ -139,7 +204,7 @@ public class BandRRIntervalAppActivity extends Activity {
         }
         super.onDestroy();
     }
-
+    
 	private class RRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected Void doInBackground(Void... params) {
@@ -180,13 +245,13 @@ public class BandRRIntervalAppActivity extends Activity {
 			return null;
 		}
 	}
-
+	
 	private class HeartRateConsentTask extends AsyncTask<WeakReference<Activity>, Void, Void> {
 		@Override
 		protected Void doInBackground(WeakReference<Activity>... params) {
 			try {
 				if (getConnectedBandClient()) {
-
+					
 					if (params[0].get() != null) {
 						client.getSensorManager().requestHeartRateConsent(params[0].get(), new HeartRateConsentListener() {
 							@Override
@@ -218,7 +283,7 @@ public class BandRRIntervalAppActivity extends Activity {
 			return null;
 		}
 	}
-
+	
 	private void appendToUI(final String string) {
 		this.runOnUiThread(new Runnable() {
             @Override
@@ -227,7 +292,7 @@ public class BandRRIntervalAppActivity extends Activity {
             }
         });
 	}
-
+    
 	private boolean getConnectedBandClient() throws InterruptedException, BandException {
 		if (client == null) {
 			BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
@@ -239,7 +304,7 @@ public class BandRRIntervalAppActivity extends Activity {
 		} else if (ConnectionState.CONNECTED == client.getConnectionState()) {
 			return true;
 		}
-
+		
 		appendToUI("Band is connecting...\n");
 		return ConnectionState.CONNECTED == client.connect().await();
 	}

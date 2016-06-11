@@ -15,9 +15,12 @@ public class Interval {
         return RRInterval;
     }
 
-    public void SetRRInterval(double[] rrInterval)
+    public void SetRRInterval(Double[] rrInterval)
     {
-        RRInterval = rrInterval;
+        RRInterval = new double[rrInterval.length];
+        for (int i= 0; i < rrInterval.length;i++ ) {
+            RRInterval[i] = rrInterval[i];
+        }
     }
 
     public Date GetStartTime()
@@ -28,5 +31,14 @@ public class Interval {
     public void SetStartTime(Date time)
     {
         startTime = time;
+    }
+
+    public String printRR () {
+        String s = new String();
+        for (double d: RRInterval
+             ) {
+            s= s+","+d;
+        }
+        return s;
     }
 }

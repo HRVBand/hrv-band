@@ -27,6 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="inno.hacks.ms.band.view.RRIntervalActivity"
+            android:label="RRIntervalActivity"></activity>
     </application>
 
 </manifest>
