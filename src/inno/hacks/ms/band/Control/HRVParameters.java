@@ -1,10 +1,13 @@
 package inno.hacks.ms.band.Control;
 
+import java.util.Date;
+
 /**
  * Created by Julian on 11.06.2016.
  */
 public class HRVParameters {
 
+    private Date time;
     private double sd1;
     private double sd2;
     private double sd1sd2Ratio;
@@ -14,6 +17,14 @@ public class HRVParameters {
     private double rmssd;
     private double sdnn;
     private double baevsky;
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
 
     public double getBaevsky() {
         return baevsky;

@@ -16,6 +16,7 @@ dependencies {
     compile files('libs/commons-math3-3.6.1-javadoc.jar')
     compile files('libs/commons-math3-3.6.1-tools.jar')
     compile files('libs/commons-math3-3.6.1.jar')
+    compile files('libs/gson-2.5.jar')
 }
 
 android {

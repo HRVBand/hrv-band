@@ -2,10 +2,6 @@ package inno.hacks.ms.band.Control;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import inno.hacks.ms.band.Fourier.IFourierTransformation;
 import inno.hacks.ms.band.Interpolation.IInterpolation;
 import inno.hacks.ms.band.RRInterval.Interval;
@@ -96,7 +92,7 @@ public class Calculation {
         double min = min(rrinterval);
         double max = max(rrinterval);
 
-        double baevsky = StatistischeHäufigkeit(rrinterval, erwartungswert, 0.02) / (2 * erwartungswert * (max - min));
+        double baevsky = StatistischeHäufigkeit(rrinterval, erwartungswert, 0.05) / (2 * erwartungswert * (max - min));
         return baevsky;
     }
 
