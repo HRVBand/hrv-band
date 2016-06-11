@@ -3,11 +3,13 @@ package inno.hacks.ms.band.RRInterval;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.widget.TextView;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
 import com.microsoft.band.BandException;
+import com.microsoft.band.BandIOException;
 import com.microsoft.band.BandInfo;
 import com.microsoft.band.ConnectionState;
 import com.microsoft.band.UserConsent;
@@ -35,13 +37,12 @@ public class RRIntervalBand implements IRRInterval {
     Interval ival = new Interval();
     BandClient client;
     TextView rrTextView;
-    static int duration = 10000;
+
     List rr;
 
 
-    public RRIntervalBand(Context context, TextView rrTextView){
-        this.context = context;
-        this.rrTextView = rrTextView;
+
+    public RRIntervalBand(){
         getUserPermission();
     }
 
@@ -54,16 +55,6 @@ public class RRIntervalBand implements IRRInterval {
 
     public void getPermission(WeakReference<Activity> reference){
         new HeartRateConsentTask().execute(reference);
-    }
-
-
-    public Interval GetRRInterval(TextView textView) throws InterruptedException, ExecutionException, TimeoutException {
-        rr = new ArrayList<Double>();
-        ival.SetStartTime(new Date());
-        Void task =  new RRIntervalSubscriptionTask().get(duration, TimeUnit.MILLISECONDS);//see results in eventlistener
-
-
-        return ival;
     }
 
     @Override
@@ -116,14 +107,30 @@ public class RRIntervalBand implements IRRInterval {
     private BandRRIntervalEventListener mRRIntervalEventListener = new BandRRIntervalEventListener() {
         @Override
         public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
-
             if (event != null) {
-                appendToUI(rrTextView.getText()+ String.format("RR Interval = %.3f s\n", event.getInterval()));
-                rr.add(event.getInterval());
-                ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
+                double help = event.getInterval();
+                appendToUI(String.format("RR Interval = %.3f s\n", help));
+                rr.add(help);
+
             }
         }
     };
+
+    public RRIntervalSubscriptionTask startMeasure() {
+        return new RRIntervalSubscriptionTask();
+    }
+
+    public Interval stopMeasure() {
+        try {
+            client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
+        } catch (BandIOException e) {
+            e.printStackTrace();
+        }
+
+        ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
+        return ival;
+    }
+
 
     public class HeartRateConsentTask extends AsyncTask<WeakReference<Activity>, Void, Void> {
         @Override
@@ -164,7 +171,7 @@ public class RRIntervalBand implements IRRInterval {
     }
 
 
-    private class RRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
+    public class RRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             try {
