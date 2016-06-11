@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71b0d6a0-1012-40b6-8211-2e675694e228" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/gson-2.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/gson_2_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/inno/hacks/ms/band/Control/SharedPreferencesController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/commons_math3_3_6_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/commons_math3_3_6_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/commons-math3-3.6.1-javadoc.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/commons-math3-3.6.1-tools.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/commons-math3-3.6.1.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inno-hacks.iml" afterPath="$PROJECT_DIR$/inno-hacks.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/inno/hacks/ms/band/Control/Calculation.java" afterPath="$PROJECT_DIR$/src/inno/hacks/ms/band/Control/Calculation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/inno/hacks/ms/band/Control/HRVParameters.java" afterPath="$PROJECT_DIR$/src/inno/hacks/ms/band/Control/HRVParameters.java" />
     </list>
     <ignored path="inno-hacks.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -134,8 +129,8 @@
       <file leaf-file-name="SharedPreferencesController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/inno/hacks/ms/band/Control/SharedPreferencesController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8215768">
-              <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.86307055">
+              <caret line="29" column="32" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1809,7 +1804,13 @@
       <option name="project" value="LOCAL" />
       <updated>1465660998166</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Speichern von AufnahmeParametern">
+      <created>1465667197421</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1465667197421</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1863,7 +1864,8 @@
     <MESSAGE value="Calculation bis interpolation" />
     <MESSAGE value="Calculation von lfhf ration" />
     <MESSAGE value="Baevsky wert" />
-    <option name="LAST_COMMIT_MESSAGE" value="Baevsky wert" />
+    <MESSAGE value="Speichern von AufnahmeParametern" />
+    <option name="LAST_COMMIT_MESSAGE" value="Speichern von AufnahmeParametern" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2085,8 +2087,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/inno/hacks/ms/band/Control/SharedPreferencesController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8215768">
-          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.86307055">
+          <caret line="29" column="32" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
