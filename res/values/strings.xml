@@ -13,6 +13,11 @@
         4. Press the Start button\n
         5. Data from the RR Interval sensor should be displayed.</string>
     <string name="start">Start</string>
-    
+
     <string name="consent">Heart Rate Consent</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main_view">MainView</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_rrinterval">RRIntervalActivity</string>
 </resources>

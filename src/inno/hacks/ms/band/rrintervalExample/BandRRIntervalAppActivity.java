@@ -29,11 +29,14 @@ import com.microsoft.band.UserConsent;
 
 import inno.hacks.ms.band.Fourier.FastFourierTransform;
 import inno.hacks.ms.band.rrintervalExample.R;
+import inno.hacks.ms.band.view.RRIntervalActivity;
+
 import com.microsoft.band.sensors.BandRRIntervalEvent;
 import com.microsoft.band.sensors.BandRRIntervalEventListener;
 import com.microsoft.band.sensors.HeartRateConsentListener;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -229,6 +232,11 @@ public class BandRRIntervalAppActivity extends Activity {
 		
 		appendToUI("Band is connecting...\n");
 		return ConnectionState.CONNECTED == client.connect().await();
+	}
+
+	public void startRRInterval(View view) {
+		Intent intent = new Intent(getApplicationContext(), RRIntervalActivity.class);
+		startActivity(intent);
 	}
 }
 
