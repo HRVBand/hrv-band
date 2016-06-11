@@ -44,6 +44,5 @@ public class Calculation {
             y1[i] = interpolFunction.value(x1[i]);
         }
 
-
     }
 }

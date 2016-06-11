@@ -95,7 +95,7 @@ public class BandRRIntervalAppActivity extends Activity {
 
 		double[] rrTest = new double[100];
 		for(int i = 0; i < rrTest.length; i++)
-			rrTest[i] = i % 2;
+			rrTest[i] = (i % 2) + 1;
 
 
 		Interval interval = new Interval();
