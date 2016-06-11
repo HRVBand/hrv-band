@@ -31,7 +31,7 @@ public class Calculation {
         }
 
         PolynomialSplineFunction interpolFunction = interpolation.calculate(x,y);
-        int numInterpolVals = 2048;
+        int numInterpolVals = 4096;
         double[] xInterpolated = new double[numInterpolVals];
         double[] yInterpolated = new double[numInterpolVals];
 
@@ -66,8 +66,8 @@ public class Calculation {
             frequencies[i] = frequencySteps * i;
         }
 
-        double hfPow = HfPow(frequencies, betrag, 1);
-        double lfPow = LfPow(frequencies, betrag, 1);
+        double hfPow = HfPow(frequencies, betrag, frequencies[1] * frequencies[1]);
+        double lfPow = LfPow(frequencies, betrag, frequencies[1] * frequencies[1]);
 
         double lfhfRatio = lfPow / hfPow;
 

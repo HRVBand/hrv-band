@@ -121,7 +121,7 @@ public class BandRRIntervalAppActivity extends Activity {
 						//String s = ival.printRR();
 						//appendToUI(ival.printRR());
 						CubicSplineInterpolation inter = new CubicSplineInterpolation();
-						FastFourierTransform fft = new FastFourierTransform(2048);
+						FastFourierTransform fft = new FastFourierTransform(4096);
 
 						Calculation calc = new Calculation(fft, inter);
 						HRVParameters results = calc.Calculate(ival);
@@ -163,23 +163,6 @@ public class BandRRIntervalAppActivity extends Activity {
 				new HeartRateConsentTask().execute(reference);
 			}
 		});
-
-		CubicSplineInterpolation inter = new CubicSplineInterpolation();
-		FastFourierTransform fft = new FastFourierTransform(2048);
-
-		Double[] rrTest = new Double[10];
-		for(int i = 0; i < rrTest.length; i++)
-		{
-			rrTest[i] = (i % 2) + 1.0;
-			//rrTest[i] = 1;
-		}
-
-
-		Interval interval = new Interval();
-		interval.SetRRInterval(rrTest);
-
-		Calculation calc = new Calculation(fft, inter);
-		calc.Calculate(interval);
     }
 
 	@Override
