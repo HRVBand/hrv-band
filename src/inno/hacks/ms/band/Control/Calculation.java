@@ -66,8 +66,8 @@ public class Calculation {
             frequencies[i] = frequencySteps * i;
         }
 
-        double hfPow = HfPow(frequencies, betrag, frequencies[1] * frequencies[1]);
-        double lfPow = LfPow(frequencies, betrag, frequencies[1] * frequencies[1]);
+        double hfPow = HfPow(frequencies, betrag, frequencies[1]);
+        double lfPow = LfPow(frequencies, betrag, frequencies[1]);
 
         double lfhfRatio = lfPow / hfPow;
 
