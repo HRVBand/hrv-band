@@ -27,7 +27,10 @@ import com.microsoft.band.BandInfo;
 import com.microsoft.band.ConnectionState;
 import com.microsoft.band.UserConsent;
 
+import inno.hacks.ms.band.Control.Calculation;
 import inno.hacks.ms.band.Fourier.FastFourierTransform;
+import inno.hacks.ms.band.Interpolation.CubicSplineInterpolation;
+import inno.hacks.ms.band.RRInterval.Interval;
 import inno.hacks.ms.band.rrintervalExample.R;
 import inno.hacks.ms.band.view.RRIntervalActivity;
 
@@ -44,12 +47,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
+
 public class BandRRIntervalAppActivity extends Activity {
 
 	private BandClient client = null;
 	private Button btnStart, btnConsent;
 	private TextView txtStatus;
-	
+
 	private BandRRIntervalEventListener mRRIntervalEventListener = new BandRRIntervalEventListener() {
         @Override
         public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
@@ -58,7 +63,7 @@ public class BandRRIntervalAppActivity extends Activity {
             }
         }
     };
-	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +78,9 @@ public class BandRRIntervalAppActivity extends Activity {
 				new RRIntervalSubscriptionTask().execute();
 			}
 		});
-        
+
         final WeakReference<Activity> reference = new WeakReference<Activity>(this);
-        
+
         btnConsent = (Button) findViewById(R.id.btnConsent);
         btnConsent.setOnClickListener(new OnClickListener() {
 			@SuppressWarnings("unchecked")
@@ -85,25 +90,27 @@ public class BandRRIntervalAppActivity extends Activity {
 			}
 		});
 
-		int n = 16;
-		FastFourierTransform fft = new FastFourierTransform(n);
+		CubicSplineInterpolation inter = new CubicSplineInterpolation();
+		FastFourierTransform fft = new FastFourierTransform(2048);
 
-		double[] x = new double[n];
-		double[] y = new double[n];
+		double[] rrTest = new double[100];
+		for(int i = 0; i < rrTest.length; i++)
+			rrTest[i] = i % 2;
 
-		x[0] = 1;
 
-		fft.calculate(x,y);
+		Interval interval = new Interval();
+		interval.SetRRInterval(rrTest);
 
-		double a = x[0];
+		Calculation calc = new Calculation(fft, inter);
+		calc.Calculate(interval);
     }
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		txtStatus.setText("");
 	}
-	
+
     @Override
 	protected void onPause() {
 		super.onPause();
@@ -115,7 +122,7 @@ public class BandRRIntervalAppActivity extends Activity {
 			}
 		}
 	}
-	
+
     @Override
     protected void onDestroy() {
         if (client != null) {
@@ -129,7 +136,7 @@ public class BandRRIntervalAppActivity extends Activity {
         }
         super.onDestroy();
     }
-    
+
 	private class RRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected Void doInBackground(Void... params) {
@@ -170,13 +177,13 @@ public class BandRRIntervalAppActivity extends Activity {
 			return null;
 		}
 	}
-	
+
 	private class HeartRateConsentTask extends AsyncTask<WeakReference<Activity>, Void, Void> {
 		@Override
 		protected Void doInBackground(WeakReference<Activity>... params) {
 			try {
 				if (getConnectedBandClient()) {
-					
+
 					if (params[0].get() != null) {
 						client.getSensorManager().requestHeartRateConsent(params[0].get(), new HeartRateConsentListener() {
 							@Override
@@ -208,7 +215,7 @@ public class BandRRIntervalAppActivity extends Activity {
 			return null;
 		}
 	}
-	
+
 	private void appendToUI(final String string) {
 		this.runOnUiThread(new Runnable() {
             @Override
@@ -217,7 +224,7 @@ public class BandRRIntervalAppActivity extends Activity {
             }
         });
 	}
-    
+
 	private boolean getConnectedBandClient() throws InterruptedException, BandException {
 		if (client == null) {
 			BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
@@ -229,7 +236,7 @@ public class BandRRIntervalAppActivity extends Activity {
 		} else if (ConnectionState.CONNECTED == client.getConnectionState()) {
 			return true;
 		}
-		
+
 		appendToUI("Band is connecting...\n");
 		return ConnectionState.CONNECTED == client.connect().await();
 	}

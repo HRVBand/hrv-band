@@ -1,8 +1,10 @@
 package inno.hacks.ms.band.Interpolation;
 
+import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
+
 /**
  * Created by Julian on 11.06.2016.
  */
 public interface IInterpolation {
-    void calculate(double[] x, double[] y);
+    PolynomialSplineFunction calculate(double[] x, double[] y);
 }
