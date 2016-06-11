@@ -93,9 +93,12 @@ public class BandRRIntervalAppActivity extends Activity {
 		CubicSplineInterpolation inter = new CubicSplineInterpolation();
 		FastFourierTransform fft = new FastFourierTransform(2048);
 
-		double[] rrTest = new double[100];
+		double[] rrTest = new double[10];
 		for(int i = 0; i < rrTest.length; i++)
+		{
 			rrTest[i] = (i % 2) + 1;
+			//rrTest[i] = 1;
+		}
 
 
 		Interval interval = new Interval();
