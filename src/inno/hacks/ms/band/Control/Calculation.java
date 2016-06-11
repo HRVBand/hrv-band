@@ -32,27 +32,27 @@ public class Calculation {
 
         PolynomialSplineFunction interpolFunction = interpolation.calculate(x,y);
         int numInterpolVals = 2048;
-        double[] x1 = new double[numInterpolVals];
-        double[] y1 = new double[numInterpolVals];
+        double[] xInterpolated = new double[numInterpolVals];
+        double[] yInterpolated = new double[numInterpolVals];
 
         double lastTimeVal = x[x.length - 1];
         double stepSize = lastTimeVal / numInterpolVals;
 
         for(int i = 0; i < numInterpolVals; i++)
         {
-            x1[i] = stepSize * i;
-            y1[i] = interpolFunction.value(x1[i]);
+            xInterpolated[i] = stepSize * i;
+            yInterpolated[i] = interpolFunction.value(xInterpolated[i]);
         }
 
         double[] complexPart = new double[numInterpolVals];
         double[] realPart = new double[numInterpolVals];
         for(int i = 0; i < numInterpolVals; i++)
-            realPart[i] = y1[i];
+            realPart[i] = yInterpolated[i];
 
         fourierTransf.calculate(realPart, complexPart);
 
-        double[] betrag = new double[x1.length];
-        for(int i = 0; i < x1.length; i++)
+        double[] betrag = new double[xInterpolated.length];
+        for(int i = 0; i < xInterpolated.length; i++)
         {
             betrag[i] = realPart[i] * realPart[i] + complexPart[i] * complexPart[i];
         }
@@ -66,11 +66,10 @@ public class Calculation {
             frequencies[i] = frequencySteps * i;
         }
 
-        double hfPow = HfPow(frequencies, betrag, stepSize);
-        double lfPow = LfPow(frequencies, betrag, stepSize);
+        double hfPow = HfPow(frequencies, betrag, 1);
+        double lfPow = LfPow(frequencies, betrag, 1);
 
         double lfhfRatio = lfPow / hfPow;
-        double a = lfhfRatio;
 
         HRVParameters params = new HRVParameters();
         params.setHf(hfPow);

@@ -34,6 +34,8 @@ import com.microsoft.band.ConnectionState;
 import com.microsoft.band.UserConsent;
 
 import inno.hacks.ms.band.Control.Calculation;
+import inno.hacks.ms.band.Control.HRVParameters;
+import inno.hacks.ms.band.Control.SharedPreferencesController;
 import inno.hacks.ms.band.Fourier.FastFourierTransform;
 import inno.hacks.ms.band.Interpolation.CubicSplineInterpolation;
 import inno.hacks.ms.band.RRInterval.Interval;
@@ -63,7 +65,7 @@ public class BandRRIntervalAppActivity extends Activity {
 	private TextView txtStatus;
 	Interval ival = new Interval();
 	List rr;
-	static int duration = 10000;
+	static int duration = 90000;
 
 	public void GetRRInterval() throws InterruptedException, ExecutionException, TimeoutException {
 		Void task =  new RRIntervalSubscriptionTask().get(duration, TimeUnit.MILLISECONDS);//see results in eventlistener
@@ -116,9 +118,16 @@ public class BandRRIntervalAppActivity extends Activity {
 							e.printStackTrace();
 						}
 						ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
-						String s = ival.printRR();
-						appendToUI(ival.printRR());
+						//String s = ival.printRR();
+						//appendToUI(ival.printRR());
+						CubicSplineInterpolation inter = new CubicSplineInterpolation();
+						FastFourierTransform fft = new FastFourierTransform(2048);
 
+						Calculation calc = new Calculation(fft, inter);
+						HRVParameters results = calc.Calculate(ival);
+
+						SharedPreferencesController pref = new SharedPreferencesController();
+						pref.AddParams(getApplicationContext(), results);
 					}
 				}.start();
 
