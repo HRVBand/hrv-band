@@ -26,6 +26,8 @@ import com.microsoft.band.BandIOException;
 import com.microsoft.band.BandInfo;
 import com.microsoft.band.ConnectionState;
 import com.microsoft.band.UserConsent;
+
+import inno.hacks.ms.band.Fourier.FastFourierTransform;
 import inno.hacks.ms.band.rrintervalExample.R;
 import com.microsoft.band.sensors.BandRRIntervalEvent;
 import com.microsoft.band.sensors.BandRRIntervalEventListener;
@@ -79,6 +81,18 @@ public class BandRRIntervalAppActivity extends Activity {
 				new HeartRateConsentTask().execute(reference);
 			}
 		});
+
+		int n = 16;
+		FastFourierTransform fft = new FastFourierTransform(n);
+
+		double[] x = new double[n];
+		double[] y = new double[n];
+
+		x[0] = 1;
+
+		fft.calculate(x,y);
+
+		double a = x[0];
     }
 	
 	@Override
