@@ -10,6 +10,102 @@
     android:layout_height="wrap_content"
     android:text="@string/steps" />
 -->
+
+    <RelativeLayout
+        android:id="@+id/layoutTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textLFHFRatio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1.5"
+        android:textSize="50sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:text="LFHF Quotient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/textLFHFRatio"/>
+
+
+    <TextView
+        android:id="@+id/textSDNN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.2"
+        android:textSize="50sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:text="SDNN (s)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textSDNN"/>
+
+
+    <TextView
+        android:id="@+id/textRMSSD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.5"
+        android:textSize="50sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:text="RMSSD (s)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/textRMSSD"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutTop">
+
+     <TextView
+         android:id="@+id/textSD1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="0.5"
+         android:textSize="30sp"
+         android:layout_alignParentLeft="true"
+         />
+
+     <TextView
+         android:text="SD1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@id/textSD1"/>
+
+     <TextView
+         android:id="@+id/textSD2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="0.6"
+         android:textSize="30sp"
+         android:layout_alignEnd="@+id/textSD1"
+        />
+
+     <TextView
+         android:text="SD2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignEnd="@+id/textSD1"
+         android:layout_below="@id/textSD2"/>
+
+    </RelativeLayout>
     
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -21,7 +117,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:background="@drawable/round_button"
-            android:text="Start"
+            android:text="START"
             android:textSize="30sp"
             android:layout_centerHorizontal="true"/>
 
@@ -48,7 +144,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="80sp"
-        android:text="test"
+        android:text=""
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
