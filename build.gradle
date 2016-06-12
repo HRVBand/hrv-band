@@ -5,18 +5,19 @@ buildscript {
     }
 
     dependencies {
-       classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.1.2'
     }
 }
 
 apply plugin: 'com.android.application'
-
+repositories {
+    maven { url "https://jitpack.io" }
+}
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
-    compile files('libs/commons-math3-3.6.1-javadoc.jar')
-    compile files('libs/commons-math3-3.6.1-tools.jar')
-    compile files('libs/commons-math3-3.6.1.jar')
-    compile files('libs/gson-2.5.jar')
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:support-v13:23.4.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
 
 android {

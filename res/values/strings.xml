@@ -15,9 +15,25 @@
     <string name="start">Start</string>
 
     <string name="consent">Heart Rate Consent</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main2">Aurora</string>
     <string name="title_activity_main_view">MainView</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="title_activity_rrinterval">RRIntervalActivity</string>
+    <string name="title_activity_diagram">DiagramActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main_menu2">MainMenu2</string>
+    <string name="title_activity_chart">ChartActivity</string>
+    <string name="title_activity_test_drawer">TestDrawer</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>

@@ -63,9 +63,10 @@ public class BandRRIntervalAppActivity extends Activity {
 	private BandClient client = null;
 	private Button btnStart, btnConsent;
 	private TextView txtStatus;
+	private TextView txtTimer;
 	Interval ival = new Interval();
 	List rr;
-	static int duration = 90000;
+	static int duration = 60000;
 
 	public void GetRRInterval() throws InterruptedException, ExecutionException, TimeoutException {
 		Void task =  new RRIntervalSubscriptionTask().get(duration, TimeUnit.MILLISECONDS);//see results in eventlistener
@@ -77,7 +78,7 @@ public class BandRRIntervalAppActivity extends Activity {
         public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
             if (event != null) {
 				double help = event.getInterval();
-            	appendToUI(String.format("RR Interval = %.3f s\n", help));
+            	//appendToUI(String.format("RR Interval = %.3f s\n", help));
 				rr.add(help);
 
 				//rr.add(help);
@@ -94,6 +95,7 @@ public class BandRRIntervalAppActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         txtStatus = (TextView) findViewById(R.id.txtStatus);
+		txtTimer = (TextView) findViewById(R.id.txt_timer);
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new OnClickListener() {
 			@Override
@@ -104,10 +106,11 @@ public class BandRRIntervalAppActivity extends Activity {
 				//txtStatus.setText("");
 				task = new RRIntervalSubscriptionTask();
 				task.execute();
-				CountDownTimer timer = new CountDownTimer(duration,duration) {
+				CountDownTimer timer = new CountDownTimer(duration, 1000) {
 					@Override
 					public void onTick(long millisUntilFinished) {
-
+						long sec = millisUntilFinished / 1000 + 1;
+						appendToUI(sec + " seconds remain", txtTimer);
 					}
 
 					@Override
@@ -119,13 +122,14 @@ public class BandRRIntervalAppActivity extends Activity {
 						}
 						ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
 						//String s = ival.printRR();
-						//appendToUI(ival.printRR());
+						appendToUI("", txtTimer);
+						appendToUI("done", txtStatus);
 						CubicSplineInterpolation inter = new CubicSplineInterpolation();
 						FastFourierTransform fft = new FastFourierTransform(4096);
 
 						Calculation calc = new Calculation(fft, inter);
 						HRVParameters results = calc.Calculate(ival);
-
+						results.setTime(new Date());
 						SharedPreferencesController pref = new SharedPreferencesController();
 						pref.AddParams(getApplicationContext(), results);
 					}
@@ -178,7 +182,7 @@ public class BandRRIntervalAppActivity extends Activity {
 			try {
 				client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
 			} catch (BandIOException e) {
-				appendToUI(e.getMessage());
+				appendToUI(e.getMessage(), txtStatus);
 			}
 		}
 	}
@@ -202,19 +206,20 @@ public class BandRRIntervalAppActivity extends Activity {
 		protected Void doInBackground(Void... params) {
 			try {
 				if (getConnectedBandClient()) {
+					appendToUI("", txtStatus);
 				    int hardwareVersion = Integer.parseInt(client.getHardwareVersion().await());
 				    if (hardwareVersion >= 20) {
     					if (client.getSensorManager().getCurrentHeartRateConsent() == UserConsent.GRANTED) {
     						client.getSensorManager().registerRRIntervalEventListener(mRRIntervalEventListener);
     					} else {
     						appendToUI("You have not given this application consent to access heart rate data yet."
-    								+ " Please press the Heart Rate Consent button.\n");
+    								+ " Please press the Heart Rate Consent button.\n", txtStatus);
     					}
 				    } else {
-				        appendToUI("The RR Interval sensor is not supported with your Band version. Microsoft Band 2 is required.\n");
+				        appendToUI("The RR Interval sensor is not supported with your Band version. Microsoft Band 2 is required.\n", txtStatus);
                     }
 				} else {
-					appendToUI("Band isn't connected. Please make sure bluetooth is on and the band is in range.\n");
+					appendToUI("Band isn't connected. Please make sure bluetooth is on and the band is in range.\n", txtStatus);
 				}
 			} catch (BandException e) {
 				String exceptionMessage="";
@@ -229,10 +234,10 @@ public class BandRRIntervalAppActivity extends Activity {
 					exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
 					break;
 				}
-				appendToUI(exceptionMessage);
+				appendToUI(exceptionMessage, txtStatus);
 
 			} catch (Exception e) {
-				appendToUI(e.getMessage());
+				appendToUI(e.getMessage(), txtStatus);
 			}
 			return null;
 		}
@@ -252,7 +257,7 @@ public class BandRRIntervalAppActivity extends Activity {
 					    });
 					}
 				} else {
-					appendToUI("Band isn't connected. Please make sure bluetooth is on and the band is in range.\n");
+					appendToUI("Band isn't connected. Please make sure bluetooth is on and the band is in range.\n", txtStatus);
 				}
 			} catch (BandException e) {
 				String exceptionMessage="";
@@ -267,20 +272,20 @@ public class BandRRIntervalAppActivity extends Activity {
 					exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
 					break;
 				}
-				appendToUI(exceptionMessage);
+				appendToUI(exceptionMessage, txtStatus);
 
 			} catch (Exception e) {
-				appendToUI(e.getMessage());
+				appendToUI(e.getMessage(), txtStatus);
 			}
 			return null;
 		}
 	}
 	
-	private void appendToUI(final String string) {
+	private void appendToUI(final String string, final TextView txt) {
 		this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            	txtStatus.setText(string);
+            	txt.setText(string);
             }
         });
 	}
@@ -289,7 +294,7 @@ public class BandRRIntervalAppActivity extends Activity {
 		if (client == null) {
 			BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
 			if (devices.length == 0) {
-				appendToUI("Band isn't paired with your phone.\n");
+				appendToUI("Band isn't paired with your phone.\n", txtStatus);
 				return false;
 			}
 			client = BandClientManager.getInstance().create(getBaseContext(), devices[0]);
@@ -297,7 +302,7 @@ public class BandRRIntervalAppActivity extends Activity {
 			return true;
 		}
 		
-		appendToUI("Band is connecting...\n");
+		appendToUI("Band is connecting...\n", txtStatus);
 		return ConnectionState.CONNECTED == client.connect().await();
 	}
 

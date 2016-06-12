@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="#E0f2f1"
+    tools:context="inno.hacks.ms.band.view.MainMenu">
+
+    <Button
+        android:id="@+id/openSingleMeasure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Single Measuring"
+        android:layout_margin="10dp"
+        android:background="#ffc107"
+        android:onClick="openSingleMeasure"/>
+
+    <Button
+        android:id="@+id/openContinuouslyMeasure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continuously Measure"
+        android:layout_margin="10dp"
+        android:background="#ffc107"
+        android:onClick="openContinuouslyMeasure"/>
+
+    <Button
+        android:id="@+id/showChart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="show chart"
+        android:layout_margin="10dp"
+        android:background="#ffc107"
+        android:onClick="showChart"/>
+
+</LinearLayout>

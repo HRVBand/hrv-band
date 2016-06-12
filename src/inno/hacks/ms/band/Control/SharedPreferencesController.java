@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +41,9 @@ public class SharedPreferencesController {
     public void AddParams(Context con, HRVParameters params)
     {
         List<HRVParameters> allData = LoadData(con);
+        if (allData == null) {
+            allData = new ArrayList<>();
+        }
         allData.add(params);
         SaveData(con, allData);
     }
