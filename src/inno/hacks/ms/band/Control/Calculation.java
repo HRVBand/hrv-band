@@ -186,7 +186,7 @@ public class Calculation {
 
     public double LfPow(double[] frequencies, double[] betrag, double stepSize)
     {
-        int firstElementOver004 = FirstElementOverValue(frequencies, 0.04);
+        int firstElementOver004 = FirstElementOverValue(frequencies, 0.02);
         int firstElementOver015 = FirstElementOverValue(frequencies, 0.15);
 
         double lfPow = LinearIntegration(betrag, stepSize, firstElementOver004, firstElementOver015);

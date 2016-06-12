@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="15dp"
@@ -10,26 +10,45 @@
     android:layout_height="wrap_content"
     android:text="@string/steps" />
 -->
-    <Button
-    android:id="@+id/btnStart"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="start measuring" />
-
-    <Button
-        android:id="@+id/btnConsent"
-        android:layout_width="match_parent"
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/consent" />
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/round_button"
+            android:text="Start"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/btnConsent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/consent"
+            android:layout_below="@id/btnStart"
+            android:background="#03a9f4"
+            android:layout_marginTop="10dp"
+            />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txtStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="" />
+
     <TextView
         android:id="@+id/txt_timer"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
-</LinearLayout>
+        android:textSize="80sp"
+        android:text="test"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

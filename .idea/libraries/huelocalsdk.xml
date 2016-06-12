@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="huelocalsdk">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/huelocalsdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

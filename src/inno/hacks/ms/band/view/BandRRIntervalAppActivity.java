@@ -300,9 +300,18 @@ public class BandRRIntervalAppActivity extends Activity {
 		} else if (ConnectionState.CONNECTED == client.getConnectionState()) {
 			return true;
 		}
-
+		
 		appendToUI("Band is connecting...\n", txtStatus);
 		return ConnectionState.CONNECTED == client.connect().await();
+	}
+
+	private void appendToButtonText(final String string) {
+		this.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				btnStart.setText(string);
+			}
+		});
 	}
 }
 
