@@ -20,7 +20,7 @@
         android:id="@+id/textLFHFRatio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1.5"
+        android:text="0.0"
         android:textSize="50sp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"/>
@@ -37,7 +37,7 @@
         android:id="@+id/textSDNN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0.2"
+        android:text="0.0"
         android:textSize="50sp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"/>
@@ -54,7 +54,7 @@
         android:id="@+id/textRMSSD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0.5"
+        android:text="0.0"
         android:textSize="50sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"/>
@@ -78,7 +78,7 @@
          android:id="@+id/textSD1"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text="0.5"
+         android:text="0.0"
          android:textSize="30sp"
          android:layout_alignParentLeft="true"
          />
@@ -94,7 +94,7 @@
          android:id="@+id/textSD2"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text="0.6"
+         android:text="0.0"
          android:textSize="30sp"
          android:layout_alignParentRight="true"
         />
@@ -111,7 +111,7 @@
          android:id="@+id/textSD1SD2Ratio"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text="0.6"
+         android:text="0.0"
          android:textSize="30sp"
          android:layout_centerHorizontal="true"
          />
@@ -137,7 +137,7 @@
         android:id="@+id/textBaevsky"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0.6"
+        android:text="0.0"
         android:textSize="30sp"
         android:layout_centerHorizontal="true"
         />

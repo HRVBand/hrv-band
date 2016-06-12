@@ -58,6 +58,13 @@ public class BandRRIntervalAppActivity extends Activity {
 	private Button btnStart, btnConsent;
 	private TextView txtStatus;
 	private TextView txtTimer;
+	private TextView lfhfTxt;
+	private TextView sdnnTxt;
+	private TextView rmssdTxt;
+	private TextView sd1Txt;
+	private TextView sd2Txt;
+	private TextView sd1RatioSd2Txt;
+	private TextView baevskyTxt;
 	private Interval ival = new Interval();//stores the complete measure --> ~60 seconds of rrIntervals
 	private List rr;//stores the actual measurement-rrIntervals
 	static int duration = 60000;//60 seconds will be measured
@@ -89,6 +96,15 @@ public class BandRRIntervalAppActivity extends Activity {
 		txtTimer = (TextView) findViewById(R.id.txt_timer);
         btnStart = (Button) findViewById(R.id.btnStart);
 		btnConsent = (Button) findViewById(R.id.btnConsent);
+
+		lfhfTxt = (TextView) findViewById(R.id.textLFHFRatio);
+		sdnnTxt= (TextView) findViewById(R.id.textSDNN);
+		rmssdTxt= (TextView) findViewById(R.id.textRMSSD);
+		sd1Txt= (TextView) findViewById(R.id.textSD1);
+		sd2Txt= (TextView) findViewById(R.id.textSD2);
+		sd1RatioSd2Txt= (TextView) findViewById(R.id.textSD1SD2Ratio);
+		baevskyTxt= (TextView) findViewById(R.id.textBaevsky);
+
 		final WeakReference<Activity> reference = new WeakReference<Activity>(this);
 
 		//start measurement
@@ -126,7 +142,6 @@ public class BandRRIntervalAppActivity extends Activity {
 
 						//display status
 						appendToUI("", txtTimer);
-						appendToUI("done", txtStatus);
 
 						//start calculation
 						CubicSplineInterpolation inter = new CubicSplineInterpolation();
@@ -137,6 +152,7 @@ public class BandRRIntervalAppActivity extends Activity {
 						results.setTime(new Date());
 						SharedPreferencesController pref = new SharedPreferencesController();
 						pref.AddParams(getApplicationContext(), results);
+						setResultsUI(results);
 					}
 				}.start();
 
@@ -152,6 +168,17 @@ public class BandRRIntervalAppActivity extends Activity {
 			}
 		});
     }
+
+	private void setResultsUI(HRVParameters results) {
+		String decimal = "%.2f";
+		appendToUI(String.format(decimal, results.getLfhfRatio()), lfhfTxt);
+		appendToUI(String.format(decimal, results.getSdnn()), sdnnTxt);
+		appendToUI(String.format(decimal, results.getRmssd()), rmssdTxt);
+		appendToUI(String.format(decimal, results.getSd1()), sd1Txt);
+		appendToUI(String.format(decimal, results.getSd2()), sd2Txt);
+		appendToUI(String.format(decimal, results.getSd1sd2Ratio()), sd1RatioSd2Txt);
+		appendToUI(String.format(decimal, results.getBaevsky()), baevskyTxt);
+	}
 
 	@Override
 	protected void onResume() {
