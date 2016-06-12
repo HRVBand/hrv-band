@@ -110,7 +110,7 @@ public class BandRRIntervalAppActivity extends Activity {
 					@Override
 					public void onTick(long millisUntilFinished) {
 						long sec = millisUntilFinished / 1000 + 1;
-						appendToButtonText(String.valueOf(sec));
+						appendToUI(String.valueOf(sec), btnStart);
 					}
 
 					//stop eventhandler, that measures rrIntervals and start calculation
