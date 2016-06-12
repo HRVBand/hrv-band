@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="huesdkresources">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/huesdkresources.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
