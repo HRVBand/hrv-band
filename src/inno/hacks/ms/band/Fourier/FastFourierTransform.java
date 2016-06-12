@@ -1,7 +1,7 @@
 package inno.hacks.ms.band.Fourier;
 
 /**
- * Created by Julian on 11.06.2016.
+ * fast fourier from university of columbia
  */
 public class FastFourierTransform implements IFourierTransformation {
 
@@ -23,6 +23,7 @@ public class FastFourierTransform implements IFourierTransformation {
         cos = new double[n / 2];
         sin = new double[n / 2];
 
+        //testvalues
         //     for(int i=0; i<n/4; i++) {
         //       cos[i] = Math.cos(-2*Math.PI*i/n);
         //       sin[n/4-i] = cos[i];
@@ -55,6 +56,7 @@ public class FastFourierTransform implements IFourierTransformation {
         return window;
     }
 
+    //calculates the fastfouriertransformation
     public void calculate(double[] x, double[] y) {
         int i, j, k, n1, n2, a;
         double c, s, e, t1, t2;
