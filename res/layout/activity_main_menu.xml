@@ -7,13 +7,17 @@
     android:background="#E0f2f1"
     tools:context="inno.hacks.ms.band.view.MainMenu">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/pulse_icon"/>
     <Button
         android:id="@+id/openSingleMeasure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Single Measuring"
         android:layout_margin="10dp"
-        android:background="#ffc107"
+        android:background="#ffeb3b"
         android:onClick="openSingleMeasure"/>
 
     <Button
@@ -22,7 +26,7 @@
         android:layout_height="wrap_content"
         android:text="Continuously Measure"
         android:layout_margin="10dp"
-        android:background="#ffc107"
+        android:background="#03a9f4"
         android:onClick="openContinuouslyMeasure"/>
 
     <Button
@@ -31,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text="show chart"
         android:layout_margin="10dp"
-        android:background="#ffc107"
+        android:background="#f44336"
         android:onClick="showChart"/>
 
 </LinearLayout>
