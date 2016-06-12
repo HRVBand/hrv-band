@@ -15,7 +15,7 @@
 //THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
 //CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 //IN THE SOFTWARE.
-package inno.hacks.ms.band.rrintervalExample;
+package inno.hacks.ms.band.view;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -40,7 +40,6 @@ import inno.hacks.ms.band.Fourier.FastFourierTransform;
 import inno.hacks.ms.band.Interpolation.CubicSplineInterpolation;
 import inno.hacks.ms.band.RRInterval.Interval;
 import inno.hacks.ms.band.rrintervalExample.R;
-import inno.hacks.ms.band.view.RRIntervalActivity;
 
 import com.microsoft.band.sensors.BandRRIntervalEvent;
 import com.microsoft.band.sensors.BandRRIntervalEventListener;
@@ -301,14 +300,9 @@ public class BandRRIntervalAppActivity extends Activity {
 		} else if (ConnectionState.CONNECTED == client.getConnectionState()) {
 			return true;
 		}
-		
+
 		appendToUI("Band is connecting...\n", txtStatus);
 		return ConnectionState.CONNECTED == client.connect().await();
-	}
-
-	public void startRRInterval(View view) {
-		Intent intent = new Intent(getApplicationContext(), RRIntervalActivity.class);
-		startActivity(intent);
 	}
 }
 

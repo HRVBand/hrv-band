@@ -11,7 +11,6 @@ import java.util.Calendar;
 
 import inno.hacks.ms.band.Control.HRVParameters;
 import inno.hacks.ms.band.Control.SharedPreferencesController;
-import inno.hacks.ms.band.rrintervalExample.BandRRIntervalAppActivity;
 import inno.hacks.ms.band.rrintervalExample.R;
 
 public class MainMenu extends Activity {

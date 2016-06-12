@@ -15,27 +15,30 @@
         android:id="@+id/openSingleMeasure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Single Measuring"
+        android:text="STRESS MEASURE"
         android:layout_margin="10dp"
         android:background="#ffeb3b"
+        android:drawableLeft="@drawable/rate"
         android:onClick="openSingleMeasure"/>
 
     <Button
         android:id="@+id/openContinuouslyMeasure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Continuously Measure"
+        android:text="CONTINUOUSLY MEASURE"
         android:layout_margin="10dp"
         android:background="#03a9f4"
+        android:drawableLeft="@drawable/time"
         android:onClick="openContinuouslyMeasure"/>
 
     <Button
         android:id="@+id/showChart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="show chart"
+        android:text="SHOW CHART"
         android:layout_margin="10dp"
         android:background="#f44336"
+        android:drawableLeft="@drawable/chart"
         android:onClick="showChart"/>
 
 </LinearLayout>
