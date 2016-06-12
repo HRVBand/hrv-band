@@ -21,9 +21,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
@@ -55,33 +52,27 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
-
 public class BandRRIntervalAppActivity extends Activity {
 
 	private BandClient client = null;
 	private Button btnStart, btnConsent;
 	private TextView txtStatus;
 	private TextView txtTimer;
-	Interval ival = new Interval();
-	List rr;
-	static int duration = 60000;
+	private Interval ival = new Interval();//stores the complete measure --> ~60 seconds of rrIntervals
+	private List rr;//stores the actual measurement-rrIntervals
+	static int duration = 60000;//60 seconds will be measured
 
-	public void GetRRInterval() throws InterruptedException, ExecutionException, TimeoutException {
-		Void task =  new RRIntervalSubscriptionTask().get(duration, TimeUnit.MILLISECONDS);//see results in eventlistener
-		return;
-	}
-
+	/**
+	 *Handels when a new RRInterval is incoming
+	 */
 	private BandRRIntervalEventListener mRRIntervalEventListener = new BandRRIntervalEventListener() {
         @Override
         public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
             if (event != null) {
 				double help = event.getInterval();
             	//appendToUI(String.format("RR Interval = %.3f s\n", help));
-				rr.add(help);
+				rr.add(help);//add the actual rrInterval
 
-				//rr.add(help);
-				//ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
             }
         }
     };
@@ -90,28 +81,39 @@ public class BandRRIntervalAppActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+		//initialize
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         txtStatus = (TextView) findViewById(R.id.txtStatus);
 		txtTimer = (TextView) findViewById(R.id.txt_timer);
         btnStart = (Button) findViewById(R.id.btnStart);
+		btnConsent = (Button) findViewById(R.id.btnConsent);
+		final WeakReference<Activity> reference = new WeakReference<Activity>(this);
+
+		//start measurement
         btnStart.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				//initialize
 				rr = new ArrayList<Double>();
 				ival.SetStartTime(new Date());
-
-				//txtStatus.setText("");
 				task = new RRIntervalSubscriptionTask();
-				task.execute();
+
+				//txtStatus.setText("");// for debugging purposes
+
+				task.execute();// run assync task for meassurements
+
+				//counter, that stops measurements after duration seconds, and displays the remaining time
 				CountDownTimer timer = new CountDownTimer(duration, 1000) {
+					//display each second on UI
 					@Override
 					public void onTick(long millisUntilFinished) {
 						long sec = millisUntilFinished / 1000 + 1;
 						appendToUI(sec + " seconds remain", txtTimer);
 					}
 
+					//stop eventhandler, that measures rrIntervals and start calculation
 					@Override
 					public void onFinish() {
 						try {
@@ -119,10 +121,14 @@ public class BandRRIntervalAppActivity extends Activity {
 						} catch (BandIOException e) {
 							e.printStackTrace();
 						}
-						ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
-						//String s = ival.printRR();
+						ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));// convert to double and store everything in the ival-object for further analysis
+						//String s = ival.printRR(); //for debugging only
+
+						//display status
 						appendToUI("", txtTimer);
 						appendToUI("done", txtStatus);
+
+						//start calculation
 						CubicSplineInterpolation inter = new CubicSplineInterpolation();
 						FastFourierTransform fft = new FastFourierTransform(4096);
 
@@ -134,31 +140,10 @@ public class BandRRIntervalAppActivity extends Activity {
 					}
 				}.start();
 
-
-/*				try {
-					//GetRRInterval();
-					//new RRIntervalSubscriptionTask().get(duration, TimeUnit.MILLISECONDS);//see results in eventlistener
-				} catch (InterruptedException e) {
-					ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
-					ival.printRR();
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
-					ival.printRR();
-					e.printStackTrace();
-				} catch (TimeoutException e) {
-					ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
-					ival.printRR();
-					e.printStackTrace();
-				}
-				ival.SetRRInterval((Double[]) rr.toArray(new Double[rr.size()]));
-				ival.printRR();*/
 			}
 		});
-        
-        final WeakReference<Activity> reference = new WeakReference<Activity>(this);
-        
-        btnConsent = (Button) findViewById(R.id.btnConsent);
+
+		//get user Consent on reading heart rate bevore actual measuring
         btnConsent.setOnClickListener(new OnClickListener() {
 			@SuppressWarnings("unchecked")
             @Override
@@ -171,6 +156,7 @@ public class BandRRIntervalAppActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		//reset to default
 		txtStatus.setText("");
 	}
 	
@@ -199,8 +185,12 @@ public class BandRRIntervalAppActivity extends Activity {
         }
         super.onDestroy();
     }
-    
+
+    /**
+	 * Class that meassures the RRInterval (get results via Eventhandler...)
+	 */
 	private class RRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
+		//register eventhandler, so we can recieve the rrIntervals
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
@@ -241,8 +231,12 @@ public class BandRRIntervalAppActivity extends Activity {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * Class that gets user-permission for measuring the heartrate (and rrIntervals)
+	 */
 	private class HeartRateConsentTask extends AsyncTask<WeakReference<Activity>, Void, Void> {
+		//register eventhandler, so we can recieve wether the user has accepted the measurement
 		@Override
 		protected Void doInBackground(WeakReference<Activity>... params) {
 			try {
@@ -279,7 +273,12 @@ public class BandRRIntervalAppActivity extends Activity {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * write data to UI-thread
+	 * @param string the text to write
+	 * @param txt where to write
+     */
 	private void appendToUI(final String string, final TextView txt) {
 		this.runOnUiThread(new Runnable() {
             @Override
@@ -288,7 +287,27 @@ public class BandRRIntervalAppActivity extends Activity {
             }
         });
 	}
-    
+
+	/**
+	 * write data to UI-thread
+	 * @param string the text to write
+	 * @param txt where to write
+	 */
+	private void appendToUI(final String string, final Button txt) {
+		this.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				txt.setText(string);
+			}
+		});
+	}
+
+    /**
+	 * get the Microsoft band client, that handles all the connections and does the actual measurement
+	 * @return wether the band is connected
+	 * @throws InterruptedException	connection has dropped e.g.
+	 * @throws BandException ohter stuff that should not happen
+     */
 	private boolean getConnectedBandClient() throws InterruptedException, BandException {
 		if (client == null) {
 			BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
@@ -305,13 +324,5 @@ public class BandRRIntervalAppActivity extends Activity {
 		return ConnectionState.CONNECTED == client.connect().await();
 	}
 
-	private void appendToButtonText(final String string) {
-		this.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				btnStart.setText(string);
-			}
-		});
-	}
 }
 
