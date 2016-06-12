@@ -2,38 +2,12 @@
 <resources>
 
     <string name="app_name">Band Stress App</string>
-    <string name="action_settings">Settings</string>
-    
-    <string name="steps">Steps to use this app: \n
-        1. Pair your band with the phone\n
-        2. Make sure Microsoft Health is installed\n
-        3. Give the application permission to access your heart rate
-        data by pressing the Heart Rate Consent button and then pressing
-        yes on the dialog that pops up.\n
-        4. Press the Start button\n
-        5. Data from the RR Interval sensor should be displayed.</string>
     <string name="start">Start</string>
 
-    <string name="consent">Heart Rate Consent</string>
+    <string name="consent">HEART RATE CONSENT</string>
     <string name="title_activity_main2">Aurora</string>
-    <string name="title_activity_main_view">MainView</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_main_menu">MainMenu</string>
-    <string name="title_activity_rrinterval">RRIntervalActivity</string>
-    <string name="title_activity_diagram">DiagramActivity</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main_menu2">MainMenu2</string>
-    <string name="title_activity_chart">ChartActivity</string>
-    <string name="title_activity_test_drawer">TestDrawer</string>
-
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
+    <!--<string name="title_activity_main_view">MainView</string>
+    <string name="title_activity_main_menu">MainMenu</string>-->
+    <string name="title_activity_rrinterval">Stress Measurement</string>
+    <string name="title_activity_chart">Show Charts</string>
 </resources>
