@@ -69,6 +69,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layoutMiddle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutTop">
@@ -95,17 +96,60 @@
          android:layout_height="wrap_content"
          android:text="0.6"
          android:textSize="30sp"
-         android:layout_alignEnd="@+id/textSD1"
+         android:layout_alignParentRight="true"
         />
 
      <TextView
          android:text="SD2"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_alignEnd="@+id/textSD1"
+         android:layout_marginLeft="10dp"
+         android:layout_alignParentRight="true"
          android:layout_below="@id/textSD2"/>
 
+     <TextView
+         android:id="@+id/textSD1SD2Ratio"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="0.6"
+         android:textSize="30sp"
+         android:layout_centerHorizontal="true"
+         />
+
+     <TextView
+         android:text="SD1SD2 Ratio"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="10dp"
+         android:layout_centerHorizontal="true"
+         android:layout_below="@id/textSD1SD2Ratio"/>
+
+
     </RelativeLayout>
+
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_below="@+id/layoutMiddle">
+
+    <TextView
+        android:id="@+id/textBaevsky"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.6"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:text="Baevsky"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textBaevsky"/>
+   </RelativeLayout>
     
     <RelativeLayout
         android:layout_width="wrap_content"
