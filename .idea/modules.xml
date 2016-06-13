@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/inno-hacks.iml" filepath="$PROJECT_DIR$/inno-hacks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aurora.iml" filepath="$PROJECT_DIR$/aurora.iml" />
     </modules>
   </component>
 </project>
