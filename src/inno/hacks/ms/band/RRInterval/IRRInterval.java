@@ -1,12 +1,20 @@
 package inno.hacks.ms.band.RRInterval;
 
 /**
- * Created by simon on 6/11/16.
+ * Created by Thomas on 13.06.2016.
  */
 public interface IRRInterval {
 
-    public Interval GetRRInterval();
+    void startRRIntervalMeasuring();
 
-    public void SetRRInterval(Double[] x);
+    void stopMeasuring();
+
+    Double[] getRRIntervals();
+
+    void pauseMeasuring();
+
+    void destroy();
+
+    void getDevicePermission();
 
 }

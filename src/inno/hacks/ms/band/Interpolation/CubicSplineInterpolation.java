@@ -5,7 +5,6 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.NonMonotonicSequenceException;
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
-import org.apache.commons.math3.util.MathArrays;
 
 /**
  * Created by Julian on 11.06.2016.

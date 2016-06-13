@@ -2,6 +2,8 @@ package inno.hacks.ms.band.Control;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 
+import java.util.Date;
+
 import inno.hacks.ms.band.Fourier.IFourierTransformation;
 import inno.hacks.ms.band.Interpolation.IInterpolation;
 import inno.hacks.ms.band.RRInterval.Interval;
@@ -66,26 +68,22 @@ public class Calculation {
             frequencies[i] = frequencySteps * i;
         }
 
-        double hfPow = HfPow(frequencies, betrag, frequencies[1]);
-        double lfPow = LfPow(frequencies, betrag, frequencies[1]);
-
-        double lfhfRatio = lfPow / hfPow;
-
-        HRVParameters params = new HRVParameters();
-        params.setHf(hfPow);
-        params.setLf(lfPow);
-        params.setLfhfRatio(lfhfRatio);
-        params.setRmssd(RMSSD(y));
-        params.setSdnn(SDNN(y));
-        params.setSd1(SD1(params.getSdnn()));
-        params.setSd2(SD2(params.getSdnn()));
-        params.setSd1sd2Ratio(SD1SD2(params.getSd1(), params.getSd2()));
-        params.setBaevsky(Baevsky(y));
-
-        return params;
+        return createHRVParameter(y, frequencies, betrag);
     }
 
-    public double Baevsky(double[] rrinterval)
+    private HRVParameters createHRVParameter(double[] y, double[] frequencies, double[] betrag) {
+        double sdnn = SDNN(y);
+        double sd1 = SD1(sdnn);
+        double sd2 = SD2(sdnn);
+        double lf = LfPow(frequencies, betrag, frequencies[1]);
+        double hf = HfPow(frequencies, betrag, frequencies[1]);
+        double rmssd = RMSSD(y);
+        double baevsky = Baevsky(y);
+
+        return new HRVParameters(new Date(), sd1, sd2, lf, hf, rmssd, sdnn, baevsky, y);
+    }
+
+    private double Baevsky(double[] rrinterval)
     {
         double erwartungswert  = Erwartungswert(rrinterval);
         double min = min(rrinterval);
@@ -95,7 +93,7 @@ public class Calculation {
         return baevsky;
     }
 
-    public double StatistischeHäufigkeit(double[] rrinterval, double erwartungswert, double range)
+    private double StatistischeHäufigkeit(double[] rrinterval, double erwartungswert, double range)
     {
         int counter = 0;
         for(int i = 0; i < rrinterval.length; i++)
@@ -106,7 +104,7 @@ public class Calculation {
         return counter / (double) rrinterval.length;
     }
 
-    public double min(double[] array) {
+    private double min(double[] array) {
         double min = array[0];
         for (int i = 1; i < array.length; i++) {
             min = Math.min(min, array[i]);
@@ -114,7 +112,7 @@ public class Calculation {
         return min;
     }
 
-    public double max(double[] array) {
+    private double max(double[] array) {
         double max = array[0];
         for (int i = 1; i < array.length; i++) {
             max = Math.max(max, array[i]);
@@ -122,7 +120,7 @@ public class Calculation {
         return max;
     }
 
-    public double Erwartungswert(double[] values)
+    private double Erwartungswert(double[] values)
     {
         double sum = 0;
         for(int i = 0; i < values.length; i++)
@@ -134,7 +132,7 @@ public class Calculation {
         return erwartungswert;
     }
 
-    public double SDNN(double[] rrinterval)
+    private double SDNN(double[] rrinterval)
     {
         double erwartungswert = Erwartungswert(rrinterval);
 
@@ -148,22 +146,22 @@ public class Calculation {
         return sdnn;
     }
 
-    public double SD1(double sdnnValue)
+    private double SD1(double sdnnValue)
     {
         return Math.sqrt(0.5 * sdnnValue * sdnnValue);
     }
 
-    public double SD2(double sdnnValue)
+    private double SD2(double sdnnValue)
     {
         return Math.sqrt(2 * sdnnValue * sdnnValue - 0.5 * sdnnValue * sdnnValue);
     }
 
-    public double SD1SD2(double sd1, double sd2)
+    private double SD1SD2(double sd1, double sd2)
     {
         return sd1 / sd2;
     }
 
-    public double RMSSD(double[] rrinterval)
+    private double RMSSD(double[] rrinterval)
     {
         double sum = 0;
         for(int i = 1; i < rrinterval.length; i++)
@@ -175,7 +173,7 @@ public class Calculation {
         return rmssd;
     }
 
-    public double HfPow(double[] frequencies, double[] betrag, double stepSize)
+    private double HfPow(double[] frequencies, double[] betrag, double stepSize)
     {
         int firstElementOver015 = FirstElementOverValue(frequencies, 0.15);
         int firstElementOver04 = FirstElementOverValue(frequencies, 0.4);
@@ -184,7 +182,7 @@ public class Calculation {
         return hfPow;
     }
 
-    public double LfPow(double[] frequencies, double[] betrag, double stepSize)
+    private double LfPow(double[] frequencies, double[] betrag, double stepSize)
     {
         int firstElementOver004 = FirstElementOverValue(frequencies, 0.02);
         int firstElementOver015 = FirstElementOverValue(frequencies, 0.15);
@@ -204,7 +202,7 @@ public class Calculation {
         return values.length - 1;
     }
 
-    double LinearIntegration(double[] values, double stepSize, int a, int b)
+    private double LinearIntegration(double[] values, double stepSize, int a, int b)
     {
         double integral = 0;
         for(int i = a; i <= b; i++)

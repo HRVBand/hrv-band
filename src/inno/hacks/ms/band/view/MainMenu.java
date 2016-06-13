@@ -11,7 +11,6 @@ import java.util.Calendar;
 
 import inno.hacks.ms.band.Control.HRVParameters;
 import inno.hacks.ms.band.Control.SharedPreferencesController;
-import inno.hacks.ms.band.view.BandRRIntervalAppActivity;
 import inno.hacks.ms.band.rrintervalExample.R;
 
 public class MainMenu extends Activity {
@@ -24,7 +23,7 @@ public class MainMenu extends Activity {
     }
 
     public void openSingleMeasure(View view) {
-        Intent intent = new Intent(getApplicationContext(), BandRRIntervalAppActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MeasureActivity.class);
         startActivity(intent);
     }
 
@@ -36,7 +35,7 @@ public class MainMenu extends Activity {
         Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
         startActivity(intent);
     }
-    private void testData() {
+    /*private void testData() {
         ArrayList<HRVParameters> parameters = new ArrayList<>();
         for (int j = 0; j < 24; j++) {
             for (int i = 0; i < 4; i++) {
@@ -56,6 +55,6 @@ public class MainMenu extends Activity {
             }
         }
 
-    }
+    }*/
 
 }

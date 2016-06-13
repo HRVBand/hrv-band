@@ -43,7 +43,7 @@ public class FastFourierTransform implements IFourierTransformation {
         makeWindow();
     }
 
-    protected void makeWindow() {
+    private void makeWindow() {
         // Make a blackman window:
         // w(n)=0.42-0.5cos{(2*PI*n)/(N-1)}+0.08cos{(4*PI*n)/(N-1)};
         window = new double[n];
@@ -52,9 +52,9 @@ public class FastFourierTransform implements IFourierTransformation {
                     + 0.08 * Math.cos(4 * Math.PI * i / (n - 1));
     }
 
-    public double[] getWindow() {
+    /*public double[] getWindow() {
         return window;
-    }
+    }*/
 
     //calculates the fastfouriertransformation
     public void calculate(double[] x, double[] y) {

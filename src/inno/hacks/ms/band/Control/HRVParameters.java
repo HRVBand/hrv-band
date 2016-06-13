@@ -10,13 +10,25 @@ public class HRVParameters {
     private Date time;
     private double sd1;
     private double sd2;
-    private double sd1sd2Ratio;
     private double lf;
     private double hf;
-    private double lfhfRatio;
     private double rmssd;
     private double sdnn;
     private double baevsky;
+    private double[] rrIntervals;
+
+    public HRVParameters(Date time, double sd1, double sd2, double lf, double hf, double rmssd,
+                         double sdnn, double baevsky, double[] rrIntervals) {
+        this.time = time;
+        this.sd1 = sd1;
+        this.sd2 = sd2;
+        this.lf = lf;
+        this.hf = hf;
+        this.rmssd = rmssd;
+        this.sdnn = sdnn;
+        this.baevsky = baevsky;
+        this.rrIntervals = rrIntervals;
+    }
 
     public Date getTime() {
         return time;
@@ -51,11 +63,7 @@ public class HRVParameters {
     }
 
     public double getSd1sd2Ratio() {
-        return sd1sd2Ratio;
-    }
-
-    public void setSd1sd2Ratio(double sd1sd2Ratio) {
-        this.sd1sd2Ratio = sd1sd2Ratio;
+        return sd1 / sd2;
     }
 
     public double getLf() {
@@ -75,11 +83,7 @@ public class HRVParameters {
     }
 
     public double getLfhfRatio() {
-        return lfhfRatio;
-    }
-
-    public void setLfhfRatio(double lfhfRatio) {
-        this.lfhfRatio = lfhfRatio;
+        return lf / hf;
     }
 
     public double getRmssd() {
@@ -96,5 +100,12 @@ public class HRVParameters {
 
     public void setSdnn(double sdnn) {
         this.sdnn = sdnn;
+    }
+    public double[] getRRIntervals() {
+        return rrIntervals;
+    }
+
+    public void setRRIntervals(double[] rrIntervals) {
+        this.rrIntervals = rrIntervals;
     }
 }
