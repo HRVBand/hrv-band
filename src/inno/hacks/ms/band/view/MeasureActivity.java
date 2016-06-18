@@ -4,7 +4,8 @@ import java.util.Date;
 
 import inno.hacks.ms.band.Control.Calculation;
 import inno.hacks.ms.band.Control.HRVParameters;
-import inno.hacks.ms.band.Control.SharedPreferencesController;
+import inno.hacks.ms.band.storage.IStorage;
+import inno.hacks.ms.band.storage.SharedPreferencesController;
 import inno.hacks.ms.band.Fourier.FastFourierTransform;
 import inno.hacks.ms.band.Interpolation.CubicSplineInterpolation;
 import inno.hacks.ms.band.RRInterval.IRRInterval;
@@ -33,9 +34,9 @@ public class MeasureActivity extends Activity {
 	private TextView sd2Txt;
 	private TextView sd1RatioSd2Txt;
 	private TextView baevskyTxt;
-	private Interval ival = new Interval();//stores the complete measure --> ~60 seconds of rrIntervals
+	private Interval ival;//stores the complete measure --> ~60 seconds of rrIntervals
 	//how long will be measured
-	static int duration = 10000;
+	static int duration = 90000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +71,8 @@ public class MeasureActivity extends Activity {
 		Calculation calc = new Calculation(fft, inter);
 		HRVParameters results = calc.Calculate(ival);
 		results.setTime(new Date());
-		SharedPreferencesController pref = new SharedPreferencesController();
-		pref.AddParams(getApplicationContext(), results);
+		IStorage storage = new SharedPreferencesController();
+		storage.saveData(getApplicationContext(), results);
 		setResultsUI(results);
 	}
 
@@ -108,7 +109,7 @@ public class MeasureActivity extends Activity {
     }
 
 	public void startMeasuring(View view) {
-		ival.SetStartTime(new Date());
+		ival = new Interval(new Date());
 
 		rrInterval.startRRIntervalMeasuring();
 

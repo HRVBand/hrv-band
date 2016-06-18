@@ -9,7 +9,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:src="@drawable/pulse_icon"/>
 
     <Button
@@ -41,5 +41,23 @@
         android:background="#f44336"
         android:drawableLeft="@drawable/chart"
         android:onClick="showChart"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="calculation"
+        android:layout_margin="10dp"
+        android:background="#f44336"
+        android:drawableLeft="@drawable/chart"
+        android:onClick="calculation"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SHOW new CHART"
+        android:layout_margin="10dp"
+        android:background="#f44336"
+        android:drawableLeft="@drawable/chart"
+        android:onClick="openChartView"/>
 
 </LinearLayout>

@@ -7,19 +7,28 @@ import java.util.Date;
  */
 public class Interval {
 
-    private double[] RRInterval;
+    private double[] rrInterval;
     private Date startTime;
+
+    public Interval(Date startTime, double[] rrInterval) {
+        this.startTime = startTime;
+        this.rrInterval = rrInterval;
+    }
+
+    public Interval(Date startTime) {
+        this.startTime = startTime;
+    }
 
     public double[] GetRRInterval()
     {
-        return RRInterval;
+        return rrInterval;
     }
 
     public void SetRRInterval(Double[] rrInterval)
     {
-        RRInterval = new double[rrInterval.length];
+        this.rrInterval = new double[rrInterval.length];
         for (int i= 0; i < rrInterval.length;i++ ) {
-            RRInterval[i] = rrInterval[i];
+            this.rrInterval[i] = rrInterval[i];
         }
     }
 
@@ -35,8 +44,7 @@ public class Interval {
 
     public String printRR () {
         String s = new String();
-        for (double d: RRInterval
-             ) {
+        for (double d: rrInterval) {
             s= s+","+d;
         }
         return s;

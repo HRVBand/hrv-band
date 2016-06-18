@@ -17,14 +17,15 @@ import java.util.Date;
 import java.util.List;
 
 import inno.hacks.ms.band.Control.HRVParameters;
-import inno.hacks.ms.band.Control.SharedPreferencesController;
+import inno.hacks.ms.band.storage.IStorage;
+import inno.hacks.ms.band.storage.SharedPreferencesController;
 import inno.hacks.ms.band.rrintervalExample.R;
 
 public class ChartActivity extends Activity {
 
     private LineChart lineChart;
     private Spinner spinner;
-    private SharedPreferencesController sharedPreferencesController;
+    private IStorage storage;
    /* private String[] valueItems = {
             "sd1","sd2", "sd1sd2Ratio", "lf", "hf", "lfhfRatio", "rmssd", "sdnn", "baevsky"
     };*/
@@ -42,7 +43,7 @@ public class ChartActivity extends Activity {
                 return true;
             }
         });*/
-        sharedPreferencesController = new SharedPreferencesController();
+        storage = new SharedPreferencesController();
         initChart();
     }
 
@@ -59,7 +60,7 @@ public class ChartActivity extends Activity {
         //View v = getView();
         // LineChart lineChart = (LineChart) view.findViewById(R.id.chart);
         // creating list of entry
-        List<HRVParameters> list = sharedPreferencesController.LoadData(getApplicationContext());
+        List<HRVParameters> list = storage.loadData(getApplicationContext(), null);
         if (list == null) {
             return;
 
