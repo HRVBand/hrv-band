@@ -1,5 +1,9 @@
 package inno.hacks.ms.band.view;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -8,6 +12,7 @@ import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -24,7 +29,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import inno.hacks.ms.band.Control.HRVParameters;
 import inno.hacks.ms.band.rrintervalExample.R;
+import inno.hacks.ms.band.storage.IStorage;
+import inno.hacks.ms.band.storage.SharedPreferencesController;
 
 public class ChartViewActivity extends Activity {
 
@@ -42,7 +56,7 @@ public class ChartViewActivity extends Activity {
         setContentView(R.layout.activity_chart_view);
 
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mPlanetTitles = getResources().getStringArray(R.array.hrv_values_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -86,7 +100,7 @@ public class ChartViewActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.chart_view, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -95,7 +109,8 @@ public class ChartViewActivity extends Activity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+        MenuItem m = menu.findItem(R.id.action_websearch);
+        m.setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -134,9 +149,9 @@ public class ChartViewActivity extends Activity {
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = new PlanetFragment();
+        Fragment fragment = new ChartFragment();
         Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+        args.putInt(ChartFragment.HRV_VALUE_NUMBER, position);
         fragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -176,25 +191,80 @@ public class ChartViewActivity extends Activity {
     /**
      * Fragment that appears in the "content_frame", shows a planet
      */
-    public static class PlanetFragment extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
+    public static class ChartFragment extends Fragment {
+        public static final String HRV_VALUE_NUMBER = "hrv_number";
 
-        public PlanetFragment() {
+        private static List<ILineDataSet> dataSets;
+
+        public ChartFragment() {
             // Empty constructor required for fragment subclasses
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.chart_view_fragment_planet, container, false);
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
-            String planet = getResources().getStringArray(R.array.planets_array)[i];
+            View rootView = inflater.inflate(R.layout.chart_view_fragment, container, false);
 
-            int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
-                    "drawable", getActivity().getPackageName());
-            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
-            getActivity().setTitle(planet);
+            int i = getArguments().getInt(HRV_VALUE_NUMBER);
+            String hrvValue = getResources().getStringArray(R.array.hrv_values_array)[i];
+
+            LineChart lineChart = (LineChart) rootView.findViewById(R.id.chart_view);
+            IStorage storage = new SharedPreferencesController();
+            List<HRVParameters> list = storage.loadData(getActivity(), null);
+            dataSets = new ArrayList<>();
+            dataSets.add(new LineDataSet(setDiagramLfhfValues(list), "lfhf"));
+            dataSets.add(new LineDataSet(setDiagramRmssdValues(list), "rmsdd"));
+
+            LineData data = new LineData(setLabels(list), dataSets.get(i));
+            lineChart.setData(data); // set the data and list of lables into chart
+
+            data.setDrawValues(true);
+
+
+            getActivity().setTitle(hrvValue);
             return rootView;
+        }
+
+        private List<ILineDataSet> setDataSets(List<HRVParameters> list) {
+            List<ILineDataSet> dataSets = new ArrayList<>();
+
+            LineDataSet lfhfSet = new LineDataSet(setDiagramLfhfValues(list), "lfhf");
+            lfhfSet.setLineWidth(2f);
+            lfhfSet.setColor(Color.parseColor("#ff00f0"));
+
+            LineDataSet rmssdSet = new LineDataSet(setDiagramRmssdValues(list), "rmssd");
+            rmssdSet.setLineWidth(2f);
+            rmssdSet.setColor(Color.parseColor("#03a9f4"));
+
+            dataSets.add(lfhfSet);
+            dataSets.add(rmssdSet);
+
+            return dataSets;
+        }
+
+        private List<String> setLabels(List<HRVParameters> list) {
+            ArrayList<String> labels = new ArrayList<String>();
+            for (int i = 0; i < list.size(); i++) {
+                Date time = list.get(i).getTime();
+                labels.add(new SimpleDateFormat("HH:mm").format(time));
+                //labels.add(String.valueOf(time.getHours()) + ":" + String.valueOf(time.getMinutes()));
+            }
+            return labels;
+        }
+
+        private List<Entry> setDiagramLfhfValues(List<HRVParameters> hrvParametersList) {
+            ArrayList<Entry> entries = new ArrayList<>();
+            for (int i = 0; i < hrvParametersList.size(); i++) {
+                entries.add(new Entry((float) hrvParametersList.get(i).getLfhfRatio(), i));
+            }
+            return entries;
+        }
+        private List<Entry> setDiagramRmssdValues(List<HRVParameters> hrvParametersList) {
+            ArrayList<Entry> entries = new ArrayList<>();
+            for (int i = 0; i < hrvParametersList.size(); i++) {
+                entries.add(new Entry((float) hrvParametersList.get(i).getRmssd(), i));
+            }
+            return entries;
         }
     }
 }

@@ -63,7 +63,6 @@ public class ChartActivity extends Activity {
         List<HRVParameters> list = storage.loadData(getApplicationContext(), null);
         if (list == null) {
             return;
-
         }
         LineData data = new LineData(setLabels(list), setDataSets(list));
         lineChart.setData(data); // set the data and list of lables into chart
