@@ -1,4 +1,4 @@
-package inno.hacks.ms.band.Fourier;
+package hrv.band.aurora.Fourier;
 
 /**
  * fast fourier from university of columbia

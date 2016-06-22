@@ -1,4 +1,4 @@
-package inno.hacks.ms.band.RRInterval.msband;
+package hrv.band.aurora.RRInterval.msband;
 /**
  * Created by Thomas on 13.06.2016.
  */

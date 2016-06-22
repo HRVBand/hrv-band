@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -21,13 +22,29 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import hrv.band.aurora.Control.Calculation;
+import hrv.band.aurora.Control.HRVParameters;
+import hrv.band.aurora.Fourier.FastFourierTransform;
+import hrv.band.aurora.Interpolation.CubicSplineInterpolation;
 import hrv.band.aurora.R;
+import hrv.band.aurora.RRInterval.IRRInterval;
+import hrv.band.aurora.RRInterval.Interval;
+import hrv.band.aurora.RRInterval.msband.MSBandRRInterval;
+import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SharedPreferencesController;
 
 public class MeasureActivity extends AppCompatActivity {
-    private int mDuration = 1000;
+    private int duration = 7000;
+    private IRRInterval rrInterval;
+    private Interval ival;
+    private TextView rrStatus;
+    private TextView txtStatus;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +54,38 @@ public class MeasureActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        rrStatus = (TextView) findViewById(R.id.rrStatus);
+        txtStatus = (TextView) findViewById(R.id.measure_status);
 
-        /*ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 500); // see this max value coming back here, we animale towards that value
-        animation.setDuration (5000); //in milliseconds
-        animation.setInterpolator (new DecelerateInterpolator());
-        animation.start ();*/
-
+        rrInterval = new MSBandRRInterval(this, txtStatus, rrStatus);
     }
 
     public void startMeasuring(View view) {
+        startAnimation();
+        ival = new Interval(new Date());
+    }
+
+    public void getDevicePermission(View view) {
+        rrInterval.getDevicePermission();
+    }
+
+    private void startAnimation() {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
-        animation.setDuration (mDuration); //in milliseconds
+        animation.setDuration (duration); //in milliseconds
         animation.setInterpolator (new LinearInterpolator());
         animation.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-
+                rrInterval.startRRIntervalMeasuring();
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                rrInterval.stopMeasuring();
+                ival.SetRRInterval(rrInterval.getRRIntervals());
+                calculate();
+
                 Intent intent = new Intent(getApplicationContext(), SaveValuesActivity.class);
                 startActivity(intent);
             }
@@ -74,6 +101,49 @@ public class MeasureActivity extends AppCompatActivity {
             }
         });
         animation.start ();
+    }
+
+    private void calculate() {
+        //start calculation
+        CubicSplineInterpolation inter = new CubicSplineInterpolation();
+        FastFourierTransform fft = new FastFourierTransform(4096);
+
+        Calculation calc = new Calculation(fft, inter);
+        HRVParameters results = calc.Calculate(ival);
+        results.setTime(new Date());
+        IStorage storage = new SharedPreferencesController();
+        storage.saveData(getApplicationContext(), results);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //reset to default
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        rrInterval.pauseMeasuring();
+    }
+
+    @Override
+    protected void onDestroy() {
+        rrInterval.destroy();
+        super.onDestroy();
+    }
+
+    /**
+     * write data to UI-thread
+     * @param string the text to write
+     */
+    public void appendToUI(final String string, final TextView txt) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt.setText(string);
+            }
+        });
     }
 
 }

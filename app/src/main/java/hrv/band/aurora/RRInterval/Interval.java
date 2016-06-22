@@ -1,4 +1,4 @@
-package inno.hacks.ms.band.RRInterval;
+package hrv.band.aurora.RRInterval;
 
 import java.util.Date;
 

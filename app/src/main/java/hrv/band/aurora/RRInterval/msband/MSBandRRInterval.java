@@ -1,4 +1,4 @@
-package inno.hacks.ms.band.RRInterval.msband;
+package hrv.band.aurora.RRInterval.msband;
 
 import android.app.Activity;
 import android.widget.TextView;
@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import inno.hacks.ms.band.RRInterval.IRRInterval;
+import hrv.band.aurora.RRInterval.IRRInterval;
 
 /**
  * Created by Thomas on 13.06.2016.
@@ -24,6 +24,7 @@ import inno.hacks.ms.band.RRInterval.IRRInterval;
 public class MSBandRRInterval implements IRRInterval {
     private BandClient client;
     private Activity activity;
+    private TextView rrStatus;
     private TextView statusTxt;
     private List<Double> rr;//stores the actual measurement-rrIntervals
     private WeakReference<Activity> reference;
@@ -32,9 +33,10 @@ public class MSBandRRInterval implements IRRInterval {
      */
     private BandRRIntervalEventListener mRRIntervalEventListener;
 
-    public MSBandRRInterval(Activity activity, TextView statusTxt) {
+    public MSBandRRInterval(Activity activity, TextView statusTxt, final TextView rrStatus) {
         this.activity = activity;
         this.statusTxt = statusTxt;
+        this.rrStatus = rrStatus;
         reference = new WeakReference<Activity>(activity);
         rr = new ArrayList<>();
 
@@ -43,9 +45,8 @@ public class MSBandRRInterval implements IRRInterval {
             public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
                 if (event != null) {
                     double help = event.getInterval();
-                    updateStatusText(String.format("RR Interval = %.3f s\n", help));
+                    updateTextView(rrStatus, String.format("%.2f", help));
                     rr.add(help);//add the actual rrInterval
-
                 }
             }
         };
@@ -89,6 +90,19 @@ public class MSBandRRInterval implements IRRInterval {
         new MSBandHeartRateConsentTask(reference, this).execute();
     }
 
+    @Override
+    public boolean isDeviceConnected() {
+        boolean connected = false;
+        try {
+            connected = getConnectedBandClient();
+        } catch (InterruptedException inter) {
+
+        }catch (BandException band) {
+
+        }
+        return connected;
+    }
+
     /**
      * get the Microsoft band client, that handles all the connections and does the actual measurement
      * @return wether the band is connected
@@ -99,7 +113,7 @@ public class MSBandRRInterval implements IRRInterval {
         if (client == null) {
             BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
             if (devices.length == 0) {
-                updateStatusText("Band isn't paired with your phone.\n");
+                updateTextView(statusTxt, "Band isn't paired with your phone.\n");
                 return false;
             }
             client = BandClientManager.getInstance().create(activity.getApplicationContext(), devices[0]);
@@ -107,7 +121,7 @@ public class MSBandRRInterval implements IRRInterval {
             return true;
         }
 
-        updateStatusText("Band is connecting...\n");
+        updateTextView(statusTxt, "Band is connecting...\n");
         return ConnectionState.CONNECTED == client.connect().await();
     }
 
@@ -127,12 +141,16 @@ public class MSBandRRInterval implements IRRInterval {
      * write data to UI-thread
      * @param string the text to write
      */
-    public void updateStatusText(final String string) {
+    private void updateTextView(final TextView txt, final String string) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                statusTxt.setText(string);
+                txt.setText(string);
             }
         });
+    }
+
+    public void updateStatusText(String msg) {
+        updateTextView(statusTxt, msg);
     }
 }

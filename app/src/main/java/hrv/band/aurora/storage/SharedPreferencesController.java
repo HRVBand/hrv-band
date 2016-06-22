@@ -1,4 +1,4 @@
-package inno.hacks.ms.band.storage;
+package hrv.band.aurora.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import inno.hacks.ms.band.Control.HRVParameters;
-import inno.hacks.ms.band.storage.IStorage;
+import hrv.band.aurora.Control.HRVParameters;
+import hrv.band.aurora.storage.IStorage;
 
 /**
  * Created by Julian on 11.06.2016.

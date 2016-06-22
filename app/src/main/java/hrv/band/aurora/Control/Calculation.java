@@ -1,12 +1,12 @@
-package inno.hacks.ms.band.Control;
+package hrv.band.aurora.Control;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 
 import java.util.Date;
 
-import inno.hacks.ms.band.Fourier.IFourierTransformation;
-import inno.hacks.ms.band.Interpolation.IInterpolation;
-import inno.hacks.ms.band.RRInterval.Interval;
+import hrv.band.aurora.Fourier.IFourierTransformation;
+import hrv.band.aurora.Interpolation.IInterpolation;
+import hrv.band.aurora.RRInterval.Interval;
 
 /**
  * Created by Julian on 11.06.2016.

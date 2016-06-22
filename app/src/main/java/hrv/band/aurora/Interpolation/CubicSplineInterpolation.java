@@ -1,4 +1,4 @@
-package inno.hacks.ms.band.Interpolation;
+package hrv.band.aurora.Interpolation;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.apache.commons.math3.exception.DimensionMismatchException;

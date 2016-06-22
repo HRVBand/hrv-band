@@ -1,4 +1,4 @@
-package inno.hacks.ms.band.Fourier;
+package hrv.band.aurora.Fourier;
 
 /**
  * Created by Julian on 11.06.2016.
