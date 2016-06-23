@@ -37,6 +37,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="hrv.band.aurora.view.MeasureActivity" />
         </activity>
+        <activity
+            android:name=".view.ValueDescriptionActivity"
+            android:label="@string/title_activity_value_description"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

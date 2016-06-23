@@ -81,7 +81,7 @@ public class Calculation {
         double rmssd = RMSSD(y);
         double baevsky = Baevsky(y);
 
-        return new HRVParameters(new Date(), sd1, sd2, lf, hf, rmssd, sdnn, baevsky, y);
+        return new HRVParameters(new Date(), sdsd, sd1, sd2, lf, hf, rmssd, sdnn, baevsky, y);
     }
 
     private double Baevsky(double[] rrinterval)
@@ -236,15 +236,17 @@ public class Calculation {
     }
     
     
-    private double calcmedian(double[] x) {
+    private double calcmedian(double[] numArray) {
         Arrays.sort(numArray);
-        int middle = ((numArray.length) / 2);
-        if(numArray.length % 2 == 0){
-            int medianA = numArray[middle];
-            int medianB = numArray[middle-1];
+        double middle = ((numArray.length) / 2);
+        double median = 0;
+        if (numArray.length % 2 == 0) {
+            double medianA = numArray[(int) middle];
+            double medianB = numArray[(int) middle - 1];
             median = (medianA + medianB) / 2;
-            } else{
-             median = numArray[middle + 1];
-            }
-     }
+        } else {
+            median = numArray[(int) middle + 1];
+        }
+        return median;
+    }
 }

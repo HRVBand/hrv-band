@@ -8,6 +8,7 @@ import java.util.Date;
 public class HRVParameters {
 
     private Date time;
+    private double sdsd;
     private double sd1;
     private double sd2;
     private double lf;
@@ -17,9 +18,10 @@ public class HRVParameters {
     private double baevsky;
     private double[] rrIntervals;
 
-    public HRVParameters(Date time, double sd1, double sd2, double lf, double hf, double rmssd,
+    public HRVParameters(Date time, double sdsd, double sd1, double sd2, double lf, double hf, double rmssd,
                          double sdnn, double baevsky, double[] rrIntervals) {
         this.time = time;
+        this.sdsd = sdsd;
         this.sd1 = sd1;
         this.sd2 = sd2;
         this.lf = lf;
@@ -44,6 +46,14 @@ public class HRVParameters {
 
     public void setBaevsky(double baevsky) {
         this.baevsky = baevsky;
+    }
+
+    public double getSdSd() {
+        return sdsd;
+    }
+
+    public void setSdSd(double sdsd) {
+        this.sdsd = sdsd;
     }
 
     public double getSd1() {

@@ -64,8 +64,8 @@ public class SaveValuesActivity extends AppCompatActivity {
 
         });
 
-        final RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingBar);
-        /*ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+       /* final RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingBar);
+        ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating,

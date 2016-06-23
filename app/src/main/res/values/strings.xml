@@ -15,4 +15,5 @@
     <string name="row_number">This is row number %d</string>
     <string name="title_activity_save_values">SaveValuesActivity</string>
     <string name="measure_status">Press To Start Measuring</string>
+    <string name="title_activity_value_description">ValueDescriptionActivity</string>
 </resources>
