@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,62 +15,11 @@ import hrv.band.aurora.Control.HRVParameters;
 /**
  * Created by Julian on 23.06.2016.
  */
-public class SQLController extends SQLiteOpenHelper implements IStorage {
-
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "HRVParamDB.db";
-
-    private static final String SQL_CREATE_HRVTABLE = "CREATE TABLE "
-            + HRVParameterContract.HRVParameterEntry.TABLE_NAME
-            + " (" + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ASC, "
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " INTEGER"
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1 + " REAL, "
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2 + " REAL, "
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF + " REAL, "
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF + " REAL, "
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD + " REAL, "
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN + " REAL, "
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY + " REAL, "
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RRDATAID + "INTEGER"
-            + ")";
-
-    private static final String SQL_CREATE_RRINTERVALTABLE = "CREATE TABLE"
-            + RRIntervalContract.RRIntercalEntry.TABLE_NAME
-            + "(" + RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " INTEGER, "
-            + RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE + " REAL, ";
-
-    private static final String SQL_DELETE_RRINTERVALS =
-            "DROP TABLE IF EXISTS " + RRIntervalContract.RRIntercalEntry.TABLE_NAME;
-
-    private static final String SQL_DELETE_HRVPAARAMETERS =
-            "DROP TABLE IF EXISTS " + HRVParameterContract.HRVParameterEntry.TABLE_NAME;
-
-    public SQLController(Context context)
-    {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    public void onCreate(SQLiteDatabase db)
-    {
-        db.execSQL(SQL_CREATE_HRVTABLE);
-        db.execSQL(SQL_CREATE_RRINTERVALTABLE);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldversion, int newVersion)
-    {
-        db.execSQL(SQL_DELETE_HRVPAARAMETERS);
-        db.execSQL(SQL_DELETE_RRINTERVALS);
-    }
-
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
-        onUpgrade(db, oldVersion, newVersion);
-    }
+public class SQLController implements IStorage {
 
     @Override
     public void saveData(Context context, List<HRVParameters> parameters) {
+
         for (HRVParameters param: parameters)
         {
             saveData(context, param);
@@ -78,7 +28,9 @@ public class SQLController extends SQLiteOpenHelper implements IStorage {
 
     @Override
     public void saveData(Context context, HRVParameters parameter) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteStorageController controller = new SQLiteStorageController(context);
+
+        SQLiteDatabase db = controller.getWritableDatabase();
 
         ContentValues valuesParams = new ContentValues();
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME, parameter.getTime().getTime());
@@ -94,29 +46,38 @@ public class SQLController extends SQLiteOpenHelper implements IStorage {
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
                 valuesParams);
 
+        db.close();
+
+
         //Get the highest id
-        SQLiteDatabase dbread = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT last_insert_rowid()", null);
+        SQLiteDatabase dbread = controller.getReadableDatabase();
+        Cursor c = dbread.rawQuery("SELECT MAX(id) FROM " + HRVParameterContract.HRVParameterEntry.TABLE_NAME, null);
         c.moveToFirst();
         int firstId =  c.getInt(0);
         c.close();
+        dbread.close();
 
+
+        SQLiteDatabase db2 = controller.getWritableDatabase();
         for(double rrVal : parameter.getRRIntervals())
         {
             ContentValues valuesRR = new ContentValues();
-            valuesParams.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID, firstId);
-            valuesParams.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE, rrVal);
+            valuesRR.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID, firstId);
+            valuesRR.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE, rrVal);
 
-            db.insert(RRIntervalContract.RRIntercalEntry.TABLE_NAME,
+            db2.insert(RRIntervalContract.RRIntercalEntry.TABLE_NAME,
                     RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE,
-                    valuesParams);
+                    valuesRR);
         }
     }
 
     @Override
     public List<HRVParameters> loadData(Context context, Date date) {
 
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteStorageController controller = new SQLiteStorageController(context);
+
+
+        SQLiteDatabase db = controller.getReadableDatabase();
 
         String[] projection = {
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME,
@@ -130,7 +91,59 @@ public class SQLController extends SQLiteOpenHelper implements IStorage {
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RRDATAID,
         };
 
-        //String sortOrder =
+        Cursor c = db.query(
+                HRVParameterContract.HRVParameterEntry.TABLE_NAME,
+                null,  //All Columns
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " = ?",
+                new String[] { Long.toString(date.getTime()) },
+                null,
+                null,
+                null,
+                null
+                );
+
+        c.moveToFirst();
+
+        HRVParameters newParam = new HRVParameters();
+        newParam.setTime(new Date(c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME))));
+        newParam.setSd1(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1)));
+        newParam.setSd2(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2)));
+        newParam.setLf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF)));
+        newParam.setHf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF)));
+        newParam.setRmssd(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD)));
+        newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
+        newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
+        int rrid = c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RRDATAID));
+
+        //Laden der rr daten
+
+        Cursor crr = db.query(
+                RRIntervalContract.RRIntercalEntry.TABLE_NAME,
+                null,  //All Columns
+                RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = ?" ,
+                new String[] { Integer.toString(rrid) },
+                null,
+                null,
+                null,
+                null
+            );
+
+        String query1 = "select * from " + RRIntervalContract.RRIntercalEntry.TABLE_NAME;
+        String query2 = "select * from " + RRIntervalContract.RRIntercalEntry.TABLE_NAME
+                + " WHERE " + RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = 5";
+
+        crr = db.rawQuery(query1, null);
+
+        ArrayList<Double> rrValues = new ArrayList<Double>();
+        crr.moveToFirst();
+        if(!crr.isAfterLast())
+        {
+            do {
+                int id = c.getInt(0);
+                rrValues.add(c.getDouble(1));
+            } while(crr.moveToNext());
+        }
+
 
         return null;
     }

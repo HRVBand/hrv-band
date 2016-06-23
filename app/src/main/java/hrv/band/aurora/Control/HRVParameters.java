@@ -52,6 +52,8 @@ public class HRVParameters implements Parcelable {
         }
     };
 
+    public HRVParameters() {}
+
     // example constructor that takes a Parcel and gives you an object populated with it's values
     private HRVParameters(Parcel in) {
         time = (Date) in.readValue(null);

@@ -28,6 +28,9 @@ import android.widget.TextView;
 
 import java.util.Date;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hrv.band.aurora.Control.Calculation;
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.Fourier.FastFourierTransform;
@@ -37,6 +40,7 @@ import hrv.band.aurora.RRInterval.IRRInterval;
 import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.RRInterval.msband.MSBandRRInterval;
 import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SQLController;
 import hrv.band.aurora.storage.SharedPreferencesController;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
@@ -144,9 +148,15 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             IStorage storage = new SharedPreferencesController();
             HRVParameters parameters = storage.loadData(getApplicationContext(), null).get(0);
-            double[] rr = parameters.getRRIntervals();
-            Calculation calc = new Calculation(new FastFourierTransform(4096), new CubicSplineInterpolation());
-            calc.Calculate(new Interval(parameters.getTime(), rr));
+
+            IStorage storage2 = new SQLController();
+            storage2.saveData(getApplicationContext(), parameters);
+
+            List<HRVParameters> params = storage2.loadData(getApplicationContext(), parameters.getTime());
+
+            //double[] rr = parameters.getRRIntervals();
+            //Calculation calc = new Calculation(new FastFourierTransform(4096), new CubicSplineInterpolation());
+            //calc.Calculate(new Interval(parameters.getTime(), rr));
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -164,6 +174,42 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public PlaceholderFragment() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main_menu, container, false);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
+        }
+    }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
