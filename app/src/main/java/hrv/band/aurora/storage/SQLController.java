@@ -28,7 +28,7 @@ public class SQLController implements IStorage {
 
     @Override
     public void saveData(Context context, HRVParameters parameter) {
-        SQLiteStorageController controller = new SQLiteStorageController(context);
+        /*SQLiteStorageController controller = new SQLiteStorageController(context);
 
         SQLiteDatabase db = controller.getWritableDatabase();
 
@@ -68,13 +68,13 @@ public class SQLController implements IStorage {
             db2.insert(RRIntervalContract.RRIntercalEntry.TABLE_NAME,
                     RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE,
                     valuesRR);
-        }
+        }*/
     }
 
     @Override
     public List<HRVParameters> loadData(Context context, Date date) {
 
-        SQLiteStorageController controller = new SQLiteStorageController(context);
+        /*SQLiteStorageController controller = new SQLiteStorageController(context);
 
 
         SQLiteDatabase db = controller.getReadableDatabase();
@@ -144,7 +144,7 @@ public class SQLController implements IStorage {
             } while(crr.moveToNext());
         }
 
-
+*/
         return null;
     }
 }

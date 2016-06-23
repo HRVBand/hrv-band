@@ -27,7 +27,7 @@ public class OverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_overview, container, false);
-        /*GridView gridView = (GridView) getView().findViewById(R.id.overview_value_list);
+        GridView gridView = (GridView) rootView.findViewById(R.id.overview_value_list);
         ValueAdapter adapter = new ValueAdapter(getActivity(),
                 R.layout.measure_list_item);
         gridView.setAdapter(adapter);
@@ -41,7 +41,26 @@ public class OverviewFragment extends Fragment {
                 //startActivity(intent);
             }
 
-        });*/
+        });
         return rootView;
     }
+
+   /* @Override
+    public void onCreate(Bundle savedInstanceState) {
+        GridView gridView = (GridView) getView().findViewById(R.id.overview_value_list);
+        ValueAdapter adapter = new ValueAdapter(getActivity(),
+                R.layout.measure_list_item);
+        gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view,
+                                    int position, long id) {
+                //Intent intent = new Intent(getContext(), ValueDescriptionActivity.class);
+                //startActivity(intent);
+            }
+
+        });
+    }*/
 }

@@ -35,10 +35,11 @@ public class MeasuringFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
-    private int duration = 9000;
-    //private IRRInterval rrInterval;
+    private int duration = 90000;
+    private IRRInterval rrInterval;
     private TextView rrStatus;
     private TextView txtStatus;
+    private ProgressBar progressBar;
 
     public MeasuringFragment() {
     }
@@ -59,9 +60,11 @@ public class MeasuringFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_measure, container, false);
-        /*rrStatus = (TextView) getActivity().findViewById(R.id.rrStatus);
-        txtStatus = (TextView) getActivity().findViewById(R.id.measure_status);*/
-        //rrInterval = new MSBandRRInterval(getActivity(), txtStatus, rrStatus);
+        rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
+        txtStatus = (TextView)  rootView.findViewById(R.id.measure_status);
+        progressBar = (ProgressBar)  rootView.findViewById(R.id.progressBar);
+
+        rrInterval = new MSBandRRInterval(getActivity(), txtStatus, rrStatus);
         return rootView;
     }
 
@@ -78,7 +81,11 @@ public class MeasuringFragment extends Fragment {
         return results;
     }
 
-    public void startAnimation(final Interval interval, final IRRInterval rrInterval, ProgressBar progressBar) {
+    public IRRInterval getRRInterval() {
+        return rrInterval;
+    }
+
+    public void startAnimation(final Interval interval) {
 
         ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
         animation.setDuration (duration); //in milliseconds

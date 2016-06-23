@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
-    private IRRInterval rrInterval;
+    //private IRRInterval rrInterval;
     private MeasuringFragment measureFragment;
     private OverviewFragment overviewFragment;
 
@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MeasureActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //NavigationDrawer
 
@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(mViewPager);
 
 
-        rrStatus = (TextView) findViewById(R.id.rrStatus);
-        txtStatus = (TextView) findViewById(R.id.measure_status);
-        rrInterval = new MSBandRRInterval(this, txtStatus, rrStatus);
+        //rrStatus = (TextView) findViewById(R.id.rrStatus);
+        //txtStatus = (TextView) findViewById(R.id.measure_status);
+        //rrInterval = new MSBandRRInterval(this, txtStatus, rrStatus);
 
     }
 
@@ -178,12 +178,12 @@ public class MainActivity extends AppCompatActivity
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    /*public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        /*private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
         }
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        /*public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
-    }
+    }*/
 
 
     /**
@@ -250,16 +250,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void startMeasuring(View view) {
-        measureFragment.startAnimation(new Interval(new Date()), rrInterval, (ProgressBar) findViewById(R.id.progressBar));
+        measureFragment.startAnimation(new Interval(new Date()));
     }
 
     public void getDevicePermission(View view) {
-        rrInterval.getDevicePermission();
+        measureFragment.getRRInterval().getDevicePermission();
     }
-
-
-
-
 
     @Override
     protected void onResume() {
@@ -270,26 +266,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-        rrInterval.pauseMeasuring();
+        measureFragment.getRRInterval().pauseMeasuring();
     }
 
     @Override
     protected void onDestroy() {
-        rrInterval.destroy();
+        measureFragment.getRRInterval().destroy();
         super.onDestroy();
     }
-
-    /**
-     * write data to UI-thread
-     * @param string the text to write
-     */
-    /*public void appendToUI(final String string, final TextView txt) {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt.setText(string);
-            }
-        });
-    }*/
-
 }
