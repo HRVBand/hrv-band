@@ -33,12 +33,12 @@ public class ValueAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return values.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return values.get(i);
     }
 
     @Override
