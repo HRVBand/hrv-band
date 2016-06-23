@@ -163,7 +163,7 @@ public class Calculation {
             sdsd += (rrdiff[i] - erwartungswert) * (rrdiff[i] - erwartungswert);
         }
 
-        sdsd = Math.sqrt(sdsd / rrinterval.length);
+        sdsd = Math.sqrt(sdsd / rrdiff.length);
         return sdsd;
     }
     
