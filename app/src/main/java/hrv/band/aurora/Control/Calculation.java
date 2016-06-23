@@ -24,7 +24,8 @@ public class Calculation {
 
     public HRVParameters Calculate(Interval rrinterval)
     {
-        double[] y = rrinterval.GetRRInterval();
+        double[] unfiltered_y = rrinterval.GetRRInterval();
+        double[] y= filter(unfiltered_y);
         double[] x = new double[y.length];
 
         for(int i = 1; i < y.length; i++)
@@ -233,6 +234,23 @@ public class Calculation {
             integral += values[i] * stepSize;
 
         return integral;
+    }
+    
+    private double[] filter(double[] rrint, double median)
+    {
+
+        
+        List<double> filteredrr = new ArrayList<>();
+        for (int i = 0; i <rrint.length; i++)
+        {
+            if(!(rrint[i]/median<0.7 || rrint[i]/median>1.3))
+            {
+                filteredrr.add(rrint[i]);
+            }
+        }
+        double[] result = new double[filteredrr.size()];
+        return filteredrr.toArray(result);
+        
     }
     
     
