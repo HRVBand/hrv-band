@@ -39,6 +39,7 @@ import hrv.band.aurora.storage.SharedPreferencesController;
 
 public class MeasureActivity extends AppCompatActivity {
     private int duration = 7000;
+    public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     private IRRInterval rrInterval;
     private Interval ival;
     private TextView rrStatus;
@@ -84,9 +85,10 @@ public class MeasureActivity extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
                 rrInterval.stopMeasuring();
                 ival.SetRRInterval(rrInterval.getRRIntervals());
-                calculate();
+
 
                 Intent intent = new Intent(getApplicationContext(), SaveValuesActivity.class);
+                intent.putExtra(HRV_PARAMETER_ID, calculate());
                 startActivity(intent);
             }
 
@@ -103,7 +105,7 @@ public class MeasureActivity extends AppCompatActivity {
         animation.start ();
     }
 
-    private void calculate() {
+    private HRVParameters calculate() {
         //start calculation
         CubicSplineInterpolation inter = new CubicSplineInterpolation();
         FastFourierTransform fft = new FastFourierTransform(4096);
@@ -113,6 +115,7 @@ public class MeasureActivity extends AppCompatActivity {
         results.setTime(new Date());
         IStorage storage = new SharedPreferencesController();
         storage.saveData(getApplicationContext(), results);
+        return results;
     }
 
     @Override
