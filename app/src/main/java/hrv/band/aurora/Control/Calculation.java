@@ -163,7 +163,7 @@ public class Calculation {
             sdsd += (rrdiff[i] - erwartungswert) * (rrdiff[i] - erwartungswert);
         }
 
-        double sdsd = Math.sqrt(sum2 / rrinterval.length);
+        sdsd = Math.sqrt(sdsd / rrinterval.length);
         return sdsd;
     }
     
@@ -175,7 +175,7 @@ public class Calculation {
         return Math.sqrt(0.5 * sdnnValue * sdnnValue);
     }
 
-    private double SD2(double sdnnValue, double sdsdValue)
+    private double SD2(double sdnnValue, double sdsd)
     {
         return Math.sqrt(2 * sdsd * sdsd - 0.5 * sdnnValue * sdnnValue);
     }
