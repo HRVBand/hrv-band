@@ -90,16 +90,16 @@ public class Calculation {
     }
 
     private HRVParameters createHRVParameter(double[] y, double[] frequencies, double[] betrag) {
-        double sdnn = SDNN(y);
-        double sdsd = SDSD(y);
-        double sd1 = SD1(sdnn);
-        double sd2 = SD2(sdnn,sdsd);
+        double sdnn = SDNN(y) * 1000;
+        double sdsd = SDSD(y) * 1000;
+        double sd1 = SD1(sdnn) * 1000;
+        double sd2 = SD2(sdnn,sdsd) * 1000;
         double lfpow1 = LfPow(frequencies, betrag, frequencies[1]);
         double hfpow1 = HfPow(frequencies, betrag, frequencies[1]);
-        double lf=lfpow1/(lfpow1+hfpow1);
-        double hf=hfpow1/(lfpow1+hfpow1);
-        double rmssd = RMSSD(y);
-        double baevsky = Baevsky(y);
+        double lf=lfpow1/(lfpow1+hfpow1) * 100;
+        double hf=hfpow1/(lfpow1+hfpow1) * 100;
+        double rmssd = RMSSD(y) * 1000;
+        double baevsky = Baevsky(y) * 100;
 
         return new HRVParameters(new Date(), sdsd, sd1, sd2, lf, hf, rmssd, sdnn, baevsky, y);
     }
