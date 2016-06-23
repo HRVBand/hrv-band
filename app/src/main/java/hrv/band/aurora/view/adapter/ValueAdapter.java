@@ -20,30 +20,30 @@ import hrv.band.aurora.R;
 public class ValueAdapter extends BaseAdapter {
     private Context context;
     private List<String> labels;
-    private List<String> values;
+    private String[] values = new String[] { "LFHF", "SDNN", "RMSSD",
+            "SD1", "SD2", "Baevsky"};
     private int layout;
-    private HRVParameters parameters;
+    private HRVParameters parameter;
 
-    public ValueAdapter(Context context, int textViewResourceId, List<String> labels, List<String> values) {
+    public ValueAdapter(Context context, int textViewResourceId, HRVParameters parameter) {
         this.layout = textViewResourceId;
         this.context = context;
-        this.labels = labels;
-        this.values = values;
+        this.parameter = parameter;
     }
 
     @Override
     public int getCount() {
-        return values.size();
+        return values.length;
     }
 
     @Override
     public Object getItem(int i) {
-        return values.get(i);
+        return parameter;
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
@@ -54,9 +54,26 @@ public class ValueAdapter extends BaseAdapter {
         TextView firstLine = (TextView) rowView.findViewById(R.id.firstLine);
         TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
 
-        firstLine.setText(labels.get(position));
-        secondLine.setText(values.get(position));
+        firstLine.setText(values[position]);
+        secondLine.setText(getHRVValue(values[position]));
 
         return rowView;
+    }
+
+    private String getHRVValue(String value) {
+        if (value.equals("LFHF")) {
+            return String.valueOf(parameter.getLfhfRatio());
+        } else if (value.equals("SDNN")) {
+            return String.valueOf(parameter.getSdnn());
+        } else if (value.equals("SD1")) {
+            return String.valueOf(parameter.getSd1());
+        } else if (value.equals("SD2")) {
+            return String.valueOf(parameter.getSd2());
+        } else if (value.equals("Baevsky")) {
+            return String.valueOf(parameter.getBaevsky());
+        } else if (value.equals("RMSSD")) {
+            return String.valueOf(parameter.getRmssd());
+        }
+        return "";
     }
 }

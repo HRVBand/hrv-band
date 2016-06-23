@@ -40,6 +40,10 @@
         <activity
             android:name=".view.ValueDescriptionActivity"
             android:label="@string/title_activity_value_description"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.MainMenuActivity"
+            android:label="@string/title_activity_main_menu"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
