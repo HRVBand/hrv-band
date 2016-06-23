@@ -10,19 +10,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="hrv.band.aurora.view.MeasureActivity"
-    tools:showIn="@layout/activity_measure">
+    tools:context="hrv.band.aurora.view.MainActivity"
+    tools:showIn="@layout/activity_main">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="40dp">
+    android:layout_margin="30dp">
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:max="1000"
         android:progress="1000"
         android:progressDrawable="@drawable/circular"
@@ -70,8 +68,4 @@
         android:textAlignment="center"/>
 
 </RelativeLayout>
-
-
-
-
 </LinearLayout>

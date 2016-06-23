@@ -42,25 +42,9 @@ public class SaveValuesActivity extends AppCompatActivity {
 
         HRVParameters parameter = getIntent().getParcelableExtra(MeasureActivity.HRV_PARAMETER_ID);
 
-        final GridView gridview = (GridView) findViewById(R.id.measure_value_list);
+        GridView gridview = (GridView) findViewById(R.id.measure_value_list);
 
-        //HashMap<String, String> meMap=new HashMap<>();
-        /*List<String> labels = new ArrayList<>();
-        List<String> values = new ArrayList<>();
-        labels.add("SD1");
-        values.add();
-        labels.add("SD2");
-        values.add(String.valueOf(parameter.getSd2()));
-        labels.add("LFHF");
-        values.add(String.valueOf(parameter.getLfhfRatio()));
-        labels.add("SDNN");
-        values.add(String.valueOf(parameter.getSdnn()));
-        labels.add("RMSSD");
-        values.add(String.valueOf(parameter.getRmssd()));
-        labels.add("Baevsky");
-        values.add(String.valueOf(parameter.getBaevsky()));*/
-
-        final ValueAdapter adapter = new ValueAdapter(this,
+        ValueAdapter adapter = new ValueAdapter(this,
                 R.layout.measure_list_item, parameter);
         gridview.setAdapter(adapter);
 

@@ -31,6 +31,11 @@ public class ValueAdapter extends BaseAdapter {
         this.parameter = parameter;
     }
 
+    public ValueAdapter(Context context, int textViewResourceId) {
+        this.layout = textViewResourceId;
+        this.context = context;
+    }
+
     @Override
     public int getCount() {
         return values.length;
@@ -55,8 +60,9 @@ public class ValueAdapter extends BaseAdapter {
         TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
 
         firstLine.setText(values[position]);
-        secondLine.setText(getHRVValue(values[position]));
-
+        if(parameter != null) {
+            secondLine.setText(getHRVValue(values[position]));
+        }
         return rowView;
     }
 

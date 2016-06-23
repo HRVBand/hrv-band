@@ -1,5 +1,7 @@
 package hrv.band.aurora.view;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,16 +22,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.Date;
 
 import hrv.band.aurora.Control.Calculation;
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.Fourier.FastFourierTransform;
 import hrv.band.aurora.Interpolation.CubicSplineInterpolation;
 import hrv.band.aurora.R;
+import hrv.band.aurora.RRInterval.IRRInterval;
 import hrv.band.aurora.RRInterval.Interval;
+import hrv.band.aurora.RRInterval.msband.MSBandRRInterval;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SharedPreferencesController;
+import hrv.band.aurora.view.fragment.MeasuringFragment;
+import hrv.band.aurora.view.fragment.OverviewFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +47,15 @@ public class MainActivity extends AppCompatActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+    private IRRInterval rrInterval;
+    private MeasuringFragment measureFragment;
+    private OverviewFragment overviewFragment;
+
+    public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
+
+    private Interval ival;
+    private TextView rrStatus;
+    private TextView txtStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +87,7 @@ public class MainActivity extends AppCompatActivity
         //Fragment
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        //measureFragment = new MeasuringFragment();
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -75,6 +95,12 @@ public class MainActivity extends AppCompatActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+
+        rrStatus = (TextView) findViewById(R.id.rrStatus);
+        txtStatus = (TextView) findViewById(R.id.measure_status);
+        rrInterval = new MSBandRRInterval(this, txtStatus, rrStatus);
+
     }
 
     @Override
@@ -140,42 +166,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_menu, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
-
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -189,27 +179,71 @@ public class MainActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            if (position == 0) {
+                return measureFragment = new MeasuringFragment();
+            }
+            return overviewFragment = new OverviewFragment();
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 2 total pages.
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "MEASURING";
                 case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
+                    return "OVERVIEW";
             }
             return null;
         }
     }
+
+    public void startMeasuring(View view) {
+        measureFragment.startAnimation(new Interval(new Date()), rrInterval, (ProgressBar) findViewById(R.id.progressBar));
+    }
+
+    public void getDevicePermission(View view) {
+        rrInterval.getDevicePermission();
+    }
+
+
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //reset to default
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        rrInterval.pauseMeasuring();
+    }
+
+    @Override
+    protected void onDestroy() {
+        rrInterval.destroy();
+        super.onDestroy();
+    }
+
+    /**
+     * write data to UI-thread
+     * @param string the text to write
+     */
+    /*public void appendToUI(final String string, final TextView txt) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt.setText(string);
+            }
+        });
+    }*/
 
 }
