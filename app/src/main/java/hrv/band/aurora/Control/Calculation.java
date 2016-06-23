@@ -73,8 +73,9 @@ public class Calculation {
 
     private HRVParameters createHRVParameter(double[] y, double[] frequencies, double[] betrag) {
         double sdnn = SDNN(y);
+        double sdsd = SDSD(y);
         double sd1 = SD1(sdnn);
-        double sd2 = SD2(sdnn);
+        double sd2 = SD2(sdnn,sdsd);
         double lf = LfPow(frequencies, betrag, frequencies[1]);
         double hf = HfPow(frequencies, betrag, frequencies[1]);
         double rmssd = RMSSD(y);
@@ -145,15 +146,38 @@ public class Calculation {
         double sdnn = Math.sqrt(sum2 / rrinterval.length);
         return sdnn;
     }
+    
+    private double SDSD(double[] rrinterval)
+    {
+        double[] rrdiff = new double[rrinterval.length-1];
+        
+        for(int i = 0; i < rrinterval.length-1; i++)
+        {
+            rrdiff[i]= (rrinterval[i] - rrinterval[i+1]);
+        }
+        
+        double erwartungswert = Erwartungswert(rrdiff);
+        double sdsd = 0;
+        for(int i = 0; i < rrdiff.length; i++)
+        {
+            sdsd += (rrdiff[i] - erwartungswert) * (rrdiff[i] - erwartungswert);
+        }
+
+        double sdsd = Math.sqrt(sum2 / rrinterval.length);
+        return sdsd;
+    }
+    
+    
+    
 
     private double SD1(double sdnnValue)
     {
         return Math.sqrt(0.5 * sdnnValue * sdnnValue);
     }
 
-    private double SD2(double sdnnValue)
+    private double SD2(double sdnnValue, double sdsdValue)
     {
-        return Math.sqrt(2 * sdnnValue * sdnnValue - 0.5 * sdnnValue * sdnnValue);
+        return Math.sqrt(2 * sdsd * sdsd - 0.5 * sdnnValue * sdnnValue);
     }
 
     private double SD1SD2(double sd1, double sd2)
