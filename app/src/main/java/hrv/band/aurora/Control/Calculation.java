@@ -66,7 +66,7 @@ public class Calculation {
 
         for(int i = 0; i < numInterpolVals; i++)
         {
-            frequencies[i] = (frequencySteps/2) * i;
+            frequencies[i] = (frequencySteps) * i;
         }
 
         return createHRVParameter(y, frequencies, betrag);
@@ -203,7 +203,7 @@ public class Calculation {
         int firstElementOver015 = FirstElementOverValue(frequencies, 0.15);
         int firstElementOver04 = FirstElementOverValue(frequencies, 0.4);
 
-        double hfPow = LinearIntegration(betrag, stepSize/2, firstElementOver015, firstElementOver04);
+        double hfPow = LinearIntegration(betrag, stepSize, firstElementOver015, firstElementOver04);
         return hfPow;
     }
 
@@ -212,7 +212,7 @@ public class Calculation {
         int firstElementOver004 = FirstElementOverValue(frequencies, 0.02);
         int firstElementOver015 = FirstElementOverValue(frequencies, 0.15);
 
-        double lfPow = LinearIntegration(betrag, stepSize/2, firstElementOver004, firstElementOver015);
+        double lfPow = LinearIntegration(betrag, stepSize, firstElementOver004, firstElementOver015);
         return lfPow;
     }
 
