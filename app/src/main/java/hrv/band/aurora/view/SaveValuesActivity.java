@@ -21,8 +21,6 @@ import hrv.band.aurora.R;
 import hrv.band.aurora.view.adapter.ValueAdapter;
 
 public class SaveValuesActivity extends AppCompatActivity {
-    private String[] values = new String[] { "LFHF", "SDNN", "RMSSD",
-            "SD1", "SD2", "Baevsky"};
 
     public static final String HRV_VALUE_ID = "HRV_VALUE";
     @Override
@@ -47,10 +45,10 @@ public class SaveValuesActivity extends AppCompatActivity {
         final GridView gridview = (GridView) findViewById(R.id.measure_value_list);
 
         //HashMap<String, String> meMap=new HashMap<>();
-        List<String> labels = new ArrayList<>();
+        /*List<String> labels = new ArrayList<>();
         List<String> values = new ArrayList<>();
         labels.add("SD1");
-        values.add(String.valueOf(parameter.getSd1()));
+        values.add();
         labels.add("SD2");
         values.add(String.valueOf(parameter.getSd2()));
         labels.add("LFHF");
@@ -60,10 +58,10 @@ public class SaveValuesActivity extends AppCompatActivity {
         labels.add("RMSSD");
         values.add(String.valueOf(parameter.getRmssd()));
         labels.add("Baevsky");
-        values.add(String.valueOf(parameter.getBaevsky()));
+        values.add(String.valueOf(parameter.getBaevsky()));*/
 
         final ValueAdapter adapter = new ValueAdapter(this,
-                R.layout.measure_list_item, labels, values);
+                R.layout.measure_list_item, parameter);
         gridview.setAdapter(adapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

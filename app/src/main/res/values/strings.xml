@@ -16,4 +16,6 @@
     <string name="title_activity_save_values">SaveValuesActivity</string>
     <string name="measure_status">Press To Start Measuring</string>
     <string name="title_activity_value_description">ValueDescriptionActivity</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
