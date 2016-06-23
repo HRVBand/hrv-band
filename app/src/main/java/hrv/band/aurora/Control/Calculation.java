@@ -3,7 +3,7 @@ package hrv.band.aurora.Control;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 
 import java.util.Date;
-
+import java.util.Arrays;
 import hrv.band.aurora.Fourier.IFourierTransformation;
 import hrv.band.aurora.Interpolation.IInterpolation;
 import hrv.band.aurora.RRInterval.Interval;
@@ -234,4 +234,17 @@ public class Calculation {
 
         return integral;
     }
+    
+    
+    private double calcmedian(double[] x) {
+        Arrays.sort(numArray);
+        int middle = ((numArray.length) / 2);
+        if(numArray.length % 2 == 0){
+            int medianA = numArray[middle];
+            int medianB = numArray[middle-1];
+            median = (medianA + medianB) / 2;
+            } else{
+             median = numArray[middle + 1];
+            }
+     }
 }
