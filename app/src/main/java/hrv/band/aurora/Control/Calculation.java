@@ -77,8 +77,10 @@ public class Calculation {
         double sdsd = SDSD(y);
         double sd1 = SD1(sdnn);
         double sd2 = SD2(sdnn,sdsd);
-        double lf = LfPow(frequencies, betrag, frequencies[1]);
-        double hf = HfPow(frequencies, betrag, frequencies[1]);
+        double lfpow1 = LfPow(frequencies, betrag, frequencies[1]);
+        double hfpow1 = HfPow(frequencies, betrag, frequencies[1]);
+        double lf=lfpow1/(lfpow1+hfpow1);
+        double hf=hfpow1/(lfpow1+hfpow1);
         double rmssd = RMSSD(y);
         double baevsky = Baevsky(y);
 
