@@ -38,7 +38,7 @@ import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SharedPreferencesController;
 
 public class MeasureActivity extends AppCompatActivity {
-    private int duration = 7000;
+    private int duration = 120000;
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     private IRRInterval rrInterval;
     private Interval ival;

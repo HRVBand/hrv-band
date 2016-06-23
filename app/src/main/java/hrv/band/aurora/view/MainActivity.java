@@ -14,7 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import hrv.band.aurora.Control.Calculation;
+import hrv.band.aurora.Control.HRVParameters;
+import hrv.band.aurora.Fourier.FastFourierTransform;
+import hrv.band.aurora.Interpolation.CubicSplineInterpolation;
 import hrv.band.aurora.R;
+import hrv.band.aurora.RRInterval.Interval;
+import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SharedPreferencesController;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -84,7 +91,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            IStorage storage = new SharedPreferencesController();
+            HRVParameters parameters = storage.loadData(getApplicationContext(), null).get(0);
+            double[] rr = parameters.getRRIntervals();
+            Calculation calc = new Calculation(new FastFourierTransform(4096), new CubicSplineInterpolation());
+            calc.Calculate(new Interval(parameters.getTime(), rr));
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

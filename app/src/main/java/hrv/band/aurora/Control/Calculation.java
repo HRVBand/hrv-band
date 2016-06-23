@@ -1,9 +1,14 @@
 package hrv.band.aurora.Control;
 
+import android.support.v4.content.res.TypedArrayUtils;
+
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Arrays;
+import java.util.List;
+
 import hrv.band.aurora.Fourier.IFourierTransformation;
 import hrv.band.aurora.Interpolation.IInterpolation;
 import hrv.band.aurora.RRInterval.Interval;
@@ -22,10 +27,19 @@ public class Calculation {
         interpolation = interpol;
     }
 
+    private double[] toPrimitveArray(List<Double> list)
+    {
+        double[] target = new double[list.size()];
+        for (int i = 0; i < target.length; i++) {
+            target[i] = list.get(i);
+        }
+        return target;
+    }
+
     public HRVParameters Calculate(Interval rrinterval)
     {
         double[] unfiltered_y = rrinterval.GetRRInterval();
-        double[] y= filter(unfiltered_y);
+        double[] y= filter(unfiltered_y, calcmedian(unfiltered_y));
         double[] x = new double[y.length];
 
         for(int i = 1; i < y.length; i++)
@@ -63,6 +77,9 @@ public class Calculation {
         double maxAbtastFrequenz = 0.5 * (1 / stepSize);
         double frequencySteps = maxAbtastFrequenz / (numInterpolVals - 1);
         double[] frequencies = new double[numInterpolVals];
+
+        double last = betrag[4095];
+        double first = betrag[0];
 
         for(int i = 0; i < numInterpolVals; i++)
         {
@@ -178,7 +195,8 @@ public class Calculation {
 
     private double SD2(double sdnnValue, double sdsd)
     {
-        return Math.sqrt(2 * sdsd * sdsd - 0.5 * sdnnValue * sdnnValue);
+        double val = 2 * sdsd * sdsd - 0.5 * sdnnValue * sdnnValue;
+        return Math.sqrt(val);
     }
 
     private double SD1SD2(double sd1, double sd2)
@@ -238,32 +256,30 @@ public class Calculation {
     
     private double[] filter(double[] rrint, double median)
     {
-
-        
-        List<double> filteredrr = new ArrayList<>();
+        ArrayList<Double> filteredrr = new ArrayList<>();
         for (int i = 0; i <rrint.length; i++)
         {
-            if(!(rrint[i]/median<0.7 || rrint[i]/median>1.3))
+            if(!(rrint[i]/median<0.7 || rrint[i]/median>1.3 || (i < rrint.length - 1 && rrint[i] == rrint[i + 1])))
             {
                 filteredrr.add(rrint[i]);
             }
         }
-        double[] result = new double[filteredrr.size()];
-        return filteredrr.toArray(result);
-        
+
+        return toPrimitveArray(filteredrr);
     }
     
     
     private double calcmedian(double[] numArray) {
-        Arrays.sort(numArray);
-        double middle = ((numArray.length) / 2);
+        double[] newArr = Arrays.copyOf(numArray, numArray.length);
+        Arrays.sort(newArr);
+        double middle = ((newArr.length) / 2);
         double median = 0;
-        if (numArray.length % 2 == 0) {
-            double medianA = numArray[(int) middle];
-            double medianB = numArray[(int) middle - 1];
+        if (newArr.length % 2 == 0) {
+            double medianA = newArr[(int) middle];
+            double medianB = newArr[(int) middle - 1];
             median = (medianA + medianB) / 2;
         } else {
-            median = numArray[(int) middle + 1];
+            median = newArr[(int) middle + 1];
         }
         return median;
     }

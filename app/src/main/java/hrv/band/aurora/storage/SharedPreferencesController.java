@@ -29,6 +29,7 @@ public class SharedPreferencesController implements IStorage{
         prefsEditor.putString("ParamList", json);
         prefsEditor.commit();
     }
+
     @Override
     public List<HRVParameters> loadData(Context con, Date date) {
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(con);
