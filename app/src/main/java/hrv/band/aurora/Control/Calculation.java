@@ -110,16 +110,16 @@ public class Calculation {
         double min = min(rrinterval);
         double max = max(rrinterval);
 
-        double baevsky = StatistischeHäufigkeit(rrinterval, mode, 0.05) / (2 * mode * (max - min));
+        double baevsky = StatistischeHäufigkeit(rrinterval, mode) / (2 * mode * (max - min));
         return baevsky;
     }
 
-    private double StatistischeHäufigkeit(double[] rrinterval, double erwartungswert, double range)
+    private double StatistischeHäufigkeit(double[] rrinterval, double mode)
     {
         int counter = 0;
         for(int i = 0; i < rrinterval.length; i++)
         {
-            if(rrinterval[i] < erwartungswert + range && rrinterval[i] > erwartungswert - range)
+            if(!((rrinterval[i]  > mode * 1.05 ) || (rrinterval[i]  < mode * 0.95)))
                 counter++;
         }
         return counter / (double) rrinterval.length;
