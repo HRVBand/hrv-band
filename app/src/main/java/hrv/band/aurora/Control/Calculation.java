@@ -106,11 +106,11 @@ public class Calculation {
 
     private double Baevsky(double[] rrinterval)
     {
-        double median  = calcmedian(rrinterval);
+        double mode  = calcmode(rrinterval);
         double min = min(rrinterval);
         double max = max(rrinterval);
 
-        double baevsky = StatistischeHäufigkeit(rrinterval, median, 0.05) / (2 * median * (max - min));
+        double baevsky = StatistischeHäufigkeit(rrinterval, mode, 0.05) / (2 * mode * (max - min));
         return baevsky;
     }
 
@@ -284,5 +284,23 @@ public class Calculation {
             median = newArr[(int) middle + 1];
         }
         return median;
+    }
+    
+    private double calcmode(double a[]) {
+    double maxValue;
+    int maxCount;
+
+    for (int i = 0; i < a.length; ++i) {
+        int count = 0;
+        for (int j = 0; j < a.length; ++j) {
+            if !((a[j]  > a[i] * 1.05 ) || (a[j]  < a[i] * 0.95)) ++count;
+        }
+        if (count > maxCount) {
+            maxCount = count;
+            maxValue = a[i];
+        }
+    }
+
+    return maxValue;
     }
 }
