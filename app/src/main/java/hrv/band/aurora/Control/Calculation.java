@@ -92,8 +92,8 @@ public class Calculation {
     private HRVParameters createHRVParameter(double[] y, double[] frequencies, double[] betrag) {
         double sdnn = SDNN(y) * 1000;
         double sdsd = SDSD(y) * 1000;
-        double sd1 = SD1(sdnn) * 1000;
-        double sd2 = SD2(sdnn,sdsd) * 1000;
+        double sd1 = SD1(sdnn);
+        double sd2 = SD2(sdnn,sdsd);
         double lfpow1 = LfPow(frequencies, betrag, frequencies[1]);
         double hfpow1 = HfPow(frequencies, betrag, frequencies[1]);
         double lf=lfpow1/(lfpow1+hfpow1) * 100;
@@ -106,11 +106,11 @@ public class Calculation {
 
     private double Baevsky(double[] rrinterval)
     {
-        double erwartungswert  = Erwartungswert(rrinterval);
+        double median  = calcmedian(rrinterval);
         double min = min(rrinterval);
         double max = max(rrinterval);
 
-        double baevsky = StatistischeHäufigkeit(rrinterval, erwartungswert, 0.05) / (2 * erwartungswert * (max - min));
+        double baevsky = StatistischeHäufigkeit(rrinterval, erwartungswert, 0.05) / (2 * median * (max - min));
         return baevsky;
     }
 
