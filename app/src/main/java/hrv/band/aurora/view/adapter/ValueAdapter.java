@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,38 +18,22 @@ import hrv.band.aurora.R;
 /**
  * Created by Thomas on 20.06.2016.
  */
-public class ValueAdapter extends BaseAdapter {
+public class ValueAdapter extends AbstractValueAdapter {
+
     private Context context;
-    private List<String> labels;
-    private String[] values = new String[] { "LFHF", "SDNN", "RMSSD",
-            "SD1", "SD2", "Baevsky"};
     private int layout;
     private HRVParameters parameter;
 
     public ValueAdapter(Context context, int textViewResourceId, HRVParameters parameter) {
+        super(context);
         this.layout = textViewResourceId;
         this.context = context;
         this.parameter = parameter;
     }
 
-    public ValueAdapter(Context context, int textViewResourceId) {
-        this.layout = textViewResourceId;
-        this.context = context;
-    }
-
-    @Override
-    public int getCount() {
-        return values.length;
-    }
-
     @Override
     public Object getItem(int i) {
         return parameter;
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
     }
 
     @Override
@@ -59,27 +44,31 @@ public class ValueAdapter extends BaseAdapter {
         TextView firstLine = (TextView) rowView.findViewById(R.id.firstLine);
         TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
 
-        firstLine.setText(values[position]);
+        setTextView(firstLine, getValues()[position]);
         if(parameter != null) {
-            secondLine.setText(getHRVValue(values[position]));
+            setTextView(secondLine, getHRVValue(getValues()[position]));
         }
         return rowView;
     }
 
     private String getHRVValue(String value) {
         if (value.equals("LFHF")) {
-            return String.valueOf(parameter.getLfhfRatio());
+            return trimValue(parameter.getLfhfRatio()) + " %";
         } else if (value.equals("SDNN")) {
-            return String.valueOf(parameter.getSdnn());
+            return trimValue(parameter.getSdnn()) + " ms";
         } else if (value.equals("SD1")) {
-            return String.valueOf(parameter.getSd1());
+            return trimValue(parameter.getSd1()) + " ms";
         } else if (value.equals("SD2")) {
-            return String.valueOf(parameter.getSd2());
+            return trimValue(parameter.getSd2()) + " ms";
         } else if (value.equals("Baevsky")) {
-            return String.valueOf(parameter.getBaevsky());
+            return trimValue(parameter.getBaevsky()) + " %";
         } else if (value.equals("RMSSD")) {
-            return String.valueOf(parameter.getRmssd());
+            return trimValue(parameter.getRmssd()) + " ms";
         }
         return "";
+    }
+
+    private String trimValue(double value) {
+        return new DecimalFormat("#.##").format(value);
     }
 }

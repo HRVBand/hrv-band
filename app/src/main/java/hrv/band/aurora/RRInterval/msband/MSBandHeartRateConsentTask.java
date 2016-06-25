@@ -26,9 +26,9 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
     //register eventhandler, so we can recieve wether the user has accepted the measurement
     @Override
     protected Void doInBackground(Void... params) {
-        BandClient client = msBandRRInterval.getClient();
         try {
             if (msBandRRInterval.getConnectedBandClient()) {
+                BandClient client = msBandRRInterval.getClient();
 
                 if (activityWeakReference != null) {
                     client.getSensorManager().requestHeartRateConsent(activityWeakReference.get(), new HeartRateConsentListener() {

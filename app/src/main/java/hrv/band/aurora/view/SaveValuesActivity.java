@@ -18,33 +18,28 @@ import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
+import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SharedPreferencesController;
+import hrv.band.aurora.view.adapter.AbstractValueAdapter;
 import hrv.band.aurora.view.adapter.ValueAdapter;
 
 public class SaveValuesActivity extends AppCompatActivity {
 
     public static final String HRV_VALUE_ID = "HRV_VALUE";
+    private HRVParameters parameter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_values);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        HRVParameters parameter = getIntent().getParcelableExtra(MeasureActivity.HRV_PARAMETER_ID);
+        parameter = getIntent().getParcelableExtra(MeasureActivity.HRV_PARAMETER_ID);
 
         GridView gridview = (GridView) findViewById(R.id.measure_value_list);
 
-        ValueAdapter adapter = new ValueAdapter(this,
+        AbstractValueAdapter adapter = new ValueAdapter(this,
                 R.layout.measure_list_item, parameter);
         gridview.setAdapter(adapter);
 
@@ -71,6 +66,13 @@ public class SaveValuesActivity extends AppCompatActivity {
             }
 
         });*/
+    }
+
+    public void saveMeasurement(View view) {
+        IStorage storage = new SharedPreferencesController();
+        storage.saveData(this, parameter);
+        Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 }

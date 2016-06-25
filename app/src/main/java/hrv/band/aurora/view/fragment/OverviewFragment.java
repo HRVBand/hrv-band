@@ -11,6 +11,8 @@ import android.widget.GridView;
 
 import hrv.band.aurora.R;
 import hrv.band.aurora.view.ValueDescriptionActivity;
+import hrv.band.aurora.view.adapter.AbstractValueAdapter;
+import hrv.band.aurora.view.adapter.OverviewValueAdapter;
 import hrv.band.aurora.view.adapter.ValueAdapter;
 
 /**
@@ -28,8 +30,8 @@ public class OverviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_overview, container, false);
         GridView gridView = (GridView) rootView.findViewById(R.id.overview_value_list);
-        ValueAdapter adapter = new ValueAdapter(getActivity(),
-                R.layout.measure_list_item);
+        AbstractValueAdapter adapter = new OverviewValueAdapter(getActivity(),
+                R.layout.overview_list_item);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

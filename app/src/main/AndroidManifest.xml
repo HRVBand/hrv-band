@@ -41,6 +41,15 @@
             android:name=".view.ValueDescriptionActivity"
             android:label="@string/title_activity_value_description"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.StatisticActivity"
+            android:label="@string/title_activity_statistic"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hrv.band.aurora.view.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

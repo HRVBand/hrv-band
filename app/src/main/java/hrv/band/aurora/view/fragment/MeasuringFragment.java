@@ -35,7 +35,7 @@ public class MeasuringFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
-    private int duration = 90000;
+    private int duration = 9000;
     private IRRInterval rrInterval;
     private TextView rrStatus;
     private TextView txtStatus;
@@ -76,8 +76,6 @@ public class MeasuringFragment extends Fragment {
         Calculation calc = new Calculation(fft, inter);
         HRVParameters results = calc.Calculate(interval);
         results.setTime(new Date());
-        IStorage storage = new SharedPreferencesController();
-        storage.saveData(getContext(), results);
         return results;
     }
 

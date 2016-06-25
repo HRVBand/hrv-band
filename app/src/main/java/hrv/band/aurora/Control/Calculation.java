@@ -287,13 +287,15 @@ public class Calculation {
     }
     
     private double calcmode(double a[]) {
-    double maxValue;
-    int maxCount;
+    double maxValue = 0;
+    int maxCount = 0;
 
     for (int i = 0; i < a.length; ++i) {
         int count = 0;
         for (int j = 0; j < a.length; ++j) {
-            if !((a[j]  > a[i] * 1.05 ) || (a[j]  < a[i] * 0.95)) ++count;
+            if (!((a[j]  > a[i] * 1.05 ) || (a[j]  < a[i] * 0.95))) {
+                count++;
+            }
         }
         if (count > maxCount) {
             maxCount = count;

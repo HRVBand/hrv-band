@@ -18,4 +18,15 @@
     <string name="title_activity_value_description">ValueDescriptionActivity</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_statistic">StatisticActivity</string>
+
+    <string-array name="value_names">
+        <item>LFHF</item>
+        <item>SDNN</item>
+        <item>RMSSD</item>
+        <item>SD1</item>
+        <item>SD2</item>
+        <item>Baevsky</item>
+    </string-array>
+
 </resources>
