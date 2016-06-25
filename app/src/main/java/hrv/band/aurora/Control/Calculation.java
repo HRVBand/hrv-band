@@ -110,7 +110,7 @@ public class Calculation {
         double min = min(rrinterval);
         double max = max(rrinterval);
 
-        double baevsky = StatistischeHäufigkeit(rrinterval, erwartungswert, 0.05) / (2 * median * (max - min));
+        double baevsky = StatistischeHäufigkeit(rrinterval, median, 0.05) / (2 * median * (max - min));
         return baevsky;
     }
 
