@@ -3,6 +3,8 @@ package hrv.band.aurora.Control;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -19,7 +21,7 @@ public class HRVParameters implements Parcelable {
     private double rmssd;
     private double sdnn;
     private double baevsky;
-    private double[] rrIntervals;
+    private ArrayList<Double> rrIntervals;
 
     @Override
     public int describeContents() {
@@ -38,7 +40,7 @@ public class HRVParameters implements Parcelable {
         out.writeDouble(rmssd);
         out.writeDouble(sdnn);
         out.writeDouble(baevsky);
-        out.writeDoubleArray(rrIntervals);
+        out.writeList(rrIntervals);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -65,11 +67,12 @@ public class HRVParameters implements Parcelable {
         rmssd = in.readDouble();
         sdnn = in.readDouble();
         baevsky = in.readDouble();
-        rrIntervals = in.createDoubleArray();
+        rrIntervals = new ArrayList<Double>();
+        in.readList(rrIntervals, Double.class.getClassLoader());
     }
 
     public HRVParameters(Date time, double sdsd, double sd1, double sd2, double lf, double hf, double rmssd,
-                         double sdnn, double baevsky, double[] rrIntervals) {
+                         double sdnn, double baevsky, ArrayList<Double> rrIntervals) {
         this.time = time;
         this.sdsd = sdsd;
         this.sd1 = sd1;
@@ -85,6 +88,7 @@ public class HRVParameters implements Parcelable {
     public Date getTime() {
         return time;
     }
+
 
     public void setTime(Date time) {
         this.time = time;
@@ -161,11 +165,11 @@ public class HRVParameters implements Parcelable {
     public void setSdnn(double sdnn) {
         this.sdnn = sdnn;
     }
-    public double[] getRRIntervals() {
+    public ArrayList<Double> getRRIntervals() {
         return rrIntervals;
     }
 
-    public void setRRIntervals(double[] rrIntervals) {
+    public void setRRIntervals(ArrayList<Double> rrIntervals) {
         this.rrIntervals = rrIntervals;
     }
 }

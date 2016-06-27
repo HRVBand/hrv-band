@@ -2,6 +2,7 @@ package hrv.band.aurora.Control;
 
 import android.support.v4.content.res.TypedArrayUtils;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 
 import java.util.ArrayList;
@@ -86,10 +87,10 @@ public class Calculation {
             frequencies[i] = (frequencySteps) * i;
         }
 
-        return createHRVParameter(y, frequencies, betrag);
+        return createHRVParameter(y, frequencies, betrag, rrinterval);
     }
 
-    private HRVParameters createHRVParameter(double[] y, double[] frequencies, double[] betrag) {
+    private HRVParameters createHRVParameter(double[] y, double[] frequencies, double[] betrag, Interval interval) {
         double sdnn = SDNN(y) * 1000;
         double sdsd = SDSD(y) * 1000;
         double sd1 = SD1(sdnn);
@@ -99,9 +100,12 @@ public class Calculation {
         double lf=lfpow1/(lfpow1+hfpow1) * 100;
         double hf=hfpow1/(lfpow1+hfpow1) * 100;
         double rmssd = RMSSD(y) * 1000;
-        double baevsky = Baevsky(y) * 100;
+        double baevsky = Baevsky(y);
 
-        return new HRVParameters(new Date(), sdsd, sd1, sd2, lf, hf, rmssd, sdnn, baevsky, y);
+        Double[] bigDouble = ArrayUtils.toObject(interval.GetRRInterval());
+        List<Double> listDouble = Arrays.asList(bigDouble);
+
+        return new HRVParameters(interval.GetStartTime(), sdsd, sd1, sd2, lf, hf, rmssd, sdnn, baevsky, new ArrayList<Double>(listDouble));
     }
 
     private double Baevsky(double[] rrinterval)
@@ -166,16 +170,16 @@ public class Calculation {
         double sdnn = Math.sqrt(sum2 / rrinterval.length);
         return sdnn;
     }
-    
+
     private double SDSD(double[] rrinterval)
     {
         double[] rrdiff = new double[rrinterval.length-1];
-        
+
         for(int i = 0; i < rrinterval.length-1; i++)
         {
             rrdiff[i]= (rrinterval[i] - rrinterval[i+1]);
         }
-        
+
         double erwartungswert = Erwartungswert(rrdiff);
         double sdsd = 0;
         for(int i = 0; i < rrdiff.length; i++)
@@ -186,9 +190,9 @@ public class Calculation {
         sdsd = Math.sqrt(sdsd / rrdiff.length);
         return sdsd;
     }
-    
-    
-    
+
+
+
 
     private double SD1(double sdnnValue)
     {
@@ -255,7 +259,7 @@ public class Calculation {
 
         return integral;
     }
-    
+
     private double[] filter(double[] rrint, double median)
     {
         ArrayList<Double> filteredrr = new ArrayList<>();
@@ -269,8 +273,8 @@ public class Calculation {
 
         return toPrimitveArray(filteredrr);
     }
-    
-    
+
+
     private double calcmedian(double[] numArray) {
         double[] newArr = Arrays.copyOf(numArray, numArray.length);
         Arrays.sort(newArr);
@@ -285,7 +289,7 @@ public class Calculation {
         }
         return median;
     }
-    
+
     private double calcmode(double a[]) {
     double maxValue = 0;
     int maxCount = 0;
@@ -293,9 +297,7 @@ public class Calculation {
     for (int i = 0; i < a.length; ++i) {
         int count = 0;
         for (int j = 0; j < a.length; ++j) {
-            if (!((a[j]  > a[i] * 1.05 ) || (a[j]  < a[i] * 0.95))) {
-                count++;
-            }
+            if (!((a[j]  > a[i] * 1.05 ) || (a[j]  < a[i] * 0.95))) ++count;
         }
         if (count > maxCount) {
             maxCount = count;

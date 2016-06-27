@@ -1,17 +1,13 @@
 package hrv.band.aurora.view;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.content.Intent;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,26 +17,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Date;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import hrv.band.aurora.Control.Calculation;
 import hrv.band.aurora.Control.HRVParameters;
-import hrv.band.aurora.Fourier.FastFourierTransform;
-import hrv.band.aurora.Interpolation.CubicSplineInterpolation;
 import hrv.band.aurora.R;
-import hrv.band.aurora.RRInterval.IRRInterval;
 import hrv.band.aurora.RRInterval.Interval;
-import hrv.band.aurora.RRInterval.msband.MSBandRRInterval;
 import hrv.band.aurora.storage.IStorage;
-import hrv.band.aurora.storage.SQLController;
+import hrv.band.aurora.storage.SQLite.RRIntervalContract;
+import hrv.band.aurora.storage.SQLite.SQLController;
+import hrv.band.aurora.storage.SQLite.SQLiteStorageController;
+import hrv.band.aurora.storage.SampleDataCreation.NormalSampleDataFactory;
 import hrv.band.aurora.storage.SharedPreferencesController;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
@@ -129,23 +119,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            IStorage storage = new SharedPreferencesController();
-            HRVParameters parameters = storage.loadData(getApplicationContext(), null).get(0);
+            Context context = getApplicationContext();
+            context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
+
+            NormalSampleDataFactory factory = new NormalSampleDataFactory();
+            List<HRVParameters> parameters = factory.create(5);
 
             IStorage storage2 = new SQLController();
             storage2.saveData(getApplicationContext(), parameters);
 
-            List<HRVParameters> params = storage2.loadData(getApplicationContext(), parameters.getTime());
+            List<HRVParameters> params = storage2.loadData(context, parameters.get(0).getTime());
+            double a = params.get(0).getBaevsky();
 
-            //double[] rr = parameters.getRRIntervals();
-            //Calculation calc = new Calculation(new FastFourierTransform(4096), new CubicSplineInterpolation());
-            //calc.Calculate(new Interval(parameters.getTime(), rr));
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
 
         } else if (id == R.id.nav_share) {
 

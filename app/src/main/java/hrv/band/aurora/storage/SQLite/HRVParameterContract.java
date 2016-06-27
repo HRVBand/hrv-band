@@ -1,4 +1,4 @@
-package hrv.band.aurora.storage;
+package hrv.band.aurora.storage.SQLite;
 
 import android.provider.BaseColumns;
 

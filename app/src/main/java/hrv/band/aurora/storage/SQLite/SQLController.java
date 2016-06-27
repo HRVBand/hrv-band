@@ -1,4 +1,4 @@
-package hrv.band.aurora.storage;
+package hrv.band.aurora.storage.SQLite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,11 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
+import hrv.band.aurora.storage.IStorage;
 
 /**
  * Created by Julian on 23.06.2016.
@@ -28,12 +31,16 @@ public class SQLController implements IStorage {
 
     @Override
     public void saveData(Context context, HRVParameters parameter) {
-        /*SQLiteStorageController controller = new SQLiteStorageController(context);
+
+
+        SQLiteStorageController controller = new SQLiteStorageController(context);
 
         SQLiteDatabase db = controller.getWritableDatabase();
 
         ContentValues valuesParams = new ContentValues();
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME, parameter.getTime().getTime());
+        long time = parameter.getTime().getTime();
+
+        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME, time);
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1, parameter.getSd1());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2, parameter.getSd2());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF, parameter.getLf());
@@ -59,7 +66,7 @@ public class SQLController implements IStorage {
 
 
         SQLiteDatabase db2 = controller.getWritableDatabase();
-        for(double rrVal : parameter.getRRIntervals())
+        for(Double rrVal : parameter.getRRIntervals())
         {
             ContentValues valuesRR = new ContentValues();
             valuesRR.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID, firstId);
@@ -68,13 +75,13 @@ public class SQLController implements IStorage {
             db2.insert(RRIntervalContract.RRIntercalEntry.TABLE_NAME,
                     RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE,
                     valuesRR);
-        }*/
+        }
     }
 
     @Override
     public List<HRVParameters> loadData(Context context, Date date) {
 
-        /*SQLiteStorageController controller = new SQLiteStorageController(context);
+        SQLiteStorageController controller = new SQLiteStorageController(context);
 
 
         SQLiteDatabase db = controller.getReadableDatabase();
@@ -91,21 +98,26 @@ public class SQLController implements IStorage {
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RRDATAID,
         };
 
+        String timeStr = Long.toString(date.getTime());
+
         Cursor c = db.query(
                 HRVParameterContract.HRVParameterEntry.TABLE_NAME,
-                null,  //All Columns
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " = ?",
-                new String[] { Long.toString(date.getTime()) },
+                projection,  //All Columns
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " LIKE ?",
+                new String[] { timeStr },
                 null,
                 null,
                 null,
                 null
                 );
 
+        HRVParameters newParam = new HRVParameters();
+
         c.moveToFirst();
 
-        HRVParameters newParam = new HRVParameters();
-        newParam.setTime(new Date(c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME))));
+        int time =  c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
+
+        newParam.setTime(new Date());
         newParam.setSd1(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1)));
         newParam.setSd2(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2)));
         newParam.setLf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF)));
@@ -120,7 +132,7 @@ public class SQLController implements IStorage {
         Cursor crr = db.query(
                 RRIntervalContract.RRIntercalEntry.TABLE_NAME,
                 null,  //All Columns
-                RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = ?" ,
+                RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = '?'" ,
                 new String[] { Integer.toString(rrid) },
                 null,
                 null,
@@ -144,8 +156,11 @@ public class SQLController implements IStorage {
             } while(crr.moveToNext());
         }
 
-*/
-        return null;
+        newParam.setRRIntervals(rrValues);
+        List<HRVParameters> returnList = new ArrayList<HRVParameters>();
+        returnList.add(newParam);
+
+        return returnList;
     }
 }
 
