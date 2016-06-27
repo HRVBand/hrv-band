@@ -103,7 +103,7 @@ public class SQLController implements IStorage {
         Cursor c = db.query(
                 HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 projection,  //All Columns
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " LIKE ?",
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " = ?",
                 new String[] { timeStr },
                 null,
                 null,
@@ -115,9 +115,10 @@ public class SQLController implements IStorage {
 
         c.moveToFirst();
 
-        int time =  c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
+        long time =  c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
+        Date timeAsDate = new Date(time);
 
-        newParam.setTime(new Date());
+        newParam.setTime(timeAsDate);
         newParam.setSd1(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1)));
         newParam.setSd2(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2)));
         newParam.setLf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF)));
@@ -132,7 +133,7 @@ public class SQLController implements IStorage {
         Cursor crr = db.query(
                 RRIntervalContract.RRIntercalEntry.TABLE_NAME,
                 null,  //All Columns
-                RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = '?'" ,
+                RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = ?" ,
                 new String[] { Integer.toString(rrid) },
                 null,
                 null,

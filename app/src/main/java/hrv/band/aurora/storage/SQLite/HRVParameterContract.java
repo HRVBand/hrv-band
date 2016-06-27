@@ -13,7 +13,7 @@ public class HRVParameterContract {
     {
         public static final String TABLE_NAME = "HRVEntry";
         public static final String COLUMN_NAME_ENTRY_ID = "id";
-        public static final String COLUMN_NAME_TIME = "Time";
+        public static final String COLUMN_NAME_TIME = "time";
         public static final String COLUMN_NAME_SD1 = "sd1";
         public static final String COLUMN_NAME_SD2 = "sd2";
         public static final String COLUMN_NAME_LF = "lf";

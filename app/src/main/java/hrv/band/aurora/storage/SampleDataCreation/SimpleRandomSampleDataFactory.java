@@ -14,7 +14,7 @@ import hrv.band.aurora.RRInterval.Interval;
 /**
  * Created by Julian on 25.06.2016.
  */
-public class NormalSampleDataFactory implements ISampleDataFactory {
+public class SimpleRandomSampleDataFactory implements ISampleDataFactory {
     @Override
     public ArrayList<HRVParameters> create(int sampleSize) {
 

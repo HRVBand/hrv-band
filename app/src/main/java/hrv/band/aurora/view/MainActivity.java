@@ -1,7 +1,6 @@
 package hrv.band.aurora.view;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -27,11 +26,11 @@ import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.storage.IStorage;
-import hrv.band.aurora.storage.SQLite.RRIntervalContract;
 import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.storage.SQLite.SQLiteStorageController;
-import hrv.band.aurora.storage.SampleDataCreation.NormalSampleDataFactory;
-import hrv.band.aurora.storage.SharedPreferencesController;
+import hrv.band.aurora.storage.SampleDataCreation.ISampleDataFactory;
+import hrv.band.aurora.storage.SampleDataCreation.PointThreeAndPoint5RandomSampleDataFactory;
+import hrv.band.aurora.storage.SampleDataCreation.StaticSampleDataFactory;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
 
@@ -122,13 +121,13 @@ public class MainActivity extends AppCompatActivity
             Context context = getApplicationContext();
             context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
 
-            NormalSampleDataFactory factory = new NormalSampleDataFactory();
-            List<HRVParameters> parameters = factory.create(5);
+            ISampleDataFactory factory = new StaticSampleDataFactory();
+            List<HRVParameters> parameters = factory.create(2);
 
             IStorage storage2 = new SQLController();
             storage2.saveData(getApplicationContext(), parameters);
 
-            List<HRVParameters> params = storage2.loadData(context, parameters.get(0).getTime());
+            List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
             double a = params.get(0).getBaevsky();
 
         } else if (id == R.id.nav_gallery) {

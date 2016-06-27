@@ -13,7 +13,7 @@ import hrv.band.aurora.RRInterval.Interval;
 /**
  * Created by Julian on 25.06.2016.
  */
-public class ZeroAndPoint5SampleDataFactory implements ISampleDataFactory {
+public class PointThreeAndPoint5RandomSampleDataFactory implements ISampleDataFactory {
     @Override
     public ArrayList<HRVParameters> create(int sampleSize) {
         CubicSplineInterpolation inter = new CubicSplineInterpolation();
@@ -23,8 +23,8 @@ public class ZeroAndPoint5SampleDataFactory implements ISampleDataFactory {
         ArrayList<HRVParameters> list = new ArrayList<HRVParameters>();
         for(int i = 0; i < sampleSize; i++)
         {
-            GregorianCalendar gregorianCalendar = new GregorianCalendar(1991, 7, 28 + i);
-            Interval rr = new Interval(gregorianCalendar.getTime(), createIntervalData( i == 2 ));
+            GregorianCalendar gregorianCalendar = new GregorianCalendar(1991, 7, 20 + i);
+            Interval rr = new Interval(gregorianCalendar.getTime(), createIntervalData( i % 2 == 0 ));
 
             list.add(calc.Calculate(rr));
         }
@@ -37,12 +37,11 @@ public class ZeroAndPoint5SampleDataFactory implements ISampleDataFactory {
         Random rand =  new Random();
         double[] rr = new double[100];
 
-        if(zeros)
-            return rr;
+        double value = zeros ? 0.3 : 0.5;
 
         for (int i = 0; i < 100; i++)
         {
-            rr[i] = 0.5;
+            rr[i] = value + rand.nextDouble() / 10;
         }
 
         return rr;
