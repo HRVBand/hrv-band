@@ -22,10 +22,7 @@ import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.IRRInterval;
 import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.RRInterval.msband.MSBandRRInterval;
-import hrv.band.aurora.storage.IStorage;
-import hrv.band.aurora.storage.SharedPreferencesController;
-import hrv.band.aurora.view.MainActivity;
-import hrv.band.aurora.view.SaveValuesActivity;
+import hrv.band.aurora.view.MeasureDetailsActivity;
 
 /**
  * Created by s_czogal on 23.06.2016.
@@ -100,7 +97,7 @@ public class MeasuringFragment extends Fragment {
                 interval.SetRRInterval(rrInterval.getRRIntervals());
 
 
-                Intent intent = new Intent(getContext(), SaveValuesActivity.class);
+                Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
                 startActivity(intent);
             }

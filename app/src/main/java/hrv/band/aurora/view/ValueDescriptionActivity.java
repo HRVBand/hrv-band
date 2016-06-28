@@ -3,7 +3,6 @@ package hrv.band.aurora.view;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,7 +20,7 @@ public class ValueDescriptionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int position = getIntent().getIntExtra(SaveValuesActivity.HRV_VALUE_ID, 0);
+        int position = getIntent().getIntExtra(MeasureDetailsActivity.HRV_VALUE_ID, 0);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

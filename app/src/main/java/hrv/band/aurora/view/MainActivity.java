@@ -202,12 +202,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-        measureFragment.getRRInterval().pauseMeasuring();
+        if (measureFragment != null) {
+            measureFragment.getRRInterval().pauseMeasuring();
+        }
     }
 
     @Override
     protected void onDestroy() {
-        measureFragment.getRRInterval().destroy();
+        if (measureFragment != null) {
+            measureFragment.getRRInterval().destroy();
+        }
         super.onDestroy();
     }
 }

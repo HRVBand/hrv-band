@@ -27,7 +27,7 @@ import hrv.band.aurora.storage.SharedPreferencesController;
 import hrv.band.aurora.view.adapter.AbstractValueAdapter;
 import hrv.band.aurora.view.adapter.ValueAdapter;
 
-public class SaveValuesActivity extends AppCompatActivity {
+public class MeasureDetailsActivity extends AppCompatActivity {
 
     public static final String HRV_VALUE_ID = "HRV_VALUE";
     private HRVParameters parameter;

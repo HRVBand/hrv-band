@@ -2,29 +2,16 @@ package hrv.band.aurora.view;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 import hrv.band.aurora.Control.Calculation;
 import hrv.band.aurora.Control.HRVParameters;
@@ -87,7 +74,7 @@ public class MeasureActivity extends AppCompatActivity {
                 ival.SetRRInterval(rrInterval.getRRIntervals());
 
 
-                Intent intent = new Intent(getApplicationContext(), SaveValuesActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MeasureDetailsActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate());
                 startActivity(intent);
             }

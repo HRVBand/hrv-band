@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import hrv.band.aurora.R;
+import hrv.band.aurora.view.StatisticActivity;
 import hrv.band.aurora.view.ValueDescriptionActivity;
 import hrv.band.aurora.view.adapter.AbstractValueAdapter;
 import hrv.band.aurora.view.adapter.OverviewValueAdapter;
@@ -21,6 +22,7 @@ import hrv.band.aurora.view.adapter.ValueAdapter;
 
 public class OverviewFragment extends Fragment {
 
+    public static final String valueType = "VALUE_TYPE";
 
     public OverviewFragment() {
     }
@@ -30,7 +32,7 @@ public class OverviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_overview, container, false);
         GridView gridView = (GridView) rootView.findViewById(R.id.overview_value_list);
-        AbstractValueAdapter adapter = new OverviewValueAdapter(getActivity(),
+        final AbstractValueAdapter adapter = new OverviewValueAdapter(getActivity(),
                 R.layout.overview_list_item);
         gridView.setAdapter(adapter);
 
@@ -39,8 +41,9 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                //Intent intent = new Intent(getContext(), ValueDescriptionActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getContext(), StatisticActivity.class);
+                intent.putExtra(valueType, adapter.getValues()[position]);
+                startActivity(intent);
             }
 
         });
