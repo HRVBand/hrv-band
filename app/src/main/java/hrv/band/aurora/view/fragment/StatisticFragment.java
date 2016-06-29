@@ -9,25 +9,36 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import hrv.band.aurora.R;
+import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.adapter.StatisticValueAdapter;
 
 /**
  * Created by Thomas on 27.06.2016.
  */
 public class StatisticFragment extends Fragment {
+    public static final String ARG_SECTION_VALUE = "sectionValue";
 
     public StatisticFragment() {
     }
+
+    public static StatisticFragment newInstance(HRVValue type) {
+        StatisticFragment fragment = new StatisticFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_SECTION_VALUE, type);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_statistic_fragment, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.stats_measure_history);
 
-        String type = getActivity().getIntent().getStringExtra(OverviewFragment.valueType);
 
         StatisticValueAdapter adapter = new StatisticValueAdapter(getActivity(),
-                R.layout.statistic_value_item, type);
+                R.layout.statistic_value_item,
+                (HRVValue) getArguments().getSerializable(ARG_SECTION_VALUE));
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

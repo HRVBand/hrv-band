@@ -15,8 +15,7 @@
     <string name="title_activity_save_values">Measure Details</string>
     <string name="measure_status">Press To Start Measuring</string>
     <string name="title_activity_value_description">ValueDescriptionActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_statistic">StatisticActivity</string>
+    <string name="title_activity_statistic">Measure History</string>
 
     <string-array name="value_names">
         <item>LFHF</item>

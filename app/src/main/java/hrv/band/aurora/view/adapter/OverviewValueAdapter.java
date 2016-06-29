@@ -17,14 +17,13 @@ public class OverviewValueAdapter extends AbstractValueAdapter {
     private int layout;
 
     public OverviewValueAdapter(Context context, int textViewResourceId) {
-        super(context);
         this.layout = textViewResourceId;
         this.context = context;
     }
 
     @Override
     public Object getItem(int i) {
-        return getValues()[i];
+        return HRVValue.values()[i];
     }
 
     @Override
@@ -34,7 +33,7 @@ public class OverviewValueAdapter extends AbstractValueAdapter {
         View rowView = inflater.inflate(layout, parent, false);
         TextView firstLine = (TextView) rowView.findViewById(R.id.firstLine);
 
-        setTextView(firstLine, getValues()[position]);
+        setTextView(firstLine, HRVValue.values()[position].toString());
         return rowView;
     }
 }

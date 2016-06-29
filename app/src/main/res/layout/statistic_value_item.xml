@@ -4,10 +4,16 @@
     android:layout_gravity="center"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="4dp"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_heart"
+            android:padding="6dip"/>
         <TextView
             android:id="@+id/stats_value"
             android:layout_width="wrap_content"
@@ -23,15 +29,29 @@
             android:text="ms"
             android:padding="6dip"
             android:textSize="30dp"
-            android:textColor="@color/colorAccent"/>
-
-        <TextView
-            android:id="@+id/stats_date"
+            android:textColor="@color/colorAccent"
+            android:layout_weight="1"/>
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="14:00"
-            android:padding="6dip"
-            android:textSize="30dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/stats_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="14:00"
+                android:padding="6dip"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/stats_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="14:00"
+                android:padding="6dip"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 

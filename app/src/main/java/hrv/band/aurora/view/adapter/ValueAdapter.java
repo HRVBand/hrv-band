@@ -4,13 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
@@ -25,7 +19,6 @@ public class ValueAdapter extends AbstractValueAdapter {
     private HRVParameters parameter;
 
     public ValueAdapter(Context context, int textViewResourceId, HRVParameters parameter) {
-        super(context);
         this.layout = textViewResourceId;
         this.context = context;
         this.parameter = parameter;
@@ -43,32 +36,16 @@ public class ValueAdapter extends AbstractValueAdapter {
         View rowView = inflater.inflate(layout, parent, false);
         TextView firstLine = (TextView) rowView.findViewById(R.id.firstLine);
         TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
+        TextView unit = (TextView) rowView.findViewById(R.id.secondLine_unit);
 
-        setTextView(firstLine, getValues()[position]);
+        setTextView(firstLine, HRVValue.values()[position].toString());
         if(parameter != null) {
-            setTextView(secondLine, getHRVValue(getValues()[position]));
+            //setTextView(secondLine, getHRVValue(getValues()[position], parameter));
+            setTextView(secondLine, getHRVValue(HRVValue.values()[position], parameter));
+            setTextView(unit, HRVValue.values()[position].getUnit());
         }
         return rowView;
     }
 
-    private String getHRVValue(String value) {
-        if (value.equals("LFHF")) {
-            return trimValue(parameter.getLfhfRatio()) + " %";
-        } else if (value.equals("SDNN")) {
-            return trimValue(parameter.getSdnn()) + " ms";
-        } else if (value.equals("SD1")) {
-            return trimValue(parameter.getSd1()) + " ms";
-        } else if (value.equals("SD2")) {
-            return trimValue(parameter.getSd2()) + " ms";
-        } else if (value.equals("Baevsky")) {
-            return trimValue(parameter.getBaevsky()) + " %";
-        } else if (value.equals("RMSSD")) {
-            return trimValue(parameter.getRmssd()) + " ms";
-        }
-        return "";
-    }
 
-    private String trimValue(double value) {
-        return new DecimalFormat("#.##").format(value);
-    }
 }

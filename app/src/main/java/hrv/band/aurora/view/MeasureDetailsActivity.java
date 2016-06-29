@@ -23,6 +23,7 @@ import java.util.List;
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
 import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.storage.SharedPreferencesController;
 import hrv.band.aurora.view.adapter.AbstractValueAdapter;
 import hrv.band.aurora.view.adapter.ValueAdapter;
@@ -76,6 +77,7 @@ public class MeasureDetailsActivity extends AppCompatActivity {
 
     public void saveMeasurement(View view) {
         IStorage storage = new SharedPreferencesController();
+        //IStorage storage = new SQLController();
         storage.saveData(this, parameter);
         Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
         finish();

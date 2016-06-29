@@ -20,24 +20,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import hrv.band.aurora.R;
+import hrv.band.aurora.view.adapter.AbstractValueAdapter;
+import hrv.band.aurora.view.adapter.HRVValue;
+import hrv.band.aurora.view.fragment.OverviewFragment;
 import hrv.band.aurora.view.fragment.StatisticFragment;
 
+//TODO: mache aus den Strings eine Hashmap o.ä.
+
 public class StatisticActivity extends AppCompatActivity {
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+
+    private HRVValue type;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +62,13 @@ public class StatisticActivity extends AppCompatActivity {
             }
         });
 
+        type = (HRVValue)
+                getIntent().getSerializableExtra(OverviewFragment.valueType);
+        mViewPager.setCurrentItem(getTitlePosition(type));
+    }
+
+    private int getTitlePosition(HRVValue value) {
+        return value.ordinal();
     }
 
 
@@ -104,32 +106,17 @@ public class StatisticActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return new StatisticFragment();
+            return StatisticFragment.newInstance(HRVValue.values()[position]);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 5;
+            return HRVValue.values().length;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "LFHF";
-                case 1:
-                    return "SDNN";
-                case 2:
-                    return "RMSSD";
-                case 3:
-                    return "SD1";
-                case 4:
-                    return "Baevsky";
-            }
-            return null;
+            return HRVValue.values()[position].toString();
         }
     }
 }

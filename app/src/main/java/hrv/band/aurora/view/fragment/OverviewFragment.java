@@ -11,10 +11,9 @@ import android.widget.GridView;
 
 import hrv.band.aurora.R;
 import hrv.band.aurora.view.StatisticActivity;
-import hrv.band.aurora.view.ValueDescriptionActivity;
 import hrv.band.aurora.view.adapter.AbstractValueAdapter;
+import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.adapter.OverviewValueAdapter;
-import hrv.band.aurora.view.adapter.ValueAdapter;
 
 /**
  * Created by s_czogal on 23.06.2016.
@@ -42,7 +41,7 @@ public class OverviewFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 Intent intent = new Intent(getContext(), StatisticActivity.class);
-                intent.putExtra(valueType, adapter.getValues()[position]);
+                intent.putExtra(valueType, HRVValue.values()[position]);
                 startActivity(intent);
             }
 
