@@ -84,6 +84,11 @@ public class SQLController implements IStorage {
     @Override
     public List<HRVParameters> loadData(Context context, Date date) {
 
+        long millisecondsInOneDay = 1000 * 60 * 60 * 24;
+        long dateTimeInMilis = date.getTime();
+        long startSearchTime = dateTimeInMilis - millisecondsInOneDay;
+
+        List<HRVParameters> returnList = new ArrayList<HRVParameters>();
         SQLiteStorageController controller = new SQLiteStorageController(context);
 
         SQLiteDatabase db = controller.getReadableDatabase();
@@ -105,62 +110,62 @@ public class SQLController implements IStorage {
         Cursor c = db.query(
                 HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 projection,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " = ?",
-                new String[] { timeStr },
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " BETWEEN ? AND ?",
+                new String[]{ Long.toString(startSearchTime), timeStr },
                 null,
                 null,
                 null,
                 null
-                );
+        );
 
-        if(c.getCount() == 0)
+        if (c.getCount() == 0)
             return null;
 
         HRVParameters newParam = new HRVParameters();
         c.moveToFirst();
 
-        int rrid = c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID));
-        long time =  c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
-        Date timeAsDate = new Date(time);
+        do {
+            int rrid = c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID));
+            long time = c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
+            Date timeAsDate = new Date(time);
 
-        newParam.setTime(timeAsDate);
-        newParam.setSd1(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1)));
-        newParam.setSd2(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2)));
-        newParam.setLf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF)));
-        newParam.setHf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF)));
-        newParam.setRmssd(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD)));
-        newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
-        newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
+            newParam.setTime(timeAsDate);
+            newParam.setSd1(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1)));
+            newParam.setSd2(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2)));
+            newParam.setLf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF)));
+            newParam.setHf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF)));
+            newParam.setRmssd(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD)));
+            newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
+            newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
 
-        //Laden der rr daten
-        Cursor crr = db.query(
-                RRIntervalContract.RRIntercalEntry.TABLE_NAME,
-                null,  //All Columns
-                RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = ?" ,
-                new String[] { Integer.toString(rrid) },
-                null,
-                null,
-                null,
-                null
+            //Laden der rr daten
+            Cursor crr = db.query(
+                    RRIntervalContract.RRIntercalEntry.TABLE_NAME,
+                    null,  //All Columns
+                    RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = ?",
+                    new String[]{Integer.toString(rrid)},
+                    null,
+                    null,
+                    null,
+                    null
             );
 
-        if(crr.getCount() == 0)
-            return null;
+            if (crr.getCount() == 0)
+                return null;
 
-        ArrayList<Double> rrValues = new ArrayList<Double>();
-        crr.moveToFirst();
-        if(!crr.isAfterLast())
-        {
-            do {
-                int columnIndex = crr.getColumnIndex(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE);
-                double loadedValue = crr.getDouble(columnIndex);
-                rrValues.add(loadedValue);
-            } while(crr.moveToNext());
-        }
+            ArrayList<Double> rrValues = new ArrayList<Double>();
+            crr.moveToFirst();
+            if (!crr.isAfterLast()) {
+                do {
+                    int columnIndex = crr.getColumnIndex(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE);
+                    double loadedValue = crr.getDouble(columnIndex);
+                    rrValues.add(loadedValue);
+                } while (crr.moveToNext());
+            }
 
-        newParam.setRRIntervals(rrValues);
-        List<HRVParameters> returnList = new ArrayList<HRVParameters>();
-        returnList.add(newParam);
+            newParam.setRRIntervals(rrValues);
+            returnList.add(newParam);
+        } while(c.moveToNext());
 
         return returnList;
     }

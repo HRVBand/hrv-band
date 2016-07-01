@@ -30,6 +30,7 @@ import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.storage.SQLite.SQLiteStorageController;
 import hrv.band.aurora.storage.SampleDataCreation.ISampleDataFactory;
 import hrv.band.aurora.storage.SampleDataCreation.PointThreeAndPoint5RandomSampleDataFactory;
+import hrv.band.aurora.storage.SampleDataCreation.RichSampleDataFactory;
 import hrv.band.aurora.storage.SampleDataCreation.SimpleRandomSampleDataFactory;
 import hrv.band.aurora.storage.SampleDataCreation.StaticSampleDataFactory;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
@@ -122,16 +123,22 @@ public class MainActivity extends AppCompatActivity
             Context context = getApplicationContext();
             context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
 
-            ISampleDataFactory factory = new SimpleRandomSampleDataFactory();
-            List<HRVParameters> parameters = factory.create(5);
+            ISampleDataFactory factory = new RichSampleDataFactory();
+            List<HRVParameters> parameters = factory.create(30);
 
             IStorage storage2 = new SQLController();
             storage2.saveData(getApplicationContext(), parameters);
 
+
+        } else if (id == R.id.nav_gallery) {
+            Context context = getApplicationContext();
+            IStorage storage2 = new SQLController();
+
+            ISampleDataFactory factory = new RichSampleDataFactory();
+            List<HRVParameters> parameters = factory.create(30);
+
             List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
             double a = params.get(0).getBaevsky();
-        } else if (id == R.id.nav_gallery) {
-
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
