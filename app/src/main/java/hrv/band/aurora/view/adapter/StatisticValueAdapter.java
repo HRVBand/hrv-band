@@ -36,9 +36,9 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
         this.layout = textViewResourceId;
         this.context = context;
         this.type = type;
-        this.date = new GregorianCalendar(1991, 7, 28).getTime();
-        IStorage storage = new SharedPreferencesController();
-        //IStorage storage = new SQLController();
+        this.date = new Date();
+        //IStorage storage = new SharedPreferencesController();
+        IStorage storage = new SQLController();
         parameters = storage.loadData(context, this.date);
         values = getValues(parameters, type);
     }

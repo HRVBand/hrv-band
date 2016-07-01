@@ -119,7 +119,7 @@ public class SQLController implements IStorage {
         );
 
         if (c.getCount() == 0)
-            return null;
+            return returnList;
 
         HRVParameters newParam = new HRVParameters();
         c.moveToFirst();
@@ -151,7 +151,7 @@ public class SQLController implements IStorage {
             );
 
             if (crr.getCount() == 0)
-                return null;
+                return returnList;
 
             ArrayList<Double> rrValues = new ArrayList<Double>();
             crr.moveToFirst();
