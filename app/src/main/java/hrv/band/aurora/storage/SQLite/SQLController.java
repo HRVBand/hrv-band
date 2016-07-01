@@ -31,8 +31,6 @@ public class SQLController implements IStorage {
 
     @Override
     public void saveData(Context context, HRVParameters parameter) {
-
-
         SQLiteStorageController controller = new SQLiteStorageController(context);
 
         SQLiteDatabase db = controller.getWritableDatabase();
@@ -83,7 +81,6 @@ public class SQLController implements IStorage {
 
         SQLiteStorageController controller = new SQLiteStorageController(context);
 
-
         SQLiteDatabase db = controller.getReadableDatabase();
 
         String[] projection = {
@@ -102,7 +99,7 @@ public class SQLController implements IStorage {
 
         Cursor c = db.query(
                 HRVParameterContract.HRVParameterEntry.TABLE_NAME,
-                projection,  //All Columns
+                projection,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " = ?",
                 new String[] { timeStr },
                 null,
@@ -111,8 +108,10 @@ public class SQLController implements IStorage {
                 null
                 );
 
-        HRVParameters newParam = new HRVParameters();
+        if(c.getCount() == 0)
+            return null;
 
+        HRVParameters newParam = new HRVParameters();
         c.moveToFirst();
 
         long time =  c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
@@ -129,7 +128,6 @@ public class SQLController implements IStorage {
         int rrid = c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RRDATAID));
 
         //Laden der rr daten
-
         Cursor crr = db.query(
                 RRIntervalContract.RRIntercalEntry.TABLE_NAME,
                 null,  //All Columns
@@ -141,11 +139,8 @@ public class SQLController implements IStorage {
                 null
             );
 
-        String query1 = "select * from " + RRIntervalContract.RRIntercalEntry.TABLE_NAME;
-        String query2 = "select * from " + RRIntervalContract.RRIntercalEntry.TABLE_NAME
-                + " WHERE " + RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = 5";
-
-        crr = db.rawQuery(query1, null);
+        if(crr.getCount() == 0)
+            return null;
 
         ArrayList<Double> rrValues = new ArrayList<Double>();
         crr.moveToFirst();
