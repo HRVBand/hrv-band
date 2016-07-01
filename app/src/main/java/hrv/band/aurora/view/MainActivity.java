@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity
 
             List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
             double a = params.get(0).getBaevsky();
-
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

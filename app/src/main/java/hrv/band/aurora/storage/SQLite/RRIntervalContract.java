@@ -13,6 +13,6 @@ public class RRIntervalContract {
     {
         public static final String TABLE_NAME = "RRIinterval";
         public static final String COLUMN_NAME_ENTRY_ID = "id";
-        public static final String COLUMN_NAME_ENTRY_VALUE = "value";
+        public static final String COLUMN_NAME_ENTRY_VALUE = "rrvalue";
     }
 }

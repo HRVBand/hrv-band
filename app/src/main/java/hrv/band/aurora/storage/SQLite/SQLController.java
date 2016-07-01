@@ -64,6 +64,8 @@ public class SQLController implements IStorage {
 
 
         SQLiteDatabase db2 = controller.getWritableDatabase();
+        db2.beginTransaction();
+
         for(Double rrVal : parameter.getRRIntervals())
         {
             ContentValues valuesRR = new ContentValues();
@@ -74,6 +76,9 @@ public class SQLController implements IStorage {
                     RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE,
                     valuesRR);
         }
+        db2.setTransactionSuccessful();
+        db2.endTransaction();
+        db2.close();
     }
 
     @Override
@@ -147,8 +152,9 @@ public class SQLController implements IStorage {
         if(!crr.isAfterLast())
         {
             do {
-                int id = c.getInt(0);
-                rrValues.add(c.getDouble(1));
+                int columnIndex = crr.getColumnIndex(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE);
+                double loadedValue = crr.getDouble(columnIndex);
+                rrValues.add(loadedValue);
             } while(crr.moveToNext());
         }
 
