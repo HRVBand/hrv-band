@@ -30,6 +30,7 @@ import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.storage.SQLite.SQLiteStorageController;
 import hrv.band.aurora.storage.SampleDataCreation.ISampleDataFactory;
 import hrv.band.aurora.storage.SampleDataCreation.PointThreeAndPoint5RandomSampleDataFactory;
+import hrv.band.aurora.storage.SampleDataCreation.SimpleRandomSampleDataFactory;
 import hrv.band.aurora.storage.SampleDataCreation.StaticSampleDataFactory;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
@@ -121,8 +122,8 @@ public class MainActivity extends AppCompatActivity
             Context context = getApplicationContext();
             context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
 
-            ISampleDataFactory factory = new StaticSampleDataFactory();
-            List<HRVParameters> parameters = factory.create(2);
+            ISampleDataFactory factory = new SimpleRandomSampleDataFactory();
+            List<HRVParameters> parameters = factory.create(5);
 
             IStorage storage2 = new SQLController();
             storage2.saveData(getApplicationContext(), parameters);

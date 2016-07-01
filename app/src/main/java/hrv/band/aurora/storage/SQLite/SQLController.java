@@ -84,6 +84,7 @@ public class SQLController implements IStorage {
         SQLiteDatabase db = controller.getReadableDatabase();
 
         String[] projection = {
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2,
@@ -91,8 +92,7 @@ public class SQLController implements IStorage {
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RRDATAID,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY
         };
 
         String timeStr = Long.toString(date.getTime());
@@ -114,6 +114,7 @@ public class SQLController implements IStorage {
         HRVParameters newParam = new HRVParameters();
         c.moveToFirst();
 
+        int rrid = c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID));
         long time =  c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
         Date timeAsDate = new Date(time);
 
@@ -125,7 +126,6 @@ public class SQLController implements IStorage {
         newParam.setRmssd(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD)));
         newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
         newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
-        int rrid = c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RRDATAID));
 
         //Laden der rr daten
         Cursor crr = db.query(

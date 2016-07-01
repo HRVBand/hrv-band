@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
@@ -35,10 +36,10 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
         this.layout = textViewResourceId;
         this.context = context;
         this.type = type;
-        this.date = new Date();
+        this.date = new GregorianCalendar(1991, 7, 28).getTime();
         IStorage storage = new SharedPreferencesController();
         //IStorage storage = new SQLController();
-        parameters = storage.loadData(context, new Date());
+        parameters = storage.loadData(context, this.date);
         values = getValues(parameters, type);
     }
 
