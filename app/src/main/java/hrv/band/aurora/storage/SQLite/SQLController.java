@@ -121,10 +121,11 @@ public class SQLController implements IStorage {
         if (c.getCount() == 0)
             return returnList;
 
-        HRVParameters newParam = new HRVParameters();
         c.moveToFirst();
 
         do {
+
+            HRVParameters newParam = new HRVParameters();
             int rrid = c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID));
             long time = c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
             Date timeAsDate = new Date(time);
