@@ -76,9 +76,9 @@ public class MeasureDetailsActivity extends AppCompatActivity {
     }
 
     public void saveMeasurement(View view) {
-        IStorage storage = new SharedPreferencesController();
-        //IStorage storage = new SQLController();
-        storage.saveData(this, parameter);
+        //IStorage storage = new SharedPreferencesController();
+        IStorage storage = new SQLController();
+        storage.saveData(getApplicationContext(), parameter);
         Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
         finish();
     }

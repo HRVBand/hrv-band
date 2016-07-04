@@ -8,15 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
-import hrv.band.aurora.storage.IStorage;
-import hrv.band.aurora.storage.SQLite.SQLController;
-import hrv.band.aurora.storage.SharedPreferencesController;
 
 /**
  * Created by Thomas on 28.06.2016.
@@ -26,21 +21,16 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
     private int layout;
     private List<String> values;
     private List<HRVParameters> parameters;
-    private Date date;
     private HRVValue type;
-    private final String dateFormat = "yyyy-MM-dd";
     private final String timeFormat = "hh:mm aa";
 
     public StatisticValueAdapter(Context context, int textViewResourceId,
-                                 HRVValue type) {
+                                 HRVValue type, List<HRVParameters> parameters) {
         this.layout = textViewResourceId;
         this.context = context;
         this.type = type;
-        this.date = new Date();
-        //IStorage storage = new SharedPreferencesController();
-        IStorage storage = new SQLController();
-        parameters = storage.loadData(context, this.date);
-        values = getValues(parameters, type);
+        this.parameters = parameters;
+        values = getValues(this.parameters, type);
     }
 
     private List<String> getValues(List<HRVParameters> parameters, HRVValue type) {
@@ -55,12 +45,12 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
 
     @Override
     public Object getItem(int i) {
-        return values.get(i);
+        return parameters.get(i);
     }
 
     @Override
     public int getCount() {
-        return values.size();
+        return parameters.size();
     }
 
     @Override
@@ -70,18 +60,21 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
         View rowView = inflater.inflate(layout, parent, false);
 
         TextView value = (TextView) rowView.findViewById(R.id.stats_value);
-        TextView date = (TextView) rowView.findViewById(R.id.stats_date);
         TextView time = (TextView) rowView.findViewById(R.id.stats_time);
-        TextView unit = (TextView) rowView.findViewById(R.id.stats_type);
+        //TextView unit = (TextView) rowView.findViewById(R.id.stats_type);
+
+        DateFormat df = new DateFormat();
+        time.setText(df.format(timeFormat, parameters.get(position).getTime()));
 
         value.setText(values.get(position));
-        DateFormat df = new DateFormat();
-        Date parameterDate = parameters.get(position).getTime();
-        date.setText(df.format(dateFormat, parameterDate));
-        time.setText(df.format(timeFormat, parameterDate));
-
-        unit.setText(type.getUnit());
+        //unit.setText(type.getUnit());
 
         return rowView;
+    }
+
+    public void setDataset(List<HRVParameters> parameters) {
+        this.parameters = parameters;
+        values = getValues(this.parameters, type);
+        notifyDataSetChanged();
     }
 }

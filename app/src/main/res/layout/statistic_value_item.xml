@@ -1,58 +1,38 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
-    android:layout_gravity="center"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp"
-    >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_heart"
-            android:padding="6dip"/>
-        <TextView
-            android:id="@+id/stats_value"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="12,13"
-            android:padding="6dip"
-            android:textSize="30dp"/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/stats_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ms"
-            android:padding="6dip"
-            android:textSize="30dp"
-            android:textColor="@color/colorAccent"
-            android:layout_weight="1"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="right">
-            <TextView
-                android:id="@+id/stats_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="14:00"
-                android:padding="6dip"
-                android:textSize="14sp"/>
-            <TextView
-                android:id="@+id/stats_date"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="14:00"
-                android:padding="6dip"
-                android:textSize="14sp"/>
-        </LinearLayout>
+    <TextView
+        android:id="@+id/stats_time"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="14:00 PM"
+        android:padding="6dip"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/stats_category"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Allgmein"
+        android:padding="6dip"
+        android:textSize="18sp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/stats_value"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="12,13"
+        android:textSize="18sp"
+        android:padding="6dip"
+        android:textColor="@color/colorAccent"/>
+    <!--<TextView
+        android:id="@+id/stats_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ms"
+        android:textSize="18sp"
+        android:padding="6dip"
+        android:textColor="@color/colorAccent"/>-->
 
-    </LinearLayout>
-
-
-</android.support.v7.widget.CardView>
+</LinearLayout>

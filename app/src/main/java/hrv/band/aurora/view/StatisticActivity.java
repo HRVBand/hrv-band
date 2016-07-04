@@ -1,8 +1,7 @@
 package hrv.band.aurora.view;
 
+import android.app.DatePickerDialog;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -11,27 +10,33 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
+import android.widget.DatePicker;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
+import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
-import hrv.band.aurora.view.adapter.AbstractValueAdapter;
+import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.fragment.OverviewFragment;
 import hrv.band.aurora.view.fragment.StatisticFragment;
+import hrv.band.aurora.view.fragment.CalenderPickerFragment;
 
-//TODO: mache aus den Strings eine Hashmap o.ä.
+public class StatisticActivity extends AppCompatActivity
+        implements DatePickerDialog.OnDateSetListener {
 
-public class StatisticActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-
+    private View view;
     private HRVValue type;
+    private IStorage storage;
+    private ArrayList<HRVParameters> parameters;
 
 
     @Override
@@ -53,18 +58,37 @@ public class StatisticActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs2);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         type = (HRVValue)
                 getIntent().getSerializableExtra(OverviewFragment.valueType);
+
         mViewPager.setCurrentItem(getTitlePosition(type));
+    }
+
+     //What should happen after Date is selected.
+     @Override
+     public void onDateSet(DatePicker view, int year, int month, int day) {
+         Calendar c = Calendar.getInstance();
+         c.set(year, month, day);
+
+         parameters = getParameters(c.getTime());
+
+        for (Fragment frag : getSupportFragmentManager().getFragments()) {
+            if (frag instanceof StatisticFragment) {
+                ((StatisticFragment) frag).updateValues(parameters, c.getTime());
+            }
+        }
+     }
+    private ArrayList<HRVParameters> getParameters(Date date) {
+        ArrayList<HRVParameters> result = new ArrayList<>();
+        storage = new SQLController();
+        result.addAll(storage.loadData(this, date));
+        return result;
+    }
+
+    public void openCalender(View view) {
+        this.view = view;
+        CalenderPickerFragment picker = new CalenderPickerFragment();
+        picker.show(getSupportFragmentManager(), "datePicker");
     }
 
     private int getTitlePosition(HRVValue value) {
@@ -106,7 +130,9 @@ public class StatisticActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return StatisticFragment.newInstance(HRVValue.values()[position]);
+            Date date = new Date();
+            return StatisticFragment.newInstance(HRVValue.values()[position],
+                    getParameters(date), date);
         }
 
         @Override
