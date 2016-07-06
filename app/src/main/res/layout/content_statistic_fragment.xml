@@ -12,11 +12,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="hrv.band.aurora.view.fragment.StatisticFragment">
 
-    <com.github.mikephil.charting.charts.LineChart
+    <!--<com.github.mikephil.charting.charts.BarChart
     android:id="@+id/stats_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="2"/>
+    android:layout_weight="2"/>-->
+    <lecho.lib.hellocharts.view.ColumnChartView
+        android:id="@+id/stats_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -24,7 +24,8 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.PhilJay:MPAndroidChart:v2.2.5'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
+    compile 'com.github.lecho:hellocharts-android:v1.5.8'
 }
 
 dependencies {
