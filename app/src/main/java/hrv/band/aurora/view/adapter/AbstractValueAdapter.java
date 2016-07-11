@@ -29,16 +29,16 @@ public abstract class AbstractValueAdapter extends BaseAdapter {
         return new DecimalFormat("#.##").format(value);
     }
 
-    public String getHRVValue(HRVValue value, HRVParameters parameter) {
+    public double getHRVValue(HRVValue value, HRVParameters parameter) {
         switch(value) {
-            case LFHF: return trimValue(parameter.getLfhfRatio());
-            case SDNN: return trimValue(parameter.getSdnn());
-            case SD1: return trimValue(parameter.getSd1());
-            case SD2: return trimValue(parameter.getSd2());
-            case BAEVSKY: return trimValue(parameter.getBaevsky());
-            case RMSSD: return trimValue(parameter.getRmssd());
+            case LFHF: return parameter.getLfhfRatio();
+            case SDNN: return parameter.getSdnn();
+            case SD1: return parameter.getSd1();
+            case SD2: return parameter.getSd2();
+            case BAEVSKY: return parameter.getBaevsky();
+            case RMSSD: return parameter.getRmssd();
         }
-        return "";
+        return 0;
     }
 
 

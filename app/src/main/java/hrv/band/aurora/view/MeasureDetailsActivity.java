@@ -62,13 +62,14 @@ public class MeasureDetailsActivity extends AppCompatActivity {
 
         setSpinnerValues();
 
-       /* final RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingBar);
+       /*final RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingBar);
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                ratingBar.setRating(rating);
+                Toast.makeText(getApplicationContext(), String.valueOf(rating), Toast.LENGTH_LONG);
+                //ratingBar.setRating(rating);
 
             }
 

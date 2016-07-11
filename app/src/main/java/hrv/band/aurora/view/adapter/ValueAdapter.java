@@ -41,7 +41,7 @@ public class ValueAdapter extends AbstractValueAdapter {
         setTextView(firstLine, HRVValue.values()[position].toString());
         if(parameter != null) {
             //setTextView(secondLine, getHRVValue(getValues()[position], parameter));
-            setTextView(secondLine, getHRVValue(HRVValue.values()[position], parameter));
+            setTextView(secondLine, trimValue(getHRVValue(HRVValue.values()[position], parameter)));
             setTextView(unit, HRVValue.values()[position].getUnit());
         }
         return rowView;

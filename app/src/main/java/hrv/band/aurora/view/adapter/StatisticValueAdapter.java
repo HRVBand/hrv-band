@@ -36,7 +36,7 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
     private List<String> getValues(List<HRVParameters> parameters, HRVValue type) {
         List<String> values = new ArrayList<>();
         for (int i = 0; i < parameters.size(); i++) {
-            values.add(getHRVValue(type, parameters.get(i)));
+            values.add(trimValue(getHRVValue(type, parameters.get(i))));
         }
         return values;
     }
