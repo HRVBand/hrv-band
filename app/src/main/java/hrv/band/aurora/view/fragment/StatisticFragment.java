@@ -160,6 +160,7 @@ public class StatisticFragment extends Fragment {
             int[] tuple = chartValuesIndex.get(i);
             columns[tuple[0]].getValues().set(tuple[1], new SubcolumnValue());
         }
+        chartValuesIndex = new ArrayList<>();
     }
 
     private void setDate() {

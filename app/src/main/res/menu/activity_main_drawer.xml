@@ -1,35 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menu_group_settings">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_heart"
-            android:title="Create Sample Data" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Execute Test Function" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/menu_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
     </group>
 
-    <item android:title="Communicate">
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menu_group_share">>
+        <item
+            android:id="@+id/menu_rate"
+            android:icon="@drawable/ic_rate"
+            android:title="Rate" />
+        <item
+            android:id="@+id/menu_share"
+            android:icon="@drawable/ic_share"
+            android:title="Share" />
+    </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menu_group_imprint">>
+        <item
+            android:id="@+id/menu_feedback"
+            android:icon="@drawable/ic_feedback"
+            android:title="Feedback" />
+        <item
+            android:id="@+id/menu_privacy"
+            android:icon="@drawable/ic_privacy"
+            android:title="Privacy Policy" />
+        <item
+            android:id="@+id/menu_imprint"
+            android:icon="@drawable/ic_imprint"
+            android:title="Imprint" />
+    </group>
+
+    <item android:title="Debug">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/sample_data"
+                android:icon="@drawable/ic_heart"
+                android:title="Create Sample Data" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/test_function"
+                android:icon="@drawable/ic_heart"
+                android:title="Execute Test Function" />
         </menu>
     </item>
 

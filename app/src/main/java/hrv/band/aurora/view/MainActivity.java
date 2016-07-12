@@ -1,6 +1,7 @@
 package hrv.band.aurora.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.sample_data) {
             Context context = getApplicationContext();
             context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
 
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity
             storage2.saveData(getApplicationContext(), parameters);
 
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.test_function) {
             Context context = getApplicationContext();
             IStorage storage2 = new SQLController();
 
@@ -139,7 +140,9 @@ public class MainActivity extends AppCompatActivity
 
             List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
             double a = params.get(0).getBaevsky();
-        } else if (id == R.id.nav_slideshow) {
+        } /*else if (id == R.id.menu_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
 
@@ -147,7 +150,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
