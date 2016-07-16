@@ -16,7 +16,7 @@ import com.microsoft.band.UserConsent;
 public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
 
     private MSBandRRInterval msBandRRInterval;
-    public MSBandRRIntervalSubscriptionTask( MSBandRRInterval msBandRRInterval) {
+    public MSBandRRIntervalSubscriptionTask(MSBandRRInterval msBandRRInterval) {
         this.msBandRRInterval = msBandRRInterval;
     }
 
@@ -31,6 +31,7 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
                 if (hardwareVersion >= 20) {
                     if (client.getSensorManager().getCurrentHeartRateConsent() == UserConsent.GRANTED) {
                         client.getSensorManager().registerRRIntervalEventListener(msBandRRInterval.getRRIntervalEventListener());
+                        msBandRRInterval.startAnimation();
                     } else {
                         msBandRRInterval.updateStatusText("You have not given this application consent to access heart rate data yet."
                                 + " Please press the Heart Rate Consent button.\n");

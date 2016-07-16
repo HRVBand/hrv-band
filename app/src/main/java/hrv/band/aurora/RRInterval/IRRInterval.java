@@ -1,5 +1,7 @@
 package hrv.band.aurora.RRInterval;
 
+import android.animation.ObjectAnimator;
+
 /**
  * Created by Thomas on 13.06.2016.
  */
@@ -7,7 +9,7 @@ public interface IRRInterval {
 
     boolean isDeviceConnected();
 
-    void startRRIntervalMeasuring();
+    void startRRIntervalMeasuring(ObjectAnimator animation);
 
     void stopMeasuring();
 
@@ -18,5 +20,7 @@ public interface IRRInterval {
     void destroy();
 
     void getDevicePermission();
+
+    void startAnimation();
 
 }

@@ -65,7 +65,7 @@ public class MeasureActivity extends AppCompatActivity {
         animation.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                rrInterval.startRRIntervalMeasuring();
+                //rrInterval.startRRIntervalMeasuring();
             }
 
             @Override

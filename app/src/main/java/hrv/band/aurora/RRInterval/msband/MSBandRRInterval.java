@@ -1,6 +1,8 @@
 package hrv.band.aurora.RRInterval.msband;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.support.design.widget.Snackbar;
 import android.widget.TextView;
 
 import com.microsoft.band.BandClient;
@@ -28,6 +30,7 @@ public class MSBandRRInterval implements IRRInterval {
     private TextView statusTxt;
     private List<Double> rr;//stores the actual measurement-rrIntervals
     private WeakReference<Activity> reference;
+    private ObjectAnimator animation;
     /**
      *Handels when a new RRInterval is incoming
      */
@@ -37,7 +40,7 @@ public class MSBandRRInterval implements IRRInterval {
         this.activity = activity;
         this.statusTxt = statusTxt;
         this.rrStatus = rrStatus;
-        reference = new WeakReference<Activity>(activity);
+        reference = new WeakReference<>(activity);
         rr = new ArrayList<>();
 
         mRRIntervalEventListener = new BandRRIntervalEventListener() {
@@ -52,8 +55,22 @@ public class MSBandRRInterval implements IRRInterval {
         };
     }
     @Override
-    public void startRRIntervalMeasuring() {
+    public void startRRIntervalMeasuring(ObjectAnimator animation) {
+        this.animation = animation;
         new MSBandRRIntervalSubscriptionTask(this).execute();
+    }
+
+    @Override
+    public void startAnimation() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (animation != null) {
+                    animation.start();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -151,6 +168,7 @@ public class MSBandRRInterval implements IRRInterval {
     }
 
     public void updateStatusText(String msg) {
+        //Snackbar.make(statusTxt, msg, Snackbar.LENGTH_LONG);
         updateTextView(statusTxt, msg);
     }
 }

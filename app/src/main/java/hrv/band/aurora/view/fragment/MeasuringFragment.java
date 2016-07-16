@@ -41,18 +41,6 @@ public class MeasuringFragment extends Fragment {
     public MeasuringFragment() {
     }
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    /*public static MeasuringFragment newInstance(int sectionNumber) {
-        MeasuringFragment fragment = new MeasuringFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
-    }*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,18 +70,21 @@ public class MeasuringFragment extends Fragment {
 
     public void startAnimation(final Interval interval) {
 
-        ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
+        final ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
         animation.setDuration (duration); //in milliseconds
         animation.setInterpolator (new LinearInterpolator());
         animation.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animation) {
-                rrInterval.startRRIntervalMeasuring();
+            public void onAnimationStart(Animator a) {
+                //rrInterval.startRRIntervalMeasuring(animation);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 rrInterval.stopMeasuring();
+                if (interval == null) {
+                    return;
+                }
                 interval.SetRRInterval(rrInterval.getRRIntervals());
 
 
@@ -112,6 +103,7 @@ public class MeasuringFragment extends Fragment {
 
             }
         });
-        animation.start ();
+        rrInterval.startRRIntervalMeasuring(animation);
+        //animation.start();
     }
 }
