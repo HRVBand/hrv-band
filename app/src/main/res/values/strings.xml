@@ -17,13 +17,12 @@
     <string name="title_activity_value_description">ValueDescriptionActivity</string>
     <string name="title_activity_statistic">Measure History</string>
 
-    <string-array name="value_names">
-        <item>LFHF</item>
-        <item>SDNN</item>
-        <item>RMSSD</item>
-        <item>SD1</item>
-        <item>SD2</item>
-        <item>Baevsky</item>
-    </string-array>
+
+    <string name="LFHF_desc"> Zusammenspiel von HF und LF</string>
+    <string name="SDNN_desc"> Streuungsmaß aller RR-Intervalle </string>
+    <string name="SD1_desc">Kurzzeitvariabilität </string>
+    <string name="SD2_desc">Langzeitvariabilität </string>
+    <string name="RMSSD_desc">Änderung der Zeit zwischen Herzschlägen</string>
+    <string name="Baevsky_desc">Stressfaktor nach Baevsky</string>
 
 </resources>

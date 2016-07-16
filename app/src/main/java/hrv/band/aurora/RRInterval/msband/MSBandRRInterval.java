@@ -3,7 +3,9 @@ package hrv.band.aurora.RRInterval.msband;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.aurora.RRInterval.IRRInterval;
+import hrv.band.aurora.view.fragment.MeasuringFragment;
 
 /**
  * Created by Thomas on 13.06.2016.
@@ -62,6 +65,7 @@ public class MSBandRRInterval implements IRRInterval {
 
     @Override
     public void startAnimation() {
+        updateStatusText("Hold Still While Measuring");
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -77,6 +81,7 @@ public class MSBandRRInterval implements IRRInterval {
     public void stopMeasuring() {
         try {
             client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
+            updateStatusText("Finished");
         } catch (BandIOException e) {
             e.printStackTrace();
         }
@@ -167,8 +172,40 @@ public class MSBandRRInterval implements IRRInterval {
         });
     }
 
-    public void updateStatusText(String msg) {
-        //Snackbar.make(statusTxt, msg, Snackbar.LENGTH_LONG);
+    public void updateStatusText(final String msg) {
         updateTextView(statusTxt, msg);
+    }
+
+    public void showSnackbar(final String msg) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final Snackbar snackBar = Snackbar.make(MeasuringFragment.v, msg, Snackbar.LENGTH_INDEFINITE);
+                snackBar.setAction("Close", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackBar.dismiss();
+                    }
+                });
+                snackBar.show();
+            }
+        });
+    }
+
+    public void showConsentSnackbar(final String msg) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final Snackbar snackBar = Snackbar.make(MeasuringFragment.v, msg, Snackbar.LENGTH_INDEFINITE);
+                snackBar.setAction("Consent", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getDevicePermission();
+                        snackBar.dismiss();
+                    }
+                });
+                snackBar.show();
+            }
+        });
     }
 }

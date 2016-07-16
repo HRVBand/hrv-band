@@ -37,6 +37,7 @@ public class MeasuringFragment extends Fragment {
     private TextView rrStatus;
     private TextView txtStatus;
     private ProgressBar progressBar;
+    public static View v;
 
     public MeasuringFragment() {
     }
@@ -45,6 +46,7 @@ public class MeasuringFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_measure, container, false);
+        v = rootView.findViewById(R.id.measure_fragment);
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
         txtStatus = (TextView)  rootView.findViewById(R.id.measure_status);
         progressBar = (ProgressBar)  rootView.findViewById(R.id.progressBar);
@@ -87,10 +89,11 @@ public class MeasuringFragment extends Fragment {
                 }
                 interval.SetRRInterval(rrInterval.getRRIntervals());
 
-
                 Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
                 startActivity(intent);
+                /*rrStatus.setText("0,00");
+                txtStatus.setText("Press To Start Measuring");*/
             }
 
             @Override

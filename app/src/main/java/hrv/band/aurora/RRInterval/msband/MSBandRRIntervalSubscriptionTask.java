@@ -26,21 +26,20 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
        try {
             if (msBandRRInterval.getConnectedBandClient()) {
                 BandClient client = msBandRRInterval.getClient();
-                msBandRRInterval.updateStatusText("");
+                //msBandRRInterval.updateStatusText("");
                 int hardwareVersion = Integer.parseInt(client.getHardwareVersion().await());
                 if (hardwareVersion >= 20) {
                     if (client.getSensorManager().getCurrentHeartRateConsent() == UserConsent.GRANTED) {
                         client.getSensorManager().registerRRIntervalEventListener(msBandRRInterval.getRRIntervalEventListener());
                         msBandRRInterval.startAnimation();
                     } else {
-                        msBandRRInterval.updateStatusText("You have not given this application consent to access heart rate data yet."
-                                + " Please press the Heart Rate Consent button.\n");
+                        msBandRRInterval.showConsentSnackbar("Please give consent to access heart rate data");
                     }
                 } else {
-                    msBandRRInterval.updateStatusText("The RR Interval sensor is not supported with your Band version. Microsoft Band 2 is required.\n");
+                    msBandRRInterval.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
                 }
             } else {
-                msBandRRInterval.updateStatusText("Band isn't connected. Please make sure bluetooth is on and the band is in range.\n");
+                msBandRRInterval.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
             }
         } catch (BandException e) {
             String exceptionMessage="";
@@ -55,10 +54,10 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
                     exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
                     break;
             }
-            msBandRRInterval.updateStatusText(exceptionMessage);
+            msBandRRInterval.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
-            msBandRRInterval.updateStatusText(e.getMessage());
+            msBandRRInterval.showSnackbar(e.getMessage());
         }
         return null;
     }

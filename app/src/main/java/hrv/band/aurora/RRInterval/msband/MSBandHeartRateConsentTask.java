@@ -38,7 +38,7 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     });
                 }
             } else {
-                msBandRRInterval.updateStatusText("Band isn't connected. Please make sure bluetooth is on and the band is in range.\n");
+                msBandRRInterval.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
             }
         } catch (BandException e) {
             String exceptionMessage="";
@@ -53,10 +53,10 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
                     break;
             }
-            msBandRRInterval.updateStatusText(exceptionMessage);
+            msBandRRInterval.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
-            msBandRRInterval.updateStatusText(e.getMessage());
+            msBandRRInterval.showSnackbar(e.getMessage());
         }
         return null;
     }

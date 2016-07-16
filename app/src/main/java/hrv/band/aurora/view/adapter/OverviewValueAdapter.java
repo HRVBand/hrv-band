@@ -32,8 +32,10 @@ public class OverviewValueAdapter extends AbstractValueAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(layout, parent, false);
         TextView firstLine = (TextView) rowView.findViewById(R.id.firstLine);
+        //TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
 
         setTextView(firstLine, HRVValue.values()[position].toString());
+        //setTextView(secondLine, HRVValue.values()[position].getString(context.getResources()));
         return rowView;
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
 
 import hrv.band.aurora.R;
 import hrv.band.aurora.view.StatisticActivity;
@@ -30,7 +31,7 @@ public class OverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_overview, container, false);
-        GridView gridView = (GridView) rootView.findViewById(R.id.overview_value_list);
+        ListView gridView = (ListView) rootView.findViewById(R.id.overview_value_list);
         final AbstractValueAdapter adapter = new OverviewValueAdapter(getActivity(),
                 R.layout.overview_list_item);
         gridView.setAdapter(adapter);

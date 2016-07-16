@@ -12,12 +12,17 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="hrv.band.aurora.view.MainActivity"
     tools:showIn="@layout/activity_main">
-   <GridView android:id="@+id/overview_value_list"
+   <!--<GridView android:id="@+id/overview_value_list"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:numColumns="2"
-       android:verticalSpacing="10dp"
-       android:horizontalSpacing="10dp"
+       android:numColumns="1"
+       android:verticalSpacing="2dp"
+       android:horizontalSpacing="5dp"
        android:stretchMode="columnWidth"
-       android:gravity="center"/>
+       android:gravity="center"/>-->
+   <ListView
+       android:id="@+id/overview_value_list"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:minHeight="?android:attr/listPreferredItemHeight" />
 </LinearLayout>

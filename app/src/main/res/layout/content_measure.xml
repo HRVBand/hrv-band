@@ -10,7 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="hrv.band.aurora.view.MainActivity">
+    tools:context="hrv.band.aurora.view.MainActivity"
+    android:id="@+id/measure_fragment">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
