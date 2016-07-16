@@ -81,7 +81,6 @@ public class MSBandRRInterval implements IRRInterval {
     public void stopMeasuring() {
         try {
             client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
-            updateStatusText("Finished");
         } catch (BandIOException e) {
             e.printStackTrace();
         }

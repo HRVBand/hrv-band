@@ -78,6 +78,7 @@ public class MeasuringFragment extends Fragment {
         animation.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator a) {
+                progressBar.setClickable(false);
                 //rrInterval.startRRIntervalMeasuring(animation);
             }
 
@@ -87,13 +88,13 @@ public class MeasuringFragment extends Fragment {
                 if (interval == null) {
                     return;
                 }
+                updateTextView(txtStatus, "Calculating");
                 interval.SetRRInterval(rrInterval.getRRIntervals());
 
                 Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
                 startActivity(intent);
-                /*rrStatus.setText("0,00");
-                txtStatus.setText("Press To Start Measuring");*/
+                resetProgress();
             }
 
             @Override
@@ -108,5 +109,20 @@ public class MeasuringFragment extends Fragment {
         });
         rrInterval.startRRIntervalMeasuring(animation);
         //animation.start();
+    }
+
+    private void resetProgress() {
+        progressBar.setClickable(true);
+        updateTextView(rrStatus, "0,00");
+        updateTextView(txtStatus, "Press To Start Measuring");
+
+    }
+    private void updateTextView(final TextView txt, final String string) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt.setText(string);
+            }
+        });
     }
 }
