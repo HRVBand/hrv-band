@@ -40,6 +40,10 @@ import hrv.band.aurora.view.fragment.OverviewFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String HRV_VALUE_ID = "HRV_VALUE";
+    public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
+    public static final String HRV_DATE = "HRV_DATE";
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private MeasuringFragment measureFragment;
     private OverviewFragment overviewFragment;
 
-    public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
+
 
     private Interval ival;
     private TextView rrStatus;
@@ -140,11 +144,11 @@ public class MainActivity extends AppCompatActivity
 
             List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
             double a = params.get(0).getBaevsky();
-        } /*else if (id == R.id.menu_settings) {
+        } else if (id == R.id.menu_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_manage) {
+        } /*else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 

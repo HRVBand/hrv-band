@@ -1,5 +1,6 @@
 package hrv.band.aurora.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
@@ -19,6 +20,8 @@ import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
+import hrv.band.aurora.view.HrvValueActivity;
+import hrv.band.aurora.view.MainActivity;
 import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.adapter.StatisticValueAdapter;
 import lecho.lib.hellocharts.model.Axis;
@@ -63,10 +66,10 @@ public class StatisticFragment extends Fragment {
         rootView = inflater.inflate(R.layout.content_statistic_fragment, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.stats_measure_history);
 
-        List<HRVParameters> parameters = getArguments().getParcelableArrayList(ARG_HRV_VALUE);
+        final List<HRVParameters> parameters = getArguments().getParcelableArrayList(ARG_HRV_VALUE);
         hrvType = (HRVValue) getArguments().getSerializable(ARG_SECTION_VALUE);
 
-        TextView date = (TextView) rootView.findViewById(R.id.stats_date);
+        final TextView date = (TextView) rootView.findViewById(R.id.stats_date);
         TextView desc = (TextView) rootView.findViewById(R.id.stats_value_desc);
         TextView type = (TextView) rootView.findViewById(R.id.stats_type);
 
@@ -88,8 +91,10 @@ public class StatisticFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                //Intent intent = new Intent(getContext(), ValueDescriptionActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getContext(), HrvValueActivity.class);
+                intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameters.get(position));
+                intent.putExtra(MainActivity.HRV_DATE, date.getText());
+                startActivity(intent);
             }
 
         });

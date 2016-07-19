@@ -25,17 +25,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MeasureActivity"
-            android:label="@string/title_activity_measure"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".view.MeasureDetailsActivity"
             android:label="@string/title_activity_save_values"
-            android:parentActivityName=".view.MeasureActivity"
+            android:parentActivityName=".view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="hrv.band.aurora.view.MeasureActivity" />
+                android:value="hrv.band.aurora.view.MainActivity" />
         </activity>
         <activity
             android:name=".view.ValueDescriptionActivity"
@@ -50,6 +46,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="hrv.band.aurora.view.MainActivity" />
         </activity>
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hrv.band.aurora.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.HrvValueActivity"
+            android:label="@string/title_activity_hrv_value"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -16,13 +16,9 @@
     <string name="measure_status">Press To Start Measuring</string>
     <string name="title_activity_value_description">ValueDescriptionActivity</string>
     <string name="title_activity_statistic">Measure History</string>
+    <string name="title_activity_hrv_value">Measure Details</string>
 
+    <string name="title_activity_settings">Settings</string>
 
-    <string name="LFHF_desc"> Zusammenspiel von HF und LF</string>
-    <string name="SDNN_desc"> Streuungsmaß aller RR-Intervalle </string>
-    <string name="SD1_desc">Kurzzeitvariabilität </string>
-    <string name="SD2_desc">Langzeitvariabilität </string>
-    <string name="RMSSD_desc">Änderung der Zeit zwischen Herzschlägen</string>
-    <string name="Baevsky_desc">Stressfaktor nach Baevsky</string>
 
 </resources>

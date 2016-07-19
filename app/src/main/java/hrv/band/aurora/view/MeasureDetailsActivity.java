@@ -27,10 +27,11 @@ import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.storage.SharedPreferencesController;
 import hrv.band.aurora.view.adapter.AbstractValueAdapter;
 import hrv.band.aurora.view.adapter.ValueAdapter;
+import hrv.band.aurora.view.fragment.MeasuringFragment;
 
 public class MeasureDetailsActivity extends AppCompatActivity {
 
-    public static final String HRV_VALUE_ID = "HRV_VALUE";
+
     private HRVParameters parameter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class MeasureDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        parameter = getIntent().getParcelableExtra(MeasureActivity.HRV_PARAMETER_ID);
+        parameter = getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID);
 
         GridView gridview = (GridView) findViewById(R.id.measure_value_list);
 
@@ -54,7 +55,7 @@ public class MeasureDetailsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), ValueDescriptionActivity.class);
-                intent.putExtra(HRV_VALUE_ID, position);
+                intent.putExtra(MainActivity.HRV_VALUE_ID, position);
                 startActivity(intent);
             }
 

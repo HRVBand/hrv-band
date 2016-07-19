@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.aurora.RRInterval.IRRInterval;
+import hrv.band.aurora.view.ErrorHandling;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 
 /**
@@ -29,20 +30,19 @@ import hrv.band.aurora.view.fragment.MeasuringFragment;
 public class MSBandRRInterval implements IRRInterval {
     private BandClient client;
     private Activity activity;
-    private TextView rrStatus;
     private TextView statusTxt;
     private List<Double> rr;//stores the actual measurement-rrIntervals
     private WeakReference<Activity> reference;
     private ObjectAnimator animation;
+
     /**
      *Handels when a new RRInterval is incoming
      */
     private BandRRIntervalEventListener mRRIntervalEventListener;
 
-    public MSBandRRInterval(Activity activity, TextView statusTxt, final TextView rrStatus) {
-        this.activity = activity;
+    public MSBandRRInterval(final Activity activity, TextView statusTxt, final TextView rrStatus) {
         this.statusTxt = statusTxt;
-        this.rrStatus = rrStatus;
+        this.activity = activity;
         reference = new WeakReference<>(activity);
         rr = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class MSBandRRInterval implements IRRInterval {
             public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
                 if (event != null) {
                     double help = event.getInterval();
-                    updateTextView(rrStatus, String.format("%.2f", help));
+                    ErrorHandling.updateTextView(activity, rrStatus, String.format("%.2f", help));
                     rr.add(help);//add the actual rrInterval
                 }
             }
@@ -65,8 +65,8 @@ public class MSBandRRInterval implements IRRInterval {
 
     @Override
     public void startAnimation() {
-        updateStatusText("Hold Still While Measuring");
-        activity.runOnUiThread(new Runnable() {
+        ErrorHandling.updateTextView(activity, statusTxt, "Hold Still While Measuring");
+       activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (animation != null) {
@@ -134,7 +134,7 @@ public class MSBandRRInterval implements IRRInterval {
         if (client == null) {
             BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
             if (devices.length == 0) {
-                updateTextView(statusTxt, "Band isn't paired with your phone.\n");
+                ErrorHandling.updateTextView(activity, statusTxt, "Band isn't paired with your phone.\n");
                 return false;
             }
             client = BandClientManager.getInstance().create(activity.getApplicationContext(), devices[0]);
@@ -142,7 +142,7 @@ public class MSBandRRInterval implements IRRInterval {
             return true;
         }
 
-        updateTextView(statusTxt, "Band is connecting...\n");
+        ErrorHandling.updateTextView(activity, statusTxt, "Band is connecting...\n");
         return ConnectionState.CONNECTED == client.connect().await();
     }
 
@@ -158,53 +158,4 @@ public class MSBandRRInterval implements IRRInterval {
         return (Double[]) rr.toArray(new Double[rr.size()]);
     }
 
-    /**
-     * write data to UI-thread
-     * @param string the text to write
-     */
-    private void updateTextView(final TextView txt, final String string) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt.setText(string);
-            }
-        });
-    }
-
-    public void updateStatusText(final String msg) {
-        updateTextView(statusTxt, msg);
-    }
-
-    public void showSnackbar(final String msg) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final Snackbar snackBar = Snackbar.make(MeasuringFragment.v, msg, Snackbar.LENGTH_INDEFINITE);
-                snackBar.setAction("Close", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        snackBar.dismiss();
-                    }
-                });
-                snackBar.show();
-            }
-        });
-    }
-
-    public void showConsentSnackbar(final String msg) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final Snackbar snackBar = Snackbar.make(MeasuringFragment.v, msg, Snackbar.LENGTH_INDEFINITE);
-                snackBar.setAction("Consent", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getDevicePermission();
-                        snackBar.dismiss();
-                    }
-                });
-                snackBar.show();
-            }
-        });
-    }
 }

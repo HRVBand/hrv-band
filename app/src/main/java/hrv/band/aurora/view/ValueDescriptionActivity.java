@@ -20,7 +20,7 @@ public class ValueDescriptionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int position = getIntent().getIntExtra(MeasureDetailsActivity.HRV_VALUE_ID, 0);
+        int position = getIntent().getIntExtra(MainActivity.HRV_VALUE_ID, 0);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

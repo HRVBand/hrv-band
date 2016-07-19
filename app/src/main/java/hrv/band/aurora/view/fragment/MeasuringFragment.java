@@ -22,6 +22,7 @@ import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.IRRInterval;
 import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.RRInterval.msband.MSBandRRInterval;
+import hrv.band.aurora.view.ErrorHandling;
 import hrv.band.aurora.view.MeasureDetailsActivity;
 
 /**
@@ -37,7 +38,7 @@ public class MeasuringFragment extends Fragment {
     private TextView rrStatus;
     private TextView txtStatus;
     private ProgressBar progressBar;
-    public static View v;
+    public static View view;
 
     public MeasuringFragment() {
     }
@@ -46,7 +47,7 @@ public class MeasuringFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_measure, container, false);
-        v = rootView.findViewById(R.id.measure_fragment);
+        view = rootView.findViewById(R.id.measure_fragment);
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
         txtStatus = (TextView)  rootView.findViewById(R.id.measure_status);
         progressBar = (ProgressBar)  rootView.findViewById(R.id.progressBar);
@@ -88,7 +89,7 @@ public class MeasuringFragment extends Fragment {
                 if (interval == null) {
                     return;
                 }
-                updateTextView(txtStatus, "Calculating");
+                ErrorHandling.updateTextView(getActivity(), txtStatus, "Calculating");
                 interval.SetRRInterval(rrInterval.getRRIntervals());
 
                 Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
@@ -113,16 +114,8 @@ public class MeasuringFragment extends Fragment {
 
     private void resetProgress() {
         progressBar.setClickable(true);
-        updateTextView(rrStatus, "0,00");
-        updateTextView(txtStatus, "Press To Start Measuring");
+        ErrorHandling.updateTextView(getActivity(), rrStatus, "0,00");
+        ErrorHandling.updateTextView(getActivity(), txtStatus, "Press To Start Measuring");
 
-    }
-    private void updateTextView(final TextView txt, final String string) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                txt.setText(string);
-            }
-        });
     }
 }

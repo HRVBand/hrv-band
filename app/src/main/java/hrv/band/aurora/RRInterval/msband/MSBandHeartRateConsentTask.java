@@ -11,6 +11,8 @@ import com.microsoft.band.sensors.HeartRateConsentListener;
 
 import java.lang.ref.WeakReference;
 
+import hrv.band.aurora.view.ErrorHandling;
+
 /**
  * Class that gets user-permission for measuring the heartrate (and rrIntervals)
  */
@@ -38,7 +40,7 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     });
                 }
             } else {
-                msBandRRInterval.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
+                ErrorHandling.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
             }
         } catch (BandException e) {
             String exceptionMessage="";
@@ -53,10 +55,10 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
                     break;
             }
-            msBandRRInterval.showSnackbar(exceptionMessage);
+            ErrorHandling.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
-            msBandRRInterval.showSnackbar(e.getMessage());
+            ErrorHandling.showSnackbar(e.getMessage());
         }
         return null;
     }

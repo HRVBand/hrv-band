@@ -4,11 +4,17 @@ package hrv.band.aurora.RRInterval.msband;
  * Created by Thomas on 13.06.2016.
  */
 
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandException;
 import com.microsoft.band.UserConsent;
+import com.microsoft.band.sensors.BandContactEvent;
+import com.microsoft.band.sensors.BandContactEventListener;
+import com.microsoft.band.sensors.BandSensorManager;
+
+import hrv.band.aurora.view.ErrorHandling;
 
 /**
  * Class that meassures the RRInterval (get results via Eventhandler...)
@@ -26,20 +32,21 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
        try {
             if (msBandRRInterval.getConnectedBandClient()) {
                 BandClient client = msBandRRInterval.getClient();
-                //msBandRRInterval.updateStatusText("");
                 int hardwareVersion = Integer.parseInt(client.getHardwareVersion().await());
                 if (hardwareVersion >= 20) {
-                    if (client.getSensorManager().getCurrentHeartRateConsent() == UserConsent.GRANTED) {
-                        client.getSensorManager().registerRRIntervalEventListener(msBandRRInterval.getRRIntervalEventListener());
+                    BandSensorManager sensorManager = client.getSensorManager();
+                    if (sensorManager.getCurrentHeartRateConsent() == UserConsent.GRANTED) {
+                        sensorManager.registerRRIntervalEventListener(msBandRRInterval.getRRIntervalEventListener());
                         msBandRRInterval.startAnimation();
                     } else {
-                        msBandRRInterval.showConsentSnackbar("Please give consent to access heart rate data");
+                        //msBandRRInterval.showConsentSnackbar("Please give consent to access heart rate data");
+                        msBandRRInterval.getDevicePermission();
                     }
                 } else {
-                    msBandRRInterval.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
+                    ErrorHandling.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
                 }
             } else {
-                msBandRRInterval.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
+                ErrorHandling.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
             }
         } catch (BandException e) {
             String exceptionMessage="";
@@ -54,10 +61,10 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
                     exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
                     break;
             }
-            msBandRRInterval.showSnackbar(exceptionMessage);
+           ErrorHandling.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
-            msBandRRInterval.showSnackbar(e.getMessage());
+           ErrorHandling.showSnackbar(e.getMessage());
         }
         return null;
     }

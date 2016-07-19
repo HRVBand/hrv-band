@@ -39,7 +39,8 @@ public class StatisticActivity extends AppCompatActivity
     private IStorage storage;
     private ArrayList<HRVParameters> parameters;
     private List<StatisticFragment> fragments;
-    private final int fragmentCount = 6;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
