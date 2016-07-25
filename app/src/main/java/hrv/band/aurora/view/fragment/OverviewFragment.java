@@ -1,13 +1,14 @@
 package hrv.band.aurora.view.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ListView;
 
 import hrv.band.aurora.R;
@@ -30,42 +31,33 @@ public class OverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.content_overview, container, false);
-        ListView gridView = (ListView) rootView.findViewById(R.id.overview_value_list);
+        final View rootView = inflater.inflate(R.layout.content_overview, container, false);
+        ListView listView = (ListView) rootView.findViewById(R.id.overview_value_list);
         final AbstractValueAdapter adapter = new OverviewValueAdapter(getActivity(),
                 R.layout.overview_list_item);
-        gridView.setAdapter(adapter);
+        listView.setAdapter(adapter);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                Intent intent = new Intent(getContext(), StatisticActivity.class);
-                intent.putExtra(valueType, HRVValue.values()[position]);
-                startActivity(intent);
+                int count = adapter.getCount();
+                if (count > position) {
+                    Intent intent = new Intent(getContext(), StatisticActivity.class);
+                    intent.putExtra(valueType, HRVValue.values()[position]);
+                    startActivity(intent);
+                } else if (position == count){
+                    Snackbar.make(rootView, "More Values Coming Soon!", Snackbar.LENGTH_LONG).show();
+                }
             }
 
         });
+
+        //View footerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.overview_add_items_footer, null, false);
+        View footerView = inflater.inflate(R.layout.overview_add_items_footer, null);
+        listView.addFooterView(footerView);
+
         return rootView;
     }
-
-   /* @Override
-    public void onCreate(Bundle savedInstanceState) {
-        GridView gridView = (GridView) getView().findViewById(R.id.overview_value_list);
-        ValueAdapter adapter = new ValueAdapter(getActivity(),
-                R.layout.measure_list_item);
-        gridView.setAdapter(adapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                //Intent intent = new Intent(getContext(), ValueDescriptionActivity.class);
-                //startActivity(intent);
-            }
-
-        });
-    }*/
 }

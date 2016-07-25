@@ -1,33 +1,24 @@
 package hrv.band.aurora.view;
 
 import android.content.Intent;
-import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SQLite.SQLController;
-import hrv.band.aurora.storage.SharedPreferencesController;
 import hrv.band.aurora.view.adapter.AbstractValueAdapter;
+import hrv.band.aurora.view.adapter.MeasureCategoryAdapter;
 import hrv.band.aurora.view.adapter.ValueAdapter;
-import hrv.band.aurora.view.fragment.MeasuringFragment;
 
 public class MeasureDetailsActivity extends AppCompatActivity {
 
@@ -87,38 +78,8 @@ public class MeasureDetailsActivity extends AppCompatActivity {
 
     private void setSpinnerValues() {
         Spinner spinner = (Spinner) findViewById(R.id.measure_categories);
-        ArrayAdapter<String> spinnerArrayAdapter =
-                new ArrayAdapter<>(this, R.layout.measure_category_spinner_item, getCategories());
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        MeasureCategoryAdapter spinnerArrayAdapter = new MeasureCategoryAdapter(getApplicationContext());
+
         spinner.setAdapter(spinnerArrayAdapter);
     }
-
-    private ArrayList<String> getCategories() {
-        ArrayList<String> categories = new ArrayList<>();
-        categories.add(MeasureCategory.GENERAL.toString());
-        categories.add(MeasureCategory.RELAXED.toString());
-        categories.add(MeasureCategory.WORK.toString());
-        categories.add(MeasureCategory.STRESSED.toString());
-        return categories;
-    }
-
-    public enum MeasureCategory {
-        GENERAL("General"),
-        RELAXED("Relaxed"),
-        STRESSED("Stressed"),
-        WORK("Work")
-        ;
-
-        private final String text;
-
-        MeasureCategory(final String text) {
-            this.text = text;
-        }
-
-        @Override
-        public String toString() {
-            return text;
-        }
-    }
-
 }

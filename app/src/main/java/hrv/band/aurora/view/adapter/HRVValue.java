@@ -8,22 +8,20 @@ import hrv.band.aurora.R;
  * Created by Thomas on 29.06.2016.
  */
 public enum HRVValue {
-    LFHF("LFHF", "%", R.string.LFHF_desc),
-    SDNN("SDNN", "ms", R.string.SDNN_desc),
-    SD1("SD1", "ms", R.string.SD1_desc),
-    SD2("SD2", "ms", R.string.SD2_desc),
-    RMSSD("RMSSD", "ms", R.string.RMSSD_desc),
-    BAEVSKY("Baevsky", "%", R.string.Baevsky_desc)
+    LFHF("LFHF", "%"),
+    SDNN("SDNN", "ms"),
+    SD1("SD1", "ms"),
+    SD2("SD2", "ms"),
+    RMSSD("RMSSD", "ms"),
+    BAEVSKY("Baevsky", "%")
     ;
 
     private final String text;
     private final String unit;
-    private final int descId;
 
-    HRVValue(final String text, final String unit, final int descId) {
+    HRVValue(final String text, final String unit) {
         this.text = text;
         this.unit = unit;
-        this.descId = descId;
     }
 
     @Override
@@ -35,7 +33,4 @@ public enum HRVValue {
         return unit;
     }
 
-    public String getString(Resources resources) {
-        return resources.getString(descId);
-    }
 }

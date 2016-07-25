@@ -21,4 +21,12 @@
     <string name="title_activity_settings">Settings</string>
 
 
+    <string name="measure_category_general">General</string>
+    <string name="measure_category_relaxed">Relaxed</string>
+    <string name="measure_category_work">Work</string>
+    <string name="measure_category_stressed">Stressed</string>
+    <string name="measure_category_sport">Sport</string>
+
+
+
 </resources>
