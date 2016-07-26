@@ -80,6 +80,7 @@
             android:orientation="horizontal"
             android:minHeight="50dp">
             <ImageView
+                android:id="@+id/hrv_category_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_rate"

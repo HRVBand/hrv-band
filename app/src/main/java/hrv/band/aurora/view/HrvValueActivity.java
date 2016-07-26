@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import hrv.band.aurora.Control.HRVParameters;
@@ -52,12 +53,14 @@ public class HrvValueActivity extends AppCompatActivity {
         TextView dateTxt =(TextView) findViewById(R.id.hrv_date);
         TextView ratingTxt =(TextView) findViewById(R.id.hrv_rating);
         TextView categoryTxt =(TextView) findViewById(R.id.hrv_category);
+        ImageView categoryIcon =(ImageView) findViewById(R.id.hrv_category_icon);
         TextView commentTxt =(TextView) findViewById(R.id.hrv_comment);
 
         dateTxt.setText(date);
-        ratingTxt.setText("3.5" + "/5");
-        categoryTxt.setText("Allgein");
-        commentTxt.setText("bla bbla bla");
+        ratingTxt.setText(parameter.getRating() + "/5");
+        categoryTxt.setText(parameter.getCategory().getText(getResources()));
+        categoryIcon.setImageDrawable(parameter.getCategory().getIcon(getResources()));
+        commentTxt.setText(parameter.getNote());
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

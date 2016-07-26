@@ -14,6 +14,7 @@ import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.view.adapter.MeasureCategoryAdapter;
 
 /**
  * Created by Julian on 23.06.2016.
@@ -46,6 +47,9 @@ public class SQLController implements IStorage {
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD, parameter.getRmssd());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN, parameter.getSdnn());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY, parameter.getBaevsky());
+        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING, parameter.getRating());
+        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().getText(context.getResources()));
+        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
 
         db.insert(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
@@ -102,7 +106,10 @@ public class SQLController implements IStorage {
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE
         };
 
         String timeStr = Long.toString(date.getTime());
@@ -138,6 +145,10 @@ public class SQLController implements IStorage {
             newParam.setRmssd(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD)));
             newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
             newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
+            newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
+            String category = c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY));
+            newParam.setCategory(MeasureCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
+            newParam.setNote(c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE)));
 
             //Laden der rr daten
             Cursor crr = db.query(

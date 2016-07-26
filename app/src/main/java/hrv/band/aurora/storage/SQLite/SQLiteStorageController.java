@@ -26,6 +26,9 @@ public class SQLiteStorageController extends SQLiteOpenHelper {
             + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD + " REAL, "
             + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN + " REAL, "
             + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY + " REAL, "
+            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING + " REAL, "
+            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY + " STRING, "
+            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE + " STRING, "
             + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RRDATAID + " INTEGER"
             + ")";
 

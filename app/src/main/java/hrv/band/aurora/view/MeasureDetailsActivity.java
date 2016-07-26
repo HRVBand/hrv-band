@@ -8,7 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -71,9 +73,18 @@ public class MeasureDetailsActivity extends AppCompatActivity {
     public void saveMeasurement(View view) {
         //IStorage storage = new SharedPreferencesController();
         IStorage storage = new SQLController();
+        setMeasurementDetails();
         storage.saveData(getApplicationContext(), parameter);
         Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private void setMeasurementDetails() {
+        parameter.setRating(((RatingBar) findViewById(R.id.measure_rating)).getRating());
+        MeasureCategoryAdapter.MeasureCategory category = (MeasureCategoryAdapter.MeasureCategory)
+                ((Spinner) findViewById(R.id.measure_categories)).getSelectedItem();
+        parameter.setCategory(category);
+        parameter.setNote(((TextView) findViewById(R.id.measure_note)).getText().toString());
     }
 
     private void setSpinnerValues() {

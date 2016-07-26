@@ -22,5 +22,8 @@ public class HRVParameterContract {
         public static final String COLUMN_NAME_SDNN = "sdnn";
         public static final String COLUMN_NAME_BAEVSKY = "baevsky";
         public static final String COLUMN_NAME_RRDATAID = "rrid";
+        public static final String COLUMN_NAME_RATING = "rating";
+        public static final String COLUMN_NAME_CATEGORY = "category";
+        public static final String COLUMN_NAME_NOTE = "note";
     }
 }

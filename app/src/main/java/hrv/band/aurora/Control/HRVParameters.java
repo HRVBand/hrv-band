@@ -7,6 +7,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
+import hrv.band.aurora.view.adapter.MeasureCategoryAdapter;
+
 /**
  * Created by Julian on 11.06.2016.
  */
@@ -22,6 +24,9 @@ public class HRVParameters implements Parcelable {
     private double sdnn;
     private double baevsky;
     private ArrayList<Double> rrIntervals;
+    private double rating;
+    private MeasureCategoryAdapter.MeasureCategory category;
+    private String note;
 
     @Override
     public int describeContents() {
@@ -41,6 +46,9 @@ public class HRVParameters implements Parcelable {
         out.writeDouble(sdnn);
         out.writeDouble(baevsky);
         out.writeList(rrIntervals);
+        out.writeDouble(rating);
+        out.writeSerializable(category);
+        out.writeString(note);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -67,12 +75,16 @@ public class HRVParameters implements Parcelable {
         rmssd = in.readDouble();
         sdnn = in.readDouble();
         baevsky = in.readDouble();
-        rrIntervals = new ArrayList<Double>();
+        rrIntervals = new ArrayList<>();
         in.readList(rrIntervals, Double.class.getClassLoader());
+        rating = in.readDouble();
+        category = (MeasureCategoryAdapter.MeasureCategory) in.readSerializable();
+        note = in.readString();
     }
 
     public HRVParameters(Date time, double sdsd, double sd1, double sd2, double lf, double hf, double rmssd,
-                         double sdnn, double baevsky, ArrayList<Double> rrIntervals) {
+                         double sdnn, double baevsky, ArrayList<Double> rrIntervals/*, double rating,
+                         MeasureCategoryAdapter.MeasureCategory category, String note*/) {
         this.time = time;
         this.sdsd = sdsd;
         this.sd1 = sd1;
@@ -83,6 +95,9 @@ public class HRVParameters implements Parcelable {
         this.sdnn = sdnn;
         this.baevsky = baevsky;
         this.rrIntervals = rrIntervals;
+        /*this.rating = rating;
+        this.category = category;
+        this.note = note;*/
     }
 
     public Date getTime() {
@@ -171,5 +186,29 @@ public class HRVParameters implements Parcelable {
 
     public void setRRIntervals(ArrayList<Double> rrIntervals) {
         this.rrIntervals = rrIntervals;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public MeasureCategoryAdapter.MeasureCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(MeasureCategoryAdapter.MeasureCategory category) {
+        this.category = category;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
