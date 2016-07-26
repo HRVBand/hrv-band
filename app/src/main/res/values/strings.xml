@@ -28,5 +28,10 @@
     <string name="measure_category_sport">Sport</string>
 
 
+    <string name="share_subject">New Universal Health App</string>
+    <string name="share_body">Hey checkout this new App aurora it is really cool!!</string>
+    <string name="share_via">Share via</string>
+
+
 
 </resources>

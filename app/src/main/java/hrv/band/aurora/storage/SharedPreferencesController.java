@@ -44,6 +44,16 @@ public class SharedPreferencesController implements IStorage{
     }
 
     @Override
+    public boolean deleteData(Context context, HRVParameters parameter) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteData(Context context, List<HRVParameters> parameters) {
+        return false;
+    }
+
+    @Override
     public void saveData(Context con, HRVParameters params) {
         List<HRVParameters> allData = loadData(con, null);
         if (allData == null) {

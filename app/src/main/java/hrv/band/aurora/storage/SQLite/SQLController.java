@@ -51,21 +51,11 @@ public class SQLController implements IStorage {
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().getText(context.getResources()));
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
 
-        db.insert(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
+        long firstId = db.insert(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
                 valuesParams);
 
         db.close();
-
-
-        //Get the highest id
-        SQLiteDatabase dbread = controller.getReadableDatabase();
-        Cursor c = dbread.rawQuery("SELECT MAX(id) FROM " + HRVParameterContract.HRVParameterEntry.TABLE_NAME, null);
-        c.moveToFirst();
-        int firstId =  c.getInt(0);
-        c.close();
-        dbread.close();
-
 
         SQLiteDatabase db2 = controller.getWritableDatabase();
         db2.beginTransaction();
@@ -180,6 +170,16 @@ public class SQLController implements IStorage {
         } while(c.moveToNext());
 
         return returnList;
+    }
+
+    @Override
+    public boolean deleteData(Context context, HRVParameters parameter) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteData(Context context, List<HRVParameters> parameters) {
+        return false;
     }
 }
 

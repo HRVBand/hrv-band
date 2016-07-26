@@ -2,6 +2,8 @@ package hrv.band.aurora.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity
     public static final String HRV_VALUE_ID = "HRV_VALUE";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     public static final String HRV_DATE = "HRV_DATE";
+    private static final String WEBSITE_URL = "https://thomcz.github.io/aurora";
+    private static final String WEBSITE_PRIVACY_URL = "https://thomcz.github.io/aurora";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -124,7 +128,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.sample_data) {
+        if (id == R.id.menu_website) {
+            openWebsite(WEBSITE_URL);
+        } else if (id == R.id.menu_share) {
+            openShareIntent();
+        } else if (id == R.id.menu_privacy) {
+            openWebsite(WEBSITE_PRIVACY_URL);
+        } else if (id == R.id.menu_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.sample_data) {
             Context context = getApplicationContext();
             context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
 
@@ -144,21 +157,25 @@ public class MainActivity extends AppCompatActivity
 
             List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
             double a = params.get(0).getBaevsky();
-        } else if (id == R.id.menu_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-
-        } /*else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
-
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openWebsite(String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+    }
+
+    private void openShareIntent() {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        Resources resources = getResources();
+        String shareBody = resources.getString(R.string.share_body);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, resources.getString(R.string.share_subject));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, resources.getString(R.string.share_via)));
     }
 
     /**

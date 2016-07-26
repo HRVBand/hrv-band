@@ -16,4 +16,8 @@ public interface IStorage {
     void saveData(Context context, HRVParameters parameter);
 
     List<HRVParameters> loadData(Context context, Date date);
+
+    boolean deleteData(Context context, HRVParameters parameter);
+
+    boolean deleteData(Context context, List<HRVParameters> parameters);
 }
