@@ -36,6 +36,7 @@ import hrv.band.aurora.storage.SampleDataCreation.PointThreeAndPoint5RandomSampl
 import hrv.band.aurora.storage.SampleDataCreation.RichSampleDataFactory;
 import hrv.band.aurora.storage.SampleDataCreation.SimpleRandomSampleDataFactory;
 import hrv.band.aurora.storage.SampleDataCreation.StaticSampleDataFactory;
+import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
 
@@ -137,6 +138,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+        } else if (id == R.id.menu_feedback) {
+            FeedbackDialogFragment picker = new FeedbackDialogFragment();
+            picker.show(getFragmentManager(), "Feedback");
         } else if (id == R.id.sample_data) {
             Context context = getApplicationContext();
             context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);

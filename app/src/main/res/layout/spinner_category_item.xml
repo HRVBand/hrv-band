@@ -5,7 +5,7 @@
     >
 
     <ImageView
-        android:id="@+id/measure_category_icon"
+        android:id="@+id/category_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="6dp"
@@ -13,7 +13,7 @@
         android:tint="@color/colorAccent"
         android:layout_weight="3"/>
     <TextView
-        android:id="@+id/measure_category_name"
+        android:id="@+id/category_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="20sp"

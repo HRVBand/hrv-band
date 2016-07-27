@@ -1,7 +1,6 @@
 package hrv.band.aurora.view;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +18,7 @@ import hrv.band.aurora.R;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.view.adapter.AbstractValueAdapter;
-import hrv.band.aurora.view.adapter.MeasureCategoryAdapter;
+import hrv.band.aurora.view.adapter.CategorySpinnerAdapter;
 import hrv.band.aurora.view.adapter.ValueAdapter;
 
 public class MeasureDetailsActivity extends AppCompatActivity {
@@ -55,23 +54,9 @@ public class MeasureDetailsActivity extends AppCompatActivity {
         });
 
         setSpinnerValues();
-
-       /*final RatingBar ratingbar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
-
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating,
-                                        boolean fromUser) {
-                Toast.makeText(getApplicationContext(), String.valueOf(rating), Toast.LENGTH_LONG);
-                //ratingBar.setRating(rating);
-
-            }
-
-        });*/
     }
 
     public void saveMeasurement(View view) {
-        //IStorage storage = new SharedPreferencesController();
         IStorage storage = new SQLController();
         setMeasurementDetails();
         storage.saveData(getApplicationContext(), parameter);
@@ -81,7 +66,7 @@ public class MeasureDetailsActivity extends AppCompatActivity {
 
     private void setMeasurementDetails() {
         parameter.setRating(((RatingBar) findViewById(R.id.measure_rating)).getRating());
-        MeasureCategoryAdapter.MeasureCategory category = (MeasureCategoryAdapter.MeasureCategory)
+        CategorySpinnerAdapter.MeasureCategory category = (CategorySpinnerAdapter.MeasureCategory)
                 ((Spinner) findViewById(R.id.measure_categories)).getSelectedItem();
         parameter.setCategory(category);
         parameter.setNote(((TextView) findViewById(R.id.measure_note)).getText().toString());
@@ -89,7 +74,7 @@ public class MeasureDetailsActivity extends AppCompatActivity {
 
     private void setSpinnerValues() {
         Spinner spinner = (Spinner) findViewById(R.id.measure_categories);
-        MeasureCategoryAdapter spinnerArrayAdapter = new MeasureCategoryAdapter(getApplicationContext());
+        CategorySpinnerAdapter spinnerArrayAdapter = new CategorySpinnerAdapter(getApplicationContext());
 
         spinner.setAdapter(spinnerArrayAdapter);
     }

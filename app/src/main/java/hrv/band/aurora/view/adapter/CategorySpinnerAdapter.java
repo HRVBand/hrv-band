@@ -16,10 +16,10 @@ import hrv.band.aurora.R;
 /**
  * Created by Thomas on 25.07.2016.
  */
-public class MeasureCategoryAdapter extends BaseAdapter {
+public class CategorySpinnerAdapter extends BaseAdapter {
     private Context context;
 
-    public MeasureCategoryAdapter(Context context) {
+    public CategorySpinnerAdapter(Context context) {
         this.context = context;
     }
     @Override
@@ -41,9 +41,9 @@ public class MeasureCategoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.measure_category_spinner_item, parent, false);
-        TextView categoryTxt = (TextView) view.findViewById(R.id.measure_category_name);
-        ImageView categoryIcon = (ImageView) view.findViewById(R.id.measure_category_icon);
+        View view = inflater.inflate(R.layout.spinner_category_item, parent, false);
+        TextView categoryTxt = (TextView) view.findViewById(R.id.category_name);
+        ImageView categoryIcon = (ImageView) view.findViewById(R.id.category_icon);
 
         categoryTxt.setText(MeasureCategory.values()[position].getText(context.getResources()));
         categoryIcon.setImageDrawable(MeasureCategory.values()[position].getIcon(context.getResources()));

@@ -32,6 +32,14 @@
     <string name="share_body">Hey checkout this new App aurora it is really cool!!</string>
     <string name="share_via">Share via</string>
 
+    <string name="feedback_send">Send</string>
+    <string name="feedback_cancel">Cancel</string>
+    <string name="feedback_itsa">It is a:</string>
+    <string name="feedback_textview">Love it? Hate it? Would you like to suggest a new feature or report a big? We would love to hear from you!</string>
+    <string name="feedback_category_bug">Bug</string>
+    <string name="feedback_category_idea">Idea</string>
+    <string name="feedback_category_question">Question</string>
+
 
 
 </resources>

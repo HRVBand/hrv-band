@@ -4,17 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.storage.IStorage;
-import hrv.band.aurora.view.adapter.MeasureCategoryAdapter;
+import hrv.band.aurora.view.adapter.CategorySpinnerAdapter;
 
 /**
  * Created by Julian on 23.06.2016.
@@ -137,7 +134,7 @@ public class SQLController implements IStorage {
             newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
             newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
             String category = c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY));
-            newParam.setCategory(MeasureCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
+            newParam.setCategory(CategorySpinnerAdapter.MeasureCategory.valueOf(category.toUpperCase()));
             newParam.setNote(c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE)));
 
             //Laden der rr daten
