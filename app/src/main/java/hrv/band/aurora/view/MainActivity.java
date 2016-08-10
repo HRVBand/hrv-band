@@ -46,8 +46,10 @@ public class MainActivity extends AppCompatActivity
     public static final String HRV_VALUE_ID = "HRV_VALUE";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     public static final String HRV_DATE = "HRV_DATE";
+    public static final String HRV_VALUE = "hrv_rr_value";
     private static final String WEBSITE_URL = "https://thomcz.github.io/aurora";
     private static final String WEBSITE_PRIVACY_URL = "https://thomcz.github.io/aurora";
+    private static final String WEBSITE_IMPRINT_URL = "https://thomcz.github.io/aurora";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -141,6 +143,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_feedback) {
             FeedbackDialogFragment picker = new FeedbackDialogFragment();
             picker.show(getFragmentManager(), "Feedback");
+        } else if (id == R.id.menu_imprint) {
+            openWebsite(WEBSITE_IMPRINT_URL);
         } else if (id == R.id.sample_data) {
             Context context = getApplicationContext();
             context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);

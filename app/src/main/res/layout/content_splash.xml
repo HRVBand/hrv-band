@@ -10,28 +10,26 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="hrv.band.aurora.view.MainActivity">
-   <!--<GridView android:id="@+id/overview_value_list"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:numColumns="1"
-       android:verticalSpacing="2dp"
-       android:horizontalSpacing="5dp"
-       android:stretchMode="columnWidth"
-       android:gravity="center"/>
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="Your Values"
-       android:textSize="20sp"
-       android:padding="6dp"/>
+    tools:context="hrv.band.aurora.view.MainActivity"
+    android:id="@+id/measure_fragment"
+    android:gravity="center_vertical|center_horizontal">
    <View
        android:layout_width="match_parent"
-       android:layout_height="2dip"
-      android:background="@color/colorAccent"/>-->
-   <ListView
-       android:id="@+id/overview_value_list"
+       android:layout_height="0dp"
+      android:layout_weight="2"/>
+   <ImageView
+       android:id="@+id/splash_image"
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_marginBottom="?attr/actionBarSize"/>
+       android:layout_height="wrap_content"
+       android:src="@drawable/ic_logo"
+       android:tint="@color/colorAccent"
+       android:layout_weight="1"
+       />
+   <TextView
+       android:id="@+id/splash_title"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="20sp"
+       android:text="Aurora"
+       android:layout_weight="2"/>
 </LinearLayout>

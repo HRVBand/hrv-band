@@ -34,18 +34,16 @@ public class ValueAdapter extends AbstractValueAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(layout, parent, false);
-        TextView firstLine = (TextView) rowView.findViewById(R.id.firstLine);
-        TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
-        TextView unit = (TextView) rowView.findViewById(R.id.secondLine_unit);
+        TextView desc = (TextView) rowView.findViewById(R.id.measure_value_desc);
+        TextView value = (TextView) rowView.findViewById(R.id.hrv_value);
+        TextView unit = (TextView) rowView.findViewById(R.id.measure_value_unit);
 
-        setTextView(firstLine, HRVValue.values()[position].toString());
-        if(parameter != null) {
+        setTextView(desc, HRVValue.values()[position].toString());
+        if (parameter != null) {
             //setTextView(secondLine, getHRVValue(getValues()[position], parameter));
-            setTextView(secondLine, trimValue(getHRVValue(HRVValue.values()[position], parameter)));
+            setTextView(value, trimValue(getHRVValue(HRVValue.values()[position], parameter)));
             setTextView(unit, HRVValue.values()[position].getUnit());
         }
         return rowView;
     }
-
-
 }

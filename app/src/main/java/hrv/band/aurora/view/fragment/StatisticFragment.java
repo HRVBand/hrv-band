@@ -20,7 +20,7 @@ import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
-import hrv.band.aurora.view.HrvValueActivity;
+import hrv.band.aurora.view.StatisticValueActivity;
 import hrv.band.aurora.view.MainActivity;
 import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.adapter.StatisticValueAdapter;
@@ -45,6 +45,8 @@ public class StatisticFragment extends Fragment {
     private Column[] columns;
     private List<int[]> chartValuesIndex;
     private HRVValue hrvType;
+    private List<HRVParameters> parameters;
+    private TextView date;
 
     public StatisticFragment() {
     }
@@ -66,10 +68,10 @@ public class StatisticFragment extends Fragment {
         rootView = inflater.inflate(R.layout.content_statistic_fragment, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.stats_measure_history);
 
-        final List<HRVParameters> parameters = getArguments().getParcelableArrayList(ARG_HRV_VALUE);
+        parameters = getArguments().getParcelableArrayList(ARG_HRV_VALUE);
         hrvType = (HRVValue) getArguments().getSerializable(ARG_SECTION_VALUE);
 
-        final TextView date = (TextView) rootView.findViewById(R.id.stats_date);
+        date = (TextView) rootView.findViewById(R.id.stats_date);
         TextView desc = (TextView) rootView.findViewById(R.id.stats_value_desc);
         TextView type = (TextView) rootView.findViewById(R.id.stats_type);
 
@@ -91,7 +93,7 @@ public class StatisticFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                Intent intent = new Intent(getContext(), HrvValueActivity.class);
+                Intent intent = new Intent(getContext(), StatisticValueActivity.class);
                 intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameters.get(position));
                 intent.putExtra(MainActivity.HRV_DATE, date.getText());
                 startActivity(intent);
@@ -173,12 +175,13 @@ public class StatisticFragment extends Fragment {
             return;
         }
         DateFormat df = new DateFormat();
-        TextView date = (TextView) rootView.findViewById(R.id.stats_date);
+        //TextView date = (TextView) rootView.findViewById(R.id.stats_date);
         date.setText(df.format(dateFormat,
                 ((Date) getArguments().getSerializable(ARG_DATE_VALUE)).getTime()));
     }
 
     public void updateValues(ArrayList<HRVParameters> parameters, Date date) {
+        this.parameters = parameters;
         getArguments().putParcelableArrayList(ARG_HRV_VALUE, parameters);
         getArguments().putSerializable(ARG_DATE_VALUE, date);
         setDate();

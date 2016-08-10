@@ -25,7 +25,8 @@
                 android:textSize="20sp"
                 android:padding="10sp"
                 android:gravity="center_vertical"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="as"/>
             <!--<TextView
                 android:id="@+id/secondLine"
                 android:layout_width="wrap_content"
