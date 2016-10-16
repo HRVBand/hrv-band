@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class MeasureRRFragment extends Fragment {
 
     private ColumnChartView mChart;
     private HRVParameters parameter;
+    private View rootView;
 
 
     public MeasureRRFragment() {
@@ -47,33 +50,46 @@ public class MeasureRRFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_measure_rr, container, false);
+        rootView = inflater.inflate(R.layout.fragment_measure_rr, container, false);
 
         parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
 
         mChart = (ColumnChartView) rootView.findViewById(R.id.rr_chart);
         initChart();
-
-        ListView listview = (ListView) rootView.findViewById(R.id.rr_value_list);
-
-        AbstractValueAdapter adapter = new RRValueAdapter(this.getActivity(),
-                R.layout.rr_value_item, parameter.getRRIntervals());
-        listview.setAdapter(adapter);
-
-       listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                Intent intent = new Intent(getContext(), ValueDescriptionActivity.class);
-                intent.putExtra(MainActivity.HRV_VALUE_ID, position);
-                startActivity(intent);
-            }
-
-        });
+        setRRStatistic();
 
 
         return rootView;
+    }
+
+    private void setRRStatistic() {
+        List<Double> rr = parameter.getRRIntervals();
+
+        double average = 0;
+        double min = Double.MAX_VALUE;
+        double max = 0;
+        for (int i = 0; i < rr.size(); i++) {
+            average += rr.get(i);
+            if (min > rr.get(i)) {
+                min = rr.get(i);
+            }
+            if (max < rr.get(i)) {
+                max = rr.get(i);
+            }
+        }
+        TextView minTxt = (TextView) rootView.findViewById(R.id.rr_min);
+        TextView maxTxt = (TextView) rootView.findViewById(R.id.rr_max);
+        TextView averageTxt = (TextView) rootView.findViewById(R.id.rr_average);
+        TextView countTxt = (TextView) rootView.findViewById(R.id.rr_count);
+
+        minTxt.setText(trimValue(min));
+        maxTxt.setText(trimValue(max));
+        averageTxt.setText(trimValue(average));
+        countTxt.setText(String.valueOf(rr.size()));
+    }
+
+    private String trimValue(double value) {
+        return new DecimalFormat("#.####").format(value);
     }
 
     private ColumnChartData data;
