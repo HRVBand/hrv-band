@@ -8,9 +8,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
     <lecho.lib.hellocharts.view.ColumnChartView
-        android:id="@+id/hrv_rr_chart"
+        android:id="@+id/rr_chart"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <ListView
+        android:id="@+id/rr_value_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
 </LinearLayout>

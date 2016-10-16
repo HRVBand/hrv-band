@@ -19,9 +19,20 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+        <android.support.design.widget.TabLayout
+            android:id="@+id/measure_details_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_save_values" />
+    <!--<include layout="@layout/content_save_values" />-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/measure_details_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

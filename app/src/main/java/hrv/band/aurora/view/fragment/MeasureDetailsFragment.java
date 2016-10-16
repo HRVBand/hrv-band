@@ -11,7 +11,6 @@ import android.widget.TextView;
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
 import hrv.band.aurora.view.MainActivity;
-import hrv.band.aurora.view.StatisticValueActivity;
 
 /**
  * Created by Thomas on 10.08.2016.

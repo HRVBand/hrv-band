@@ -20,7 +20,7 @@ import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
-import hrv.band.aurora.view.StatisticValueActivity;
+import hrv.band.aurora.view.HRVValueActivity;
 import hrv.band.aurora.view.MainActivity;
 import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.adapter.StatisticValueAdapter;
@@ -93,7 +93,7 @@ public class StatisticFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                Intent intent = new Intent(getContext(), StatisticValueActivity.class);
+                Intent intent = new Intent(getContext(), HRVValueActivity.class);
                 intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameters.get(position));
                 intent.putExtra(MainActivity.HRV_DATE, date.getText());
                 startActivity(intent);

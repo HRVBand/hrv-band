@@ -61,7 +61,7 @@
                 android:value="hrv.band.aurora.view.MainActivity" />
         </activity>
         <activity
-            android:name=".view.StatisticValueActivity"
+            android:name=".view.HRVValueActivity"
             android:label="@string/title_activity_hrv_value"
             android:parentActivityName=".view.StatisticActivity"
             android:theme="@style/AppTheme">

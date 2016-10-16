@@ -11,7 +11,6 @@ import hrv.band.aurora.Control.HRVParameters;
  * Created by Thomas on 25.06.2016.
  */
 public abstract class AbstractValueAdapter extends BaseAdapter {
-
     @Override
     public int getCount() {
         return HRVValue.values().length;

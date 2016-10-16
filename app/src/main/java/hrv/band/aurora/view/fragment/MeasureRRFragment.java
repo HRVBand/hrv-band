@@ -1,10 +1,13 @@
 package hrv.band.aurora.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,9 @@ import java.util.List;
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
 import hrv.band.aurora.view.MainActivity;
-import hrv.band.aurora.view.StatisticValueActivity;
+import hrv.band.aurora.view.ValueDescriptionActivity;
+import hrv.band.aurora.view.adapter.AbstractValueAdapter;
+import hrv.band.aurora.view.adapter.RRValueAdapter;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
@@ -46,8 +51,26 @@ public class MeasureRRFragment extends Fragment {
 
         parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
 
-        mChart = (ColumnChartView) rootView.findViewById(R.id.hrv_rr_chart);
+        mChart = (ColumnChartView) rootView.findViewById(R.id.rr_chart);
         initChart();
+
+        ListView listview = (ListView) rootView.findViewById(R.id.rr_value_list);
+
+        AbstractValueAdapter adapter = new RRValueAdapter(this.getActivity(),
+                R.layout.rr_value_item, parameter.getRRIntervals());
+        listview.setAdapter(adapter);
+
+       listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view,
+                                    int position, long id) {
+                Intent intent = new Intent(getContext(), ValueDescriptionActivity.class);
+                intent.putExtra(MainActivity.HRV_VALUE_ID, position);
+                startActivity(intent);
+            }
+
+        });
 
 
         return rootView;
@@ -84,7 +107,6 @@ public class MeasureRRFragment extends Fragment {
         mChart.setZoomEnabled(false);
         mChart.setColumnChartData(data);
 
-        mChart.setColumnChartData(data);
     }
 
 }

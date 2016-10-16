@@ -1,6 +1,7 @@
 package hrv.band.aurora.view;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,8 +11,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.widget.DatePicker;
@@ -41,7 +44,6 @@ public class StatisticActivity extends AppCompatActivity
     private List<StatisticFragment> fragments;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,16 +59,17 @@ public class StatisticActivity extends AppCompatActivity
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container2);
+        mViewPager = (ViewPager) findViewById(R.id.statistic_viewpager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs2);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.statistic_tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         type = (HRVValue)
                 getIntent().getSerializableExtra(OverviewFragment.valueType);
 
         mViewPager.setCurrentItem(getTitlePosition(type));
+
     }
 
     private void initFragments() {

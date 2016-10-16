@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 

@@ -24,7 +24,7 @@ import hrv.band.aurora.view.fragment.MeasureDetailsFragment;
 import hrv.band.aurora.view.fragment.MeasureValueFragment;
 import hrv.band.aurora.view.fragment.MeasureRRFragment;
 
-public class StatisticValueActivity extends AppCompatActivity {
+public class HRVValueActivity extends AppCompatActivity {
 
 
     private HRVParameters parameter;
@@ -58,10 +58,10 @@ public class StatisticValueActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container3);
+        mViewPager = (ViewPager) findViewById(R.id.hrv_viewpager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs3);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.hrv_tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
