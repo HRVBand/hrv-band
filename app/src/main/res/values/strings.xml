@@ -17,7 +17,7 @@
     <string name="title_activity_value_description">ValueDescriptionActivity</string>
     <string name="title_activity_statistic">Measure History</string>
     <string name="title_activity_hrv_value">Measure Details</string>
-
+    <string name="title_activity_help">Help</string>
     <string name="title_activity_settings">Settings</string>
 
 
@@ -39,6 +39,17 @@
     <string name="feedback_category_bug">Bug</string>
     <string name="feedback_category_idea">Idea</string>
     <string name="feedback_category_question">Question</string>
+
+    <string name="how_measure_q">How to measure HRV Values?</string>
+    <string name="how_measure_a">Put on your MS Band 2 and start the measurement by pressing the measure button in the main activity. Stay still during the measurement.</string>
+    <string name="what_hrv_q">What is HRV?</string>
+    <string name="what_hrv_a">Heart rate variability (HRV) is the physiological phenomenon of variation in the time interval between heartbeats. It is measured by the variation in the beat-to-beat interval.</string>
+    <string name="what_meaning_q">What is the meaning of this app?</string>
+    <string name="what_meaning_a">This app does a HRV analysis by using time-domain or frequency-domain methods.</string>
+    <string name="how_save_q">How to save my measurement?</string>
+    <string name="how_save_a">After the progress circle fills you get the chance to add more information to your measurement. By clicking the save button the measurement is saved.</string>
+    <string name="how_previous_q">Can I see my previous measurements?</string>
+    <string name="how_previous_a">By selecting the overview tab you can view your previous measurements.</string>
 
 
 

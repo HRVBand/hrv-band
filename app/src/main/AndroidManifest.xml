@@ -27,8 +27,7 @@
         <activity
             android:name=".view.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MeasureDetailsActivity"
             android:label="@string/title_activity_save_values"
@@ -68,6 +67,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="hrv.band.aurora.view.StatisticActivity" />
+        </activity>
+        <activity
+            android:name=".view.HelpActivity"
+            android:label="@string/title_activity_help"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hrv.band.aurora.view.MainActivity" />
         </activity>
     </application>
 

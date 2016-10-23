@@ -6,6 +6,10 @@
         android:checkableBehavior="single"
         android:id="@+id/menu_group_settings">
         <item
+            android:id="@+id/menu_help"
+            android:icon="@drawable/ic_help"
+            android:title="Help"/>
+        <item
             android:id="@+id/menu_settings"
             android:icon="@drawable/ic_settings"
             android:title="Settings" />

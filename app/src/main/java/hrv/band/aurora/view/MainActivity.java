@@ -130,8 +130,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.menu_website) {
+        if (id == R.id.menu_help) {
+            Intent intent = new Intent(this, HelpActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.menu_website) {
             openWebsite(WEBSITE_URL);
         } else if (id == R.id.menu_share) {
             openShareIntent();
