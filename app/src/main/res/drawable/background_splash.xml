@@ -4,15 +4,10 @@
     <item
         android:drawable="@color/colorPrimary"/>
 
-    <item
-        android:gravity="center"
-        android:scaleType="fitXY"
-        android:drawable="@drawable/ic_heart"/>
-
-   <!-- <item>
+    <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/ic_launcher"/>
-    </item>-->
+            android:src="@drawable/ic_launcher_basic"/>
+    </item>
 
 </layer-list>
