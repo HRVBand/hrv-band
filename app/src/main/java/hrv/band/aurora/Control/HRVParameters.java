@@ -210,4 +210,19 @@ public class HRVParameters implements Parcelable {
     public void setNote(String note) {
         this.note = note;
     }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if(other == null) return false;
+        if(other == this) return true;
+        if(!(other instanceof HRVParameters)) return false;
+
+        HRVParameters param = (HRVParameters)other;
+
+        if(param.getTime().equals(this.getTime()))
+            return true;
+
+        return false;
+    }
 }

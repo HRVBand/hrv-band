@@ -30,14 +30,23 @@ public class SharedPreferencesController implements IStorage{
         prefsEditor.commit();
     }
 
+    public List<HRVParameters> loadAllData(Context context)
+    {
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        Gson gson = new Gson();
+        String json = mPrefs.getString("ParamList", "");
+        Type type = new TypeToken<List<HRVParameters>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
     @Override
     public List<HRVParameters> loadData(Context con, Date date) {
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(con);
 
         Gson gson = new Gson();
         String json = mPrefs.getString("ParamList", "");
-        Type type = new TypeToken<List<HRVParameters>>() {
-        }.getType();
+        Type type = new TypeToken<List<HRVParameters>>() {}.getType();
         List<HRVParameters> obj = gson.fromJson(json, type);
 
         return obj;
@@ -45,12 +54,29 @@ public class SharedPreferencesController implements IStorage{
 
     @Override
     public boolean deleteData(Context context, HRVParameters parameter) {
+
+        List<HRVParameters> allData = loadAllData(context);
+        deleteAllData(context);
+
+        if(allData.contains(parameter)) {
+            allData.remove(parameter);
+        }
+
+        saveData(context, allData);
+
         return false;
     }
 
     @Override
     public boolean deleteData(Context context, List<HRVParameters> parameters) {
         return false;
+    }
+
+    private void deleteAllData(Context context)
+    {
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.remove("ParamList");
     }
 
     @Override

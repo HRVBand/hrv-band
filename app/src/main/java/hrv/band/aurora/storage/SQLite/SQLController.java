@@ -170,13 +170,43 @@ public class SQLController implements IStorage {
     }
 
     @Override
-    public boolean deleteData(Context context, HRVParameters parameter) {
-        return false;
+    public boolean deleteData(Context context, HRVParameters parameter)
+    {
+        SQLiteStorageController controller = new SQLiteStorageController(context);
+
+        SQLiteDatabase db = controller.getReadableDatabase();
+
+        String[] projection = {
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE
+        };
+
+        String timeStr = Long.toString(parameter.getTime().getTime());
+
+        return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " EQUALS ? ",
+                new String[] {timeStr}
+                ) > 0;
     }
 
     @Override
-    public boolean deleteData(Context context, List<HRVParameters> parameters) {
-        return false;
+    public boolean deleteData(Context context, List<HRVParameters> parameters)
+    {
+        for(int i = 0; i < parameters.size(); i++) {
+            deleteData(context, parameters.get(i));
+        }
+
+        return true;
     }
 }
 
