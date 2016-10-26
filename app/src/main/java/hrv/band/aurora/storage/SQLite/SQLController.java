@@ -5,11 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
+import hrv.band.aurora.common.FileUtils;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.view.adapter.CategorySpinnerAdapter;
 
@@ -21,8 +27,7 @@ public class SQLController implements IStorage {
     @Override
     public void saveData(Context context, List<HRVParameters> parameters) {
 
-        for (HRVParameters param: parameters)
-        {
+        for (HRVParameters param : parameters) {
             saveData(context, param);
         }
     }
@@ -57,8 +62,7 @@ public class SQLController implements IStorage {
         SQLiteDatabase db2 = controller.getWritableDatabase();
         db2.beginTransaction();
 
-        for(Double rrVal : parameter.getRRIntervals())
-        {
+        for (Double rrVal : parameter.getRRIntervals()) {
             ContentValues valuesRR = new ContentValues();
             valuesRR.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID, firstId);
             valuesRR.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE, rrVal);
@@ -105,7 +109,7 @@ public class SQLController implements IStorage {
                 HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 projection,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " BETWEEN ? AND ?",
-                new String[]{ Long.toString(startSearchTime), timeStr },
+                new String[]{Long.toString(startSearchTime), timeStr},
                 null,
                 null,
                 null,
@@ -164,17 +168,17 @@ public class SQLController implements IStorage {
 
             newParam.setRRIntervals(rrValues);
             returnList.add(newParam);
-        } while(c.moveToNext());
+        } while (c.moveToNext());
 
         return returnList;
     }
 
     @Override
-    public boolean deleteData(Context context, HRVParameters parameter)
-    {
+    public boolean deleteData(Context context, HRVParameters parameter) {
         SQLiteStorageController controller = new SQLiteStorageController(context);
 
         SQLiteDatabase db = controller.getReadableDatabase();
+
 
         String[] projection = {
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
@@ -195,19 +199,54 @@ public class SQLController implements IStorage {
 
         return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " EQUALS ? ",
-                new String[] {timeStr}
-                ) > 0;
+                new String[]{timeStr}
+        ) > 0;
     }
 
     @Override
-    public boolean deleteData(Context context, List<HRVParameters> parameters)
-    {
-        for(int i = 0; i < parameters.size(); i++) {
+    public boolean deleteData(Context context, List<HRVParameters> parameters) {
+        for (int i = 0; i < parameters.size(); i++) {
             deleteData(context, parameters.get(i));
         }
 
         return true;
     }
-}
 
+    public boolean exportDB(String dbPath, Context con) throws IOException {
+        SQLiteStorageController controller = new SQLiteStorageController(con);
+        String dbName = controller.getDatabaseName();
+
+        File exportDestinationFile = new File(dbPath);
+        File dbToExport = new File(dbName);
+
+        if(dbToExport.exists())
+        {
+            FileUtils.copyFile(new FileInputStream(dbToExport), new FileOutputStream(exportDestinationFile));
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean importDB(String dbPath, Context con) throws IOException {
+
+        SQLiteStorageController controller = new SQLiteStorageController(con);
+        String dbName = controller.getDatabaseName();
+
+        File newDB = new File(dbPath);
+        File oldDB = new File(dbName);
+
+        if(newDB.exists()) {
+            FileUtils.copyFile(new FileInputStream(newDB), new FileOutputStream(oldDB));
+            // Access the copied database so SQLiteHelper will cache it and mark
+            // it as created.
+            controller.getWritableDatabase().close();
+
+            return true;
+        }
+
+        return false;
+    }
+}
 
