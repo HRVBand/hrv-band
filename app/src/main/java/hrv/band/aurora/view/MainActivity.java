@@ -5,43 +5,29 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 
 import com.github.stkent.amplify.prompt.DefaultLayoutPromptView;
 import com.github.stkent.amplify.tracking.Amplify;
-import com.suredigit.inappfeedback.FeedbackDialog;
 
 import java.util.Date;
 
-import java.util.List;
-
-import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
-import hrv.band.aurora.common.AmplyfyOnClickEvent;
-import hrv.band.aurora.storage.IStorage;
-import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.storage.SQLite.SQLiteStorageController;
-import hrv.band.aurora.storage.SampleDataCreation.ISampleDataFactory;
-import hrv.band.aurora.storage.SampleDataCreation.PointThreeAndPoint5RandomSampleDataFactory;
-import hrv.band.aurora.storage.SampleDataCreation.RichSampleDataFactory;
-import hrv.band.aurora.storage.SampleDataCreation.SimpleRandomSampleDataFactory;
-import hrv.band.aurora.storage.SampleDataCreation.StaticSampleDataFactory;
-import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
 
@@ -64,11 +50,6 @@ public class MainActivity extends AppCompatActivity
     private OverviewFragment overviewFragment;
 
 
-
-    private Interval ival;
-    private TextView rrStatus;
-    private TextView txtStatus;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,10 +62,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        assert drawer != null;
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
+
         navigationView.setNavigationItemSelectedListener(this);
 
         //Fragment
@@ -92,16 +76,22 @@ public class MainActivity extends AppCompatActivity
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
+        assert mViewPager != null;
+
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tabs);
+        assert tabLayout != null;
+
         tabLayout.setupWithViewPager(mViewPager);
-        
+
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -151,6 +141,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_feedback) {
 
             DefaultLayoutPromptView promptView = (DefaultLayoutPromptView) findViewById(R.id.prompt_view);
+            assert promptView != null;
             Amplify.getSharedInstance().promptIfReady(promptView);
 
         } else if (id == R.id.menu_imprint) {
@@ -159,24 +150,20 @@ public class MainActivity extends AppCompatActivity
             Context context = getApplicationContext();
             context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
 
-            ISampleDataFactory factory = new RichSampleDataFactory();
-            List<HRVParameters> parameters = factory.create(30);
-
-            IStorage storage2 = new SQLController();
-            storage2.saveData(getApplicationContext(), parameters);
-
 
         } else if (id == R.id.test_function) {
-            Context context = getApplicationContext();
-            IStorage storage2 = new SQLController();
-
-            ISampleDataFactory factory = new RichSampleDataFactory();
-            List<HRVParameters> parameters = factory.create(30);
-
-            List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
-            double a = params.get(0).getBaevsky();
+//            Context context = getApplicationContext();
+//            IStorage storage2 = new SQLController();
+//
+//            ISampleDataFactory factory = new RichSampleDataFactory();
+//            List<HRVParameters> parameters = factory.create(30);
+//
+//            List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
+//            double a = params.get(0).getBaevsky();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

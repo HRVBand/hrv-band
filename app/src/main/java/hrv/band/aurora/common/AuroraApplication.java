@@ -4,10 +4,6 @@ import android.app.Application;
 
 import com.github.stkent.amplify.tracking.Amplify;
 
-/**
- * Created by Julian on 30.10.2016.
- */
-
 public class AuroraApplication extends Application {
 
     @Override
@@ -16,7 +12,7 @@ public class AuroraApplication extends Application {
         Amplify.initSharedInstance(this)
                 .setFeedbackEmailAddress("fenox@hotmail.com")
                 .applyAllDefaultRules()
-                .addTotalEventCountRule(new AmplyfyOnClickEvent(), new AmplifyOnClickRule());
+                .addTotalEventCountRule(new AmplifyOnClickEvent(), new AmplifyOnClickRule());
 
         Amplify.getSharedInstance();
     }
