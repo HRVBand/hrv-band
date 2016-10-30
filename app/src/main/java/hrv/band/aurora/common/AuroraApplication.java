@@ -11,7 +11,6 @@ public class AuroraApplication extends Application {
 
         Amplify.initSharedInstance(this)
                 .setFeedbackEmailAddress("fenox@hotmail.com")
-                .applyAllDefaultRules()
                 .addTotalEventCountRule(new AmplifyOnClickEvent(), new AmplifyOnClickRule());
 
         Amplify.getSharedInstance();
