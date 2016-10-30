@@ -21,6 +21,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.github.stkent.amplify.prompt.DefaultLayoutPromptView;
+import com.github.stkent.amplify.tracking.Amplify;
+import com.suredigit.inappfeedback.FeedbackDialog;
+
 import java.util.Date;
 
 import java.util.List;
@@ -28,6 +32,7 @@ import java.util.List;
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
+import hrv.band.aurora.common.AmplyfyOnClickEvent;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.storage.SQLite.SQLiteStorageController;
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        
     }
 
     @Override
@@ -143,8 +149,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.menu_feedback) {
-            FeedbackDialogFragment picker = new FeedbackDialogFragment();
-            picker.show(getFragmentManager(), "Feedback");
+
+            DefaultLayoutPromptView promptView = (DefaultLayoutPromptView) findViewById(R.id.prompt_view);
+            Amplify.getSharedInstance().promptIfReady(promptView);
+
         } else if (id == R.id.menu_imprint) {
             openWebsite(WEBSITE_IMPRINT_URL);
         } else if (id == R.id.sample_data) {
