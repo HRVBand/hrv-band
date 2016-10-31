@@ -1,12 +1,9 @@
 package hrv.band.aurora.Control;
 
-import android.support.v4.content.res.TypedArrayUtils;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Arrays;
 import java.util.List;
 
@@ -153,8 +150,7 @@ public class Calculation {
             sum += values[i];
         }
 
-        double erwartungswert = sum / values.length;
-        return erwartungswert;
+        return sum / values.length;
     }
 
     private double SDNN(double[] rrinterval)
@@ -167,8 +163,7 @@ public class Calculation {
             sum2 += (rrinterval[i] - erwartungswert) * (rrinterval[i] - erwartungswert);
         }
 
-        double sdnn = Math.sqrt(sum2 / rrinterval.length);
-        return sdnn;
+        return Math.sqrt(sum2 / rrinterval.length);
     }
 
     private double SDSD(double[] rrinterval)
@@ -218,8 +213,7 @@ public class Calculation {
             sum += (rrinterval[i-1] - rrinterval[i]) * (rrinterval[i-1] - rrinterval[i]);
         }
 
-        double rmssd = sum / (rrinterval.length - 1);
-        return rmssd;
+        return sum / (rrinterval.length - 1);
     }
 
     private double HfPow(double[] frequencies, double[] betrag, double stepSize)
@@ -227,8 +221,7 @@ public class Calculation {
         int firstElementOver015 = FirstElementOverValue(frequencies, 0.15);
         int firstElementOver04 = FirstElementOverValue(frequencies, 0.4);
 
-        double hfPow = LinearIntegration(betrag, stepSize, firstElementOver015, firstElementOver04);
-        return hfPow;
+        return LinearIntegration(betrag, stepSize, firstElementOver015, firstElementOver04);
     }
 
     private double LfPow(double[] frequencies, double[] betrag, double stepSize)
@@ -236,8 +229,7 @@ public class Calculation {
         int firstElementOver004 = FirstElementOverValue(frequencies, 0.02);
         int firstElementOver015 = FirstElementOverValue(frequencies, 0.15);
 
-        double lfPow = LinearIntegration(betrag, stepSize, firstElementOver004, firstElementOver015);
-        return lfPow;
+        return LinearIntegration(betrag, stepSize, firstElementOver004, firstElementOver015);
     }
 
     private int FirstElementOverValue(double[] values, double value)

@@ -10,12 +10,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".common.AuroraApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".common.AuroraApplication">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".view.SplashActivity"
             android:label="@string/app_name"
@@ -73,6 +73,15 @@
         <activity
             android:name=".view.HelpActivity"
             android:label="@string/title_activity_help"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hrv.band.aurora.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.ImprintActivity"
+            android:label="@string/common_imprint"
             android:parentActivityName=".view.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data

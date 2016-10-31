@@ -40,7 +40,7 @@
             android:id="@+id/rrStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0,00"
+            android:text="@string/measure_content_rr_status_standard"
             android:textSize="70dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -54,12 +54,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RR"
+                android:text="@string/measure_content_rr"
                 android:textSize="20dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sec"
+                android:text="@string/measure_content_time_unit"
                 android:textSize="20dp"/>
         </LinearLayout>
     </LinearLayout>
@@ -69,7 +69,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/test"
-        android:text="@string/measure_status"
+        android:text="@string/title_activity_start_measuring"
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
         android:textAlignment="center"/>

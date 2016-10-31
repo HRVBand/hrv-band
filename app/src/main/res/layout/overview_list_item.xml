@@ -26,7 +26,7 @@
                 android:padding="10sp"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="as"/>
+                android:text="@string/overview_list_item_as"/>
             <!--<TextView
                 android:id="@+id/secondLine"
                 android:layout_width="wrap_content"

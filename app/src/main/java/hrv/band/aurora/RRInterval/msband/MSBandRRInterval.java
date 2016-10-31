@@ -2,10 +2,7 @@ package hrv.band.aurora.RRInterval.msband;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
@@ -20,9 +17,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.IRRInterval;
 import hrv.band.aurora.view.ErrorHandling;
-import hrv.band.aurora.view.fragment.MeasuringFragment;
 
 /**
  * Created by Thomas on 13.06.2016.
@@ -65,7 +62,7 @@ public class MSBandRRInterval implements IRRInterval {
 
     @Override
     public void startAnimation() {
-        ErrorHandling.updateTextView(activity, statusTxt, "Hold Still While Measuring");
+        ErrorHandling.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_hold_still));
        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -134,7 +131,7 @@ public class MSBandRRInterval implements IRRInterval {
         if (client == null) {
             BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
             if (devices.length == 0) {
-                ErrorHandling.updateTextView(activity, statusTxt, "Band isn't paired with your phone.\n");
+                ErrorHandling.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.error_band_not_paired));
                 return false;
             }
             client = BandClientManager.getInstance().create(activity.getApplicationContext(), devices[0]);
@@ -142,7 +139,7 @@ public class MSBandRRInterval implements IRRInterval {
             return true;
         }
 
-        ErrorHandling.updateTextView(activity, statusTxt, "Band is connecting...\n");
+        ErrorHandling.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_band_connecting));
         return ConnectionState.CONNECTED == client.connect().await();
     }
 

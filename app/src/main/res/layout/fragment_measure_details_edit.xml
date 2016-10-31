@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="How Do You Feel?"
+            android:text="@string/sentence_how_do_you_feel"
             android:textSize="18sp"
             android:textColor="@color/colorAccent"/>
         <RatingBar
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Measure Category"
+            android:text="@string/measure_details_measure_category"
             android:textSize="18sp"
             android:textColor="@color/colorAccent"/>
         <Spinner
@@ -40,6 +40,6 @@
             android:id="@+id/measure_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Add a Comment to Your Measuring"/>
+            android:hint="@string/measure_detail_add_comment_msg"/>
     </LinearLayout>
 </LinearLayout>

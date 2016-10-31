@@ -18,7 +18,7 @@
         android:textSize="20sp"
         android:padding="10sp"
         android:gravity="center_vertical"
-        android:text="More Values"
+        android:text="@string/overview_add_items_footer_more_vals"
         android:layout_weight="1"/>
 
 </LinearLayout>

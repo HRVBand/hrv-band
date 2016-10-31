@@ -5,7 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.TextView;
 
-import hrv.band.aurora.RRInterval.IRRInterval;
+import hrv.band.aurora.R;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 
 /**
@@ -16,7 +16,9 @@ public class ErrorHandling {
 
     public static void showSnackbar(final String msg) {
         final Snackbar snackBar = Snackbar.make(MeasuringFragment.view, msg, Snackbar.LENGTH_INDEFINITE);
-        snackBar.setAction("Close", new View.OnClickListener() {
+        String closeStr = snackBar.getView().getResources().getString(R.string.common_close);
+
+        snackBar.setAction(closeStr, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 snackBar.dismiss();
@@ -30,7 +32,7 @@ public class ErrorHandling {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                txt.setText(string);
+                 txt.setText(string);
             }
         });
     }

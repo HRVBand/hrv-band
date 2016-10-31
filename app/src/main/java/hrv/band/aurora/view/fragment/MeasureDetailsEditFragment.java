@@ -5,14 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
-import hrv.band.aurora.view.MainActivity;
 import hrv.band.aurora.view.adapter.CategorySpinnerAdapter;
 
 /**
@@ -26,8 +24,7 @@ public class MeasureDetailsEditFragment extends Fragment {
     }
 
     public static MeasureDetailsEditFragment newInstance(HRVParameters parameter) {
-        MeasureDetailsEditFragment fragment = new MeasureDetailsEditFragment();
-        return fragment;
+        return new MeasureDetailsEditFragment();
     }
 
     @Override

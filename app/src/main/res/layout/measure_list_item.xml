@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:text="Allgmein"
+        android:text="@string/measure_category_general"
         android:padding="6dip"
         android:textSize="18sp"
         android:layout_weight="1"
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:text="12,13"
+        android:text="@string/measure_list_item_std_hrv"
         android:textSize="18sp"
         android:padding="6dip"/>
     <TextView
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:text="ms"
+        android:text="@string/measure_list_item_unit"
         android:textSize="18sp"
         android:padding="6dip"/>
 

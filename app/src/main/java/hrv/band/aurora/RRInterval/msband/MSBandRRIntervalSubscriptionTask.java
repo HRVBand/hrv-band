@@ -4,14 +4,11 @@ package hrv.band.aurora.RRInterval.msband;
  * Created by Thomas on 13.06.2016.
  */
 
-import android.hardware.SensorManager;
 import android.os.AsyncTask;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandException;
 import com.microsoft.band.UserConsent;
-import com.microsoft.band.sensors.BandContactEvent;
-import com.microsoft.band.sensors.BandContactEventListener;
 import com.microsoft.band.sensors.BandSensorManager;
 
 import hrv.band.aurora.view.ErrorHandling;
@@ -46,6 +43,7 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
                     ErrorHandling.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
                 }
             } else {
+
                 ErrorHandling.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
             }
         } catch (BandException e) {

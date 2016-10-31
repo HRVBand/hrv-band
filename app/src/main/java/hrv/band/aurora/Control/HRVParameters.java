@@ -220,9 +220,7 @@ public class HRVParameters implements Parcelable {
 
         HRVParameters param = (HRVParameters)other;
 
-        if(param.getTime().equals(this.getTime()))
-            return true;
+        return param.getTime().equals(this.getTime());
 
-        return false;
     }
 }

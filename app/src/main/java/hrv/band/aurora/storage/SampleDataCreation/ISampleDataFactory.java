@@ -9,5 +9,5 @@ import hrv.band.aurora.Control.HRVParameters;
  */
 public interface ISampleDataFactory {
 
-    public abstract ArrayList<HRVParameters> create(int sampleSize);
+    ArrayList<HRVParameters> create(int sampleSize);
 }

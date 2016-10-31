@@ -63,8 +63,7 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
         TextView time = (TextView) rowView.findViewById(R.id.stats_time);
         TextView category = (TextView) rowView.findViewById(R.id.stats_category);
 
-        DateFormat df = new DateFormat();
-        time.setText(df.format(timeFormat, parameters.get(position).getTime()));
+        time.setText(DateFormat.format(timeFormat, parameters.get(position).getTime()));
         category.setText(parameters.get(position).getCategory().getText(context.getResources()));
         value.setText(values.get(position));
         //unit.setText(type.getUnit());

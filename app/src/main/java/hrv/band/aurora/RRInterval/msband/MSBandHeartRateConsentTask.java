@@ -11,6 +11,7 @@ import com.microsoft.band.sensors.HeartRateConsentListener;
 
 import java.lang.ref.WeakReference;
 
+import hrv.band.aurora.R;
 import hrv.band.aurora.view.ErrorHandling;
 
 /**
@@ -40,7 +41,8 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     });
                 }
             } else {
-                ErrorHandling.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
+                String msg = activityWeakReference.get().getResources().getString(R.string.error_band_not_connected_help);
+                ErrorHandling.showSnackbar(msg);
             }
         } catch (BandException e) {
             String exceptionMessage="";

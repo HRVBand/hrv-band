@@ -75,8 +75,7 @@ public class StatisticFragment extends Fragment {
         TextView desc = (TextView) rootView.findViewById(R.id.stats_value_desc);
         TextView type = (TextView) rootView.findViewById(R.id.stats_type);
 
-        DateFormat df = new DateFormat();
-        date.setText(df.format(dateFormat,
+        date.setText(DateFormat.format(dateFormat,
                 ((Date) getArguments().getSerializable(ARG_DATE_VALUE)).getTime()));
 
         desc.setText(hrvType.toString());
@@ -174,9 +173,8 @@ public class StatisticFragment extends Fragment {
         if (rootView == null) {
             return;
         }
-        DateFormat df = new DateFormat();
         //TextView date = (TextView) rootView.findViewById(R.id.stats_date);
-        date.setText(df.format(dateFormat,
+        date.setText(DateFormat.format(dateFormat,
                 ((Date) getArguments().getSerializable(ARG_DATE_VALUE)).getTime()));
     }
 

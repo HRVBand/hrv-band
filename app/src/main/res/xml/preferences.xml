@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:summary="Login credentials"
-        android:title="Login credentials" >
-    <EditTextPreference android:title="Your Name"
-        android:key="username"
-        android:summary="Please provide your username"></EditTextPreference>
-    <CheckBoxPreference android:title="Application Updates"
-        android:defaultValue="false"
-        android:summary="This option if selected will allow the application to check for latest versions."
-        android:key="applicationUpdates" />
+        android:summary="@string/settings_login_credentials"
+        android:title="@string/settings_login_credentials" >
+
+        <EditTextPreference android:title="@string/settings_your_name_text"
+            android:key="username"
+            android:summary="@string/settings_your_name_summary"/>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/common_app"
+        android:summary="App Settings">
+
+        <CheckBoxPreference android:title="@string/settings_application_updates"
+            android:defaultValue="false"
+            android:summary="@string/settings_application_updates_summary"
+            android:key="applicationUpdates" />
+    </PreferenceCategory>
+
+    <!--
     <PreferenceCategory
         android:summary="Login credentials"
         android:title="Login 123" >
-    <ListPreference     android:title="Download Details"
-        android:summary="Select the kind of data that you would like to download"
-        android:key="downloadType"
-        android:defaultValue="1"
-        android:entries="@array/listArray"
-        android:entryValues="@array/listValues" />
-    </PreferenceCategory>
+        <ListPreference
+            android:title="Download Details"
+            android:summary="Select the kind of data that you would like to download"
+            android:key="downloadType"
+            android:defaultValue="1"
+            android:entries="@array/listArray"
+            android:entryValues="@array/listValues" />
+    </PreferenceCategory>-->
 </PreferenceScreen>

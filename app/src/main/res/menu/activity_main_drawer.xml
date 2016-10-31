@@ -8,47 +8,48 @@
         <item
             android:id="@+id/menu_help"
             android:icon="@drawable/ic_help"
-            android:title="Help"/>
+            android:title="@string/common_help"/>
         <item
             android:id="@+id/menu_settings"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="@string/common_settings" />
     </group>
 
     <group
         android:checkableBehavior="single"
-        android:id="@+id/menu_group_share">>
+        android:id="@+id/menu_group_share">
         <item
             android:id="@+id/menu_rate"
             android:icon="@drawable/ic_rate"
-            android:title="Rate" />
+            android:title="@string/common_rate" />
         <item
             android:id="@+id/menu_share"
             android:icon="@drawable/ic_share"
-            android:title="Share" />
+            android:title="@string/common_share" />
     </group>
 
     <group
         android:checkableBehavior="single"
-        android:id="@+id/menu_group_imprint">>
+        android:id="@+id/menu_group_imprint">
         <item
             android:id="@+id/menu_website"
             android:icon="@drawable/ic_website"
-            android:title="Website" />
+            android:title="@string/main_drawer_website" />
         <item
             android:id="@+id/menu_feedback"
             android:icon="@drawable/ic_feedback"
-            android:title="Feedback" />
+            android:title="@string/main_drawer_feedback" />
         <item
             android:id="@+id/menu_privacy"
             android:icon="@drawable/ic_privacy"
-            android:title="Privacy Policy" />
+            android:title="@string/main_drawer_privacy_policy" />
         <item
             android:id="@+id/menu_imprint"
             android:icon="@drawable/ic_imprint"
-            android:title="Imprint" />
+            android:title="@string/common_imprint" />
     </group>
 
+    <!--
     <item android:title="Debug">
         <menu>
             <item
@@ -61,5 +62,6 @@
                 android:title="Execute Test Function" />
         </menu>
     </item>
+    -->
 
 </menu>

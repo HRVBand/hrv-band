@@ -35,18 +35,18 @@
             android:textColor="@color/colorAccent"
             android:layout_weight="1"
             android:textSize="18sp"
-            android:text="min:"/>
+            android:text="@string/measure_fragment_min"/>
         <TextView
             android:id="@+id/rr_min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="10"/>
+            android:text="@string/measure_fragment_rr_min"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text=" ms"/>
+            android:text="@string/measure_fragment_time_unit"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,18 +58,18 @@
             android:textColor="@color/colorAccent"
             android:layout_weight="1"
             android:textSize="18sp"
-            android:text="max:"/>
+            android:text="@string/measure_fragment_max"/>
         <TextView
             android:id="@+id/rr_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="10"/>
+            android:text="@string/measure_fragment_rr_max"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text=" ms"/>
+            android:text="@string/measure_fragment_time_unit"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,18 +81,18 @@
             android:textColor="@color/colorAccent"
             android:layout_weight="1"
             android:textSize="18sp"
-            android:text="average:"/>
+            android:text="@string/measure_fragment_avg"/>
         <TextView
             android:id="@+id/rr_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="10"/>
+            android:text="@string/measure_fragment_rr_avg"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text=" ms"/>
+            android:text="@string/measure_fragment_time_unit"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -104,13 +104,13 @@
             android:textColor="@color/colorAccent"
             android:layout_weight="1"
             android:textSize="18sp"
-            android:text="count:"/>
+            android:text="@string/measure_fragment_count"/>
         <TextView
             android:id="@+id/rr_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="10"/>
+            android:text="@string/measure_fragment_rr_count"/>
     </LinearLayout>
     </LinearLayout>
 

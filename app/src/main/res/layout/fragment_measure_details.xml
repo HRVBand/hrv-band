@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="18sp"
-            android:text="28 August 2015"
+            android:text="@string/hrv_value_standard_date"
             android:layout_weight="1"/>
     </LinearLayout>
 
@@ -49,7 +49,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="18sp"
-            android:text="3.5 / 5"
+            android:text="@string/hrv_value_standard_rating"
             android:layout_weight="1"/>
     </LinearLayout>
 
@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="18sp"
-            android:text="Allgemein"
+            android:text="@string/hrv_value_standard_category"
             android:layout_weight="1"/>
     </LinearLayout>
 
@@ -96,7 +96,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="18sp"
-            android:text="das ist eine tolle Messung gewesen"
+            android:text="@string/hrv_value_comment"
             android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>

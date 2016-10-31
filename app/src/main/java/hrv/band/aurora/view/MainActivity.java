@@ -1,6 +1,5 @@
 package hrv.band.aurora.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -27,7 +26,6 @@ import java.util.Date;
 
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
-import hrv.band.aurora.storage.SQLite.SQLiteStorageController;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
 
@@ -145,22 +143,25 @@ public class MainActivity extends AppCompatActivity
             Amplify.getSharedInstance().promptIfReady(promptView);
 
         } else if (id == R.id.menu_imprint) {
-            openWebsite(WEBSITE_IMPRINT_URL);
-        } else if (id == R.id.sample_data) {
-            Context context = getApplicationContext();
-            context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
-
-
-        } else if (id == R.id.test_function) {
-//            Context context = getApplicationContext();
-//            IStorage storage2 = new SQLController();
-//
-//            ISampleDataFactory factory = new RichSampleDataFactory();
-//            List<HRVParameters> parameters = factory.create(30);
-//
-//            List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
-//            double a = params.get(0).getBaevsky();
+            //openWebsite(WEBSITE_IMPRINT_URL);
+            Intent intent = new Intent(this, ImprintActivity.class);
+            startActivity(intent);
         }
+//        } else if (id == R.id.sample_data) {
+//            Context context = getApplicationContext();
+//            context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
+//
+//
+//        } else if (id == R.id.test_function) {
+////            Context context = getApplicationContext();
+////            IStorage storage2 = new SQLController();
+////
+////            ISampleDataFactory factory = new RichSampleDataFactory();
+////            List<HRVParameters> parameters = factory.create(30);
+////
+////            List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
+////            double a = params.get(0).getBaevsky();
+//        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;
 
@@ -213,9 +214,9 @@ public class MainActivity extends AppCompatActivity
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "MEASURING";
+                    return getResources().getString(R.string.common_bold_measure);
                 case 1:
-                    return "OVERVIEW";
+                    return getResources().getString(R.string.common_bold_overview   );
             }
             return null;
         }

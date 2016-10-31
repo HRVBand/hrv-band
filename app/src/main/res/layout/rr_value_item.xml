@@ -8,7 +8,7 @@
         android:textSize="20sp"
         android:padding="10sp"
         android:gravity="center_vertical"
-        android:text="ms"
+        android:text="@string/common_ms"
         android:textColor="@color/colorAccent"
         android:layout_weight="1"/>
     <TextView
@@ -18,7 +18,7 @@
         android:textSize="20sp"
         android:padding="10sp"
         android:gravity="center_vertical"
-        android:text="as"/>
+        android:text="@string/common_as"/>
 
 
 </LinearLayout>

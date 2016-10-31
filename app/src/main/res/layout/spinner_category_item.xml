@@ -19,7 +19,7 @@
         android:textSize="20sp"
         android:padding="10sp"
         android:gravity="center_vertical"
-        android:text="More Values"
+        android:text="@string/spinner_cat_item_more_values"
         android:layout_weight="1"/>
 
 </LinearLayout>

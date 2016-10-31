@@ -73,7 +73,7 @@ public class MeasuringFragment extends Fragment {
 
     public void startAnimation(final Interval interval) {
 
-        final ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
+        final ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, getResources().getString(R.string.common_progress),0, 1000); // see this max value coming back here, we animale towards that value
         animation.setDuration (duration); //in milliseconds
         animation.setInterpolator (new LinearInterpolator());
         animation.addListener(new Animator.AnimatorListener() {
@@ -115,7 +115,6 @@ public class MeasuringFragment extends Fragment {
     private void resetProgress() {
         progressBar.setClickable(true);
         ErrorHandling.updateTextView(getActivity(), rrStatus, "0,00");
-        ErrorHandling.updateTextView(getActivity(), txtStatus, "Press To Start Measuring");
-
+        ErrorHandling.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
     }
 }

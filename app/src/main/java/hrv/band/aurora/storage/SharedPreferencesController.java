@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
-import hrv.band.aurora.storage.IStorage;
 
 /**
  * Created by Julian on 11.06.2016.
@@ -47,9 +46,8 @@ public class SharedPreferencesController implements IStorage{
         Gson gson = new Gson();
         String json = mPrefs.getString("ParamList", "");
         Type type = new TypeToken<List<HRVParameters>>() {}.getType();
-        List<HRVParameters> obj = gson.fromJson(json, type);
 
-        return obj;
+        return gson.fromJson(json, type);
     }
 
     @Override

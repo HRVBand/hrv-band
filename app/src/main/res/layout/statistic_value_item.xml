@@ -7,14 +7,14 @@
         android:id="@+id/stats_time"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="14:00 PM"
+        android:text="@string/stat_val_item_std_time"
         android:padding="6dip"
         android:textSize="18sp"/>
     <TextView
         android:id="@+id/stats_category"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Allgmein"
+        android:text="@string/stat_val_item_std_category"
         android:padding="6dip"
         android:textSize="18sp"
         android:layout_weight="1"/>
@@ -22,7 +22,7 @@
         android:id="@+id/stats_value"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="12,13"
+        android:text="@string/stat_val_item_std_stats_value"
         android:textSize="18sp"
         android:padding="6dip"
         android:textColor="@color/colorAccent"/>
