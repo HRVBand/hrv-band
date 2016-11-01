@@ -1,5 +1,6 @@
 package hrv.band.aurora.view;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -146,6 +147,24 @@ public class MainActivity extends AppCompatActivity
             //openWebsite(WEBSITE_IMPRINT_URL);
             Intent intent = new Intent(this, ImprintActivity.class);
             startActivity(intent);
+        } else if (id == R.id.menu_rate) {
+
+            //Laut Stack overflow
+            //http://stackoverflow.com/questions/10816757/rate-this-app-link-in-google-play-store-app-on-the-phone
+            //Kann erst getestet werden, wenn die App im Store ist!!
+            Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+            // To count with Play market backstack, After pressing back button,
+            // to taken back to our application, we need to add following flags to intent.
+            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            try {
+                startActivity(goToMarket);
+            } catch (ActivityNotFoundException e) {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+            }
         }
 //        } else if (id == R.id.sample_data) {
 //            Context context = getApplicationContext();

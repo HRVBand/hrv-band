@@ -51,6 +51,11 @@
     <string name="settings_application_updates">Application Updates</string>
     <string name="settings_application_updates_summary">This option if selected will allow the application to check for latest versions.</string>
 
+    <string name="settings_database">Database</string>
+    <string name="settings_database_summary">Import or Export or Delete Your Data.</string>
+    <string name="settings_delete_db">Delete Data</string>
+    <string name="settings_delete_db_summary">Deletes all previously recorded data.</string>
+
     <!-- Measurement Categories-->
     <string name="measure_category_general">General</string>
     <string name="measure_category_relaxed">Relaxed</string>
