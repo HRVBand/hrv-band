@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class SQLController implements IStorage {
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN, parameter.getSdnn());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY, parameter.getBaevsky());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING, parameter.getRating());
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().getText(context.getResources()));
+        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().toString());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
 
         long firstId = db.insert(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
@@ -141,6 +140,7 @@ public class SQLController implements IStorage {
             newParam.setCategory(CategorySpinnerAdapter.MeasureCategory.valueOf(category.toUpperCase()));
             newParam.setNote(c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE)));
 
+            returnList.add(newParam);
             //Laden der rr daten
             Cursor crr = db.query(
                     RRIntervalContract.RRIntercalEntry.TABLE_NAME,
@@ -167,7 +167,6 @@ public class SQLController implements IStorage {
             }
 
             newParam.setRRIntervals(rrValues);
-            returnList.add(newParam);
         } while (c.moveToNext());
 
         return returnList;
@@ -212,17 +211,23 @@ public class SQLController implements IStorage {
         return true;
     }
 
+    public boolean deleteAllData(Context context) {
+        SQLiteStorageController controller = new SQLiteStorageController(context);
+        SQLiteDatabase db = controller.getReadableDatabase();
+        return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME, null, null) >= 0;
+    }
+
     public boolean exportDB(String dbPath, Context con) throws IOException {
         SQLiteStorageController controller = new SQLiteStorageController(con);
-        String dbName = controller.getDatabaseName();
+        String dbName = "/data/user/0/hrv.band.aurora/databases/" + controller.getDatabaseName();
 
-        File exportDestinationFile = new File(dbPath);
         File dbToExport = new File(dbName);
+
+        FileOutputStream outStream = con.openFileOutput(dbPath, Context.MODE_PRIVATE);
 
         if(dbToExport.exists())
         {
-            FileUtils.copyFile(new FileInputStream(dbToExport), new FileOutputStream(exportDestinationFile));
-
+            FileUtils.copyFile(new FileInputStream(dbToExport), outStream);
             return true;
         }
 
@@ -232,7 +237,7 @@ public class SQLController implements IStorage {
     public boolean importDB(String dbPath, Context con) throws IOException {
 
         SQLiteStorageController controller = new SQLiteStorageController(con);
-        String dbName = controller.getDatabaseName();
+        String dbName = "/data/user/0/hrv.band.aurora/databases/" + controller.getDatabaseName();
 
         File newDB = new File(dbPath);
         File oldDB = new File(dbName);

@@ -278,6 +278,6 @@ limitations under the License.</string>
     <string name="error_band_not_connected_help">"Device isn't connected. Is bluetooth on and the device in range?</string>
 
     <!-- Messages -->
-    <string name="msg_band_connecting">Band is connecting ...</string>
+    <string name="msg_band_connecting">Band is connecting …</string>
     <string name="msg_hold_still">Hold Still During Measurement.</string>
 </resources>

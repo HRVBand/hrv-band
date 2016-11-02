@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -19,9 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.github.stkent.amplify.prompt.DefaultLayoutPromptView;
-import com.github.stkent.amplify.tracking.Amplify;
 
 import java.util.Date;
 
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity
     public static final String HRV_VALUE = "hrv_rr_value";
     private static final String WEBSITE_URL = "https://thomcz.github.io/aurora";
     private static final String WEBSITE_PRIVACY_URL = "https://thomcz.github.io/aurora";
-    private static final String WEBSITE_IMPRINT_URL = "https://thomcz.github.io/aurora";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -84,6 +81,10 @@ public class MainActivity extends AppCompatActivity
         assert tabLayout != null;
 
         tabLayout.setupWithViewPager(mViewPager);
+
+
+
+
 
     }
 
@@ -159,9 +160,11 @@ public class MainActivity extends AppCompatActivity
             Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
             // To count with Play market backstack, After pressing back button,
             // to taken back to our application, we need to add following flags to intent.
-            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            }
             try {
                 startActivity(goToMarket);
             } catch (ActivityNotFoundException e) {

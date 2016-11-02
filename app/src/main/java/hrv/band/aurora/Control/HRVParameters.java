@@ -24,7 +24,7 @@ public class HRVParameters implements Parcelable {
     private double baevsky;
     private ArrayList<Double> rrIntervals;
     private double rating;
-    private CategorySpinnerAdapter.MeasureCategory category;
+    private CategorySpinnerAdapter.MeasureCategory category = CategorySpinnerAdapter.MeasureCategory.GENERAL;
     private String note;
 
     @Override
