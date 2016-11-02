@@ -3,45 +3,83 @@ package hrv.band.aurora.view;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hrv.band.aurora.R;
+import hrv.band.aurora.view.adapter.HRVValue;
+import hrv.band.aurora.view.fragment.AboutFragment;
+import hrv.band.aurora.view.fragment.LicenseFragment;
+import hrv.band.aurora.view.fragment.OverviewFragment;
 
 public class ImprintActivity extends AppCompatActivity {
-
+    private ImprintActivity.SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    private List<Fragment> fragments;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imprint);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        fragments = new ArrayList<>();
+        fragments.add(AboutFragment.newInstance());
+        fragments.add(LicenseFragment.newInstance());
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.imprint_viewpager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.imprint_tabs);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
-    public void showAmplifyLicense(View view) {
-        DialogLicence dialog = new DialogLicence();
-        dialog.setLicenceText("Licence Text");
-        dialog.show(getFragmentManager(), "Amplify Licence");
-    }
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    public void showHelloChartsLicence(View view) {
-        throw new NotImplementedException("Hellochart Licence not shown");
-    }
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-    public void showApacheCommonsLangLicence(View view) {
-        throw new NotImplementedException("Apaceh Commons Lang3 Licence not shown");
+        @Override
+        public Fragment getItem(int position) {
+            /*Date date = new Date();
+            return StatisticFragment.newInstance(HRVValue.values()[position],
+                    getParameters(date), date);*/
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch(position) {
+                case 0: return "About";
+                case 1: return "License";
+                default: return "";
+            }
+        }
     }
 }

@@ -221,6 +221,9 @@
     </string>
 
     <!-- Imprint -->
+    <string name="tab_about">Über</string>
+    <string name="tab_license">Lizensen</string>
+
     <string name="used_libraries">Bibliotheken</string>
     <string name="used_libraries_text">
         "Amplify (https://github.com/stkent/amplify)\n"
