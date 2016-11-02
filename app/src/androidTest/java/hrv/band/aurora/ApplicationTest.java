@@ -16,8 +16,8 @@ import hrv.band.aurora.storage.SQLite.SQLController;
  */
 public class ApplicationTest extends ApplicationTestCase<Application> {
 
-    SQLController controller;
-    RenamingDelegatingContext context;
+    private SQLController controller;
+    private RenamingDelegatingContext context;
 
     public ApplicationTest() {
         super(Application.class);
@@ -60,7 +60,10 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         listOfParams.add(new HRVParameters(new Date(1000), 0,0,0,0,0,0,0,0, new ArrayList<Double>()));
 
         controller.saveData(context, listOfParams.get(0));
+        String saveDir = context.getFilesDir() + "/test_test.sql";
         try {
+
+
             controller.exportDB("test.sql", context);
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +71,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         controller.deleteAllData(context);
 
         try {
-            controller.importDB("test.sql", context);
+            controller.importDB(saveDir, context);
         } catch (IOException e) {
             e.printStackTrace();
         }

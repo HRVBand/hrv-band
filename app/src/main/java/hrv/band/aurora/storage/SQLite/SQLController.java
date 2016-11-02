@@ -82,7 +82,7 @@ public class SQLController implements IStorage {
         long dateTimeInMilis = date.getTime();
         long startSearchTime = dateTimeInMilis - millisecondsInOneDay;
 
-        List<HRVParameters> returnList = new ArrayList<HRVParameters>();
+        List<HRVParameters> returnList = new ArrayList<>();
         SQLiteStorageController controller = new SQLiteStorageController(context);
 
         SQLiteDatabase db = controller.getReadableDatabase();
@@ -156,7 +156,7 @@ public class SQLController implements IStorage {
             if (crr.getCount() == 0)
                 return returnList;
 
-            ArrayList<Double> rrValues = new ArrayList<Double>();
+            ArrayList<Double> rrValues = new ArrayList<>();
             crr.moveToFirst();
             if (!crr.isAfterLast()) {
                 do {
@@ -167,8 +167,11 @@ public class SQLController implements IStorage {
             }
 
             newParam.setRRIntervals(rrValues);
+
+            crr.close();
         } while (c.moveToNext());
 
+        c.close();
         return returnList;
     }
 
@@ -177,22 +180,6 @@ public class SQLController implements IStorage {
         SQLiteStorageController controller = new SQLiteStorageController(context);
 
         SQLiteDatabase db = controller.getReadableDatabase();
-
-
-        String[] projection = {
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE
-        };
 
         String timeStr = Long.toString(parameter.getTime().getTime());
 
@@ -219,9 +206,10 @@ public class SQLController implements IStorage {
 
     public boolean exportDB(String dbPath, Context con) throws IOException {
         SQLiteStorageController controller = new SQLiteStorageController(con);
-        String dbName = "/data/user/0/hrv.band.aurora/databases/" + controller.getDatabaseName();
 
-        File dbToExport = new File(dbName);
+        String dbToExportPath = String.valueOf(con.getDatabasePath(controller.getDatabaseName()));
+
+        File dbToExport = new File(dbToExportPath);
 
         FileOutputStream outStream = con.openFileOutput(dbPath, Context.MODE_PRIVATE);
 
@@ -237,10 +225,10 @@ public class SQLController implements IStorage {
     public boolean importDB(String dbPath, Context con) throws IOException {
 
         SQLiteStorageController controller = new SQLiteStorageController(con);
-        String dbName = "/data/user/0/hrv.band.aurora/databases/" + controller.getDatabaseName();
+        String dbToImportToPath = String.valueOf(con.getDatabasePath(controller.getDatabaseName()));
 
         File newDB = new File(dbPath);
-        File oldDB = new File(dbName);
+        File oldDB = new File(dbToImportToPath);
 
         if(newDB.exists()) {
             FileUtils.copyFile(new FileInputStream(newDB), new FileOutputStream(oldDB));
