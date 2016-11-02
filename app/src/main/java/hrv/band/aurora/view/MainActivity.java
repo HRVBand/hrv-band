@@ -27,6 +27,7 @@ import java.util.Date;
 
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
+import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
 
@@ -139,9 +140,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.menu_feedback) {
 
-            DefaultLayoutPromptView promptView = (DefaultLayoutPromptView) findViewById(R.id.prompt_view);
+            FeedbackDialogFragment picker = new FeedbackDialogFragment();
+            picker.show(getFragmentManager(), "Feedback");
+            /*DefaultLayoutPromptView promptView = (DefaultLayoutPromptView) findViewById(R.id.prompt_view);
             assert promptView != null;
-            Amplify.getSharedInstance().promptIfReady(promptView);
+            Amplify.getSharedInstance().promptIfReady(promptView);*/
 
         } else if (id == R.id.menu_imprint) {
             //openWebsite(WEBSITE_IMPRINT_URL);

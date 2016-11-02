@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.KeyEvent;
@@ -28,19 +29,29 @@ import hrv.band.aurora.view.adapter.CategorySpinnerAdapter;
  * Created by Thomas on 27.07.2016.
  */
 public class FeedbackDialogFragment extends DialogFragment {
+    private static final String FEEDBACK_EMAIL = "bla@bla.bla";
+    private View view;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.feedback_fragment, null);
+        view = inflater.inflate(R.layout.feedback_fragment, null);
 
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.feedback_send, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+
+
+                        Intent email = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                "mailto", FEEDBACK_EMAIL, null));
+                        email.putExtra(Intent.EXTRA_SUBJECT, getSubject());
+                        email.putExtra(Intent.EXTRA_TEXT, getText());
+                        startActivity(Intent.createChooser(email, "send feedback"));
+
                     }
                 })
                 .setNegativeButton(R.string.feedback_cancel, new DialogInterface.OnClickListener() {
@@ -58,6 +69,29 @@ public class FeedbackDialogFragment extends DialogFragment {
         FeedbackCategoryAdapter spinnerArrayAdapter = new FeedbackCategoryAdapter(getActivity().getApplicationContext());
 
         spinner.setAdapter(spinnerArrayAdapter);
+    }
+
+    private String getSubject() {
+        if (view == null) {
+            return "";
+        }
+        Spinner spinner = (Spinner) view.findViewById(R.id.feedback_category);
+        String subject = FeedbackCategory.values()[spinner.getSelectedItemPosition()].getText(getResources());
+        return "Feedback - [" + subject + "]";
+    }
+
+    private String getText() {
+        EditText text = (EditText) view.findViewById(R.id.feedback_text);
+        return text.getText() + "\n" + getDeviceInformation();
+    }
+
+    private String getDeviceInformation() {
+        String info = "Debug-infos:";
+        info += "\n OS Version: " + System.getProperty("os.version") + "(" + android.os.Build.VERSION.INCREMENTAL + ")";
+        info += "\n OS API Level: " + android.os.Build.VERSION.SDK_INT;
+        info += "\n Device: " + android.os.Build.DEVICE;
+        info += "\n Model (and Product): " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
+        return info;
     }
 
     private class FeedbackCategoryAdapter extends BaseAdapter {

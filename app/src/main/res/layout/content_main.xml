@@ -12,4 +12,10 @@
     tools:context=".view.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <!--<com.github.stkent.amplify.prompt.DefaultLayoutPromptView
+        android:id="@+id/prompt_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:prompt_view_thanks_display_time_ms="2000"/>-->
+
 </RelativeLayout>
