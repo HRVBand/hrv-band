@@ -1,5 +1,6 @@
 package hrv.band.aurora.view;
 
+import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -25,10 +26,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.aurora.Control.HRVParameters;
+import hrv.band.aurora.ImportFragment;
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SQLite.SQLController;
+import hrv.band.aurora.view.fragment.ExportDatabaseFragment;
 import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
@@ -192,7 +195,15 @@ public class MainActivity extends AppCompatActivity
             IStorage storage = new SQLController();
             storage.saveData(getApplicationContext(), param);
         }
-// else if (id == R.id.test_function) {
+        if(id == R.id.menu_export_db) {
+            DialogFragment exportFragment = ExportDatabaseFragment.newInstance();
+            exportFragment.show(getFragmentManager(), getResources().getString(R.string.common_export   ));
+        }
+        if(id == R.id.menu_import_db) {
+            DialogFragment importFragment = ImportFragment.newInstance();
+            importFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
+        }
+        // else if (id == R.id.test_function) {
 ////            Context context = getApplicationContext();
 ////            IStorage storage2 = new SQLController();
 ////

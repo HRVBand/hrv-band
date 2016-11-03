@@ -30,6 +30,21 @@
 
     <group
         android:checkableBehavior="single"
+        android:id="@+id/menu_group_manage_db">
+
+        <item
+            android:id="@+id/menu_import_db"
+            android:icon="@drawable/ic_export"
+            android:title="@string/common_import" />
+
+        <item
+            android:id="@+id/menu_export_db"
+            android:icon="@drawable/ic_import"
+            android:title="@string/common_export" />
+    </group>
+
+    <group
+        android:checkableBehavior="single"
         android:id="@+id/menu_group_imprint">
         <item
             android:id="@+id/menu_website"

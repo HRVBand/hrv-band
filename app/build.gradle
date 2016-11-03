@@ -46,6 +46,12 @@ dependencies {
 dependencies {
     compile 'com.android.support:support-v4:23.+'
 }
+dependencies {
+    compile 'com.android.support:support-v4:23.+'
+}
+dependencies {
+    compile 'com.android.support:support-v4:23.+'
+}
 
 
 

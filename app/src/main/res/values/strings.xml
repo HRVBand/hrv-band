@@ -16,6 +16,9 @@
     <string name="common_progress">Progress</string>
     <string name="common_bold_measure">MEASURE</string>
     <string name="common_bold_overview">OVERVIEW</string>
+    <string name="common_export">Export</string>
+    <string name="common_import">Import</string>
+    <string name="common_cancel">Cancel</string>
 
     <string name="progress_complete">Complete</string>
     <string name="progress_error">Error</string>
@@ -24,6 +27,8 @@
     <!-- Sentences -->
     <string name="sentence_how_do_you_feel">How Do You Feel?</string>
     <string name="sentence_this_is_a_description">This is a description.</string>
+    <string name="sentence_export_db">Exports the Database into the "data/database" Folder.</string>
+    <string name="sentence_import_db">Import Database from \"files/export.sql\"</string>
 
     <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -258,7 +263,7 @@ limitations under the License.</string>
         "Hellocharts (https://github.com/lecho/hellocharts-android)\n"
         "Apache Commons Lang (http://www.apache.org/licenses/)\n"
     </string>
-    <string name="icon">Icon made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></string>
+    <string name="icon">Icon made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
 
     <string name="developers">Developers</string>
     <string name="developer_thomas">Thomas github.com/thomcz</string>
@@ -280,4 +285,6 @@ limitations under the License.</string>
     <!-- Messages -->
     <string name="msg_band_connecting">Band is connecting …</string>
     <string name="msg_hold_still">Hold Still During Measurement.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="import_error_msg">No Database at Destination \"files/export.sql\"</string>
 </resources>
