@@ -19,6 +19,8 @@ import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
+import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.fragment.MeasureDetailsFragment;
 import hrv.band.aurora.view.fragment.MeasureValueFragment;
@@ -41,15 +43,6 @@ public class HRVValueActivity extends AppCompatActivity {
 
         parameter = getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Delete action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         fragments = new ArrayList<>();
         fragments.add(MeasureValueFragment.newInstance(parameter));
         fragments.add(MeasureRRFragment.newInstance(parameter));
@@ -87,6 +80,18 @@ public class HRVValueActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void deleteParameter(View view) {
+        if (parameter == null) {
+            return;
+        }
+        IStorage storage = new SQLController();
+        storage.deleteData(getApplicationContext(), parameter);
+
+        Snackbar.make(view, "Deleted", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

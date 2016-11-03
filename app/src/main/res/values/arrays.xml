@@ -13,12 +13,12 @@
 
     <string-array name="license_title_array">
         <item>HelloCharts</item>
-        <item>Apache Commons Lang</item>
+        <item>Apache Commons Math</item>
     </string-array>
 
     <string-array name="license_link_array">
         <item>https://github.com/lecho/hellocharts-android</item>
-        <item>http://www.apache.org/licenses/</item>
+        <item>https://github.com/apache/commons-math</item>
     </string-array>
 
     <string-array name="license_text_array">
@@ -36,8 +36,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</item>
-        <item>Appache\n
-Copyright 2014 Leszek Wach\n\n
+        <item>Appache Commons Math\n\n
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
