@@ -23,7 +23,6 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;

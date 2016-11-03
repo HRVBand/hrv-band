@@ -183,9 +183,11 @@ public class SQLController implements IStorage {
 
         String timeStr = Long.toString(parameter.getTime().getTime());
 
+        String whereClause = HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + "=?";
+        String[] whereArgs = new String[] {timeStr};
+
         return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " EQUALS ? ",
-                new String[]{timeStr}
+                whereClause, whereArgs
         ) > 0;
     }
 
