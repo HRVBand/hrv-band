@@ -1,8 +1,6 @@
 package hrv.band.aurora.view;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,18 +8,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.aurora.R;
-import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.fragment.AboutFragment;
 import hrv.band.aurora.view.fragment.LicenseFragment;
-import hrv.band.aurora.view.fragment.OverviewFragment;
 
 public class ImprintActivity extends AppCompatActivity {
     private ImprintActivity.SectionsPagerAdapter mSectionsPagerAdapter;
@@ -62,9 +55,6 @@ public class ImprintActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            /*Date date = new Date();
-            return StatisticFragment.newInstance(HRVValue.values()[position],
-                    getParameters(date), date);*/
             return fragments.get(position);
         }
 
@@ -76,8 +66,8 @@ public class ImprintActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             switch(position) {
-                case 0: return "About";
-                case 1: return "License";
+                case 0: return getResources().getString(R.string.tab_about);
+                case 1: return getResources().getString(R.string.tab_license);
                 default: return "";
             }
         }

@@ -49,19 +49,14 @@
             android:title="@string/common_imprint" />
     </group>
 
-    <!--
+
     <item android:title="Debug">
         <menu>
             <item
                 android:id="@+id/sample_data"
                 android:icon="@drawable/ic_heart"
                 android:title="Create Sample Data" />
-            <item
-                android:id="@+id/test_function"
-                android:icon="@drawable/ic_heart"
-                android:title="Execute Test Function" />
         </menu>
     </item>
-    -->
 
 </menu>

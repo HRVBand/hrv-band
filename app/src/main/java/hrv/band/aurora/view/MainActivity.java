@@ -21,10 +21,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
+import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
@@ -171,13 +176,24 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(Intent.ACTION_VIEW,
                         Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
             }
+        } else if (id == R.id.sample_data) {
+            HRVParameters param = new HRVParameters();
+            param.setTime(new Date());
+            ArrayList<Double> rr = new ArrayList<>();
+            rr.add(0.5);
+            rr.add(0.4);
+            rr.add(0.5);
+            rr.add(0.7);
+            rr.add(0.9);
+            rr.add(0.5);
+            rr.add(0.4);
+            rr.add(0.5);
+            param.setRRIntervals(rr);
+
+            IStorage storage = new SQLController();
+            storage.saveData(getApplicationContext(), param);
         }
-//        } else if (id == R.id.sample_data) {
-//            Context context = getApplicationContext();
-//            context.deleteDatabase(SQLiteStorageController.DATABASE_NAME);
-//
-//
-//        } else if (id == R.id.test_function) {
+// else if (id == R.id.test_function) {
 ////            Context context = getApplicationContext();
 ////            IStorage storage2 = new SQLController();
 ////
