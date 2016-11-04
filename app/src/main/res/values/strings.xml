@@ -287,4 +287,8 @@ limitations under the License.</string>
     <string name="msg_hold_still">Hold Still During Measurement.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="import_error_msg">No Database at Destination \"files/export.sql\"</string>
+    <string name="sentence_import_failed">Could not import Database.</string>
+    <string name="sentence_import_worked">Imported Database</string>
+    <string name="sentence_export_worked">Exported Database</string>
+    <string name="sentence_export_failed">Could not Export Database</string>
 </resources>

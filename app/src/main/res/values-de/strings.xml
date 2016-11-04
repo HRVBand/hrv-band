@@ -261,6 +261,8 @@
     <string name="msg_band_connecting">Verbinde …</string>
     <string name="msg_hold_still">Während der Messung still halten!</string>
     <string name="import_error_msg">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
+    <string name="sentence_import_failed">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
+    <string name="sentence_export_failed">Datenbank konnte nicht exportiert werden.</string>
 
 
 </resources>

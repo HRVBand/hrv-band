@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -41,7 +42,18 @@ public class ImportFragment extends DialogFragment {
                         SQLController sql = new SQLController();
 
                         try {
-                            sql.importDB(saveDir, getActivity());
+                            int duration = Toast.LENGTH_SHORT;
+
+                            if(!sql.importDB(saveDir, getActivity())) {
+                                CharSequence text = getResources().getText(R.string.sentence_import_failed);
+                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
+                                toast.show();
+                            }
+                            else {
+                                CharSequence text = getResources().getText(R.string.sentence_import_worked);
+                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
+                                toast.show();
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -55,7 +67,7 @@ public class ImportFragment extends DialogFragment {
                         ImportFragment.this.getDialog().cancel();
                     }
                 });
-        builder.setTitle("Export");
+        builder.setTitle(getResources().getString(R.string.common_import));
         return builder.create();
     }
 

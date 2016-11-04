@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class ExportDatabaseFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.fragment_export_database, null);
+        final View view = inflater.inflate(R.layout.fragment_export_database, null);
 
         builder.setView(view)
                 .setPositiveButton(R.string.common_export, new DialogInterface.OnClickListener() {
@@ -33,7 +34,20 @@ public class ExportDatabaseFragment extends DialogFragment {
 
                 SQLController sql = new SQLController();
                 try {
-                    sql.exportDB("export.sql", getActivity());
+                    int duration = Toast.LENGTH_SHORT;
+
+                    if(!sql.exportDB("export.sql", getActivity())) {
+                        CharSequence text = getResources().getText(R.string.sentence_export_failed);
+                        Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
+                        toast.show();
+                    }
+                    else {
+                        CharSequence text = getResources().getText(R.string.sentence_export_worked);
+                        Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
+                        toast.show();
+                    }
+
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -47,7 +61,7 @@ public class ExportDatabaseFragment extends DialogFragment {
                 ExportDatabaseFragment.this.getDialog().cancel();
             }
         });
-        builder.setTitle("Export");
+        builder.setTitle(getResources().getString(R.string.common_export));
         return builder.create();
     }
 }

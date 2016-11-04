@@ -202,6 +202,8 @@ public class MainActivity extends AppCompatActivity
         if(id == R.id.menu_import_db) {
             DialogFragment importFragment = ImportFragment.newInstance();
             importFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
+
+
         }
         // else if (id == R.id.test_function) {
 ////            Context context = getApplicationContext();
