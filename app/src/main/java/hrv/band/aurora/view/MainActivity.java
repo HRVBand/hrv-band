@@ -180,7 +180,8 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.sample_data) {
             HRVParameters param = new HRVParameters();
-            param.setTime(new Date());
+            Date date = new Date();
+            param.setTime(date);
             ArrayList<Double> rr = new ArrayList<>();
             rr.add(0.5);
             rr.add(0.4);

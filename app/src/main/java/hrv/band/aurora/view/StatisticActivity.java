@@ -1,23 +1,19 @@
 package hrv.band.aurora.view;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.util.AttributeSet;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-
 import android.widget.DatePicker;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,9 +24,9 @@ import hrv.band.aurora.R;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.view.adapter.HRVValue;
+import hrv.band.aurora.view.fragment.CalenderPickerFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
 import hrv.band.aurora.view.fragment.StatisticFragment;
-import hrv.band.aurora.view.fragment.CalenderPickerFragment;
 
 public class StatisticActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener {
@@ -97,7 +93,7 @@ public class StatisticActivity extends AppCompatActivity
      //What should happen after Date is selected.
      @Override
      public void onDateSet(DatePicker view, int year, int month, int day) {
-        parameters = getParameters(getDate(year, month, day, 1));
+        parameters = getParameters(getDate(year, month, day, 0));
 
         for(StatisticFragment fragment : fragments) {
             fragment.updateValues(parameters, getDate(year, month, day, 0));

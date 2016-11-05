@@ -5,11 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -75,12 +78,17 @@ public class SQLController implements IStorage {
         db2.close();
     }
 
+    public static Date getEndOfDay(Date date) {
+        return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
+    }
+
+    public static Date getStartOfDay(Date date) {
+        return DateUtils.truncate(date, Calendar.DATE);
+    }
+
     @Override
     public List<HRVParameters> loadData(Context context, Date date) {
 
-        long millisecondsInOneDay = 1000 * 60 * 60 * 24;
-        long dateTimeInMilis = date.getTime();
-        long startSearchTime = dateTimeInMilis - millisecondsInOneDay;
 
         List<HRVParameters> returnList = new ArrayList<>();
         SQLiteStorageController controller = new SQLiteStorageController(context);
@@ -102,13 +110,14 @@ public class SQLController implements IStorage {
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE
         };
 
-        String timeStr = Long.toString(date.getTime());
+        String timeOfDayEndStr = Long.toString(getEndOfDay(date).getTime());
+        String timeOfDayStartStr = Long.toString(getStartOfDay(date).getTime());
 
         Cursor c = db.query(
                 HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 projection,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " BETWEEN ? AND ?",
-                new String[]{Long.toString(startSearchTime), timeStr},
+                new String[]{timeOfDayStartStr, timeOfDayEndStr},
                 null,
                 null,
                 null,
