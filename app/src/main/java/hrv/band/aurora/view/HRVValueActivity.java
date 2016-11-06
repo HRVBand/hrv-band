@@ -26,6 +26,8 @@ import hrv.band.aurora.view.fragment.MeasureDetailsFragment;
 import hrv.band.aurora.view.fragment.MeasureValueFragment;
 import hrv.band.aurora.view.fragment.MeasureRRFragment;
 
+import static hrv.band.aurora.view.StatisticActivity.RESULT_DELETED;
+
 public class HRVValueActivity extends AppCompatActivity {
 
 
@@ -87,9 +89,11 @@ public class HRVValueActivity extends AppCompatActivity {
         }
         IStorage storage = new SQLController();
         storage.deleteData(getApplicationContext(), parameter);
+        setResult(RESULT_DELETED);
+        this.finish();
 
-        Snackbar.make(view, "Deleted", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        //Snackbar.make(view, "Deleted", Snackbar.LENGTH_LONG)
+          //      .setAction("Action", null).show();
     }
 
 

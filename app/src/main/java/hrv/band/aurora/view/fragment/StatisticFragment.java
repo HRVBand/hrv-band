@@ -1,5 +1,7 @@
 package hrv.band.aurora.view.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -20,8 +23,11 @@ import java.util.List;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
+import hrv.band.aurora.storage.IStorage;
+import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.view.HRVValueActivity;
 import hrv.band.aurora.view.MainActivity;
+import hrv.band.aurora.view.StatisticActivity;
 import hrv.band.aurora.view.adapter.HRVValue;
 import hrv.band.aurora.view.adapter.StatisticValueAdapter;
 import lecho.lib.hellocharts.model.Axis;
@@ -29,6 +35,9 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
+
+import static android.app.Activity.RESULT_OK;
+import static hrv.band.aurora.view.StatisticActivity.RESULT_DELETED;
 
 /**
  * Created by Thomas on 27.06.2016.
@@ -95,7 +104,7 @@ public class StatisticFragment extends Fragment {
                 Intent intent = new Intent(getContext(), HRVValueActivity.class);
                 intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameters.get(position));
                 intent.putExtra(MainActivity.HRV_DATE, date.getText());
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
 
         });
@@ -107,6 +116,17 @@ public class StatisticFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_DELETED){
+            Activity root = getActivity();
+            if (root instanceof StatisticActivity) {
+                Date date = (Date) getArguments().getSerializable(ARG_DATE_VALUE);
+                ((StatisticActivity) root).updateFragments(date);
+            }
+        }
+    }
 
 
     private ColumnChartData data;

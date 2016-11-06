@@ -1,6 +1,7 @@
 package hrv.band.aurora.view;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -33,11 +34,11 @@ public class StatisticActivity extends AppCompatActivity
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private View view;
     private HRVValue type;
     private IStorage storage;
-    private ArrayList<HRVParameters> parameters;
     private List<StatisticFragment> fragments;
+
+    public static final int RESULT_DELETED = 42;
 
 
     @Override
@@ -70,35 +71,31 @@ public class StatisticActivity extends AppCompatActivity
 
     private void initFragments() {
         fragments = new ArrayList<>();
-       // Date date = new Date();
-        Calendar c = Calendar.getInstance();
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        int month = c.get(Calendar.MONTH);
-        int year = c.get(Calendar.YEAR);
+        Date date = new Date();
 
-        ArrayList<HRVParameters> params = getParameters(getDate(year, month, day, 1));
+        ArrayList<HRVParameters> params = getParameters(date);
         for(int i = 0; i < HRVValue.values().length; i++) {
             fragments.add(StatisticFragment.newInstance(HRVValue.values()[i], params,
-                    getDate(year, month, day, 0)));
+                    date));
         }
     }
 
-    private Date getDate(int year, int month, int day, int addDays) {
-        Calendar c = Calendar.getInstance();
-        c.set(year, month, day, 0, 0, 0);
-        c.add(Calendar.DATE, addDays);
-        return c.getTime();
-    }
 
      //What should happen after Date is selected.
      @Override
      public void onDateSet(DatePicker view, int year, int month, int day) {
-        parameters = getParameters(getDate(year, month, day, 0));
-
-        for(StatisticFragment fragment : fragments) {
-            fragment.updateValues(parameters, getDate(year, month, day, 0));
-        }
+         Calendar c = Calendar.getInstance();
+         c.set(year, month, day, 0, 0, 0);
+         updateFragments(c.getTime());
      }
+
+    public void updateFragments(Date date) {
+        ArrayList<HRVParameters> parameters = getParameters(date);
+        for(StatisticFragment fragment : fragments) {
+            fragment.updateValues(parameters, date);
+        }
+    }
+
     private ArrayList<HRVParameters> getParameters(Date date) {
         ArrayList<HRVParameters> result = new ArrayList<>();
 
@@ -108,7 +105,6 @@ public class StatisticActivity extends AppCompatActivity
     }
 
     public void openCalender(View view) {
-        this.view = view;
         CalenderPickerFragment picker = new CalenderPickerFragment();
         picker.show(getSupportFragmentManager(), "datePicker");
     }
@@ -152,9 +148,6 @@ public class StatisticActivity extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
-            /*Date date = new Date();
-            return StatisticFragment.newInstance(HRVValue.values()[position],
-                    getParameters(date), date);*/
             return fragments.get(position);
         }
 

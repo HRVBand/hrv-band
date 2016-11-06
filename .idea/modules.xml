@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/aurora.iml" filepath="$PROJECT_DIR$/aurora.iml" />
       <module fileurl="file://$PROJECT_DIR$/feedback_v6/feedback_v6.iml" filepath="$PROJECT_DIR$/feedback_v6/feedback_v6.iml" />
-      <module fileurl="file://$PROJECT_DIR$/inno-hacks.iml" filepath="$PROJECT_DIR$/inno-hacks.iml" />
     </modules>
   </component>
 </project>
