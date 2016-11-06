@@ -14,10 +14,10 @@ import java.io.IOException;
 import hrv.band.aurora.R;
 import hrv.band.aurora.storage.SQLite.SQLController;
 
-public class ExportDatabaseFragment extends DialogFragment {
+public class ExportFragment extends DialogFragment {
 
-    public static ExportDatabaseFragment newInstance() {
-        return new ExportDatabaseFragment();
+    public static ExportFragment newInstance() {
+        return new ExportFragment();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class ExportDatabaseFragment extends DialogFragment {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ExportDatabaseFragment.this.getDialog().cancel();
+                ExportFragment.this.getDialog().cancel();
             }
         });
         builder.setTitle(getResources().getString(R.string.common_export));

@@ -8,12 +8,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.aurora.R;
 import hrv.band.aurora.view.fragment.AboutFragment;
+import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
 import hrv.band.aurora.view.fragment.LicenseFragment;
 
 public class ImprintActivity extends AppCompatActivity {
@@ -41,6 +43,11 @@ public class ImprintActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.imprint_tabs);
         tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    public void sendFeedback(View view) {
+        FeedbackDialogFragment picker = new FeedbackDialogFragment();
+        picker.show(getFragmentManager(), "Feedback");
     }
 
     /**

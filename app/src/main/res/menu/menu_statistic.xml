@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="hrv.band.aurora.view.StatisticActivity">
-    <item
+   <!-- <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/common_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 </menu>

@@ -1,4 +1,4 @@
-package hrv.band.aurora;
+package hrv.band.aurora.view.fragment;
 
 
 import android.app.AlertDialog;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import hrv.band.aurora.R;
 import hrv.band.aurora.storage.SQLite.SQLController;
 
 

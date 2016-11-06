@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:padding="30dp"
-    tools:context="hrv.band.aurora.view.fragment.ExportDatabaseFragment">
+    tools:context="hrv.band.aurora.view.fragment.ExportFragment">
 
     <TextView
         android:layout_width="wrap_content"

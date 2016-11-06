@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.aurora.Control.HRVParameters;
-import hrv.band.aurora.ImportFragment;
+import hrv.band.aurora.view.fragment.ImportFragment;
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SQLite.SQLController;
-import hrv.band.aurora.view.fragment.ExportDatabaseFragment;
+import hrv.band.aurora.view.fragment.ExportFragment;
 import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
@@ -122,9 +122,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -143,19 +143,10 @@ public class MainActivity extends AppCompatActivity
             openShareIntent();
         } else if (id == R.id.menu_privacy) {
             openWebsite(WEBSITE_PRIVACY_URL);
-        } else if (id == R.id.menu_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
         } else if (id == R.id.menu_feedback) {
-
             FeedbackDialogFragment picker = new FeedbackDialogFragment();
             picker.show(getFragmentManager(), "Feedback");
-            /*DefaultLayoutPromptView promptView = (DefaultLayoutPromptView) findViewById(R.id.prompt_view);
-            assert promptView != null;
-            Amplify.getSharedInstance().promptIfReady(promptView);*/
-
         } else if (id == R.id.menu_imprint) {
-            //openWebsite(WEBSITE_IMPRINT_URL);
             Intent intent = new Intent(this, ImprintActivity.class);
             startActivity(intent);
         } else if (id == R.id.menu_rate) {
@@ -197,7 +188,7 @@ public class MainActivity extends AppCompatActivity
             storage.saveData(getApplicationContext(), param);
         }
         if(id == R.id.menu_export_db) {
-            DialogFragment exportFragment = ExportDatabaseFragment.newInstance();
+            DialogFragment exportFragment = ExportFragment.newInstance();
             exportFragment.show(getFragmentManager(), getResources().getString(R.string.common_export   ));
         }
         if(id == R.id.menu_import_db) {
