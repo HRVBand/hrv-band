@@ -3,10 +3,12 @@ package hrv.band.aurora.view;
 import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -26,13 +28,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.aurora.Control.HRVParameters;
-import hrv.band.aurora.view.fragment.ImportFragment;
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SQLite.SQLController;
+import hrv.band.aurora.view.fragment.DisclaimerDialogFragment;
 import hrv.band.aurora.view.fragment.ExportFragment;
 import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
+import hrv.band.aurora.view.fragment.ImportFragment;
 import hrv.band.aurora.view.fragment.MeasuringFragment;
 import hrv.band.aurora.view.fragment.OverviewFragment;
 
@@ -90,9 +93,7 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(mViewPager);
 
 
-
-
-
+        handleDisclaimer();
     }
 
     @Override
@@ -227,6 +228,20 @@ public class MainActivity extends AppCompatActivity
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, resources.getString(R.string.share_subject));
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(sharingIntent, resources.getString(R.string.share_via)));
+    }
+
+    private void handleDisclaimer() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        //Clears SharedPreferences
+        //SharedPreferences.Editor sharedEditor = sharedPreferences.edit();
+        //sharedEditor.clear();
+        //sharedEditor.commit();
+
+        if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
+            DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
+            disclaimerDialogFragment.show(getFragmentManager(), "dialog");
+        }
     }
 
     /**

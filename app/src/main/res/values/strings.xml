@@ -291,4 +291,8 @@ limitations under the License.</string>
     <string name="sentence_import_worked">Imported Database</string>
     <string name="sentence_export_worked">Exported Database</string>
     <string name="sentence_export_failed">Could not Export Database</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="disclaimerText">This application offers health information for informational purposes only. The application do not offer medical advice nor professional advice for medical diagnosis or treatment and you should not rely on the information in this application. If you have any medical condition consult a doctor before using this application. All the information contained in the application or website are similar to that of textbooks or other health resources. We do not accept any responsibility for the correctness of the provided information. You agree to use the service at your own sole risk</string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
 </resources>

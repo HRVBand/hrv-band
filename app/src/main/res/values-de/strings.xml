@@ -263,6 +263,17 @@
     <string name="import_error_msg">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
     <string name="sentence_import_failed">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
     <string name="sentence_export_failed">Datenbank konnte nicht exportiert werden.</string>
+    <string name="disclaimer">Haftungsausschluss</string>
+    <string name="disclaimerText">Die Informationen die diese Anwendung anbietet, dienen nur zu Informationszwecken.
+        Die Anwendung bietet keine medizinische oder professionelle Beratung an.
+        Sie sollten sich nicht auf die Informationen, die diese Anwendung bereitstellt verlassen.
+        Wenn Sie an irgendeiner Erkrankung leiden, sollten Sie einen Arzt konsultieren,
+        bevor Sie diese Anwendung verwenden. Die Informationen die in der Anwendung bzw.
+        auf der Website zu finden sind, sind ähnlich derer aus Lehrbüchern und anderen Gesundheitsressourcen.
+        Wir übernehmen keine Gewähr für die Richtigkeit der bereitgestellten Informationen.
+        Sie stimmen zu den Dienst auf eigene Verantwortung zu nutzen.</string>
+    <string name="agree">Zustimmen</string>
+    <string name="disagree">Ablehnen</string>
 
 
 </resources>
