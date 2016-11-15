@@ -31,7 +31,7 @@ public class DisclaimerDialogFragment extends DialogFragment {
                     SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
                     SharedPreferences.Editor prefsEditor = mPrefs.edit();
                     prefsEditor.putBoolean(DISCLAIMER_AGREEMENT, true);
-                    prefsEditor.commit();
+                    prefsEditor.apply();
                 }
             })
             .setNegativeButton(R.string.disagree, new DialogInterface.OnClickListener() {
