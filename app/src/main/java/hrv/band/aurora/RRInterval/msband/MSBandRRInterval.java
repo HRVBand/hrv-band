@@ -19,7 +19,7 @@ import java.util.List;
 
 import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.IRRInterval;
-import hrv.band.aurora.view.ErrorHandling;
+import hrv.band.aurora.view.UiHandlingUtil;
 
 /**
  * Created by Thomas on 13.06.2016.
@@ -48,7 +48,7 @@ public class MSBandRRInterval implements IRRInterval {
             public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
                 if (event != null) {
                     double help = event.getInterval();
-                    ErrorHandling.updateTextView(activity, rrStatus, String.format("%.2f", help));
+                    UiHandlingUtil.updateTextView(activity, rrStatus, String.format("%.2f", help));
                     rr.add(help);//add the actual rrInterval
                 }
             }
@@ -62,8 +62,8 @@ public class MSBandRRInterval implements IRRInterval {
 
     @Override
     public void startAnimation() {
-        ErrorHandling.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_hold_still));
-       activity.runOnUiThread(new Runnable() {
+        UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_hold_still));
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (animation != null) {
@@ -131,7 +131,7 @@ public class MSBandRRInterval implements IRRInterval {
         if (client == null) {
             BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
             if (devices.length == 0) {
-                ErrorHandling.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.error_band_not_paired));
+                UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.error_band_not_paired));
                 return false;
             }
             client = BandClientManager.getInstance().create(activity.getApplicationContext(), devices[0]);
@@ -139,7 +139,7 @@ public class MSBandRRInterval implements IRRInterval {
             return true;
         }
 
-        ErrorHandling.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_band_connecting));
+        UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_band_connecting));
         return ConnectionState.CONNECTED == client.connect().await();
     }
 

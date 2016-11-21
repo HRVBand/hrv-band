@@ -3,8 +3,11 @@ package hrv.band.aurora.view.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +25,7 @@ import hrv.band.aurora.R;
 import hrv.band.aurora.RRInterval.IRRInterval;
 import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.RRInterval.msband.MSBandRRInterval;
-import hrv.band.aurora.view.ErrorHandling;
+import hrv.band.aurora.view.UiHandlingUtil;
 import hrv.band.aurora.view.MeasureDetailsActivity;
 
 /**
@@ -33,11 +36,12 @@ public class MeasuringFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
-    private int duration = 9000;
+    private int duration = 90000;
     private IRRInterval rrInterval;
     private TextView rrStatus;
     private TextView txtStatus;
     private ProgressBar progressBar;
+    private  FloatingActionButton floatingActionButton;
     public static View view;
 
     public MeasuringFragment() {
@@ -49,11 +53,42 @@ public class MeasuringFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.content_measure, container, false);
         view = rootView.findViewById(R.id.measure_fragment);
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
-        txtStatus = (TextView)  rootView.findViewById(R.id.measure_status);
-        progressBar = (ProgressBar)  rootView.findViewById(R.id.progressBar);
+        txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        floatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.sensor_access_float_button);
+
+        progressBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startAnimation(new Interval(new Date()));
+            }
+        });
+
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rrInterval.getDevicePermission();
+            }
+        });
 
         rrInterval = new MSBandRRInterval(getActivity(), txtStatus, rrStatus);
+
+        setProgressBarSize();
+
         return rootView;
+    }
+
+    private void setProgressBarSize() {
+        Display mDisplay = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        mDisplay.getSize(size);
+
+        ViewGroup.LayoutParams params = progressBar.getLayoutParams();
+        params.height = size.x;
+        params.width = size.x;
+
+        progressBar.setLayoutParams(params);
     }
 
     public HRVParameters calculate(Interval interval) {
@@ -73,14 +108,14 @@ public class MeasuringFragment extends Fragment {
 
     public void startAnimation(final Interval interval) {
 
-        final ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, getResources().getString(R.string.common_progress),0, 1000); // see this max value coming back here, we animale towards that value
+        final ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress",0, 1000); // see this max value coming back here, we animale towards that value
         animation.setDuration (duration); //in milliseconds
         animation.setInterpolator (new LinearInterpolator());
         animation.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator a) {
                 progressBar.setClickable(false);
-                //rrInterval.startRRIntervalMeasuring(animation);
+                floatingActionButton.setClickable(false);
             }
 
             @Override
@@ -89,7 +124,7 @@ public class MeasuringFragment extends Fragment {
                 if (interval == null) {
                     return;
                 }
-                ErrorHandling.updateTextView(getActivity(), txtStatus, "Calculating");
+                UiHandlingUtil.updateTextView(getActivity(), txtStatus, "Calculating");
                 interval.SetRRInterval(rrInterval.getRRIntervals());
 
                 Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
@@ -109,12 +144,13 @@ public class MeasuringFragment extends Fragment {
             }
         });
         rrInterval.startRRIntervalMeasuring(animation);
-        //animation.start();
     }
 
     private void resetProgress() {
         progressBar.setClickable(true);
-        ErrorHandling.updateTextView(getActivity(), rrStatus, "0,00");
-        ErrorHandling.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
+        floatingActionButton.setClickable(true);
+
+        UiHandlingUtil.updateTextView(getActivity(), rrStatus, "0,00");
+        UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
     }
 }

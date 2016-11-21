@@ -1,1 +1,1 @@
-include ':app', ':feedback_v6'
+include ':app'

@@ -15,8 +15,10 @@ import java.util.List;
 
 import hrv.band.aurora.R;
 import hrv.band.aurora.view.fragment.AboutFragment;
+import hrv.band.aurora.view.fragment.DisclaimerFragment;
 import hrv.band.aurora.view.fragment.FeedbackDialogFragment;
 import hrv.band.aurora.view.fragment.LicenseFragment;
+import hrv.band.aurora.view.fragment.PrivacyFragment;
 
 public class ImprintActivity extends AppCompatActivity {
     private ImprintActivity.SectionsPagerAdapter mSectionsPagerAdapter;
@@ -33,6 +35,8 @@ public class ImprintActivity extends AppCompatActivity {
         fragments = new ArrayList<>();
         fragments.add(AboutFragment.newInstance());
         fragments.add(LicenseFragment.newInstance());
+        fragments.add(DisclaimerFragment.newInstance());
+        fragments.add(PrivacyFragment.newInstance());
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -75,6 +79,8 @@ public class ImprintActivity extends AppCompatActivity {
             switch(position) {
                 case 0: return getResources().getString(R.string.tab_about);
                 case 1: return getResources().getString(R.string.tab_license);
+                case 2: return getResources().getString(R.string.tab_disclaimer);
+                case 3: return getResources().getString(R.string.tab_privacy);
                 default: return "";
             }
         }

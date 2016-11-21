@@ -13,28 +13,34 @@
     tools:context="hrv.band.aurora.view.MainActivity"
     android:id="@+id/measure_fragment">
 <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
-    android:layout_weight="2">
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true">
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:max="1000"
         android:progress="1000"
-        android:progressDrawable="@drawable/circular"
-        android:onClick="startMeasuring" />
-
+        android:progressDrawable="@drawable/circular"/>
+        <!--android:onClick="startMeasuring" -->
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
     <LinearLayout
         android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/rrStatus"
@@ -44,7 +50,7 @@
             android:textSize="70dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="7dp">
             <ImageView
@@ -62,21 +68,27 @@
                 android:text="@string/measure_content_time_unit"
                 android:textSize="20dp"/>
         </LinearLayout>
-    </LinearLayout>
 
+
+    </LinearLayout>
     <TextView
         android:id="@+id/measure_status"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/test"
         android:text="@string/title_activity_start_measuring"
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp"
+        android:textSize="18sp"
         android:textAlignment="center"/>
+</LinearLayout>
+
+
 
 </RelativeLayout>
-    <TextView
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/sensor_access_float_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_watch"/>
 </LinearLayout>
