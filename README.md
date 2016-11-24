@@ -8,4 +8,4 @@ In HRV Band we use the following third party libraries:
 - [Apache Commons Lang3] (https://commons.apache.org/)
 
 # Icon
-[Icon](https://github.com/thomcz/hrv-band/blob/master/app/src/main/res/drawable/ic_launcher.xml) made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
+[Icon](https://github.com/thomcz/hrv-band/blob/gh-pages/images/hrv_logo.png) made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
