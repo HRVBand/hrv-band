@@ -12,7 +12,7 @@ import com.microsoft.band.sensors.HeartRateConsentListener;
 import java.lang.ref.WeakReference;
 
 import hrv.band.aurora.R;
-import hrv.band.aurora.view.ErrorHandling;
+import hrv.band.aurora.view.UiHandlingUtil;
 
 /**
  * Class that gets user-permission for measuring the heartrate (and rrIntervals)
@@ -42,7 +42,7 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                 }
             } else {
                 String msg = activityWeakReference.get().getResources().getString(R.string.error_band_not_connected_help);
-                ErrorHandling.showSnackbar(msg);
+                UiHandlingUtil.showSnackbar(msg);
             }
         } catch (BandException e) {
             String exceptionMessage="";
@@ -57,10 +57,10 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
                     break;
             }
-            ErrorHandling.showSnackbar(exceptionMessage);
+            UiHandlingUtil.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
-            ErrorHandling.showSnackbar(e.getMessage());
+            UiHandlingUtil.showSnackbar(e.getMessage());
         }
         return null;
     }

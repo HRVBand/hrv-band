@@ -11,7 +11,7 @@ import com.microsoft.band.BandException;
 import com.microsoft.band.UserConsent;
 import com.microsoft.band.sensors.BandSensorManager;
 
-import hrv.band.aurora.view.ErrorHandling;
+import hrv.band.aurora.view.UiHandlingUtil;
 
 /**
  * Class that meassures the RRInterval (get results via Eventhandler...)
@@ -40,11 +40,11 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
                         msBandRRInterval.getDevicePermission();
                     }
                 } else {
-                    ErrorHandling.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
+                    UiHandlingUtil.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
                 }
             } else {
 
-                ErrorHandling.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
+                UiHandlingUtil.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
             }
         } catch (BandException e) {
             String exceptionMessage="";
@@ -59,10 +59,10 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
                     exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
                     break;
             }
-           ErrorHandling.showSnackbar(exceptionMessage);
+           UiHandlingUtil.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
-           ErrorHandling.showSnackbar(e.getMessage());
+           UiHandlingUtil.showSnackbar(e.getMessage());
         }
         return null;
     }

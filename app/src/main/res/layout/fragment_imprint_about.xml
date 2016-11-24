@@ -60,6 +60,13 @@
         android:text="@string/developer_matthaeus"
         android:gravity="center_horizontal"
         android:autoLink="web"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:text="@string/website"
+        android:gravity="center_horizontal"
+        android:autoLink="web"/>
 
 
 </LinearLayout>

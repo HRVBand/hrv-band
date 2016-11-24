@@ -22,14 +22,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.aurora.Control.HRVParameters;
 import hrv.band.aurora.R;
-import hrv.band.aurora.RRInterval.Interval;
 import hrv.band.aurora.storage.IStorage;
 import hrv.band.aurora.storage.SQLite.SQLController;
 import hrv.band.aurora.view.fragment.DisclaimerDialogFragment;
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     public static final String HRV_DATE = "HRV_DATE";
     public static final String HRV_VALUE = "hrv_rr_value";
     private static final String WEBSITE_URL = "https://thomcz.github.io/aurora";
-    private static final String WEBSITE_PRIVACY_URL = "https://thomcz.github.io/aurora";
+    private static final String WEBSITE_PRIVACY_URL = WEBSITE_URL + "/privacy";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity
     //private IRRInterval rrInterval;
     private MeasuringFragment measureFragment;
     private OverviewFragment overviewFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +89,6 @@ public class MainActivity extends AppCompatActivity
 
         tabLayout.setupWithViewPager(mViewPager);
 
-
         handleDisclaimer();
     }
 
@@ -120,7 +116,7 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         /*if (id == R.id.action_settings) {
@@ -187,27 +183,13 @@ public class MainActivity extends AppCompatActivity
 
             IStorage storage = new SQLController();
             storage.saveData(getApplicationContext(), param);
-        }
-        if(id == R.id.menu_export_db) {
+        } else if(id == R.id.menu_export_db) {
             DialogFragment exportFragment = ExportFragment.newInstance();
             exportFragment.show(getFragmentManager(), getResources().getString(R.string.common_export   ));
-        }
-        if(id == R.id.menu_import_db) {
+        } else if(id == R.id.menu_import_db) {
             DialogFragment importFragment = ImportFragment.newInstance();
             importFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
-
-
         }
-        // else if (id == R.id.test_function) {
-////            Context context = getApplicationContext();
-////            IStorage storage2 = new SQLController();
-////
-////            ISampleDataFactory factory = new RichSampleDataFactory();
-////            List<HRVParameters> parameters = factory.create(30);
-////
-////            List<HRVParameters> params = storage2.loadData(context, parameters.get(1).getTime());
-////            double a = params.get(0).getBaevsky();
-//        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;
 
@@ -282,13 +264,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void startMeasuring(View view) {
-        measureFragment.startAnimation(new Interval(new Date()));
-    }
-
-    public void getDevicePermission(View view) {
-        measureFragment.getRRInterval().getDevicePermission();
-    }
 
     @Override
     protected void onResume() {

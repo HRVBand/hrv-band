@@ -11,7 +11,7 @@ import hrv.band.aurora.view.fragment.MeasuringFragment;
 /**
  * Created by Thomas on 17.07.2016.
  */
-public class ErrorHandling {
+public class UiHandlingUtil {
 
 
     public static void showSnackbar(final String msg) {
