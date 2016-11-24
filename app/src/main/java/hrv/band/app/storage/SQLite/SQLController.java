@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import hrv.band.app.Control.HRVParameters;
-import hrv.band.app.common.FileUtils;
+import hrv.band.app.storage.FileUtils;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.view.adapter.CategorySpinnerAdapter;
 

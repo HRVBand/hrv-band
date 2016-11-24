@@ -1,4 +1,4 @@
-package hrv.band.app.common;
+package hrv.band.app.storage;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
