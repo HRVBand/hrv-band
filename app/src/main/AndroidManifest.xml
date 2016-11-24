@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="hrv.band.aurora">
+    package="hrv.band.app">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="com.microsoft.band.service.access.BIND_BAND_SERVICE" />
@@ -10,82 +10,81 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".common.AuroraApplication"
+        android:name="hrv.band.app.common.AuroraApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.SplashActivity"
+            android:name="hrv.band.app.view.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name="hrv.band.app.view.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.MeasureDetailsActivity"
+            android:name="hrv.band.app.view.MeasureDetailsActivity"
             android:label="@string/title_activity_save_values"
             android:screenOrientation="portrait"
-            android:parentActivityName=".view.MainActivity"
+            android:parentActivityName="hrv.band.app.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="hrv.band.aurora.view.MainActivity" />
+                android:value="hrv.band.app.view.MainActivity" />
         </activity>
         <activity
-            android:name=".view.ValueDescriptionActivity"
+            android:name="hrv.band.app.view.ValueDescriptionActivity"
             android:label="@string/title_activity_value_description"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.StatisticActivity"
+            android:name="hrv.band.app.view.StatisticActivity"
             android:label="@string/title_activity_statistic"
             android:screenOrientation="portrait"
-            android:parentActivityName=".view.MainActivity"
+            android:parentActivityName="hrv.band.app.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="hrv.band.aurora.view.MainActivity" />
+                android:value="hrv.band.app.view.MainActivity" />
         </activity>
         <activity
-            android:name=".view.HRVValueActivity"
+            android:name="hrv.band.app.view.HRVValueActivity"
             android:label="@string/title_activity_hrv_value"
             android:screenOrientation="portrait"
-            android:parentActivityName=".view.StatisticActivity"
+            android:parentActivityName="hrv.band.app.view.StatisticActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="hrv.band.aurora.view.StatisticActivity" />
+                android:value="hrv.band.app.view.StatisticActivity" />
         </activity>
         <activity
-            android:name=".view.HelpActivity"
+            android:name="hrv.band.app.view.HelpActivity"
             android:label="@string/title_activity_help"
             android:screenOrientation="portrait"
-            android:parentActivityName=".view.MainActivity"
+            android:parentActivityName="hrv.band.app.view.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="hrv.band.aurora.view.MainActivity" />
+                android:value="hrv.band.app.view.MainActivity" />
         </activity>
         <activity
-            android:name=".view.ImprintActivity"
+            android:name="hrv.band.app.view.ImprintActivity"
             android:label="@string/common_imprint"
             android:screenOrientation="portrait"
-            android:parentActivityName=".view.MainActivity"
+            android:parentActivityName="hrv.band.app.view.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="hrv.band.aurora.view.MainActivity" />
+                android:value="hrv.band.app.view.MainActivity" />
         </activity>
     </application>
 
