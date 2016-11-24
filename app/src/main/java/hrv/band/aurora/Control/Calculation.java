@@ -268,6 +268,9 @@ public class Calculation {
 
 
     private double calcmedian(double[] numArray) {
+        if (numArray.length == 0) {
+            return 0;
+        }
         double[] newArr = Arrays.copyOf(numArray, numArray.length);
         Arrays.sort(newArr);
         double middle = ((newArr.length) / 2);

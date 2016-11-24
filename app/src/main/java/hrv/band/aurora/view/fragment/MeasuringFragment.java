@@ -2,15 +2,21 @@ package hrv.band.aurora.view.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.ComponentCallbacks2;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,6 +58,7 @@ public class MeasuringFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_measure, container, false);
         view = rootView.findViewById(R.id.measure_fragment);
+
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
         txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
@@ -76,8 +83,10 @@ public class MeasuringFragment extends Fragment {
 
         setProgressBarSize();
 
+
         return rootView;
     }
+
 
     private void setProgressBarSize() {
         Display mDisplay = getActivity().getWindowManager().getDefaultDisplay();
@@ -85,8 +94,12 @@ public class MeasuringFragment extends Fragment {
         mDisplay.getSize(size);
 
         ViewGroup.LayoutParams params = progressBar.getLayoutParams();
-        params.height = size.x;
-        params.width = size.x;
+        int width = size.x;
+        if (size.x > size.y) {
+            width = size.y;
+        }
+        params.height = width;
+        params.width = width;
 
         progressBar.setLayoutParams(params);
     }
@@ -108,7 +121,7 @@ public class MeasuringFragment extends Fragment {
 
     public void startAnimation(final Interval interval) {
 
-        final ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress",0, 1000); // see this max value coming back here, we animale towards that value
+        final ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
         animation.setDuration (duration); //in milliseconds
         animation.setInterpolator (new LinearInterpolator());
         animation.addListener(new Animator.AnimatorListener() {
@@ -116,6 +129,9 @@ public class MeasuringFragment extends Fragment {
             public void onAnimationStart(Animator a) {
                 progressBar.setClickable(false);
                 floatingActionButton.setClickable(false);
+
+               // getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                 //       WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
             @Override
@@ -146,9 +162,16 @@ public class MeasuringFragment extends Fragment {
         rrInterval.startRRIntervalMeasuring(animation);
     }
 
+    public void stopMeasuring() {
+        rrInterval.stopMeasuring();
+    }
+
     private void resetProgress() {
         progressBar.setClickable(true);
         floatingActionButton.setClickable(true);
+        //view.setOnTouchListener(null);
+        //touchListener.clearTouchable();
+        //getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         UiHandlingUtil.updateTextView(getActivity(), rrStatus, "0,00");
         UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));

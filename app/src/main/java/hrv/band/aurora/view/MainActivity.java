@@ -2,6 +2,7 @@ package hrv.band.aurora.view;
 
 import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -22,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     public static final String HRV_DATE = "HRV_DATE";
     public static final String HRV_VALUE = "hrv_rr_value";
-    private static final String WEBSITE_URL = "https://thomcz.github.io/aurora";
+    public static final String WEBSITE_URL = "https://thomcz.github.io/hrv-band";
     private static final String WEBSITE_PRIVACY_URL = WEBSITE_URL + "/privacy";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -91,6 +93,13 @@ public class MainActivity extends AppCompatActivity
 
         handleDisclaimer();
     }
+
+   /* @Override
+    public void onTrimMemory(final int level) {
+        if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
+            measureFragment.stopMeasuring();
+        }
+    }*/
 
     @Override
     public void onBackPressed() {

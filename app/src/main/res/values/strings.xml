@@ -45,7 +45,7 @@
     <string name="title_activity_measure">Measurement</string>
     <string name="title_activity_save_values">Measurement Details</string>
     <string name="title_activity_start_measuring">Press To Start Measurement</string>
-    <string name="title_activity_value_description">ValueDescriptionActivity</string>
+    <string name="title_activity_value_description">Value Description</string>
     <string name="title_activity_statistic">Measure History</string>
     <string name="title_activity_hrv_value">Measure Details</string>
 
@@ -209,5 +209,17 @@ limitations under the License.</string>
     <string name="agree">Agree</string>
     <string name="disagree">Disagree</string>
     <string name="privacyText">HRV Band does save all your data on your smart phone. Nothing is sent to any server! </string>
+
+    <!--HRV Value Desc -->
+    <string name="lf_desc">Low frequency band energy as an indicator of mainly symphatic activity.</string>
+    <string name="hf_desc">High frequency band energy as an indicator of parasymphatic activity.</string>
+    <string name="lfhf_desc">Ratio of LF and HF. Indicator of regulation of the autonomous nervous system. </string>
+    <string name="rmssd_desc">Root Mean Square of successive RR-Intervals. </string>
+    <string name="sdsd_desc">Standard deviation of successive RR-Intervals.</string>
+    <string name="sdnn_desc">Standard deviation of all RR-Intervals.</string>
+    <string name="sd1_desc">Standard deviation of the orthogonal distances in the Poincare plot. </string>
+    <string name="sd2_desc">Standard deviation of the horizontal distances in the Poincare plot.</string>
+    <string name="sd1sd2_desc">Ratio of SD1 and SD2.</string>
+    <string name="baevsky_desc">Baevsky Stressindex as an indicator of overall stress. </string>
 
 </resources>
