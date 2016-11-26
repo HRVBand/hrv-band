@@ -23,13 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.SQLite.SQLController;
 import hrv.band.app.view.fragment.DisclaimerDialogFragment;
 import hrv.band.app.view.fragment.ExportFragment;
 import hrv.band.app.view.fragment.FeedbackDialogFragment;
@@ -173,23 +167,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(Intent.ACTION_VIEW,
                         Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
             }
-        } else if (id == R.id.sample_data) {
-            HRVParameters param = new HRVParameters();
-            Date date = new Date();
-            param.setTime(date);
-            ArrayList<Double> rr = new ArrayList<>();
-            rr.add(0.5);
-            rr.add(0.4);
-            rr.add(0.5);
-            rr.add(0.7);
-            rr.add(0.9);
-            rr.add(0.5);
-            rr.add(0.4);
-            rr.add(0.5);
-            param.setRRIntervals(rr);
-
-            IStorage storage = new SQLController();
-            storage.saveData(getApplicationContext(), param);
         } else if(id == R.id.menu_export_db) {
             DialogFragment exportFragment = ExportFragment.newInstance();
             exportFragment.show(getFragmentManager(), getResources().getString(R.string.common_export   ));
