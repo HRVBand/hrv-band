@@ -39,7 +39,7 @@
     <string name="title_activity_measure">Messung</string>
     <string name="title_activity_save_values">Details</string>
     <string name="title_activity_start_measuring">Drücke um Messung zu starten</string>
-    <string name="title_activity_value_description">ValueDescriptionActivity</string>
+    <string name="title_activity_value_description">Beschreibungen</string>
     <string name="title_activity_statistic">Historie</string>
     <string name="title_activity_hrv_value">Details</string>
 
