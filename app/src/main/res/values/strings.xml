@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HRV Band</string>
+    <string name="app_name" translatable="false">HRV Band</string>
     <string name="development_studio">the HRV app for your MS 2!</string>
 
     <!-- Common words -->
@@ -35,9 +35,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Activity Main Drawer -->
-    <string name="main_drawer_website">Website</string>
-    <string name="main_drawer_feedback">Feedback</string>
-    <string name="main_drawer_privacy_policy">Privacy Policy</string>
+    <string name="main_drawer_website" translatable="false">Website</string>
+    <string name="main_drawer_feedback" translatable="false">Feedback</string>
+    <string name="main_drawer_privacy_policy" translatable="false">Privacy Policy</string>
 
     <!-- Title Activity-->
     <string name="title_activity_help">Help</string>
@@ -56,10 +56,10 @@
     <string name="settings_application_updates">Application Updates</string>
     <string name="settings_application_updates_summary">This option if selected will allow the application to check for latest versions.</string>
 
-    <string name="settings_database">Database</string>
-    <string name="settings_database_summary">Import or Export or Delete Your Data.</string>
-    <string name="settings_delete_db">Delete Data</string>
-    <string name="settings_delete_db_summary">Deletes all previously recorded data.</string>
+    <string name="settings_database" translatable="false">Database</string>
+    <string name="settings_database_summary" translatable="false">Import or Export or Delete Your Data.</string>
+    <string name="settings_delete_db" translatable="false">Delete Data</string>
+    <string name="settings_delete_db_summary" translatable="false">Deletes all previously recorded data.</string>
 
     <!-- Measurement Categories-->
     <string name="measure_category_general">General</string>
@@ -133,7 +133,7 @@
     <string name="feedback_category_bug">Bug</string>
     <string name="feedback_category_idea">Idea</string>
     <string name="feedback_category_question">Question</string>
-    <string name="feedback_your_comment">Your Comment</string>
+    <string name="feedback_your_comment" translatable="false">Your Comment</string>
 
     <!-- HRV Explanations -->
     <string name="how_measure_q">How to measure HRV Values?</string>
@@ -153,35 +153,19 @@
     <string name="tab_disclaimer">Disclaimer</string>
     <string name="tab_privacy">Privacy</string>
 
-    <string name="license_chart_link">https://github.com/lecho/hellocharts-android</string>
-    <string name="license_chart_text">HelloCharts\n
-Copyright 2014 Leszek Wach\n\n
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at \n
-
-   \nhttp://www.apache.org/licenses/LICENSE-2.0
-\n\n
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.</string>
-
     <string name="used_libraries">Libraries</string>
-    <string name="used_libraries_text">
+    <string name="used_libraries_text" translatable="false">
         "Amplify (https://github.com/stkent/amplify)\n"
         "Hellocharts (https://github.com/lecho/hellocharts-android)\n"
         "Apache Commons Lang (http://www.apache.org/licenses/)\n"
     </string>
-    <string name="icon">Icon made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
+    <string name="icon" translatable="false">Icon made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
 
     <string name="developers">Developers</string>
     <string name="developer_thomas">Thomas github.com/thomcz</string>
     <string name="developer_julian">Julian github.com/Fenox</string>
     <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
-    <string name="website">Website: thomcz.github.io/aurora/</string>
+    <string name="website" translatable="false">Website: thomcz.github.io/aurora/</string>
 
     <string name="version_number_text">Version</string>
     <string name="version_number">1</string>
@@ -198,11 +182,11 @@ limitations under the License.</string>
     <!-- Messages -->
     <string name="msg_band_connecting">Microsoft Band is connecting …</string>
     <string name="msg_hold_still">Hold Still During Measurement.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="import_error_msg">No Database at Destination \"files/export.sql\"</string>
     <string name="sentence_import_failed">Could not import Database.</string>
-    <string name="sentence_import_worked">Imported Database</string>
-    <string name="sentence_export_worked">Exported Database</string>
+    <string name="sentence_import_worked" translatable="false">Imported Database</string>
+    <string name="sentence_export_worked" translatable="false">Exported Database</string>
     <string name="sentence_export_failed">Could not Export Database</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="disclaimerText">This application offers health information for informational purposes only. The application do not offer medical advice nor professional advice for medical diagnosis or treatment and you should not rely on the information in this application. If you have any medical condition consult a doctor before using this application. All the information contained in the application or website are similar to that of textbooks or other health resources. We do not accept any responsibility for the correctness of the provided information. You agree to use the service at your own sole risk</string>
@@ -211,15 +195,15 @@ limitations under the License.</string>
     <string name="privacyText">HRV Band does save all your data on your smart phone. Nothing is sent to any server! </string>
 
     <!--HRV Value Desc -->
-    <string name="lf_desc">Low frequency band energy as an indicator of mainly symphatic activity.</string>
-    <string name="hf_desc">High frequency band energy as an indicator of parasymphatic activity.</string>
-    <string name="lfhf_desc">Ratio of LF and HF. Indicator of regulation of the autonomous nervous system. </string>
-    <string name="rmssd_desc">Root Mean Square of successive RR-Intervals. </string>
-    <string name="sdsd_desc">Standard deviation of successive RR-Intervals.</string>
-    <string name="sdnn_desc">Standard deviation of all RR-Intervals.</string>
-    <string name="sd1_desc">Standard deviation of the orthogonal distances in the Poincare plot. </string>
-    <string name="sd2_desc">Standard deviation of the horizontal distances in the Poincare plot.</string>
-    <string name="sd1sd2_desc">Ratio of SD1 and SD2.</string>
-    <string name="baevsky_desc">Baevsky Stressindex as an indicator of overall stress. </string>
+    <string name="lf_desc" translatable="false">Low frequency band energy as an indicator of mainly symphatic activity.</string>
+    <string name="hf_desc" translatable="false">High frequency band energy as an indicator of parasymphatic activity.</string>
+    <string name="lfhf_desc" translatable="false">Ratio of LF and HF. Indicator of regulation of the autonomous nervous system. </string>
+    <string name="rmssd_desc" translatable="false">Root Mean Square of successive RR-Intervals. </string>
+    <string name="sdsd_desc" translatable="false">Standard deviation of successive RR-Intervals.</string>
+    <string name="sdnn_desc" translatable="false">Standard deviation of all RR-Intervals.</string>
+    <string name="sd1_desc" translatable="false">Standard deviation of the orthogonal distances in the Poincare plot. </string>
+    <string name="sd2_desc" translatable="false">Standard deviation of the horizontal distances in the Poincare plot.</string>
+    <string name="sd1sd2_desc" translatable="false">Ratio of SD1 and SD2.</string>
+    <string name="baevsky_desc" translatable="false">Baevsky Stressindex as an indicator of overall stress. </string>
 
 </resources>

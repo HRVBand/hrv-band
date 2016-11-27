@@ -28,14 +28,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="20dp"
-                android:text="@string/license_chart_link"
                 android:autoLink="web"/>
             <TextView
                 android:id="@+id/license_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="20dp"
-                android:text="@string/license_chart_text"
                 android:autoLink="web"/>
         </LinearLayout>
 

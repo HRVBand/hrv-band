@@ -26,7 +26,7 @@ import hrv.band.app.R;
  * Created by Thomas on 27.07.2016.
  */
 public class FeedbackDialogFragment extends DialogFragment {
-    private static final String FEEDBACK_EMAIL = "bla@bla.bla";
+    private static final String FEEDBACK_EMAIL = "hrvband+feedback@gmail.com";
     private View view;
 
     @Override

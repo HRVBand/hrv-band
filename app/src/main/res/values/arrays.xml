@@ -1,25 +1,25 @@
 <resources>
-    <string-array name="listArray">
+    <string-array name="listArray" translatable="false">
         <item>Headings</item>
         <item>Headings and Details</item>
     </string-array>
 
-    <string-array name="listValues">
+    <string-array name="listValues" translatable="false">
         <item>1</item>
         <item>2</item>
     </string-array>
 
-    <string-array name="license_title_array">
+    <string-array name="license_title_array" translatable="false">
         <item>HelloCharts</item>
         <item>Apache Commons Math</item>
     </string-array>
 
-    <string-array name="license_link_array">
+    <string-array name="license_link_array" translatable="false">
         <item>https://github.com/lecho/hellocharts-android</item>
         <item>https://github.com/apache/commons-math</item>
     </string-array>
 
-    <string-array name="license_text_array">
+    <string-array name="license_text_array" translatable="false">
         <item>HelloCharts\n
 Copyright 2014 Leszek Wach\n\n
 
