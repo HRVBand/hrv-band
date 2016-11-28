@@ -9,3 +9,6 @@ In HRV Band we use the following third party libraries:
 
 # Icon
 [Icon](https://github.com/thomcz/hrv-band/blob/gh-pages/images/hrv_logo.png) made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
+
+# Get Started
+Download [Android app](https://play.google.com/store/apps/details?id=hrv.band.aurora) to get started
