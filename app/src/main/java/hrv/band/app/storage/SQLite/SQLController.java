@@ -36,7 +36,7 @@ public class SQLController implements IStorage {
 
     @Override
     public void saveData(Context context, HRVParameters parameter) {
-        SQLiteStorageController controller = new SQLiteStorageController(context);
+        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
 
         SQLiteDatabase db = controller.getWritableDatabase();
 
@@ -78,11 +78,11 @@ public class SQLController implements IStorage {
         db2.close();
     }
 
-    public static Date getEndOfDay(Date date) {
+    private static Date getEndOfDay(Date date) {
         return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
     }
 
-    public static Date getStartOfDay(Date date) {
+    private static Date getStartOfDay(Date date) {
         return DateUtils.truncate(date, Calendar.DATE);
     }
 
@@ -91,7 +91,7 @@ public class SQLController implements IStorage {
 
 
         List<HRVParameters> returnList = new ArrayList<>();
-        SQLiteStorageController controller = new SQLiteStorageController(context);
+        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
 
         SQLiteDatabase db = controller.getReadableDatabase();
 
@@ -186,7 +186,7 @@ public class SQLController implements IStorage {
 
     @Override
     public boolean deleteData(Context context, HRVParameters parameter) {
-        SQLiteStorageController controller = new SQLiteStorageController(context);
+        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
 
         SQLiteDatabase db = controller.getReadableDatabase();
 
@@ -210,13 +210,13 @@ public class SQLController implements IStorage {
     }
 
     public boolean deleteAllData(Context context) {
-        SQLiteStorageController controller = new SQLiteStorageController(context);
+        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
         SQLiteDatabase db = controller.getReadableDatabase();
         return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME, null, null) >= 0;
     }
 
     public boolean exportDB(String dbPath, Context con) throws IOException {
-        SQLiteStorageController controller = new SQLiteStorageController(con);
+        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(con);
 
         String dbToExportPath = String.valueOf(con.getDatabasePath(controller.getDatabaseName()));
 
@@ -235,7 +235,7 @@ public class SQLController implements IStorage {
 
     public boolean importDB(String dbPath, Context con) throws IOException {
 
-        SQLiteStorageController controller = new SQLiteStorageController(con);
+        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(con);
         String dbToImportToPath = String.valueOf(con.getDatabasePath(controller.getDatabaseName()));
 
         File newDB = new File(dbPath);

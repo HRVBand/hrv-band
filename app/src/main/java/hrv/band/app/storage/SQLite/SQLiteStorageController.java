@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class SQLiteStorageController extends SQLiteOpenHelper {
 
+
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "HRVParamDB.db";
 
@@ -40,9 +41,18 @@ public class SQLiteStorageController extends SQLiteOpenHelper {
     private static final String SQL_DELETE_HRVPAARAMETERS =
             "DROP TABLE IF EXISTS " + HRVParameterContract.HRVParameterEntry.TABLE_NAME;
 
-    public SQLiteStorageController(Context context)
-    {
+    private static SQLiteStorageController INSTANCE;
+
+    private SQLiteStorageController(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static synchronized SQLiteStorageController getINSTANCE(Context context) {
+        if(INSTANCE == null) {
+            INSTANCE = new SQLiteStorageController(context);
+        }
+
+        return INSTANCE;
     }
 
     public void onCreate(SQLiteDatabase db)
