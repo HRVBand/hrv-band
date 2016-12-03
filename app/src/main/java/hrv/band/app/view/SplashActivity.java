@@ -11,9 +11,9 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(R.layout.content_splash);
+        //setContentView(R.layout.content_splash);
 
-        final TextView mSwitcher = (TextView) findViewById(R.id.splash_title);
+        /*final TextView mSwitcher = (TextView) findViewById(R.id.splash_title);
         mSwitcher.setText("old text");
 
         final Animation in = new AlphaAnimation(0.0f, 1.0f);
@@ -32,9 +32,10 @@ public class SplashActivity extends AppCompatActivity {
         mSwitcher.setText("new text");
         mSwitcher.startAnimation(in);*/
 
-
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
+
+
 }

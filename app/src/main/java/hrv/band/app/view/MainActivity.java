@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        handleDisclaimer();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,8 +86,6 @@ public class MainActivity extends AppCompatActivity
         assert tabLayout != null;
 
         tabLayout.setupWithViewPager(mViewPager);
-
-        handleDisclaimer();
     }
 
    /* @Override
@@ -213,20 +215,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(Intent.createChooser(sharingIntent, resources.getString(R.string.share_via)));
     }
 
-    private void handleDisclaimer() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        //Clears SharedPreferences
-        SharedPreferences.Editor sharedEditor = sharedPreferences.edit();
-        sharedEditor.clear();
-        sharedEditor.commit();
-
-
-        if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
-            DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
-            disclaimerDialogFragment.show(getFragmentManager(), "dialog");
-        }
-    }
 
 
 
@@ -283,5 +272,20 @@ public class MainActivity extends AppCompatActivity
             measureFragment.getRRInterval().destroy();
         }
         super.onDestroy();
+    }
+
+    private void handleDisclaimer() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        //Clears SharedPreferences
+        //SharedPreferences.Editor sharedEditor = sharedPreferences.edit();
+        //sharedEditor.clear();
+        //sharedEditor.commit();
+
+
+        if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
+            DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
+            disclaimerDialogFragment.show(getFragmentManager(), "dialog");
+        }
     }
 }

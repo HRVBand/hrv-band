@@ -41,8 +41,6 @@ public class DisclaimerDialogFragment extends DialogFragment {
                 }
             });
 
-
-
         return builder.create();
     }
 
