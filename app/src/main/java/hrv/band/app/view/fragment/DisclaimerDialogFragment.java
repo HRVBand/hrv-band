@@ -21,7 +21,7 @@ public class DisclaimerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), getTheme());
 
         builder.setTitle(R.string.disclaimer)
             .setMessage(R.string.disclaimerText)
@@ -41,6 +41,15 @@ public class DisclaimerDialogFragment extends DialogFragment {
                 }
             });
 
+
+
         return builder.create();
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        System.exit(0);
     }
 }

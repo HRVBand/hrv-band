@@ -95,6 +95,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+
+        //Close the app, if disclaimer has not yet been accepted
+        int backstackCount = getFragmentManager().getBackStackEntryCount();
+        if(backstackCount != 0) {
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
+                System.exit(0);
+            }
+        }
+
+
+        //If the Navigation Drawer is opened, a backPressed closes the Navigation Drawer.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;
 
@@ -103,6 +116,8 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
+
     }
 
     @Override
@@ -126,6 +141,8 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -200,15 +217,18 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         //Clears SharedPreferences
-        //SharedPreferences.Editor sharedEditor = sharedPreferences.edit();
-        //sharedEditor.clear();
-        //sharedEditor.commit();
+        SharedPreferences.Editor sharedEditor = sharedPreferences.edit();
+        sharedEditor.clear();
+        sharedEditor.commit();
+
 
         if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
             DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
             disclaimerDialogFragment.show(getFragmentManager(), "dialog");
         }
     }
+
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -248,12 +268,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //reset to default
-    }
 
     @Override
     protected void onPause() {
