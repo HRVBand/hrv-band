@@ -20,18 +20,18 @@ import hrv.band.app.view.UiHandlingUtil;
 public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
 
     private WeakReference<Activity> activityWeakReference;
-    private MSBandRRInterval msBandRRInterval;
+    private MSBandRRIntervalDevice msBandRRIntervalDevice;
 
-    public MSBandHeartRateConsentTask(WeakReference<Activity> activityWeakReference, MSBandRRInterval msBandRRInterval) {
+    public MSBandHeartRateConsentTask(WeakReference<Activity> activityWeakReference, MSBandRRIntervalDevice msBandRRIntervalDevice) {
         this.activityWeakReference = activityWeakReference;
-        this.msBandRRInterval = msBandRRInterval;
+        this.msBandRRIntervalDevice = msBandRRIntervalDevice;
     }
     //register eventhandler, so we can recieve wether the user has accepted the measurement
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            if (msBandRRInterval.getConnectedBandClient()) {
-                BandClient client = msBandRRInterval.getClient();
+            if (msBandRRIntervalDevice.getConnectedBandClient()) {
+                BandClient client = msBandRRIntervalDevice.getClient();
 
                 if (activityWeakReference != null) {
                     client.getSensorManager().requestHeartRateConsent(activityWeakReference.get(), new HeartRateConsentListener() {

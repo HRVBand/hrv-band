@@ -18,26 +18,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.IRRInterval;
+import hrv.band.app.RRInterval.HRVRRIntervalEvent;
+import hrv.band.app.RRInterval.HRVRRIntervalEventInitiator;
+import hrv.band.app.RRInterval.HRVRRIntervalListener;
+import hrv.band.app.RRInterval.IRRIntervalDevice;
 import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Created by Thomas on 13.06.2016.
  */
-public class MSBandRRInterval implements IRRInterval {
+public class MSBandRRIntervalDevice implements IRRIntervalDevice, HRVRRIntervalEventInitiator {
     private BandClient client;
     private Activity activity;
     private TextView statusTxt;
     private List<Double> rr;//stores the actual measurement-rrIntervals
     private WeakReference<Activity> reference;
     private ObjectAnimator animation;
-
+    private List<HRVRRIntervalListener> listeners = new ArrayList<>();
     /**
      *Handels when a new RRInterval is incoming
      */
     private BandRRIntervalEventListener mRRIntervalEventListener;
 
-    public MSBandRRInterval(final Activity activity, TextView statusTxt, final TextView rrStatus) {
+    public MSBandRRIntervalDevice(final Activity activity, TextView statusTxt, final TextView rrStatus) {
         this.statusTxt = statusTxt;
         this.activity = activity;
         reference = new WeakReference<>(activity);
@@ -48,6 +51,7 @@ public class MSBandRRInterval implements IRRInterval {
             public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
                 if (event != null) {
                     double help = event.getInterval();
+                    notifyListeners(help);
                     UiHandlingUtil.updateTextView(activity, rrStatus, String.format("%.2f", help));
                     rr.add(help);//add the actual rrInterval
                 }
@@ -103,22 +107,11 @@ public class MSBandRRInterval implements IRRInterval {
         }
     }
 
+
+
     @Override
-    public void getDevicePermission(){
+    public void connect(){
         new MSBandHeartRateConsentTask(reference, this).execute();
-    }
-
-    @Override
-    public boolean isDeviceConnected() {
-        boolean connected = false;
-        try {
-            connected = getConnectedBandClient();
-        } catch (InterruptedException inter) {
-
-        }catch (BandException band) {
-
-        }
-        return connected;
     }
 
     /**
@@ -155,4 +148,19 @@ public class MSBandRRInterval implements IRRInterval {
         return (Double[]) rr.toArray(new Double[rr.size()]);
     }
 
+    @Override
+    public void notifyListeners(double rrValue) {
+        for (HRVRRIntervalListener listener: listeners) {
+
+            HRVRRIntervalEvent event = new HRVRRIntervalEvent();
+            event.setRr(rrValue);
+
+            listener.newRRIntervall(event);
+        }
+    }
+
+    @Override
+    public void addListener(HRVRRIntervalListener toAdd) {
+        listeners.add(toAdd);
+    }
 }

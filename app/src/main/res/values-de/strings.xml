@@ -135,6 +135,9 @@
     <string name="how_previous_q">Kann ich meine alten Messungen sehen?</string>
     <string name="how_previous_a">Durch auswählen des Übersicht-Tabs können alte Messungen eingesehen werden.</string>
 
+    <!-- Connect Devices -->
+    <string name="connect_to_band">Mit MS Band verbinden</string>
+    <string name="connect_to_antplus">Mit ANT+ verbinden</string>
 
     <!-- Imprint -->
     <string name="tab_about">Über</string>

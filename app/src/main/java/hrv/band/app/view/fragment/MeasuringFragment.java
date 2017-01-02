@@ -21,9 +21,9 @@ import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.Fourier.FastFourierTransform;
 import hrv.band.app.Interpolation.CubicSplineInterpolation;
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.IRRInterval;
+import hrv.band.app.RRInterval.IRRIntervalDevice;
 import hrv.band.app.RRInterval.Interval;
-import hrv.band.app.RRInterval.msband.MSBandRRInterval;
+import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.MeasureDetailsActivity;
 import hrv.band.app.view.UiHandlingUtil;
 
@@ -36,11 +36,13 @@ public class MeasuringFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     private int duration = 90000;
-    private IRRInterval rrInterval;
+    private IRRIntervalDevice rrInterval;
     private TextView rrStatus;
     private TextView txtStatus;
     private ProgressBar progressBar;
     private com.github.clans.fab.FloatingActionButton connectToBandFAB;
+    private com.github.clans.fab.FloatingActionButton connectToAntPlusFAB;
+
 
     public static View view;
 
@@ -56,7 +58,8 @@ public class MeasuringFragment extends Fragment {
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
         txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        connectToBandFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.sensor_access_float_button);
+        connectToBandFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.connect_band_float_button);
+        connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.connect_antplus_float_button);
 
         progressBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,15 +68,21 @@ public class MeasuringFragment extends Fragment {
             }
         });
 
-
         connectToBandFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rrInterval.getDevicePermission();
+                rrInterval.connect();
             }
         });
 
-        rrInterval = new MSBandRRInterval(getActivity(), txtStatus, rrStatus);
+        connectToAntPlusFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rrInterval.connect();
+            }
+        });
+
+        rrInterval = new MSBandRRIntervalDevice(getActivity(), txtStatus, rrStatus);
 
         setProgressBarSize();
 
@@ -109,7 +118,7 @@ public class MeasuringFragment extends Fragment {
         return results;
     }
 
-    public IRRInterval getRRInterval() {
+    public IRRIntervalDevice getRRInterval() {
         return rrInterval;
     }
 
