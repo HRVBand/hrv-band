@@ -2,40 +2,41 @@ package hrv.band.app.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+
+import hrv.band.app.R;
 
 /**
  * Created by Thomas on 02.08.2016.
  */
 public class SplashActivity extends AppCompatActivity {
+    // Splash screen timer
+    private static int SPLASH_TIME_OUT = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.content_splash);
+        setContentView(R.layout.content_splash);
 
-        /*final TextView mSwitcher = (TextView) findViewById(R.id.splash_title);
-        mSwitcher.setText("old text");
+        animateLogo();
 
-        final Animation in = new AlphaAnimation(0.0f, 1.0f);
-        in.setDuration(3000);
-
-        final Animation out = new AlphaAnimation(1.0f, 0.0f);
-        out.setDuration(3000);
-
-        AnimationSet as = new AnimationSet(true);
-        as.addAnimation(out);
-        in.setStartOffset(3000);
-        as.addAnimation(in);
-
-
-        mSwitcher.startAnimation(as);
-        mSwitcher.setText("new text");
-        mSwitcher.startAnimation(in);*/
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
     }
 
-
+    private void animateLogo() {
+        ImageView imageView = (ImageView) findViewById(R.id.splash_logo);
+        Animation startAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
+        imageView.startAnimation(startAnimation);
+    }
 }

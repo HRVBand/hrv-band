@@ -277,12 +277,6 @@ public class MainActivity extends AppCompatActivity
     private void handleDisclaimer() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        //Clears SharedPreferences
-        //SharedPreferences.Editor sharedEditor = sharedPreferences.edit();
-        //sharedEditor.clear();
-        //sharedEditor.commit();
-
-
         if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
             DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
             disclaimerDialogFragment.show(getFragmentManager(), "dialog");
