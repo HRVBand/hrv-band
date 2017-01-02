@@ -23,6 +23,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.dsi.ant.plugins.antplus.pcc.AntPlusHeartRatePcc;
+import com.dsi.ant.plugins.antplus.pcc.defines.DeviceState;
+import com.dsi.ant.plugins.antplus.pcc.defines.EventFlag;
+import com.dsi.ant.plugins.antplus.pcc.defines.RequestAccessResult;
+import com.dsi.ant.plugins.antplus.pccbase.AntPluginPcc;
+
+import java.math.BigDecimal;
+import java.util.EnumSet;
+
 import hrv.band.app.R;
 import hrv.band.app.view.fragment.DisclaimerDialogFragment;
 import hrv.band.app.view.fragment.ExportFragment;
@@ -32,7 +41,10 @@ import hrv.band.app.view.fragment.MeasuringFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        AntPluginPcc.IDeviceStateChangeReceiver,
+        AntPluginPcc.IPluginAccessResultReceiver<AntPlusHeartRatePcc>,
+        AntPlusHeartRatePcc.ICalculatedRrIntervalReceiver{
 
     public static final String HRV_VALUE_ID = "HRV_VALUE";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
@@ -192,6 +204,8 @@ public class MainActivity extends AppCompatActivity
         } else if(id == R.id.menu_import_db) {
             DialogFragment importFragment = ImportFragment.newInstance();
             importFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
+        } else if (id == R.id.menu_connect_antplus) {
+            ConnectToHeartRateMonitor();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;
@@ -214,8 +228,6 @@ public class MainActivity extends AppCompatActivity
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(sharingIntent, resources.getString(R.string.share_via)));
     }
-
-
 
 
 
@@ -287,5 +299,52 @@ public class MainActivity extends AppCompatActivity
             DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
             disclaimerDialogFragment.show(getFragmentManager(), "dialog");
         }
+    }
+
+
+    ///AntPlus
+    private AntPlusHeartRatePcc wgtplc;
+
+    public void ConnectToHeartRateMonitor() {
+
+        //Release the old access
+        if(wgtplc != null) {
+            wgtplc.releaseAccess();
+            wgtplc = null;
+        }
+
+        //Make access request
+        AntPlusHeartRatePcc.requestAccess(this, getApplicationContext(), this, this);
+    }
+
+
+    @Override
+    public void onNewCalculatedRrInterval(long l, EnumSet<EventFlag> enumSet, BigDecimal bigDecimal, AntPlusHeartRatePcc.RrFlag rrFlag) {
+        long a = bigDecimal.longValue();
+        long b = a;
+    }
+
+    @Override
+    public void onDeviceStateChange(DeviceState deviceState) {
+        if(deviceState == DeviceState.DEAD)
+        {
+            wgtplc = null;
+
+        }
+    }
+
+    @Override
+    public void onResultReceived(AntPlusHeartRatePcc antPlusHeartRatePcc, RequestAccessResult requestAccessResult, DeviceState deviceState) {
+        switch(requestAccessResult) {
+            case SUCCESS:
+                wgtplc = antPlusHeartRatePcc;
+                requestMesurement();
+                break;
+
+        }
+    }
+
+    private void requestMesurement(){
+        boolean submitted = wgtplc.subscribeCalculatedRrIntervalEvent(this);
     }
 }
