@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,84 +12,106 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="hrv.band.app.view.MainActivity"
     android:id="@+id/measure_fragment">
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true">
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:max="1000"
-        android:progress="1000"
-        android:progressDrawable="@drawable/circular"/>
-        <!--android:onClick="startMeasuring" -->
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true">
-    <LinearLayout
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/rrStatus"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/measure_content_rr_status_standard"
-            android:textSize="70dp"/>
+            android:max="1000"
+            android:progress="1000"
+            android:progressDrawable="@drawable/circular"/>
+
+            <!--android:onClick="startMeasuring" -->
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="7dp">
-            <ImageView
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <LinearLayout
+                android:id="@+id/test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_heart_grey"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/measure_content_rr"
-                android:textSize="20dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/measure_content_time_unit"
-                android:textSize="20dp"/>
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/rrStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/measure_content_rr_status_standard"
+                    android:textSize="70dp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="7dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_heart_grey"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/measure_content_rr"
+                        android:textSize="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/measure_content_time_unit"
+                        android:textSize="20dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        <TextView
+            android:id="@+id/measure_status"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test"
+            android:text="@string/title_activity_start_measuring"
+            android:textSize="18sp"
+            android:textAlignment="center"/>
         </LinearLayout>
+    </RelativeLayout>
 
-
-    </LinearLayout>
-    <TextView
-        android:id="@+id/measure_status"
-        android:layout_width="200dp"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu_down"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/test"
-        android:text="@string/title_activity_start_measuring"
-        android:textSize="18sp"
-        android:textAlignment="center"/>
-</LinearLayout>
+        app:menu_labels_ellipsize="end"
+        app:menu_labels_singleLine="true"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_fab_size="mini"
+        app:menu_openDirection="down">
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/sensor_access_float_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorAccent"
+            android:src="@drawable/ic_add"
+            app:fab_size="mini"
+            app:fab_label="Connect to MS Band" />
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/connect_antplus_float_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorAccent"
+            android:src="@drawable/ic_add"
+            app:fab_size="mini"
+            app:fab_label="Connect to Ant+" />
 
-</RelativeLayout>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/sensor_access_float_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_watch"/>
+    </com.github.clans.fab.FloatingActionMenu>
 
-</LinearLayout>
+    </RelativeLayout>

@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -25,8 +24,8 @@ import hrv.band.app.R;
 import hrv.band.app.RRInterval.IRRInterval;
 import hrv.band.app.RRInterval.Interval;
 import hrv.band.app.RRInterval.msband.MSBandRRInterval;
-import hrv.band.app.view.UiHandlingUtil;
 import hrv.band.app.view.MeasureDetailsActivity;
+import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Created by s_czogal on 23.06.2016.
@@ -41,7 +40,8 @@ public class MeasuringFragment extends Fragment {
     private TextView rrStatus;
     private TextView txtStatus;
     private ProgressBar progressBar;
-    private  FloatingActionButton floatingActionButton;
+    private com.github.clans.fab.FloatingActionButton connectToBandFAB;
+
     public static View view;
 
     public MeasuringFragment() {
@@ -56,7 +56,7 @@ public class MeasuringFragment extends Fragment {
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
         txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        floatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.sensor_access_float_button);
+        connectToBandFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.sensor_access_float_button);
 
         progressBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class MeasuringFragment extends Fragment {
         });
 
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        connectToBandFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 rrInterval.getDevicePermission();
@@ -122,7 +122,7 @@ public class MeasuringFragment extends Fragment {
             @Override
             public void onAnimationStart(Animator a) {
                 progressBar.setClickable(false);
-                floatingActionButton.setClickable(false);
+                connectToBandFAB.setClickable(false);
 
                // getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                  //       WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -153,6 +153,7 @@ public class MeasuringFragment extends Fragment {
 
             }
         });
+
         rrInterval.startRRIntervalMeasuring(animation);
     }
 
@@ -162,7 +163,7 @@ public class MeasuringFragment extends Fragment {
 
     private void resetProgress() {
         progressBar.setClickable(true);
-        floatingActionButton.setClickable(true);
+        connectToBandFAB.setClickable(true);
         //view.setOnTouchListener(null);
         //touchListener.clearTouchable();
         //getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
