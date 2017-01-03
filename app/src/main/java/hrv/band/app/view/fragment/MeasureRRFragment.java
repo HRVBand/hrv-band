@@ -71,6 +71,8 @@ public class MeasureRRFragment extends Fragment {
                 max = rr.get(i);
             }
         }
+
+        average = average / rr.size();
         TextView minTxt = (TextView) rootView.findViewById(R.id.rr_min);
         TextView maxTxt = (TextView) rootView.findViewById(R.id.rr_max);
         TextView averageTxt = (TextView) rootView.findViewById(R.id.rr_average);
