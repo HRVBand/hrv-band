@@ -76,7 +76,7 @@ public class AntPlusRRDataDevice
 
     @Override
     public void pauseMeasuring() {
-        stopMeasuring();
+
     }
 
     @Override

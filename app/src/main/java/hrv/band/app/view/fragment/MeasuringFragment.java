@@ -45,6 +45,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener {
     private ObjectAnimator animation;
     private com.github.clans.fab.FloatingActionButton connectToBandFAB;
     private com.github.clans.fab.FloatingActionButton connectToAntPlusFAB;
+    private com.github.clans.fab.FloatingActionMenu menuDown;
 
 
     public static View view;
@@ -63,7 +64,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener {
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         connectToBandFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.connect_band_float_button);
         connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.connect_antplus_float_button);
-
+        menuDown = (com.github.clans.fab.FloatingActionMenu) rootView.findViewById(R.id.menu_down);
 
         progressBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +80,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener {
                 HRVRRIntervalDevice = new MSBandRRIntervalDevice(getActivity(), txtStatus, rrStatus);
                 HRVRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
                 HRVRRIntervalDevice.connect();
+                menuDown.toggle(true);
             }
         });
 
@@ -88,6 +90,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener {
                 HRVRRIntervalDevice = new AntPlusRRDataDevice(getContext(), getActivity());
                 HRVRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
                 HRVRRIntervalDevice.connect();
+                menuDown.toggle(true);
             }
         });
 
