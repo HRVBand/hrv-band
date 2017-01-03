@@ -160,8 +160,8 @@
     <string name="lib_apache_commons_lang">Apache Commons Lang3</string>
 
     <!-- Error Messages -->
-    <string name="error_band_not_paired">Band ist nicht mit dem Handy verbunden.</string>
-    <string name="error_band_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
+    <string name="error_band_not_paired">Gerät ist nicht mit dem Handy verbunden.</string>
+    <string name="error_device_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
 
     <!-- Messages -->
     <string name="msg_connecting">Verbinde mit Gerät …</string>

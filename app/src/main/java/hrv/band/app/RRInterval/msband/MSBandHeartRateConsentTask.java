@@ -41,7 +41,7 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     });
                 }
             } else {
-                String msg = activityWeakReference.get().getResources().getString(R.string.error_band_not_connected_help);
+                String msg = activityWeakReference.get().getResources().getString(R.string.error_device_not_connected_help);
                 UiHandlingUtil.showSnackbar(msg);
             }
         } catch (BandException e) {
