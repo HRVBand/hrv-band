@@ -23,6 +23,7 @@ import hrv.band.app.Interpolation.CubicSplineInterpolation;
 import hrv.band.app.R;
 import hrv.band.app.RRInterval.IRRIntervalDevice;
 import hrv.band.app.RRInterval.Interval;
+import hrv.band.app.RRInterval.antplus.AntPlusRRDataDevice;
 import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.MeasureDetailsActivity;
 import hrv.band.app.view.UiHandlingUtil;
@@ -36,7 +37,7 @@ public class MeasuringFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     private int duration = 90000;
-    private IRRIntervalDevice rrInterval;
+    private IRRIntervalDevice irrIntervalDevice;
     private TextView rrStatus;
     private TextView txtStatus;
     private ProgressBar progressBar;
@@ -71,18 +72,20 @@ public class MeasuringFragment extends Fragment {
         connectToBandFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rrInterval.connect();
+
+                irrIntervalDevice = new MSBandRRIntervalDevice(getActivity(), txtStatus, rrStatus);
+                irrIntervalDevice.connect();
             }
         });
 
         connectToAntPlusFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rrInterval.connect();
+                irrIntervalDevice = new AntPlusRRDataDevice(getContext(), getActivity());
+                irrIntervalDevice.connect();
             }
         });
 
-        rrInterval = new MSBandRRIntervalDevice(getActivity(), txtStatus, rrStatus);
 
         setProgressBarSize();
 
@@ -119,7 +122,7 @@ public class MeasuringFragment extends Fragment {
     }
 
     public IRRIntervalDevice getRRInterval() {
-        return rrInterval;
+        return irrIntervalDevice;
     }
 
     public void startAnimation(final Interval interval) {
@@ -139,12 +142,12 @@ public class MeasuringFragment extends Fragment {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                rrInterval.stopMeasuring();
+                irrIntervalDevice.stopMeasuring();
                 if (interval == null) {
                     return;
                 }
                 UiHandlingUtil.updateTextView(getActivity(), txtStatus, "Calculating");
-                interval.SetRRInterval(rrInterval.getRRIntervals());
+                interval.SetRRInterval(irrIntervalDevice.getRRIntervals());
 
                 Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
@@ -163,11 +166,11 @@ public class MeasuringFragment extends Fragment {
             }
         });
 
-        rrInterval.startRRIntervalMeasuring(animation);
+        irrIntervalDevice.startRRIntervalMeasuring(animation);
     }
 
     public void stopMeasuring() {
-        rrInterval.stopMeasuring();
+        irrIntervalDevice.stopMeasuring();
     }
 
     private void resetProgress() {
