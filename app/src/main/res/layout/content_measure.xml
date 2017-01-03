@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingBottom="?attr/actionBarSize"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/measure_content_rr_status_standard"
-            android:textSize="70dp"/>
+            android:textSize="70sp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -80,16 +80,17 @@
         android:textSize="18sp"
         android:textAlignment="center"/>
 </LinearLayout>
-
-
-
 </RelativeLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/sensor_access_float_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="end"
+        android:layout_marginBottom="@dimen/fab_margin_bottom"
         android:src="@drawable/ic_watch"/>
 
 </LinearLayout>
