@@ -29,7 +29,6 @@
             android:progress="1000"
             android:progressDrawable="@drawable/circular"/>
 
-            <!--android:onClick="startMeasuring" -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,6 +87,7 @@
         android:id="@+id/menu_down"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:menu_icon="@drawable/ic_connect"
         app:menu_labels_ellipsize="end"
         app:menu_labels_singleLine="true"
         app:menu_colorNormal="@color/colorAccent"
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorAccent"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_watch"
             app:fab_size="mini"
             app:fab_label="@string/connect_to_band" />
 
