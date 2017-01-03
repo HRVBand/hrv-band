@@ -60,10 +60,5 @@
             android:id="@+id/menu_export_db"
             android:icon="@drawable/ic_export"
             android:title="@string/common_export" />
-
-        <item
-            android:id="@+id/menu_connect_antplus"
-            android:icon="@drawable/ic_add"
-            android:title="Connect Ant Plus" />
     </group>
 </menu>

@@ -26,10 +26,8 @@ public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator
     @Override
     public void notifyRRIntervalListeners(double rrValue) {
         for (HRVRRIntervalListener listener: listeners) {
-
             HRVRRIntervalEvent event = new HRVRRIntervalEvent();
             event.setRr(rrValue);
-
             listener.newRRInterval(event);
         }
     }

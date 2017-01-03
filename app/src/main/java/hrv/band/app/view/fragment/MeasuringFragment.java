@@ -134,7 +134,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         return results;
     }
 
-    public HRVRRIntervalDevice getRRInterval() {
+    public HRVRRIntervalDevice getHRVDevice() {
         return HRVRRIntervalDevice;
     }
 
@@ -216,6 +216,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.msg_connecting));
                 break;
             case Connected:
+                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
                 break;
             case Disconnected:
                 UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
