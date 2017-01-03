@@ -1,6 +1,5 @@
 package hrv.band.app.RRInterval.msband;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.widget.TextView;
 
@@ -28,7 +27,6 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
     private Activity activity;
     private TextView statusTxt;
     private WeakReference<Activity> reference;
-    private ObjectAnimator animation;
     /**
      *Handels when a new RRInterval is incoming
      */

@@ -40,7 +40,6 @@ public class AntPlusRRDataDevice
         if(deviceState == DeviceState.DEAD)
         {
             wgtplc = null;
-
         }
     }
 
@@ -51,14 +50,13 @@ public class AntPlusRRDataDevice
             case SUCCESS:
                 wgtplc = antPlusHeartRatePcc;
                 break;
-
         }
     }
 
     @Override
     public void onNewCalculatedRrInterval(long l, EnumSet<EventFlag> enumSet, BigDecimal bigDecimal, AntPlusHeartRatePcc.RrFlag rrFlag) {
-        long rr = bigDecimal.longValue();
-        this.rrMeasurements.add((double) rr);
+        double rr = bigDecimal.longValue() / 1000.0;
+        this.rrMeasurements.add(rr);
         notifyRRIntervalListeners(rr);
     }
 
@@ -105,10 +103,16 @@ public class AntPlusRRDataDevice
 
     @Override
     public void tryStartRRIntervalMeasuring() {
-        boolean submitted = wgtplc.subscribeCalculatedRrIntervalEvent(this);
+        if(wgtplc == null)
+        {
+            connect();
+        }
+        else {
+            boolean submitted = wgtplc.subscribeCalculatedRrIntervalEvent(this);
 
-        if(submitted) {
-            notifyDeviceStartedMeasurement();
+            if(submitted) {
+                notifyDeviceStartedMeasurement();
+            }
         }
     }
 }

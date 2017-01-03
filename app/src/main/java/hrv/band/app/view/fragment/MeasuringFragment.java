@@ -23,6 +23,8 @@ import hrv.band.app.Interpolation.CubicSplineInterpolation;
 import hrv.band.app.R;
 import hrv.band.app.RRInterval.HRVRRDeviceListener;
 import hrv.band.app.RRInterval.HRVRRIntervalDevice;
+import hrv.band.app.RRInterval.HRVRRIntervalEvent;
+import hrv.band.app.RRInterval.HRVRRIntervalListener;
 import hrv.band.app.RRInterval.Interval;
 import hrv.band.app.RRInterval.antplus.AntPlusRRDataDevice;
 import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
@@ -33,7 +35,7 @@ import hrv.band.app.view.UiHandlingUtil;
  * Created by s_czogal on 23.06.2016.
  */
 
-public class MeasuringFragment extends Fragment implements HRVRRDeviceListener {
+public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
@@ -79,6 +81,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener {
 
                 HRVRRIntervalDevice = new MSBandRRIntervalDevice(getActivity(), txtStatus, rrStatus);
                 HRVRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
+                HRVRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
                 HRVRRIntervalDevice.connect();
                 menuDown.toggle(true);
             }
@@ -89,6 +92,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener {
             public void onClick(View v) {
                 HRVRRIntervalDevice = new AntPlusRRDataDevice(getContext(), getActivity());
                 HRVRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
+                HRVRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
                 HRVRRIntervalDevice.connect();
                 menuDown.toggle(true);
             }
@@ -198,5 +202,10 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener {
         if (animation != null) {
             animation.start();
         }
+    }
+
+    @Override
+    public void newRRInterval(HRVRRIntervalEvent event) {
+        UiHandlingUtil.updateTextView(getActivity(), rrStatus, String.format("%.2f", event.getRr()));
     }
 }

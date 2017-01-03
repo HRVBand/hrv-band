@@ -30,7 +30,7 @@ public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator
             HRVRRIntervalEvent event = new HRVRRIntervalEvent();
             event.setRr(rrValue);
 
-            listener.newRRIntervall(event);
+            listener.newRRInterval(event);
         }
     }
 
