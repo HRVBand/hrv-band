@@ -1,7 +1,6 @@
 package hrv.band.app.RRInterval.msband;
 
 import android.app.Activity;
-import android.widget.TextView;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
@@ -25,15 +24,13 @@ import hrv.band.app.RRInterval.HRVRRIntervalDevice;
 public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
     private BandClient client;
     private Activity activity;
-    private TextView statusTxt;
     private WeakReference<Activity> reference;
     /**
      *Handels when a new RRInterval is incoming
      */
     private BandRRIntervalEventListener mRRIntervalEventListener;
 
-    public MSBandRRIntervalDevice(final Activity activity, TextView statusTxt) {
-        this.statusTxt = statusTxt;
+    public MSBandRRIntervalDevice(final Activity activity) {
         this.activity = activity;
         reference = new WeakReference<>(activity);
 

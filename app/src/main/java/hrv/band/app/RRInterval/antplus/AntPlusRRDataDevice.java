@@ -19,7 +19,6 @@ import hrv.band.app.RRInterval.HRVRRIntervalDevice;
 /**
  * Created by Julian on 29.12.2016.
  */
-
 public class AntPlusRRDataDevice
         extends HRVRRIntervalDevice
         implements AntPluginPcc.IDeviceStateChangeReceiver,
@@ -28,8 +27,8 @@ public class AntPlusRRDataDevice
 
     private AntPlusHeartRatePcc wgtplc;
 
-    final Context context;
-    final Activity activity;
+    private final Context context;
+    private final Activity activity;
 
     public AntPlusRRDataDevice(Context context, Activity activity) {
         this.context = context;
@@ -51,6 +50,15 @@ public class AntPlusRRDataDevice
             case SUCCESS:
                 wgtplc = antPlusHeartRatePcc;
                 notifyDeviceStatusChanged(HRVDeviceStatus.Connected);
+                break;
+            case USER_CANCELLED:
+                notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
+                break;
+            case SEARCH_TIMEOUT:
+                notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
+                break;
+            case OTHER_FAILURE:
+                notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
                 break;
         }
     }

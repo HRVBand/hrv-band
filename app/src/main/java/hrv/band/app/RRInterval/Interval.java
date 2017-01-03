@@ -44,7 +44,7 @@ public class Interval {
     }
 
     public String printRR () {
-        String s = new String();
+        String s = null;
         for (double d: rrInterval) {
             s= s+","+d;
         }

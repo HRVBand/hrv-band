@@ -38,7 +38,6 @@ import hrv.band.app.view.UiHandlingUtil;
 
 public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     private int duration = 60000;
     private HRVRRIntervalDevice HRVRRIntervalDevice;
@@ -80,7 +79,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             @Override
             public void onClick(View view) {
 
-                HRVRRIntervalDevice = new MSBandRRIntervalDevice(getActivity(), txtStatus);
+                HRVRRIntervalDevice = new MSBandRRIntervalDevice(getActivity());
                 HRVRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
                 HRVRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
                 HRVRRIntervalDevice.connect();
@@ -219,6 +218,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             case Connected:
                 break;
             case Disconnected:
+                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
         }
     }
 

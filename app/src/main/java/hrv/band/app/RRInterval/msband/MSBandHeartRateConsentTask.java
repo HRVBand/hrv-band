@@ -45,7 +45,7 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                 UiHandlingUtil.showSnackbar(msg);
             }
         } catch (BandException e) {
-            String exceptionMessage="";
+            String exceptionMessage;
             switch (e.getErrorType()) {
                 case UNSUPPORTED_SDK_VERSION_ERROR:
                     exceptionMessage = "Microsoft Health BandService doesn't support your SDK Version. Please update to latest SDK.\n";
