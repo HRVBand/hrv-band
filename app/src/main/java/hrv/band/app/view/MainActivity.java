@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
-    //private IRRIntervalDevice rrInterval;
+    //private HRVRRIntervalDevice rrInterval;
     private MeasuringFragment measureFragment;
     private OverviewFragment overviewFragment;
 

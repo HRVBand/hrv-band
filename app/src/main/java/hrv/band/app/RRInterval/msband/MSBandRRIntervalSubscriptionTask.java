@@ -34,7 +34,8 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
                     BandSensorManager sensorManager = client.getSensorManager();
                     if (sensorManager.getCurrentHeartRateConsent() == UserConsent.GRANTED) {
                         sensorManager.registerRRIntervalEventListener(msBandRRIntervalDevice.getRRIntervalEventListener());
-                        msBandRRIntervalDevice.startAnimation();
+                        //msBandRRIntervalDevice.setupAnimation();
+                        msBandRRIntervalDevice.notifyDeviceStartedMeasurement();
                     } else {
                         //msBandRRIntervalDevice.showConsentSnackbar("Please give consent to access heart rate data");
                         msBandRRIntervalDevice.connect();

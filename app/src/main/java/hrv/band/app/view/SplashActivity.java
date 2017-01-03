@@ -28,9 +28,9 @@ public class SplashActivity extends AppCompatActivity {
         as.addAnimation(in);
 
 
-        mSwitcher.startAnimation(as);
+        mSwitcher.setupAnimation(as);
         mSwitcher.setText("new text");
-        mSwitcher.startAnimation(in);*/
+        mSwitcher.setupAnimation(in);*/
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

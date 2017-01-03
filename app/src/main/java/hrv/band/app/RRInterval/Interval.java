@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class Interval {
 
+    //RR Interval Data in ms
     private double[] rrInterval;
     private Date startTime;
 

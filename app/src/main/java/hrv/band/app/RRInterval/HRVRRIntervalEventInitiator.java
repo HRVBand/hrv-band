@@ -7,6 +7,6 @@ package hrv.band.app.RRInterval;
 
 public interface HRVRRIntervalEventInitiator {
 
-    void notifyListeners(double rrValue);
-    void addListener(HRVRRIntervalListener toAdd);
+    void notifyRRIntervalListeners(double rrValue);
+    void addRRIntervalListener(HRVRRIntervalListener toAdd);
 }

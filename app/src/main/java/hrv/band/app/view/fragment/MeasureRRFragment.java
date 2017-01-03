@@ -118,7 +118,6 @@ public class MeasureRRFragment extends Fragment {
 
         mChart.setZoomEnabled(false);
         mChart.setColumnChartData(data);
-
     }
 
 }

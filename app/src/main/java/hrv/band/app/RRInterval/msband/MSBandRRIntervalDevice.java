@@ -14,27 +14,21 @@ import com.microsoft.band.sensors.BandRRIntervalEvent;
 import com.microsoft.band.sensors.BandRRIntervalEventListener;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.HRVRRIntervalEvent;
-import hrv.band.app.RRInterval.HRVRRIntervalEventInitiator;
-import hrv.band.app.RRInterval.HRVRRIntervalListener;
-import hrv.band.app.RRInterval.IRRIntervalDevice;
+import hrv.band.app.RRInterval.HRVRRIntervalDevice;
 import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Created by Thomas on 13.06.2016.
  */
-public class MSBandRRIntervalDevice implements IRRIntervalDevice, HRVRRIntervalEventInitiator {
+public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
     private BandClient client;
     private Activity activity;
     private TextView statusTxt;
-    private List<Double> rr;//stores the actual measurement-rrIntervals
     private WeakReference<Activity> reference;
     private ObjectAnimator animation;
-    private List<HRVRRIntervalListener> listeners = new ArrayList<>();
     /**
      *Handels when a new RRInterval is incoming
      */
@@ -44,38 +38,22 @@ public class MSBandRRIntervalDevice implements IRRIntervalDevice, HRVRRIntervalE
         this.statusTxt = statusTxt;
         this.activity = activity;
         reference = new WeakReference<>(activity);
-        rr = new ArrayList<>();
 
         mRRIntervalEventListener = new BandRRIntervalEventListener() {
             @Override
             public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
                 if (event != null) {
                     double help = event.getInterval();
-                    notifyListeners(help);
+                    notifyRRIntervalListeners(help);
                     UiHandlingUtil.updateTextView(activity, rrStatus, String.format("%.2f", help));
-                    rr.add(help);//add the actual rrInterval
+                    rrMeasurements.add(help);//add the actual rrInterval
                 }
             }
         };
     }
     @Override
-    public void startRRIntervalMeasuring(ObjectAnimator animation) {
-        this.animation = animation;
+    public void tryStartRRIntervalMeasuring() {
         new MSBandRRIntervalSubscriptionTask(this).execute();
-    }
-
-    @Override
-    public void startAnimation() {
-        UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_hold_still));
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (animation != null) {
-                    animation.start();
-                }
-            }
-        });
-
     }
 
     @Override
@@ -144,23 +122,7 @@ public class MSBandRRIntervalDevice implements IRRIntervalDevice, HRVRRIntervalE
         return mRRIntervalEventListener;
     }
 
-    public Double[] getRRIntervals() {
-        return (Double[]) rr.toArray(new Double[rr.size()]);
-    }
-
-    @Override
-    public void notifyListeners(double rrValue) {
-        for (HRVRRIntervalListener listener: listeners) {
-
-            HRVRRIntervalEvent event = new HRVRRIntervalEvent();
-            event.setRr(rrValue);
-
-            listener.newRRIntervall(event);
-        }
-    }
-
-    @Override
-    public void addListener(HRVRRIntervalListener toAdd) {
-        listeners.add(toAdd);
+    public List<Double> getRRIntervals() {
+        return rrMeasurements;
     }
 }
