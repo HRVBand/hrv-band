@@ -42,7 +42,7 @@ public class StatisticFragment extends Fragment {
     public static final String ARG_HRV_VALUE = "hrvValue";
     public static final String ARG_DATE_VALUE = "dateValue";
     private StatisticValueAdapter adapter;
-    private final String dateFormat = "dd.MMM yyyy";
+    //private final String dateFormat = "dd.MMM yyyy";
     private View rootView;
     //protected BarChart mChart;
     private ColumnChartView mChart;
@@ -79,8 +79,7 @@ public class StatisticFragment extends Fragment {
         TextView desc = (TextView) rootView.findViewById(R.id.stats_value_desc);
         TextView type = (TextView) rootView.findViewById(R.id.stats_type);
 
-        date.setText(DateFormat.format(dateFormat,
-                ((Date) getArguments().getSerializable(ARG_DATE_VALUE)).getTime()));
+        date.setText(formatDate((Date) getArguments().getSerializable(ARG_DATE_VALUE)));
 
         desc.setText(hrvType.toString());
         type.setText(hrvType.getUnit());
@@ -109,6 +108,11 @@ public class StatisticFragment extends Fragment {
 
 
         return rootView;
+    }
+
+    private String formatDate(Date date) {
+        java.text.DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getContext());
+        return dateFormat.format(date);
     }
 
     @Override
@@ -189,8 +193,7 @@ public class StatisticFragment extends Fragment {
             return;
         }
         //TextView date = (TextView) rootView.findViewById(R.id.stats_date);
-        date.setText(DateFormat.format(dateFormat,
-                ((Date) getArguments().getSerializable(ARG_DATE_VALUE)).getTime()));
+        date.setText(formatDate((Date) getArguments().getSerializable(ARG_DATE_VALUE)));
     }
 
     public void updateValues(ArrayList<HRVParameters> parameters, Date date) {

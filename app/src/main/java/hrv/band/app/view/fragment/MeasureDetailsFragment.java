@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
@@ -42,12 +45,19 @@ public class MeasureDetailsFragment extends Fragment {
         ImageView categoryIcon =(ImageView) rootView.findViewById(R.id.hrv_category_icon);
         TextView commentTxt =(TextView) rootView.findViewById(R.id.hrv_comment);
 
-        dateTxt.setText(parameter.getTime().toString());
+        //dateTxt.setText(parameter.getTime().toString());
+        dateTxt.setText(formatDateTime(parameter.getTime()));
         ratingTxt.setText(parameter.getRating() + "/5");
         categoryTxt.setText(parameter.getCategory().getText(getResources()));
         categoryIcon.setImageDrawable(parameter.getCategory().getIcon(getResources()));
         commentTxt.setText(parameter.getNote());
 
         return rootView;
+    }
+
+    private String formatDateTime(Date date) {
+        DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getContext());
+        DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getContext());
+        return dateFormat.format(date) + ", " + timeFormat.format(date);
     }
 }
