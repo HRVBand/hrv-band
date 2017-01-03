@@ -39,7 +39,7 @@ import hrv.band.app.view.UiHandlingUtil;
 public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
 
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
-    private int duration = 60000;
+    private int duration = 10000;
     private HRVRRIntervalDevice HRVRRIntervalDevice;
     private TextView rrStatus;
     private TextView txtStatus;
