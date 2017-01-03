@@ -16,8 +16,8 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import hrv.band.app.R;
+import hrv.band.app.RRInterval.HRVDeviceStatus;
 import hrv.band.app.RRInterval.HRVRRIntervalDevice;
-import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Created by Thomas on 13.06.2016.
@@ -32,7 +32,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
      */
     private BandRRIntervalEventListener mRRIntervalEventListener;
 
-    public MSBandRRIntervalDevice(final Activity activity, TextView statusTxt, final TextView rrStatus) {
+    public MSBandRRIntervalDevice(final Activity activity, TextView statusTxt) {
         this.statusTxt = statusTxt;
         this.activity = activity;
         reference = new WeakReference<>(activity);
@@ -43,7 +43,6 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
                 if (event != null) {
                     double help = event.getInterval();
                     notifyRRIntervalListeners(help);
-                    UiHandlingUtil.updateTextView(activity, rrStatus, String.format("%.2f", help));
                     rrMeasurements.add(help);//add the actual rrInterval
                 }
             }
@@ -100,7 +99,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
         if (client == null) {
             BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
             if (devices.length == 0) {
-                UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.error_band_not_paired));
+                notifyDeviceError(activity.getResources().getString(R.string.error_band_not_paired));
                 return false;
             }
             client = BandClientManager.getInstance().create(activity.getApplicationContext(), devices[0]);
@@ -108,7 +107,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
             return true;
         }
 
-        UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_band_connecting));
+        notifyDeviceStatusChanged(HRVDeviceStatus.Connecting);
         return ConnectionState.CONNECTED == client.connect().await();
     }
 

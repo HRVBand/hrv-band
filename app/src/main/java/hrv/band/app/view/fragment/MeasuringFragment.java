@@ -21,6 +21,7 @@ import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.Fourier.FastFourierTransform;
 import hrv.band.app.Interpolation.CubicSplineInterpolation;
 import hrv.band.app.R;
+import hrv.band.app.RRInterval.HRVDeviceStatus;
 import hrv.band.app.RRInterval.HRVRRDeviceListener;
 import hrv.band.app.RRInterval.HRVRRIntervalDevice;
 import hrv.band.app.RRInterval.HRVRRIntervalEvent;
@@ -79,7 +80,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             @Override
             public void onClick(View view) {
 
-                HRVRRIntervalDevice = new MSBandRRIntervalDevice(getActivity(), txtStatus, rrStatus);
+                HRVRRIntervalDevice = new MSBandRRIntervalDevice(getActivity(), txtStatus);
                 HRVRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
                 HRVRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
                 HRVRRIntervalDevice.connect();
@@ -201,6 +202,23 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         if (animation != null) {
             animation.start();
+        }
+    }
+
+    @Override
+    public void deviceError(String error) {
+        UiHandlingUtil.updateTextView(getActivity(), txtStatus, error);
+    }
+
+    @Override
+    public void deviceStatusChanged(HRVDeviceStatus status) {
+        switch (status) {
+            case Connecting:
+                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.msg_connecting));
+                break;
+            case Connected:
+                break;
+            case Disconnected:
         }
     }
 

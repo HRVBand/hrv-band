@@ -7,4 +7,6 @@ package hrv.band.app.RRInterval;
 public interface HRVRRDeviceListener {
 
     void deviceStartedMeasurement();
+    void deviceError(String error);
+    void deviceStatusChanged(HRVDeviceStatus status);
 }

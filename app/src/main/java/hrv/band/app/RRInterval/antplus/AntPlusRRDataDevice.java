@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.EnumSet;
 import java.util.List;
 
+import hrv.band.app.RRInterval.HRVDeviceStatus;
 import hrv.band.app.RRInterval.HRVRRIntervalDevice;
 
 /**
@@ -49,6 +50,7 @@ public class AntPlusRRDataDevice
         switch(requestAccessResult) {
             case SUCCESS:
                 wgtplc = antPlusHeartRatePcc;
+                notifyDeviceStatusChanged(HRVDeviceStatus.Connected);
                 break;
         }
     }
@@ -63,8 +65,11 @@ public class AntPlusRRDataDevice
 
     @Override
     public void stopMeasuring() {
-        if(wgtplc != null)
+        if(wgtplc != null) {
             wgtplc.releaseAccess();
+            notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
+        }
+
     }
 
     @Override
@@ -84,6 +89,8 @@ public class AntPlusRRDataDevice
 
     @Override
     public void connect() {
+        notifyDeviceStatusChanged(HRVDeviceStatus.Connecting);
+
         //Release the old access
         if(wgtplc != null) {
             wgtplc.releaseAccess();

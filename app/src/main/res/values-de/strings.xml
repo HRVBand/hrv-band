@@ -164,7 +164,7 @@
     <string name="error_band_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
 
     <!-- Messages -->
-    <string name="msg_band_connecting">Verbinde mit Microsoft Band …</string>
+    <string name="msg_connecting">Verbinde mit Gerät …</string>
     <string name="msg_hold_still">Während der Messung still halten!</string>
     <string name="import_error_msg">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
     <string name="sentence_import_failed">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
