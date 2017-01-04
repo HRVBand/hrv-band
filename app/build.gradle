@@ -8,8 +8,8 @@ android {
         applicationId "hrv.band.aurora"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.011"
     }
     buildTypes {
         release {
@@ -46,12 +46,4 @@ dependencies {
 dependencies {
     compile 'com.android.support:support-v4:23.+'
 }
-dependencies {
-    compile 'com.android.support:support-v4:23.+'
-}
-dependencies {
-    compile 'com.android.support:support-v4:23.+'
-}
-
-
 

@@ -62,12 +62,12 @@
             android:title="@string/common_export" />
 
     </group>
-    <item android:title="Debug">
+    <!--<item android:title="Debug">
         <menu>
             <item
                 android:id="@+id/sample_data"
                 android:icon="@drawable/ic_heart"
                 android:title="Create Sample Data" />
         </menu>
-    </item>
+    </item>-->
 </menu>

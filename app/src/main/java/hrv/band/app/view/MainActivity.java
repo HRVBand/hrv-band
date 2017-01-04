@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity
         } else if(id == R.id.menu_import_db) {
             DialogFragment importFragment = ImportFragment.newInstance();
             importFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
-        } else if (id == R.id.sample_data) {
+        } /*else if (id == R.id.sample_data) {
             HRVParameters param = new HRVParameters();
             Date date = new Date();
             param.setTime(date);
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity
 
             IStorage storage = new SQLController();
             storage.saveData(getApplicationContext(), param);
-        }
+        }*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;
 
