@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="6dp"
-        android:src="@drawable/ic_add"
         android:tint="@color/colorAccent"
         android:layout_weight="3"/>
     <TextView
@@ -18,8 +17,8 @@
         android:layout_height="match_parent"
         android:textSize="20sp"
         android:padding="10sp"
+        android:textColor="@color/textColorSecondary"
         android:gravity="center_vertical"
-        android:text="@string/spinner_cat_item_more_values"
         android:layout_weight="1"/>
 
 </LinearLayout>

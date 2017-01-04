@@ -29,6 +29,9 @@ public class UiHandlingUtil {
 
 
     public static void updateTextView(Activity activity, final TextView txt, final String string) {
+        if (activity == null) {
+            return;
+        }
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

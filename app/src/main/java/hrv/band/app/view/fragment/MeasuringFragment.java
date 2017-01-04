@@ -36,7 +36,7 @@ public class MeasuringFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
-    private int duration = 90000;
+    private int duration = 9000;
     private IRRInterval rrInterval;
     private TextView rrStatus;
     private TextView txtStatus;
@@ -66,6 +66,8 @@ public class MeasuringFragment extends Fragment {
         });
 
 
+        rrInterval = new MSBandRRInterval(getActivity(), txtStatus, rrStatus);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,12 +75,24 @@ public class MeasuringFragment extends Fragment {
             }
         });
 
-        rrInterval = new MSBandRRInterval(getActivity(), txtStatus, rrStatus);
+
 
         setProgressBarSize();
 
 
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopMeasuring();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopMeasuring();
     }
 
 
@@ -123,14 +137,10 @@ public class MeasuringFragment extends Fragment {
             public void onAnimationStart(Animator a) {
                 progressBar.setClickable(false);
                 floatingActionButton.setClickable(false);
-
-               // getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                 //       WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                rrInterval.stopMeasuring();
                 if (interval == null) {
                     return;
                 }
@@ -140,12 +150,14 @@ public class MeasuringFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
                 startActivity(intent);
+
+                stopMeasuring();
                 resetProgress();
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-
+                animation.removeAllListeners();
             }
 
             @Override
@@ -157,15 +169,16 @@ public class MeasuringFragment extends Fragment {
     }
 
     public void stopMeasuring() {
-        rrInterval.stopMeasuring();
+        if (rrInterval != null) {
+            rrInterval.stopMeasuring();
+        }
+        resetProgress();
     }
 
     private void resetProgress() {
         progressBar.setClickable(true);
+        progressBar.setProgress(progressBar.getMax());
         floatingActionButton.setClickable(true);
-        //view.setOnTouchListener(null);
-        //touchListener.clearTouchable();
-        //getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         UiHandlingUtil.updateTextView(getActivity(), rrStatus, "0,00");
         UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));

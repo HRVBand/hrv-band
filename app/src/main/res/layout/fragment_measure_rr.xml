@@ -40,8 +40,7 @@
             android:id="@+id/rr_min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/measure_fragment_rr_min"/>
+            android:textSize="18sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,8 +62,7 @@
             android:id="@+id/rr_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/measure_fragment_rr_max"/>
+            android:textSize="18sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,8 +84,7 @@
             android:id="@+id/rr_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/measure_fragment_rr_avg"/>
+            android:textSize="18sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,8 +106,7 @@
             android:id="@+id/rr_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/measure_fragment_rr_count"/>
+            android:textSize="18sp"/>
     </LinearLayout>
     </LinearLayout>
 

@@ -59,14 +59,9 @@
 
     <!-- Measure Fragment -->
     <string name="measure_fragment_min">min:</string>
-    <string name="measure_fragment_rr_min">10</string>
-    <string name="measure_fragment_time_unit"> ms</string>
     <string name="measure_fragment_max">max:</string>
-    <string name="measure_fragment_rr_max">10</string>
     <string name="measure_fragment_avg">Durchschnitt:</string>
-    <string name="measure_fragment_rr_avg">10</string>
     <string name="measure_fragment_count">Anzahl:</string>
-    <string name="measure_fragment_rr_count">10</string>
     <string name="measure_fragment_press_to_start">Drücke um Messung zu starten.</string>
 
     <!-- fragment measure details -->
@@ -82,10 +77,6 @@
     <string name="measure_list_item_std_hrv">12,13</string>
     <string name="measure_list_item_unit">ms</string>
 
-    <!-- statistic value item -->
-    <string name="stat_val_item_std_time">14:00 Uhr</string>
-    <string name="stat_val_item_std_category">Allgemein</string>
-    <string name="stat_val_item_std_stats_value">12,13</string>
 
     <!-- overview list item -->
     <string name="overview_list_item_as">wie</string>

@@ -77,7 +77,12 @@ public class MSBandRRInterval implements IRRInterval {
     @Override
     public void stopMeasuring() {
         try {
-            client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
+            if (client != null) {
+                client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
+            }
+            if (animation != null) {
+                animation.cancel();
+            }
         } catch (BandIOException e) {
             e.printStackTrace();
         }
