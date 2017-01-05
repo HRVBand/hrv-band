@@ -261,23 +261,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-   /* @Override
-    protected void onPause() {
-        super.onPause();
-        if (measureFragment != null) {
-            measureFragment.getRRInterval().pauseMeasuring();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (measureFragment != null) {
-            measureFragment.getRRInterval().destroy();
-        }
-        super.onDestroy();
-    }*/
-
     private void handleDisclaimer() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -82,36 +82,4 @@
             android:textAlignment="center"/>
         </LinearLayout>
     </RelativeLayout>
-
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu_down"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu_icon="@drawable/ic_connect"
-        app:menu_labels_ellipsize="end"
-        app:menu_labels_singleLine="true"
-        app:menu_colorNormal="@color/colorAccent"
-        app:menu_fab_size="mini"
-        app:menu_openDirection="down">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/connect_band_float_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorAccent"
-            android:src="@drawable/ic_watch"
-            app:fab_size="mini"
-            app:fab_label="@string/connect_to_band" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/connect_antplus_float_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorAccent"
-            android:src="@drawable/ic_add"
-            app:fab_size="mini"
-            app:fab_label="@string/connect_to_antplus" />
-
-    </com.github.clans.fab.FloatingActionMenu>
-
-    </RelativeLayout>
+</LinearLayout>

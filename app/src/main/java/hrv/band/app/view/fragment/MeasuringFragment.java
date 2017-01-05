@@ -53,6 +53,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private TextView txtStatus;
     private ProgressBar progressBar;
     private ObjectAnimator animation;
+
     private com.github.clans.fab.FloatingActionButton connectToBandFAB;
     private com.github.clans.fab.FloatingActionButton connectToAntPlusFAB;
     private com.github.clans.fab.FloatingActionMenu menuDown;
@@ -72,9 +73,10 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
         txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        connectToBandFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.connect_band_float_button);
-        connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.connect_antplus_float_button);
-        menuDown = (com.github.clans.fab.FloatingActionMenu) rootView.findViewById(R.id.menu_down);
+
+        connectToBandFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_band_float_button);
+        connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_antplus_float_button);
+        menuDown = (com.github.clans.fab.FloatingActionMenu) getActivity().findViewById(R.id.menu_down);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -213,7 +215,6 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
                 startActivity(intent);
 
-                stopMeasuring();
                 resetProgress();
             }
 
