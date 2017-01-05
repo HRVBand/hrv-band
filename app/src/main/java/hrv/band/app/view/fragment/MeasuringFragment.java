@@ -3,9 +3,10 @@ package hrv.band.app.view.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -22,26 +23,41 @@ import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.Fourier.FastFourierTransform;
 import hrv.band.app.Interpolation.CubicSplineInterpolation;
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.IRRInterval;
+import hrv.band.app.RRInterval.HRVDeviceStatus;
+import hrv.band.app.RRInterval.HRVRRDeviceListener;
+import hrv.band.app.RRInterval.HRVRRIntervalDevice;
+import hrv.band.app.RRInterval.HRVRRIntervalEvent;
+import hrv.band.app.RRInterval.HRVRRIntervalListener;
 import hrv.band.app.RRInterval.Interval;
-import hrv.band.app.RRInterval.msband.MSBandRRInterval;
-import hrv.band.app.view.UiHandlingUtil;
+import hrv.band.app.RRInterval.antplus.AntPlusRRDataDevice;
+import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.MeasureDetailsActivity;
+import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Created by s_czogal on 23.06.2016.
  */
 
-public class MeasuringFragment extends Fragment {
+public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
-    private int duration = 90000;
-    private IRRInterval rrInterval;
+    private static final String SELECTED_DEVICE_ID = "selected_device_id";
+
+    private enum DeviceID {NONE, MSBAND, ANT};
+
+    private SharedPreferences sharedPreferences;
+
+    private int duration = 10000;
+    private HRVRRIntervalDevice hrvRRIntervalDevice;
     private TextView rrStatus;
     private TextView txtStatus;
     private ProgressBar progressBar;
-    private  FloatingActionButton floatingActionButton;
+    private ObjectAnimator animation;
+    private com.github.clans.fab.FloatingActionButton connectToBandFAB;
+    private com.github.clans.fab.FloatingActionButton connectToAntPlusFAB;
+    private com.github.clans.fab.FloatingActionMenu menuDown;
+
+
     public static View view;
 
     public MeasuringFragment() {
@@ -56,31 +72,76 @@ public class MeasuringFragment extends Fragment {
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
         txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        floatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.sensor_access_float_button);
+        connectToBandFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.connect_band_float_button);
+        connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) rootView.findViewById(R.id.connect_antplus_float_button);
+        menuDown = (com.github.clans.fab.FloatingActionMenu) rootView.findViewById(R.id.menu_down);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        hrvRRIntervalDevice = getDevice(DeviceID.values()[sharedPreferences.getInt(SELECTED_DEVICE_ID, 0)]);
+        if (hrvRRIntervalDevice != null) {
+            hrvRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
+            hrvRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
+            //hrvRRIntervalDevice.connect();
+        }
 
         progressBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startAnimation(new Interval(new Date()));
+                if (hrvRRIntervalDevice != null) {
+                    hrvRRIntervalDevice.tryStartRRIntervalMeasuring();
+                } else {
+                    UiHandlingUtil.showSnackbar(getString(R.string.error_device_not_connected_help));
+                }
             }
         });
 
-
-        rrInterval = new MSBandRRInterval(getActivity(), txtStatus, rrStatus);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        connectToBandFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rrInterval.getDevicePermission();
+                setDevice(DeviceID.MSBAND);
+
+                hrvRRIntervalDevice = new MSBandRRIntervalDevice(getActivity());
+                hrvRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
+                hrvRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
+                hrvRRIntervalDevice.connect();
+                menuDown.toggle(true);
             }
         });
 
+        connectToAntPlusFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDevice(DeviceID.ANT);
+
+                hrvRRIntervalDevice = new AntPlusRRDataDevice(getContext(), getActivity());
+                hrvRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
+                hrvRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
+                hrvRRIntervalDevice.connect();
+                menuDown.toggle(true);
+            }
+        });
 
 
         setProgressBarSize();
 
+        setupAnimation(new Interval(new Date()));
 
         return rootView;
+    }
+
+    private void setDevice(DeviceID device) {
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        prefsEditor.putInt(SELECTED_DEVICE_ID, device.ordinal());
+        prefsEditor.apply();
+    }
+
+    private HRVRRIntervalDevice getDevice(DeviceID id) {
+        switch (id) {
+            case MSBAND: return new MSBandRRIntervalDevice(getActivity());
+            case ANT: return new AntPlusRRDataDevice(getContext(), getActivity());
+        }
+        return null;
     }
 
     @Override
@@ -123,29 +184,30 @@ public class MeasuringFragment extends Fragment {
         return results;
     }
 
-    public IRRInterval getRRInterval() {
-        return rrInterval;
+    public HRVRRIntervalDevice getHRVDevice() {
+        return hrvRRIntervalDevice;
     }
 
-    public void startAnimation(final Interval interval) {
+    private void setupAnimation(final Interval interval) {
 
-        final ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
+        animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
         animation.setDuration (duration); //in milliseconds
         animation.setInterpolator (new LinearInterpolator());
         animation.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator a) {
                 progressBar.setClickable(false);
-                floatingActionButton.setClickable(false);
+                connectToBandFAB.setClickable(false);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                hrvRRIntervalDevice.stopMeasuring();
                 if (interval == null) {
                     return;
                 }
                 UiHandlingUtil.updateTextView(getActivity(), txtStatus, "Calculating");
-                interval.SetRRInterval(rrInterval.getRRIntervals());
+                interval.SetRRInterval(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
 
                 Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
@@ -165,22 +227,61 @@ public class MeasuringFragment extends Fragment {
 
             }
         });
-        rrInterval.startRRIntervalMeasuring(animation);
     }
 
     public void stopMeasuring() {
-        if (rrInterval != null) {
-            rrInterval.stopMeasuring();
+        if (hrvRRIntervalDevice != null) {
+            hrvRRIntervalDevice.stopMeasuring();
+            animation.cancel();
+            resetProgress();
         }
-        resetProgress();
     }
 
     private void resetProgress() {
         progressBar.setClickable(true);
         progressBar.setProgress(progressBar.getMax());
-        floatingActionButton.setClickable(true);
+        connectToBandFAB.setClickable(true);
 
         UiHandlingUtil.updateTextView(getActivity(), rrStatus, "0,00");
         UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
+    }
+
+    @Override
+    public void deviceStartedMeasurement() {
+        String msg = getResources().getString(R.string.msg_hold_still);
+        UiHandlingUtil.updateTextView(getActivity(), txtStatus, msg);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (animation != null) {
+                    animation.start();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void deviceError(String error) {
+        UiHandlingUtil.updateTextView(getActivity(), txtStatus, error);
+    }
+
+    @Override
+    public void deviceStatusChanged(HRVDeviceStatus status) {
+        switch (status) {
+            case Connecting:
+                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.msg_connecting));
+                break;
+            case Connected:
+                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
+                break;
+            case Disconnected:
+                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_device_not_connected_help));
+        }
+    }
+
+    @Override
+    public void newRRInterval(HRVRRIntervalEvent event) {
+        UiHandlingUtil.updateTextView(getActivity(), rrStatus, String.format("%.2f", event.getRr()));
     }
 }

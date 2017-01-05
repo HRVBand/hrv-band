@@ -18,26 +18,27 @@ import hrv.band.app.view.UiHandlingUtil;
  */
 public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
 
-    private MSBandRRInterval msBandRRInterval;
-    public MSBandRRIntervalSubscriptionTask(MSBandRRInterval msBandRRInterval) {
-        this.msBandRRInterval = msBandRRInterval;
+    private MSBandRRIntervalDevice msBandRRIntervalDevice;
+    public MSBandRRIntervalSubscriptionTask(MSBandRRIntervalDevice msBandRRIntervalDevice) {
+        this.msBandRRIntervalDevice = msBandRRIntervalDevice;
     }
 
     //register eventhandler, so we can recieve the rrIntervals
     @Override
     protected Void doInBackground(Void... params) {
        try {
-            if (msBandRRInterval.getConnectedBandClient()) {
-                BandClient client = msBandRRInterval.getClient();
+            if (msBandRRIntervalDevice.getConnectedBandClient()) {
+                BandClient client = msBandRRIntervalDevice.getClient();
                 int hardwareVersion = Integer.parseInt(client.getHardwareVersion().await());
                 if (hardwareVersion >= 20) {
                     BandSensorManager sensorManager = client.getSensorManager();
                     if (sensorManager.getCurrentHeartRateConsent() == UserConsent.GRANTED) {
-                        sensorManager.registerRRIntervalEventListener(msBandRRInterval.getRRIntervalEventListener());
-                        msBandRRInterval.startAnimation();
+                        sensorManager.registerRRIntervalEventListener(msBandRRIntervalDevice.getRRIntervalEventListener());
+                        //msBandRRIntervalDevice.setupAnimation();
+                        msBandRRIntervalDevice.notifyDeviceStartedMeasurement();
                     } else {
-                        //msBandRRInterval.showConsentSnackbar("Please give consent to access heart rate data");
-                        msBandRRInterval.getDevicePermission();
+                        //msBandRRIntervalDevice.showConsentSnackbar("Please give consent to access heart rate data");
+                        msBandRRIntervalDevice.connect();
                     }
                 } else {
                     UiHandlingUtil.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");

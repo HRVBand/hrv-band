@@ -173,10 +173,14 @@
 
     <!-- Error Messages -->
     <string name="error_band_not_paired">Band isn\'t paired with your phone.</string>
-    <string name="error_band_not_connected_help">"Device isn't connected. Is bluetooth on and the device in range?</string>
+    <string name="error_device_not_connected_help">"Device isn't connected. Is bluetooth on and the device in range?</string>
+
+    <!-- Connect Devices -->
+    <string name="connect_to_band">Connect to MS Band</string>
+    <string name="connect_to_antplus">Connect to ANT+</string>
 
     <!-- Messages -->
-    <string name="msg_band_connecting">Microsoft Band is connecting …</string>
+    <string name="msg_connecting">Connecting to Device…</string>
     <string name="msg_hold_still">Hold Still During Measurement.</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="import_error_msg">No Database at Destination \"files/export.sql\"</string>

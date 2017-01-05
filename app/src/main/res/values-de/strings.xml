@@ -126,6 +126,9 @@
     <string name="how_previous_q">Kann ich meine alten Messungen sehen?</string>
     <string name="how_previous_a">Durch auswählen des Übersicht-Tabs können alte Messungen eingesehen werden.</string>
 
+    <!-- Connect Devices -->
+    <string name="connect_to_band">Mit MS Band verbinden</string>
+    <string name="connect_to_antplus">Mit ANT+ verbinden</string>
 
     <!-- Imprint -->
     <string name="tab_about">Über</string>
@@ -148,11 +151,11 @@
     <string name="lib_apache_commons_lang">Apache Commons Lang3</string>
 
     <!-- Error Messages -->
-    <string name="error_band_not_paired">Band ist nicht mit dem Handy verbunden.</string>
-    <string name="error_band_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
+    <string name="error_band_not_paired">Gerät ist nicht mit dem Handy verbunden.</string>
+    <string name="error_device_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
 
     <!-- Messages -->
-    <string name="msg_band_connecting">Verbinde mit Microsoft Band …</string>
+    <string name="msg_connecting">Verbinde mit Gerät …</string>
     <string name="msg_hold_still">Während der Messung still halten!</string>
     <string name="import_error_msg">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
     <string name="sentence_import_failed">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>

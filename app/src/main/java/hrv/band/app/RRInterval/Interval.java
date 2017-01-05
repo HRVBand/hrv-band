@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class Interval {
 
+    //RR Interval Data in ms
     private double[] rrInterval;
     private Date startTime;
 
@@ -43,7 +44,7 @@ public class Interval {
     }
 
     public String printRR () {
-        String s = new String();
+        String s = null;
         for (double d: rrInterval) {
             s= s+","+d;
         }

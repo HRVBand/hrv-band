@@ -1,8 +1,6 @@
 package hrv.band.app.RRInterval.msband;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.widget.TextView;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
@@ -14,64 +12,42 @@ import com.microsoft.band.sensors.BandRRIntervalEvent;
 import com.microsoft.band.sensors.BandRRIntervalEventListener;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.IRRInterval;
-import hrv.band.app.view.UiHandlingUtil;
+import hrv.band.app.RRInterval.HRVDeviceStatus;
+import hrv.band.app.RRInterval.HRVRRIntervalDevice;
 
 /**
  * Created by Thomas on 13.06.2016.
  */
-public class MSBandRRInterval implements IRRInterval {
+public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
     private BandClient client;
     private Activity activity;
-    private TextView statusTxt;
-    private List<Double> rr;//stores the actual measurement-rrIntervals
     private WeakReference<Activity> reference;
-    private ObjectAnimator animation;
-
     /**
      *Handels when a new RRInterval is incoming
      */
     private BandRRIntervalEventListener mRRIntervalEventListener;
 
-    public MSBandRRInterval(final Activity activity, TextView statusTxt, final TextView rrStatus) {
-        this.statusTxt = statusTxt;
+    public MSBandRRIntervalDevice(final Activity activity) {
         this.activity = activity;
         reference = new WeakReference<>(activity);
-        rr = new ArrayList<>();
 
         mRRIntervalEventListener = new BandRRIntervalEventListener() {
             @Override
             public void onBandRRIntervalChanged(final BandRRIntervalEvent event) {
                 if (event != null) {
                     double help = event.getInterval();
-                    UiHandlingUtil.updateTextView(activity, rrStatus, String.format("%.2f", help));
-                    rr.add(help);//add the actual rrInterval
+                    notifyRRIntervalListeners(help);
+                    rrMeasurements.add(help);//add the actual rrInterval
                 }
             }
         };
     }
     @Override
-    public void startRRIntervalMeasuring(ObjectAnimator animation) {
-        this.animation = animation;
+    public void tryStartRRIntervalMeasuring() {
         new MSBandRRIntervalSubscriptionTask(this).execute();
-    }
-
-    @Override
-    public void startAnimation() {
-        UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_hold_still));
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (animation != null) {
-                    animation.start();
-                }
-            }
-        });
-
     }
 
     @Override
@@ -80,9 +56,9 @@ public class MSBandRRInterval implements IRRInterval {
             if (client != null) {
                 client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
             }
-            if (animation != null) {
+            /*if (animation != null) {
                 animation.cancel();
-            }
+            }*/
         } catch (BandIOException e) {
             e.printStackTrace();
         }
@@ -108,22 +84,11 @@ public class MSBandRRInterval implements IRRInterval {
         }
     }
 
+
+
     @Override
-    public void getDevicePermission(){
+    public void connect(){
         new MSBandHeartRateConsentTask(reference, this).execute();
-    }
-
-    @Override
-    public boolean isDeviceConnected() {
-        boolean connected = false;
-        try {
-            connected = getConnectedBandClient();
-        } catch (InterruptedException inter) {
-
-        }catch (BandException band) {
-
-        }
-        return connected;
     }
 
     /**
@@ -136,7 +101,7 @@ public class MSBandRRInterval implements IRRInterval {
         if (client == null) {
             BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
             if (devices.length == 0) {
-                UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.error_band_not_paired));
+                notifyDeviceError(activity.getResources().getString(R.string.error_band_not_paired));
                 return false;
             }
             client = BandClientManager.getInstance().create(activity.getApplicationContext(), devices[0]);
@@ -144,7 +109,7 @@ public class MSBandRRInterval implements IRRInterval {
             return true;
         }
 
-        UiHandlingUtil.updateTextView(activity, statusTxt, activity.getResources().getString(R.string.msg_band_connecting));
+        notifyDeviceStatusChanged(HRVDeviceStatus.Connecting);
         return ConnectionState.CONNECTED == client.connect().await();
     }
 
@@ -156,8 +121,7 @@ public class MSBandRRInterval implements IRRInterval {
         return mRRIntervalEventListener;
     }
 
-    public Double[] getRRIntervals() {
-        return (Double[]) rr.toArray(new Double[rr.size()]);
+    public List<Double> getRRIntervals() {
+        return rrMeasurements;
     }
-
 }

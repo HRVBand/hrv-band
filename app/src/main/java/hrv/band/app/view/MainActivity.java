@@ -23,13 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.SQLite.SQLController;
 import hrv.band.app.view.fragment.DisclaimerDialogFragment;
 import hrv.band.app.view.fragment.ExportFragment;
 import hrv.band.app.view.fragment.FeedbackDialogFragment;
@@ -50,7 +44,6 @@ public class MainActivity extends AppCompatActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
-    //private IRRInterval rrInterval;
     private MeasuringFragment measureFragment;
     private OverviewFragment overviewFragment;
 
@@ -227,8 +220,6 @@ public class MainActivity extends AppCompatActivity
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(sharingIntent, resources.getString(R.string.share_via)));
     }
-
-
 
 
 

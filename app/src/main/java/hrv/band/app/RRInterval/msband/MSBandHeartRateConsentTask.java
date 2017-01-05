@@ -20,18 +20,18 @@ import hrv.band.app.view.UiHandlingUtil;
 public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
 
     private WeakReference<Activity> activityWeakReference;
-    private MSBandRRInterval msBandRRInterval;
+    private MSBandRRIntervalDevice msBandRRIntervalDevice;
 
-    public MSBandHeartRateConsentTask(WeakReference<Activity> activityWeakReference, MSBandRRInterval msBandRRInterval) {
+    public MSBandHeartRateConsentTask(WeakReference<Activity> activityWeakReference, MSBandRRIntervalDevice msBandRRIntervalDevice) {
         this.activityWeakReference = activityWeakReference;
-        this.msBandRRInterval = msBandRRInterval;
+        this.msBandRRIntervalDevice = msBandRRIntervalDevice;
     }
     //register eventhandler, so we can recieve wether the user has accepted the measurement
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            if (msBandRRInterval.getConnectedBandClient()) {
-                BandClient client = msBandRRInterval.getClient();
+            if (msBandRRIntervalDevice.getConnectedBandClient()) {
+                BandClient client = msBandRRIntervalDevice.getClient();
 
                 if (activityWeakReference != null) {
                     client.getSensorManager().requestHeartRateConsent(activityWeakReference.get(), new HeartRateConsentListener() {
@@ -41,11 +41,11 @@ public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     });
                 }
             } else {
-                String msg = activityWeakReference.get().getResources().getString(R.string.error_band_not_connected_help);
+                String msg = activityWeakReference.get().getResources().getString(R.string.error_device_not_connected_help);
                 UiHandlingUtil.showSnackbar(msg);
             }
         } catch (BandException e) {
-            String exceptionMessage="";
+            String exceptionMessage;
             switch (e.getErrorType()) {
                 case UNSUPPORTED_SDK_VERSION_ERROR:
                     exceptionMessage = "Microsoft Health BandService doesn't support your SDK Version. Please update to latest SDK.\n";

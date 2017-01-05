@@ -213,7 +213,7 @@ public class Calculation {
             sum += (rrinterval[i-1] - rrinterval[i]) * (rrinterval[i-1] - rrinterval[i]);
         }
 
-        return sum / (rrinterval.length - 1);
+        return Math.sqrt(sum / (rrinterval.length));
     }
 
     private double HfPow(double[] frequencies, double[] betrag, double stepSize)
