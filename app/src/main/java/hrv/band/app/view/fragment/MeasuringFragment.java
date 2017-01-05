@@ -276,7 +276,8 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
                 break;
             case Disconnected:
-                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_device_not_connected_help));
+                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_band_not_paired));
+                UiHandlingUtil.showSnackbar(getString(R.string.error_device_not_connected_help));
         }
     }
 
