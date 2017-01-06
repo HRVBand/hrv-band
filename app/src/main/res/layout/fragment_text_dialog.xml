@@ -1,14 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:padding="30dp"
-    tools:context="hrv.band.app.view.fragment.ImportFragment">
+    android:padding="30dp">
 
     <TextView
+        android:id="@+id/dialog_textview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sentence_import_db" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

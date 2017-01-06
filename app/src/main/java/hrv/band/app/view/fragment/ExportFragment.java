@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -25,7 +26,11 @@ public class ExportFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View view = inflater.inflate(R.layout.fragment_export_database, null);
+        final View view = inflater.inflate(R.layout.fragment_text_dialog, null);
+
+        TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
+        textView.setText(getResources().getString(R.string.sentence_export_db));
+
 
         builder.setView(view)
                 .setPositiveButton(R.string.common_export, new DialogInterface.OnClickListener() {

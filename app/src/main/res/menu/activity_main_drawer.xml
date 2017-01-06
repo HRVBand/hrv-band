@@ -3,7 +3,7 @@
 
 
     <group
-        android:checkableBehavior="single"
+        android:checkableBehavior="none"
         android:id="@+id/menu_group_settings">
         <item
             android:id="@+id/menu_help"
@@ -12,7 +12,7 @@
     </group>
 
     <group
-        android:checkableBehavior="single"
+        android:checkableBehavior="none"
         android:id="@+id/menu_group_share">
         <item
             android:id="@+id/menu_rate"
@@ -31,7 +31,7 @@
 
 
     <group
-        android:checkableBehavior="single"
+        android:checkableBehavior="none"
         android:id="@+id/menu_group_imprint">
         <item
             android:id="@+id/menu_website"
@@ -48,7 +48,7 @@
     </group>
 
     <group
-        android:checkableBehavior="single"
+        android:checkableBehavior="none"
         android:id="@+id/menu_group_manage_db">
 
         <item
@@ -62,12 +62,11 @@
             android:title="@string/common_export" />
 
     </group>
-    <!--<item android:title="Debug">
-        <menu>
-            <item
-                android:id="@+id/sample_data"
-                android:icon="@drawable/ic_heart"
-                android:title="Create Sample Data" />
-        </menu>
-    </item>-->
+    <group
+        android:checkableBehavior="none">
+    <item
+        android:id="@+id/menu_sample_data"
+        android:icon="@drawable/ic_create_sample"
+        android:title="Create Sample Data" />
+    </group>
 </menu>

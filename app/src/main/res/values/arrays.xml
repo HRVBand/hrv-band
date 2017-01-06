@@ -12,11 +12,13 @@
     <string-array name="license_title_array" translatable="false">
         <item>HelloCharts</item>
         <item>Apache Commons Math</item>
+        <item>FloatingActionButton</item>
     </string-array>
 
     <string-array name="license_link_array" translatable="false">
         <item>https://github.com/lecho/hellocharts-android</item>
         <item>https://github.com/apache/commons-math</item>
+        <item>https://github.com/Clans/FloatingActionButton</item>
     </string-array>
 
     <string-array name="license_text_array" translatable="false">
@@ -35,6 +37,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</item>
         <item>Appache Commons Math\n\n
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at \n
+
+   \nhttp://www.apache.org/licenses/LICENSE-2.0
+\n\n
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</item>
+
+        <item>FloatingActionButton\n
+Copyright 2015 Dmytro Tarianyk\n\n
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

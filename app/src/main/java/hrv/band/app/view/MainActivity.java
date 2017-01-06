@@ -30,6 +30,7 @@ import hrv.band.app.view.fragment.FeedbackDialogFragment;
 import hrv.band.app.view.fragment.ImportFragment;
 import hrv.band.app.view.fragment.MeasuringFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
+import hrv.band.app.view.fragment.SampleDataFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -181,24 +182,10 @@ public class MainActivity extends AppCompatActivity
         } else if(id == R.id.menu_import_db) {
             DialogFragment importFragment = ImportFragment.newInstance();
             importFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
-        } /*else if (id == R.id.sample_data) {
-            HRVParameters param = new HRVParameters();
-            Date date = new Date();
-            param.setTime(date);
-            ArrayList<Double> rr = new ArrayList<>();
-            rr.add(0.5);
-            rr.add(0.4);
-            rr.add(0.5);
-            rr.add(0.7);
-            rr.add(0.9);
-            rr.add(0.5);
-            rr.add(0.4);
-            rr.add(0.5);
-            param.setRRIntervals(rr);
-
-            IStorage storage = new SQLController();
-            storage.saveData(getApplicationContext(), param);
-        }*/
+        } else if (id == R.id.menu_sample_data) {
+            SampleDataFragment sampleDataFragment = SampleDataFragment.newInstance();
+            sampleDataFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;
 

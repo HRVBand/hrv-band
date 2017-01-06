@@ -175,7 +175,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         progressBar.setLayoutParams(params);
     }
 
-    public HRVParameters calculate(Interval interval) {
+    private HRVParameters calculate(Interval interval) {
         //start calculation
         CubicSplineInterpolation inter = new CubicSplineInterpolation();
         FastFourierTransform fft = new FastFourierTransform(4096);

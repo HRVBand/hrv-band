@@ -18,6 +18,9 @@
     <string name="common_export">Export</string>
     <string name="common_import">Import</string>
     <string name="common_cancel">Abbrechen</string>
+    <string name="common_send">Senden</string>
+    <string name="common_create">Erstellen</string>
+
 
     <string name="progress_complete">Complete</string>
     <string name="progress_error">Error</string>
@@ -114,7 +117,12 @@
     <string name="feedback_category_idea">Idee</string>
     <string name="feedback_category_question">Frage</string>
 
-    <!-- HRV Explanations -->
+    <!-- Sample Data Fragment -->
+    <string name="sample_title">Erstelle Test Daten</string>
+    <string name="sample_text">Möchtest du Test Daten erstellen um Funktionalität zu testen, die sonst nur mit einem unterstütztem Gerät nutzbar sind? Im Anschluss müssen die Daten manuell gelöscht werden!</string>
+
+
+ <!-- HRV Explanations -->
     <string name="how_measure_q">Wie messe ich HRV-Werte?</string>
     <string name="how_measure_a">Ziehe dein Microsoft Band 2 an und beginne eine Messung indem du den Button auf der Hauptseite drückst. Halte still während der Messung.</string>
     <string name="what_hrv_q">Was ist der HRV?</string>

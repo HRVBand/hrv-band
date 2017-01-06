@@ -19,6 +19,8 @@
     <string name="common_export">Export</string>
     <string name="common_import">Import</string>
     <string name="common_cancel">Cancel</string>
+    <string name="common_send">Send</string>
+    <string name="common_create">Create</string>
 
     <string name="progress_complete">Complete</string>
     <string name="progress_error">Error</string>
@@ -131,6 +133,10 @@
     <string name="feedback_category_question">Question</string>
     <string name="feedback_your_comment" translatable="false">Your Comment</string>
 
+    <!-- Sample Data Fragment -->
+    <string name="sample_title">Create Sample Data</string>
+    <string name="sample_text">Do you want to create sample data to use functionality that is only usable if you connect a supported device? You can show the data in the overview. Afterwards you need to remove it manually!</string>
+
     <!-- HRV Explanations -->
     <string name="how_measure_q">How to measure HRV Values?</string>
     <string name="how_measure_a">Put on your MS Band 2 and start the measurement by pressing the measure button in the main activity. Stay still during the measurement.</string>
@@ -155,7 +161,8 @@
         "Hellocharts (https://github.com/lecho/hellocharts-android)\n"
         "Apache Commons Lang (http://www.apache.org/licenses/)\n"
     </string>
-    <string name="icon" translatable="false">Icon made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
+    <string name="icon" translatable="false">Logo made by Freepik from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a> \n
+    Windows Icon made by Icomoon from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
 
     <string name="developers">Developers</string>
     <string name="developer_thomas">Thomas github.com/thomcz</string>

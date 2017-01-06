@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import hrv.band.app.Control.HRVParameters;
@@ -47,7 +48,7 @@ public class MeasureDetailsFragment extends Fragment {
 
         //dateTxt.setText(parameter.getTime().toString());
         dateTxt.setText(formatDateTime(parameter.getTime()));
-        ratingTxt.setText(parameter.getRating() + "/5");
+        ratingTxt.setText(new DecimalFormat("#.#").format(parameter.getRating()) + "/5");
         categoryTxt.setText(parameter.getCategory().getText(getResources()));
         categoryIcon.setImageDrawable(parameter.getCategory().getIcon(getResources()));
         commentTxt.setText(parameter.getNote());
