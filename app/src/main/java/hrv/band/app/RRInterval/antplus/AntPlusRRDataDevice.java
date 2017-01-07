@@ -60,6 +60,8 @@ public class AntPlusRRDataDevice
             case OTHER_FAILURE:
                 notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
                 break;
+            default:
+                notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
         }
     }
 
@@ -77,7 +79,6 @@ public class AntPlusRRDataDevice
             wgtplc.releaseAccess();
             notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
         }
-
     }
 
     @Override
