@@ -35,7 +35,7 @@ import hrv.band.app.view.MeasureDetailsActivity;
 import hrv.band.app.view.UiHandlingUtil;
 
 /**
- * Created by s_czogal on 23.06.2016.
+ * Created by thomcz on 23.06.2016.
  */
 
 public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
@@ -43,7 +43,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     private static final String SELECTED_DEVICE_ID = "selected_device_id";
 
-    private enum DeviceID {NONE, MSBAND, ANT};
+    private enum DeviceID {NONE, MSBAND, ANT}
 
     private SharedPreferences sharedPreferences;
 
@@ -56,6 +56,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
     private com.github.clans.fab.FloatingActionButton connectToBandFAB;
     private com.github.clans.fab.FloatingActionButton connectToAntPlusFAB;
+    private com.github.clans.fab.FloatingActionButton disconnectDevices;
     private com.github.clans.fab.FloatingActionMenu menuDown;
 
 
@@ -76,15 +77,14 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         connectToBandFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_band_float_button);
         connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_antplus_float_button);
+        disconnectDevices = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.disconnect_devices);
         menuDown = (com.github.clans.fab.FloatingActionMenu) getActivity().findViewById(R.id.menu_down);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         hrvRRIntervalDevice = getDevice(DeviceID.values()[sharedPreferences.getInt(SELECTED_DEVICE_ID, 0)]);
         if (hrvRRIntervalDevice != null) {
-            hrvRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
-            hrvRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
-            //hrvRRIntervalDevice.connect();
+            addDeviceListeners();
         }
 
         progressBar.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 if (hrvRRIntervalDevice != null) {
                     hrvRRIntervalDevice.tryStartRRIntervalMeasuring();
                 } else {
-                    UiHandlingUtil.showSnackbar(getString(R.string.error_device_not_connected_help));
+                    menuDown.open(true);
                 }
             }
         });
@@ -104,10 +104,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 setDevice(DeviceID.MSBAND);
 
                 hrvRRIntervalDevice = new MSBandRRIntervalDevice(getActivity());
-                hrvRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
-                hrvRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
-                hrvRRIntervalDevice.connect();
-                menuDown.toggle(true);
+                initDevice();
             }
         });
 
@@ -117,19 +114,37 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 setDevice(DeviceID.ANT);
 
                 hrvRRIntervalDevice = new AntPlusRRDataDevice(getContext(), getActivity());
-                hrvRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
-                hrvRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
-                hrvRRIntervalDevice.connect();
-                menuDown.toggle(true);
+                initDevice();
             }
         });
 
+        disconnectDevices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDevice(DeviceID.NONE);
+                hrvRRIntervalDevice = null;
+                menuDown.toggle(true);
+
+                UiHandlingUtil.showSnackbar(getResources().getString(R.string.msg_disconnecting));
+            }
+        });
 
         setProgressBarSize();
 
-        setupAnimation(new Interval(new Date()));
+        initAnimation(new Date());
 
         return rootView;
+    }
+
+    private void addDeviceListeners() {
+        hrvRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
+        hrvRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
+    }
+
+    private void initDevice() {
+        addDeviceListeners();
+        hrvRRIntervalDevice.connect();
+        menuDown.toggle(true);
     }
 
     private void setDevice(DeviceID device) {
@@ -182,7 +197,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         Calculation calc = new Calculation(fft, inter);
         HRVParameters results = calc.Calculate(interval);
-        results.setTime(new Date());
+        results.setTime(interval.GetStartTime());
         return results;
     }
 
@@ -190,7 +205,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         return hrvRRIntervalDevice;
     }
 
-    private void setupAnimation(final Interval interval) {
+    private void initAnimation(final Date date) {
 
         animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000); // see this max value coming back here, we animale towards that value
         animation.setDuration (duration); //in milliseconds
@@ -204,11 +219,12 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                hrvRRIntervalDevice.stopMeasuring();
-                if (interval == null) {
-                    return;
+                if (hrvRRIntervalDevice == null) {
+                    UiHandlingUtil.showSnackbar("This should not happen...");
                 }
-                UiHandlingUtil.updateTextView(getActivity(), txtStatus, "Calculating");
+                hrvRRIntervalDevice.stopMeasuring();
+
+                Interval interval = new Interval(date);
                 interval.SetRRInterval(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
 
                 Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);

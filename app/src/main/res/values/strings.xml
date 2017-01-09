@@ -185,9 +185,12 @@
     <!-- Connect Devices -->
     <string name="connect_to_band">Connect to MS Band</string>
     <string name="connect_to_antplus">Connect to ANT+</string>
+    <string name="disconnect_devices">Disconnect Device</string>
+
 
     <!-- Messages -->
     <string name="msg_connecting">Connecting to Device…</string>
+    <string name="msg_disconnecting">Device Disconnected</string>
     <string name="msg_hold_still">Hold Still During Measurement.</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="import_error_msg">No Database at Destination \"files/export.sql\"</string>

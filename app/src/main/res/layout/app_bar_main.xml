@@ -46,6 +46,15 @@
         app:menu_openDirection="up">
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/disconnect_devices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorAccent"
+            android:src="@drawable/ic_cancel"
+            app:fab_size="mini"
+            app:fab_label="@string/disconnect_devices" />
+
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/connect_band_float_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
