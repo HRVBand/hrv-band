@@ -65,7 +65,7 @@ public class HRVParameters implements Parcelable {
 
     // example constructor that takes a Parcel and gives you an object populated with it's values
     private HRVParameters(Parcel in) {
-        time = (Date) in.readValue(null);
+        time = (Date) in.readValue(getClass().getClassLoader());
         sdsd = in.readDouble();
         sd1 = in.readDouble();
         sd2 = in.readDouble();

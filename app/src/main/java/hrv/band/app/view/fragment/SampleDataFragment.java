@@ -23,7 +23,7 @@ import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.SQLite.SQLController;
 
 /**
- * Created by Thomas on 06.01.2017.
+ * Created by thomcz on 06.01.2017.
  */
 
 public class SampleDataFragment extends DialogFragment {
@@ -31,8 +31,16 @@ public class SampleDataFragment extends DialogFragment {
     private static final int rrCount = 50;
     private static final int sampleCount = 4;
 
-    public static SampleDataFragment newInstance() {
-        return new SampleDataFragment();
+    private static final String ARG_CLOSE_VALUE = "arg_close_value";
+
+    public static SampleDataFragment newInstance(boolean close) {
+        SampleDataFragment fragment = new SampleDataFragment();
+
+        Bundle args = new Bundle();
+        args.putBoolean(ARG_CLOSE_VALUE, close);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
@@ -55,14 +63,17 @@ public class SampleDataFragment extends DialogFragment {
                             cal.add(Calendar.HOUR_OF_DAY, i);
 
                             createSampleData(cal.getTime());
+
+                            closeCallingActivity();
                         }
                     }
                 })
-                .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         SampleDataFragment.this.getDialog().cancel();
+                        closeCallingActivity();
                     }
                 });
         builder.setTitle(getResources().getString(R.string.sample_title));
@@ -99,5 +110,11 @@ public class SampleDataFragment extends DialogFragment {
         HRVParameters results = calc.Calculate(interval);
         results.setTime(interval.GetStartTime());
         return results;
+    }
+
+    private void closeCallingActivity() {
+        if (getArguments().getBoolean(ARG_CLOSE_VALUE)) {
+            getActivity().finish();
+        }
     }
 }

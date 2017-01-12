@@ -16,6 +16,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import hrv.band.app.Control.Calculation;
@@ -300,6 +301,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
     @Override
     public void newRRInterval(HRVRRIntervalEvent event) {
-        UiHandlingUtil.updateTextView(getActivity(), rrStatus, String.format("%.2f", event.getRr()));
+        UiHandlingUtil.updateTextView(getActivity(), rrStatus, new DecimalFormat("#,##").format(event.getRr()));
+        //UiHandlingUtil.updateTextView(getActivity(), rrStatus, String.format("%.2f", event.getRr()));
     }
 }

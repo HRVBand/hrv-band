@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import hrv.band.app.R;
+import hrv.band.app.view.IntroActivity;
 
 /**
  * Created by Julian on 15.11.2016.
@@ -32,6 +34,8 @@ public class DisclaimerDialogFragment extends DialogFragment {
                     SharedPreferences.Editor prefsEditor = mPrefs.edit();
                     prefsEditor.putBoolean(DISCLAIMER_AGREEMENT, true);
                     prefsEditor.apply();
+
+                    startTutorial();
                 }
             })
             .setNegativeButton(R.string.disagree, new DialogInterface.OnClickListener() {
@@ -49,5 +53,12 @@ public class DisclaimerDialogFragment extends DialogFragment {
         super.onCancel(dialog);
 
         System.exit(0);
+    }
+
+    private void startTutorial() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if(!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {
+            getActivity().startActivity(new Intent(getActivity(), IntroActivity.class));
+        }
     }
 }

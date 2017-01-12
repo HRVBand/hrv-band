@@ -25,6 +25,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".view.IntroActivity"
+            android:label="Intro" />
+        <activity
             android:name="hrv.band.app.view.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

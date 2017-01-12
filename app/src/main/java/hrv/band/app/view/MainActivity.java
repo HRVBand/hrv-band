@@ -85,6 +85,15 @@ public class MainActivity extends AppCompatActivity
         assert tabLayout != null;
 
         tabLayout.setupWithViewPager(mViewPager);
+
+        //handleIntro();
+    }
+
+    private void handleIntro() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {
+            startActivity(new Intent(this, IntroActivity.class));
+        }
     }
 
     @Override
@@ -142,7 +151,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.menu_help) {
-            Intent intent = new Intent(this, HelpActivity.class);
+            //Intent intent = new Intent(this, HelpActivity.class);
+            Intent intent = new Intent(this, IntroActivity.class);
             startActivity(intent);
         } else if (id == R.id.menu_website) {
             openWebsite(WEBSITE_URL);
@@ -183,7 +193,7 @@ public class MainActivity extends AppCompatActivity
             DialogFragment importFragment = ImportFragment.newInstance();
             importFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
         } else if (id == R.id.menu_sample_data) {
-            SampleDataFragment sampleDataFragment = SampleDataFragment.newInstance();
+            SampleDataFragment sampleDataFragment = SampleDataFragment.newInstance(false);
             sampleDataFragment.show(getFragmentManager(), getResources().getString(R.string.common_import));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -254,6 +264,10 @@ public class MainActivity extends AppCompatActivity
         if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
             DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
             disclaimerDialogFragment.show(getFragmentManager(), "dialog");
+        }
+        //if in older version disclaimer is accepted intro opens on first run after update
+        else if (!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {
+            startActivity(new Intent(this, IntroActivity.class));
         }
     }
 }

@@ -20,6 +20,8 @@
     <string name="common_cancel">Abbrechen</string>
     <string name="common_send">Senden</string>
     <string name="common_create">Erstellen</string>
+    <string name="common_yes">Ja</string>
+    <string name="common_no">Nein</string>
 
 
     <string name="progress_complete">Complete</string>
@@ -183,5 +185,20 @@
     <string name="disagree">Ablehnen</string>
     <string name="privacyText">HRV Band speichert alle Ihre Daten auf Ihrem Smartphone. Keine Daten werden an irgendwelche Server gesendet!</string>
 
+    <!-- Turorial-->
+    <string name="tutorial_titel0">Verbinden</string>
+    <string name="tutorial_desc0">To start a measurement put on your device and configure it with your phone as it says on your device instruction!</string>
+    <string name="tutorial_titel1">Start</string>
+    <string name="tutorial_desc1">Now you can press the big measure button in the middle of the screen to start measurement. Before your first measurement you need to select your device.</string>
+    <string name="tutorial_titel2">Save</string>
+    <string name="tutorial_desc2">Save your measurement and the calculated HRV values by pressing the save button.</string>
+    <string name="tutorial_titel3">Personalize</string>
+    <string name="tutorial_desc3">You can extend your measurement by rating, selecting a category and adding a note to it.</string>
+    <string name="tutorial_titel4">Values</string>
+    <string name="tutorial_desc4">HRV Band calculates multiple HRV values from your measurement which you can monitor.</string>
+    <string name="tutorial_titel5">Monitor</string>
+    <string name="tutorial_desc5">By selecting single measurements you can show all details and remove them if you want.</string>
 
+    <string name="tutorial_cancel_title">Cancel The Tutorial?</string>
+    <string name="tutorial_cancel_desc">Do you really want to cancel the tutorial?</string>
 </resources>
