@@ -3,8 +3,8 @@ package hrv.band.app.view.fragment;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.view.View;
 import java.util.Calendar;
 
 import hrv.band.app.view.StatisticActivity;
@@ -14,10 +14,7 @@ import hrv.band.app.view.StatisticActivity;
  */
 public class CalenderPickerFragment extends DialogFragment  {
 
-    private View view;
-    public CalenderPickerFragment() {}
-
-
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Calendar c = Calendar.getInstance();

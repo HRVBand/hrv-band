@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -42,12 +43,6 @@ public class MainActivity extends AppCompatActivity
     public static final String WEBSITE_URL = "https://thomcz.github.io/hrv-band";
     private static final String WEBSITE_PRIVACY_URL = WEBSITE_URL + "/privacy";
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    private ViewPager mViewPager;
-    private MeasuringFragment measureFragment;
-    private OverviewFragment overviewFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,10 +68,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Fragment
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
         assert mViewPager != null;
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -128,30 +123,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        //int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.menu_help) {
-            //Intent intent = new Intent(this, HelpActivity.class);
             Intent intent = new Intent(this, IntroActivity.class);
             startActivity(intent);
         } else if (id == R.id.menu_website) {
@@ -235,9 +212,9 @@ public class MainActivity extends AppCompatActivity
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if (position == 0) {
-                return measureFragment = new MeasuringFragment();
+                return new MeasuringFragment();
             }
-            return overviewFragment = new OverviewFragment();
+            return new OverviewFragment();
         }
 
         @Override

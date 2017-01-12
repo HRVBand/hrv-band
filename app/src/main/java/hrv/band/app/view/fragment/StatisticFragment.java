@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.format.DateFormat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +38,9 @@ import static hrv.band.app.view.StatisticActivity.RESULT_DELETED;
  * Created by Thomas on 27.06.2016.
  */
 public class StatisticFragment extends Fragment {
-    public static final String ARG_SECTION_VALUE = "sectionValue";
-    public static final String ARG_HRV_VALUE = "hrvValue";
-    public static final String ARG_DATE_VALUE = "dateValue";
+    private static final String ARG_SECTION_VALUE = "sectionValue";
+    private static final String ARG_HRV_VALUE = "hrvValue";
+    private static final String ARG_DATE_VALUE = "dateValue";
     private StatisticValueAdapter adapter;
     //private final String dateFormat = "dd.MMM yyyy";
     private View rootView;
@@ -86,7 +86,6 @@ public class StatisticFragment extends Fragment {
 
 
         adapter = new StatisticValueAdapter(getActivity().getApplicationContext(),
-                R.layout.statistic_value_item,
                 hrvType, parameters);
         listView.setAdapter(adapter);
 
@@ -128,8 +127,6 @@ public class StatisticFragment extends Fragment {
     }
 
 
-    private ColumnChartData data;
-
     private void initChart(List<HRVParameters> parameters) {
         int numSubcolumns = 4;
         int numColumns = 24;
@@ -149,7 +146,7 @@ public class StatisticFragment extends Fragment {
     }
 
     private void setAxis() {
-        data = new ColumnChartData(new ArrayList<>(Arrays.asList(columns)));
+        ColumnChartData data = new ColumnChartData(new ArrayList<>(Arrays.asList(columns)));
 
         Axis axisX = new Axis();
         Axis axisY = new Axis().setHasLines(true);
@@ -172,7 +169,7 @@ public class StatisticFragment extends Fragment {
 
             columns[hour].getValues().set(minutes,
                     new SubcolumnValue((float) adapter.getHRVValue(hrvType, parameters.get(i)),
-                    getResources().getColor(R.color.colorAccent)));
+                            ContextCompat.getColor(getContext(), R.color.colorAccent)));
             chartValuesIndex.add(new int[] {hour, minutes});
             columns[hour].setHasLabels(false);
             columns[hour].setHasLabelsOnlyForSelected(false);

@@ -7,11 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sentence_how_do_you_feel"
@@ -41,5 +37,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/measure_detail_add_comment_msg"/>
-    </LinearLayout>
 </LinearLayout>

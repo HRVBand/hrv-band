@@ -41,7 +41,7 @@ import hrv.band.app.view.UiHandlingUtil;
 
 public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
 
-    public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
+    private static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     private static final String SELECTED_DEVICE_ID = "selected_device_id";
 
     private enum DeviceID {NONE, MSBAND, ANT}
@@ -247,7 +247,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         });
     }
 
-    public void stopMeasuring() {
+    private void stopMeasuring() {
         if (hrvRRIntervalDevice != null) {
             hrvRRIntervalDevice.stopMeasuring();
             animation.cancel();

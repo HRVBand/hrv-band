@@ -20,7 +20,6 @@ import hrv.band.app.view.MainActivity;
  * Created by Thomas on 10.08.2016.
  */
 public class MeasureDetailsFragment extends Fragment {
-    private HRVParameters parameter;
 
     public MeasureDetailsFragment() {
     }
@@ -38,7 +37,7 @@ public class MeasureDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_measure_details, container, false);
 
-        parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
+        HRVParameters parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
 
         TextView dateTxt =(TextView) rootView.findViewById(R.id.hrv_date);
         TextView ratingTxt =(TextView) rootView.findViewById(R.id.hrv_rating);
@@ -47,7 +46,7 @@ public class MeasureDetailsFragment extends Fragment {
         TextView commentTxt =(TextView) rootView.findViewById(R.id.hrv_comment);
 
         //dateTxt.setText(parameter.getTime().toString());
-        dateTxt.setText(formatDateTime(parameter.getTime()));
+        dateTxt.setText(formatDateTime(parameter != null ? parameter.getTime() : null));
         ratingTxt.setText(new DecimalFormat("#.#").format(parameter.getRating()) + "/5");
         categoryTxt.setText(parameter.getCategory().getText(getResources()));
         categoryIcon.setImageDrawable(parameter.getCategory().getIcon(getResources()));

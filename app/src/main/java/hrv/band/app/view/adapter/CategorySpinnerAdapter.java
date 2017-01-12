@@ -17,7 +17,7 @@ import hrv.band.app.R;
  * Created by Thomas on 25.07.2016.
  */
 public class CategorySpinnerAdapter extends BaseAdapter {
-    private Context context;
+    private final Context context;
 
     public CategorySpinnerAdapter(Context context) {
         this.context = context;

@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class IntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
 
         Resources resources = getResources();
-        int introBackgroundColor = resources.getColor(R.color.colorPrimary);
+        int introBackgroundColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
 
         addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel0), resources.getString(R.string.tutorial_desc0), R.drawable.intro0, introBackgroundColor));
         addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel1), resources.getString(R.string.tutorial_desc1), R.drawable.intro1, introBackgroundColor));
@@ -42,7 +43,7 @@ public class IntroActivity extends AppIntro {
         addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel4), resources.getString(R.string.tutorial_desc4), R.drawable.intro4, introBackgroundColor));
         addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel5), resources.getString(R.string.tutorial_desc5), R.drawable.intro5, introBackgroundColor));
 
-        setBarColor(resources.getColor(R.color.colorPrimaryDark));
+        setBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
 
         // Hide Skip/Done button.
         showSkipButton(true);

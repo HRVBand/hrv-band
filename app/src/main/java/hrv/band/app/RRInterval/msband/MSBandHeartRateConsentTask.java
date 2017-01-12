@@ -17,10 +17,10 @@ import hrv.band.app.view.UiHandlingUtil;
 /**
  * Class that gets user-permission for measuring the heartrate (and rrIntervals)
  */
-public class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
+class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
 
-    private WeakReference<Activity> activityWeakReference;
-    private MSBandRRIntervalDevice msBandRRIntervalDevice;
+    private final WeakReference<Activity> activityWeakReference;
+    private final MSBandRRIntervalDevice msBandRRIntervalDevice;
 
     public MSBandHeartRateConsentTask(WeakReference<Activity> activityWeakReference, MSBandRRIntervalDevice msBandRRIntervalDevice) {
         this.activityWeakReference = activityWeakReference;

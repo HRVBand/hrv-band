@@ -32,7 +32,7 @@ public class StaticSampleDataFactory implements ISampleDataFactory {
         return list;
     }
 
-    double[] createIntervalData()
+    private double[] createIntervalData()
     {
         double[] rrdata = new double[10];
         for(int i = 0; i < rrdata.length; i++)

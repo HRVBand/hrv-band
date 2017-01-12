@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,16 +22,18 @@ import hrv.band.app.view.fragment.LicenseFragment;
 import hrv.band.app.view.fragment.PrivacyFragment;
 
 public class ImprintActivity extends AppCompatActivity {
-    private ImprintActivity.SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
     private List<Fragment> fragments;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imprint);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         fragments = new ArrayList<>();
         fragments.add(AboutFragment.newInstance());
@@ -39,10 +42,10 @@ public class ImprintActivity extends AppCompatActivity {
         fragments.add(PrivacyFragment.newInstance());
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.imprint_viewpager);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.imprint_viewpager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.imprint_tabs);

@@ -2,6 +2,7 @@ package hrv.band.app.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,6 @@ public class MeasureRRFragment extends Fragment {
         return new DecimalFormat("#.####").format(value);
     }
 
-    private ColumnChartData data;
     private void initChart() {
         //int numSubcolumns = 1;
         //int numColumns = 8;
@@ -99,7 +99,7 @@ public class MeasureRRFragment extends Fragment {
 
             values = new ArrayList<>();
             values.add(new SubcolumnValue(parameter.getRRIntervals().get(i).floatValue(),
-                    getResources().getColor(R.color.colorAccent)));
+                    ContextCompat.getColor(getContext(), R.color.colorAccent)));
 
             Column column = new Column(values);
             //column.setHasLabels(hasLabels);
@@ -107,7 +107,7 @@ public class MeasureRRFragment extends Fragment {
             columns.add(column);
         }
 
-        data = new ColumnChartData(columns);
+        ColumnChartData data = new ColumnChartData(columns);
 
         Axis axisX = new Axis();
         Axis axisY = new Axis().setHasLines(true);

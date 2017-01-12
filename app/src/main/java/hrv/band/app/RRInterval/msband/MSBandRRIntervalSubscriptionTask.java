@@ -16,9 +16,9 @@ import hrv.band.app.view.UiHandlingUtil;
 /**
  * Class that meassures the RRInterval (get results via Eventhandler...)
  */
-public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
+class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
 
-    private MSBandRRIntervalDevice msBandRRIntervalDevice;
+    private final MSBandRRIntervalDevice msBandRRIntervalDevice;
     public MSBandRRIntervalSubscriptionTask(MSBandRRIntervalDevice msBandRRIntervalDevice) {
         this.msBandRRIntervalDevice = msBandRRIntervalDevice;
     }
@@ -48,7 +48,7 @@ public class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void
                 UiHandlingUtil.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
             }
         } catch (BandException e) {
-            String exceptionMessage="";
+            String exceptionMessage;
             switch (e.getErrorType()) {
                 case UNSUPPORTED_SDK_VERSION_ERROR:
                     exceptionMessage = "Microsoft Health BandService doesn't support your SDK Version. Please update to latest SDK.\n";

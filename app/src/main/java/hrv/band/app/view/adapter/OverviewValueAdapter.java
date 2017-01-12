@@ -13,11 +13,11 @@ import hrv.band.app.R;
  */
 public class OverviewValueAdapter extends AbstractValueAdapter {
 
-    private Context context;
-    private int layout;
+    private final Context context;
+    private final int layout;
 
-    public OverviewValueAdapter(Context context, int textViewResourceId) {
-        this.layout = textViewResourceId;
+    public OverviewValueAdapter(Context context) {
+        this.layout = R.layout.overview_list_item;
         this.context = context;
     }
 

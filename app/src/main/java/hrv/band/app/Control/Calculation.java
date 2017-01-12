@@ -16,8 +16,8 @@ import hrv.band.app.RRInterval.Interval;
  */
 public class Calculation {
 
-    IFourierTransformation fourierTransf;
-    IInterpolation interpolation;
+    private final IFourierTransformation fourierTransf;
+    private final IInterpolation interpolation;
 
     public Calculation(IFourierTransformation fTrans, IInterpolation interpol)
     {
@@ -76,8 +76,8 @@ public class Calculation {
         double frequencySteps = maxAbtastFrequenz / (numInterpolVals - 1);
         double[] frequencies = new double[numInterpolVals];
 
-        double last = betrag[4095];
-        double first = betrag[0];
+        //double last = betrag[4095];
+        //double first = betrag[0];
 
         for(int i = 0; i < numInterpolVals; i++)
         {
@@ -274,7 +274,7 @@ public class Calculation {
         double[] newArr = Arrays.copyOf(numArray, numArray.length);
         Arrays.sort(newArr);
         double middle = ((newArr.length) / 2);
-        double median = 0;
+        double median;
         if (newArr.length % 2 == 0) {
             double medianA = newArr[(int) middle];
             double medianB = newArr[(int) middle - 1];

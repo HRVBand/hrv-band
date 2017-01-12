@@ -23,12 +23,12 @@ import hrv.band.app.RRInterval.HRVRRIntervalDevice;
  */
 public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
     private BandClient client;
-    private Activity activity;
-    private WeakReference<Activity> reference;
+    private final Activity activity;
+    private final WeakReference<Activity> reference;
     /**
      *Handels when a new RRInterval is incoming
      */
-    private BandRRIntervalEventListener mRRIntervalEventListener;
+    private final BandRRIntervalEventListener mRRIntervalEventListener;
 
     public MSBandRRIntervalDevice(final Activity activity) {
         this.activity = activity;

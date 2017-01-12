@@ -14,20 +14,14 @@ import hrv.band.app.R;
 
 public class DisclaimerFragment extends Fragment {
 
-    private View rootView;
-
-    public DisclaimerFragment() {
-    }
-
     public static DisclaimerFragment newInstance() {
-        DisclaimerFragment fragment = new DisclaimerFragment();
-        return fragment;
+        return new DisclaimerFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_imprint_disclaimer, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_imprint_disclaimer, container, false);
         return rootView;
     }
 }

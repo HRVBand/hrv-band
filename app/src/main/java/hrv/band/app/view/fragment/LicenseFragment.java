@@ -21,8 +21,7 @@ public class LicenseFragment extends Fragment {
     }
 
     public static LicenseFragment newInstance() {
-        LicenseFragment fragment = new LicenseFragment();
-        return fragment;
+        return new LicenseFragment();
     }
 
     @Override
@@ -31,8 +30,7 @@ public class LicenseFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_imprint_license, container, false);
 
         ListView listview = (ListView) rootView.findViewById(R.id.licence_list);
-        AbstractValueAdapter adapter = new LicenseAdapter(this.getActivity(),
-                R.layout.license_item);
+        AbstractValueAdapter adapter = new LicenseAdapter(this.getActivity());
         listview.setAdapter(adapter);
 
         return rootView;

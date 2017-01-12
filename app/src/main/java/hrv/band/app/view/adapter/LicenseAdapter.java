@@ -15,15 +15,15 @@ import hrv.band.app.R;
 
 public class LicenseAdapter extends AbstractValueAdapter {
 
-    private Context context;
-    private int layout;
-    private String[] titles;
-    private String[] links;
-    private String[] texts;
+    private final Context context;
+    private final int layout;
+    private final String[] titles;
+    private final String[] links;
+    private final String[] texts;
 
 
-    public LicenseAdapter(Context context, int textViewResourceId) {
-        this.layout = textViewResourceId;
+    public LicenseAdapter(Context context) {
+        this.layout = R.layout.license_item;
         this.context = context;
         Resources resources = context.getResources();
         titles = resources.getStringArray(R.array.license_title_array);

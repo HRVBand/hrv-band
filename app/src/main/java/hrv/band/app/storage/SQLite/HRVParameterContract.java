@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 /**
  * Created by Julian on 23.06.2016.
  */
-public class HRVParameterContract {
+class HRVParameterContract {
 
     public HRVParameterContract() {}
 

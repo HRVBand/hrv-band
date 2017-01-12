@@ -17,9 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_marginRight="30dp">
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
@@ -40,7 +38,7 @@
             <LinearLayout
                 android:id="@+id/test"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:orientation="horizontal"
                 android:layout_weight="1">
 
@@ -49,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/measure_content_rr_status_standard"
-                    android:textSize="70dp"/>
+                    android:textSize="70sp"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -63,12 +61,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/measure_content_rr"
-                        android:textSize="20dp"/>
+                        android:textSize="20sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/measure_content_time_unit"
-                        android:textSize="20dp"/>
+                        android:textSize="20sp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -76,7 +74,6 @@
             android:id="@+id/measure_status"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/test"
             android:text="@string/title_activity_start_measuring"
             android:textSize="18sp"
             android:textAlignment="center"/>

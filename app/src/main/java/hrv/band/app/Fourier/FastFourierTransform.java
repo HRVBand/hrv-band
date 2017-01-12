@@ -5,11 +5,12 @@ package hrv.band.app.Fourier;
  */
 public class FastFourierTransform implements IFourierTransformation {
 
-    int n, m;
+    private final int n;
+    private final int m;
 
-    double[] cos;
-    double[] sin;
-    double[] window;
+    private double[] cos;
+    private double[] sin;
+    private double[] window;
 
     public FastFourierTransform(int n) {
         this.n = n;
@@ -59,7 +60,7 @@ public class FastFourierTransform implements IFourierTransformation {
     //calculates the fastfouriertransformation
     public void calculate(double[] x, double[] y) {
         int i, j, k, n1, n2, a;
-        double c, s, e, t1, t2;
+        double c, s, t1, t2;
 
         // Bit-reverse
         j = 0;
@@ -83,7 +84,6 @@ public class FastFourierTransform implements IFourierTransformation {
         }
 
         // FFT
-        n1 = 0;
         n2 = 1;
 
         for (i = 0; i < m; i++) {

@@ -32,8 +32,8 @@ public class OverviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.content_overview, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.overview_value_list);
-        final AbstractValueAdapter adapter = new OverviewValueAdapter(getActivity(),
-                R.layout.overview_list_item);
+        final AbstractValueAdapter adapter = new OverviewValueAdapter(getActivity()
+        );
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

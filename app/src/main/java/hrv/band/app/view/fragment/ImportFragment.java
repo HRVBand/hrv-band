@@ -23,8 +23,6 @@ import hrv.band.app.storage.SQLite.SQLController;
  */
 public class ImportFragment extends DialogFragment {
 
-    View view;
-
     public static ImportFragment newInstance() {
         return new ImportFragment();
     }
@@ -34,7 +32,7 @@ public class ImportFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.fragment_text_dialog, null);
+        View view = inflater.inflate(R.layout.fragment_text_dialog, null);
 
         TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
         textView.setText(getResources().getString(R.string.sentence_import_db));

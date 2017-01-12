@@ -20,7 +20,7 @@
             android:layout_weight="1">-->
             <TextView
                 android:id="@+id/firstLine"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textSize="20sp"
                 android:padding="10sp"

@@ -8,7 +8,7 @@ import java.util.List;
  */
 public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator {
 
-    protected List<Double> rrMeasurements = new ArrayList<>();
+    protected final List<Double> rrMeasurements = new ArrayList<>();
 
     public abstract void connect();
     public abstract void tryStartRRIntervalMeasuring();
@@ -16,8 +16,8 @@ public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator
     public abstract void destroy();
     public abstract void pauseMeasuring();
 
-    private List<HRVRRIntervalListener> listeners = new ArrayList<>();
-    private List<HRVRRDeviceListener> deviceListeners = new ArrayList<>();
+    private final List<HRVRRIntervalListener> listeners = new ArrayList<>();
+    private final List<HRVRRDeviceListener> deviceListeners = new ArrayList<>();
 
     public List<Double> getRRIntervals() {
         return rrMeasurements;

@@ -14,12 +14,12 @@ import hrv.band.app.R;
  */
 public class ValueAdapter extends AbstractValueAdapter {
 
-    private Context context;
-    private int layout;
-    private HRVParameters parameter;
+    private final Context context;
+    private final int layout;
+    private final HRVParameters parameter;
 
-    public ValueAdapter(Context context, int textViewResourceId, HRVParameters parameter) {
-        this.layout = textViewResourceId;
+    public ValueAdapter(Context context, HRVParameters parameter) {
+        this.layout = R.layout.measure_list_item;
         this.context = context;
         this.parameter = parameter;
     }

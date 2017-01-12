@@ -14,8 +14,6 @@ import hrv.band.app.R;
  * Created by Thomas on 02.08.2016.
  */
 public class SplashActivity extends AppCompatActivity {
-    // Splash screen timer
-    private static int SPLASH_TIME_OUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +22,7 @@ public class SplashActivity extends AppCompatActivity {
 
         animateLogo();
 
+        int SPLASH_TIME_OUT = 1000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

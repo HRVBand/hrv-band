@@ -14,20 +14,17 @@ import hrv.band.app.R;
 
 public class PrivacyFragment extends Fragment {
 
-    private View rootView;
-
     public PrivacyFragment() {
     }
 
     public static PrivacyFragment newInstance() {
-        PrivacyFragment fragment = new PrivacyFragment();
-        return fragment;
+        return new PrivacyFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_imprint_privacy, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_imprint_privacy, container, false);
         return rootView;
     }
 }

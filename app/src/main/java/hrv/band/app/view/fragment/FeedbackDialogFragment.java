@@ -93,7 +93,7 @@ public class FeedbackDialogFragment extends DialogFragment {
 
     private class FeedbackCategoryAdapter extends BaseAdapter {
 
-        private Context context;
+        private final Context context;
 
         public FeedbackCategoryAdapter(Context context) {
             this.context = context;

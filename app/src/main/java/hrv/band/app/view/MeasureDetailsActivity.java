@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -26,8 +27,6 @@ import hrv.band.app.view.fragment.MeasureValueFragment;
 public class MeasureDetailsActivity extends AppCompatActivity {
 
     private HRVParameters parameter;
-    private MeasureDetailsActivity.SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
     private List<Fragment> fragments;
 
     @Override
@@ -35,8 +34,12 @@ public class MeasureDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measure_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         parameter = getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID);
 
@@ -45,10 +48,10 @@ public class MeasureDetailsActivity extends AppCompatActivity {
         fragments.add(MeasureRRFragment.newInstance(parameter));
         fragments.add(MeasureDetailsEditFragment.newInstance(parameter));
 
-        mSectionsPagerAdapter = new MeasureDetailsActivity.SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.measure_details_viewpager);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.measure_details_viewpager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.measure_details_tabs);
@@ -72,8 +75,8 @@ public class MeasureDetailsActivity extends AppCompatActivity {
                 break;
             }
         }
-        parameter.setRating(fragment.getRating());
-        parameter.setCategory(fragment.getCategory());
+        parameter.setRating(fragment != null ? fragment.getRating() : 0);
+        parameter.setCategory(fragment != null ? fragment.getCategory() : null);
         parameter.setNote(fragment.getNote());
     }
 

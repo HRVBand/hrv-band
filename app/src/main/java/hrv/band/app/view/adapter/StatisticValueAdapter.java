@@ -17,16 +17,15 @@ import hrv.band.app.R;
  * Created by Thomas on 28.06.2016.
  */
 public class StatisticValueAdapter extends AbstractValueAdapter {
-    private Context context;
-    private int layout;
+    private final Context context;
+    private final int layout;
     private List<String> values;
     private List<HRVParameters> parameters;
-    private HRVValue type;
-    private final String timeFormat = "hh:mm aa";
+    private final HRVValue type;
 
-    public StatisticValueAdapter(Context context, int textViewResourceId,
+    public StatisticValueAdapter(Context context,
                                  HRVValue type, List<HRVParameters> parameters) {
-        this.layout = textViewResourceId;
+        this.layout = R.layout.statistic_value_item;
         this.context = context;
         this.type = type;
         this.parameters = parameters;
@@ -63,6 +62,7 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
         TextView time = (TextView) rowView.findViewById(R.id.stats_time);
         TextView category = (TextView) rowView.findViewById(R.id.stats_category);
 
+        String timeFormat = "hh:mm aa";
         time.setText(DateFormat.format(timeFormat, parameters.get(position).getTime()));
         category.setText(parameters.get(position).getCategory().getText(context.getResources()));
         value.setText(values.get(position));
