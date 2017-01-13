@@ -33,8 +33,7 @@ public class FeedbackDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.feedback_fragment, null);
+        view =  View.inflate(getActivity(), R.layout.feedback_fragment, null);
 
         builder.setView(view)
                 // Add action buttons

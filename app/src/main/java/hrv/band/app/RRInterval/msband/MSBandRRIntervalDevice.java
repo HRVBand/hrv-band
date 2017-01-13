@@ -76,9 +76,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
         if (client != null) {
             try {
                 client.disconnect().await();
-            } catch (InterruptedException e) {
-                // Do nothing as this is happening during destroy
-            } catch (BandException e) {
+            } catch (InterruptedException | BandException e) {
                 // Do nothing as this is happening during destroy
             }
         }
@@ -113,11 +111,11 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
         return ConnectionState.CONNECTED == client.connect().await();
     }
 
-    public BandClient getClient() {
+    BandClient getClient() {
         return client;
     }
 
-    public BandRRIntervalEventListener getRRIntervalEventListener() {
+    BandRRIntervalEventListener getRRIntervalEventListener() {
         return mRRIntervalEventListener;
     }
 

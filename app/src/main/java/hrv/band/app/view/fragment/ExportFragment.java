@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,8 +24,7 @@ public class ExportFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View view = inflater.inflate(R.layout.fragment_text_dialog, null);
+        final View view =  View.inflate(getActivity(), R.layout.fragment_text_dialog, null);
 
         TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
         textView.setText(getResources().getString(R.string.sentence_export_db));

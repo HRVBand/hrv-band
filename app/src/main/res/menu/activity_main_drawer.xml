@@ -3,8 +3,7 @@
 
 
     <group
-        android:checkableBehavior="none"
-        android:id="@+id/menu_group_settings">
+        android:checkableBehavior="none">
         <item
             android:id="@+id/menu_help"
             android:icon="@drawable/ic_help"
@@ -12,8 +11,7 @@
     </group>
 
     <group
-        android:checkableBehavior="none"
-        android:id="@+id/menu_group_share">
+        android:checkableBehavior="none">
         <item
             android:id="@+id/menu_rate"
             android:icon="@drawable/ic_rate"
@@ -31,8 +29,7 @@
 
 
     <group
-        android:checkableBehavior="none"
-        android:id="@+id/menu_group_imprint">
+        android:checkableBehavior="none">
         <item
             android:id="@+id/menu_website"
             android:icon="@drawable/ic_website"
@@ -48,8 +45,7 @@
     </group>
 
     <group
-        android:checkableBehavior="none"
-        android:id="@+id/menu_group_manage_db">
+        android:checkableBehavior="none">
 
         <item
             android:id="@+id/menu_import_db"

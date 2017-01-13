@@ -49,7 +49,7 @@ public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator
         }
     }
 
-    protected void notifyDeviceError(String error) {
+    public void notifyDeviceError(String error) {
         for (HRVRRDeviceListener listener: deviceListeners) {
             listener.deviceError(error);
         }

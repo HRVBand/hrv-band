@@ -21,10 +21,10 @@ public abstract class AbstractValueAdapter extends BaseAdapter {
         return i;
     }
 
-    protected void setTextView(TextView view, String value) {
+    void setTextView(TextView view, String value) {
         view.setText(value);
     }
-    protected String trimValue(double value) {
+    String trimValue(double value) {
         return new DecimalFormat("#.##").format(value);
     }
 

@@ -53,8 +53,7 @@ public class OverviewFragment extends Fragment {
 
         });
 
-        //View footerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.overview_add_items_footer, null, false);
-        View footerView = inflater.inflate(R.layout.overview_add_items_footer, null);
+        View footerView =  View.inflate(getActivity(), R.layout.overview_add_items_footer, null);
         listView.addFooterView(footerView);
 
         return rootView;

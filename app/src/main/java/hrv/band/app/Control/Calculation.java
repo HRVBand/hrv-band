@@ -61,8 +61,7 @@ public class Calculation {
 
         double[] complexPart = new double[numInterpolVals];
         double[] realPart = new double[numInterpolVals];
-        for(int i = 0; i < numInterpolVals; i++)
-            realPart[i] = yInterpolated[i];
+        System.arraycopy(yInterpolated, 0, realPart, 0, numInterpolVals);
 
         fourierTransf.calculate(realPart, complexPart);
 
@@ -102,7 +101,7 @@ public class Calculation {
         Double[] bigDouble = ArrayUtils.toObject(interval.GetRRInterval());
         List<Double> listDouble = Arrays.asList(bigDouble);
 
-        return new HRVParameters(interval.GetStartTime(), sdsd, sd1, sd2, lf, hf, rmssd, sdnn, baevsky, new ArrayList<Double>(listDouble));
+        return new HRVParameters(interval.GetStartTime(), sdsd, sd1, sd2, lf, hf, rmssd, sdnn, baevsky, new ArrayList<>(listDouble));
     }
 
     private double Baevsky(double[] rrinterval)
@@ -111,16 +110,14 @@ public class Calculation {
         double min = min(rrinterval);
         double max = max(rrinterval);
 
-        double baevsky = StatistischeHäufigkeit(rrinterval, mode) / (2 * mode * (max - min));
-        return baevsky;
+        return StatistischeHäufigkeit(rrinterval, mode) / (2 * mode * (max - min));
     }
 
     private double StatistischeHäufigkeit(double[] rrinterval, double mode)
     {
         int counter = 0;
-        for(int i = 0; i < rrinterval.length; i++)
-        {
-            if(!((rrinterval[i]  > mode * 1.05 ) || (rrinterval[i]  < mode * 0.95)))
+        for (double aRrinterval : rrinterval) {
+            if (!((aRrinterval > mode * 1.05) || (aRrinterval < mode * 0.95)))
                 counter++;
         }
         return counter / (double) rrinterval.length;
@@ -145,9 +142,8 @@ public class Calculation {
     private double Erwartungswert(double[] values)
     {
         double sum = 0;
-        for(int i = 0; i < values.length; i++)
-        {
-            sum += values[i];
+        for (double value : values) {
+            sum += value;
         }
 
         return sum / values.length;
@@ -158,9 +154,8 @@ public class Calculation {
         double erwartungswert = Erwartungswert(rrinterval);
 
         double sum2 = 0;
-        for(int i = 0; i < rrinterval.length; i++)
-        {
-            sum2 += (rrinterval[i] - erwartungswert) * (rrinterval[i] - erwartungswert);
+        for (double aRrinterval : rrinterval) {
+            sum2 += (aRrinterval - erwartungswert) * (aRrinterval - erwartungswert);
         }
 
         return Math.sqrt(sum2 / rrinterval.length);
@@ -177,9 +172,8 @@ public class Calculation {
 
         double erwartungswert = Erwartungswert(rrdiff);
         double sdsd = 0;
-        for(int i = 0; i < rrdiff.length; i++)
-        {
-            sdsd += (rrdiff[i] - erwartungswert) * (rrdiff[i] - erwartungswert);
+        for (double aRrdiff : rrdiff) {
+            sdsd += (aRrdiff - erwartungswert) * (aRrdiff - erwartungswert);
         }
 
         sdsd = Math.sqrt(sdsd / rrdiff.length);
@@ -289,16 +283,16 @@ public class Calculation {
     double maxValue = 0;
     int maxCount = 0;
 
-    for (int i = 0; i < a.length; ++i) {
-        int count = 0;
-        for (int j = 0; j < a.length; ++j) {
-            if (!((a[j]  > a[i] * 1.05 ) || (a[j]  < a[i] * 0.95))) ++count;
+        for (double anA : a) {
+            int count = 0;
+            for (double anA1 : a) {
+                if (!((anA1 > anA * 1.05) || (anA1 < anA * 0.95))) ++count;
+            }
+            if (count > maxCount) {
+                maxCount = count;
+                maxValue = anA;
+            }
         }
-        if (count > maxCount) {
-            maxCount = count;
-            maxValue = a[i];
-        }
-    }
 
     return maxValue;
     }

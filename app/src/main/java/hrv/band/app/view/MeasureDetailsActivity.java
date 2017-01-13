@@ -77,7 +77,7 @@ public class MeasureDetailsActivity extends AppCompatActivity {
         }
         parameter.setRating(fragment != null ? fragment.getRating() : 0);
         parameter.setCategory(fragment != null ? fragment.getCategory() : null);
-        parameter.setNote(fragment.getNote());
+        parameter.setNote(fragment != null ? fragment.getNote() : null);
     }
 
 

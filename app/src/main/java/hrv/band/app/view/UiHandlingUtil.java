@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import hrv.band.app.R;
-import hrv.band.app.view.fragment.MeasuringFragment;
 
 /**
  * Created by Thomas on 17.07.2016.
@@ -14,8 +13,8 @@ import hrv.band.app.view.fragment.MeasuringFragment;
 public class UiHandlingUtil {
 
 
-    public static void showSnackbar(final String msg) {
-        final Snackbar snackBar = Snackbar.make(MeasuringFragment.view, msg, Snackbar.LENGTH_INDEFINITE);
+    public static void showSnackbar(View view, final String msg) {
+        final Snackbar snackBar = Snackbar.make(view, msg, Snackbar.LENGTH_INDEFINITE);
         String closeStr = snackBar.getView().getResources().getString(R.string.common_close);
 
         snackBar.setAction(closeStr, new View.OnClickListener() {

@@ -20,7 +20,7 @@ public class PointThreeAndPoint5RandomSampleDataFactory implements ISampleDataFa
         FastFourierTransform fft = new FastFourierTransform(4096);
         Calculation calc = new Calculation(fft, inter);
 
-        ArrayList<HRVParameters> list = new ArrayList<HRVParameters>();
+        ArrayList<HRVParameters> list = new ArrayList<>();
         for(int i = 0; i < sampleSize; i++)
         {
             GregorianCalendar gregorianCalendar = new GregorianCalendar(1991, 7, 20 + i);

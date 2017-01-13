@@ -9,7 +9,7 @@ public class Interval {
 
     //RR Interval Data in ms
     private double[] rrInterval;
-    private Date startTime;
+    private final Date startTime;
 
     public Interval(Date startTime, double[] rrInterval) {
         this.startTime = startTime;
@@ -38,7 +38,7 @@ public class Interval {
         return startTime;
     }
 
-    public void SetStartTime(Date time)
+    /*public void SetStartTime(Date time)
     {
         startTime = time;
     }
@@ -49,5 +49,5 @@ public class Interval {
             s= s+","+d;
         }
         return s;
-    }
+    }*/
 }

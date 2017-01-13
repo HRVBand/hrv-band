@@ -12,7 +12,7 @@ import com.microsoft.band.sensors.HeartRateConsentListener;
 import java.lang.ref.WeakReference;
 
 import hrv.band.app.R;
-import hrv.band.app.view.UiHandlingUtil;
+//import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Class that gets user-permission for measuring the heartrate (and rrIntervals)
@@ -42,7 +42,8 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                 }
             } else {
                 String msg = activityWeakReference.get().getResources().getString(R.string.error_device_not_connected_help);
-                UiHandlingUtil.showSnackbar(msg);
+                msBandRRIntervalDevice.notifyDeviceError(msg);
+                //UiHandlingUtil.showSnackbar(msg);
             }
         } catch (BandException e) {
             String exceptionMessage;
@@ -57,10 +58,12 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
                     break;
             }
-            UiHandlingUtil.showSnackbar(exceptionMessage);
+            msBandRRIntervalDevice.notifyDeviceError(exceptionMessage);
+            //UiHandlingUtil.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
-            UiHandlingUtil.showSnackbar(e.getMessage());
+            msBandRRIntervalDevice.notifyDeviceError(e.getMessage());
+           // UiHandlingUtil.showSnackbar(e.getMessage());
         }
         return null;
     }

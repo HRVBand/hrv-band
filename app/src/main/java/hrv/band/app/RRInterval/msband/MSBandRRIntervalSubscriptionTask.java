@@ -11,7 +11,7 @@ import com.microsoft.band.BandException;
 import com.microsoft.band.UserConsent;
 import com.microsoft.band.sensors.BandSensorManager;
 
-import hrv.band.app.view.UiHandlingUtil;
+//import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Class that meassures the RRInterval (get results via Eventhandler...)
@@ -41,11 +41,12 @@ class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
                         msBandRRIntervalDevice.connect();
                     }
                 } else {
-                    UiHandlingUtil.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
+                    msBandRRIntervalDevice.notifyDeviceError("The RR Interval sensor is only supported with MS Band 2.\n");
+                    //UiHandlingUtil.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
                 }
             } else {
-
-                UiHandlingUtil.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
+                msBandRRIntervalDevice.notifyDeviceError("Device isn't connected. Is bluetooth on and the device in range?\n");
+                //UiHandlingUtil.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
             }
         } catch (BandException e) {
             String exceptionMessage;
@@ -60,10 +61,12 @@ class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
                     exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
                     break;
             }
-           UiHandlingUtil.showSnackbar(exceptionMessage);
+           msBandRRIntervalDevice.notifyDeviceError(exceptionMessage);
+           //UiHandlingUtil.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
-           UiHandlingUtil.showSnackbar(e.getMessage());
+           msBandRRIntervalDevice.notifyDeviceError(e.getMessage());
+           //UiHandlingUtil.showSnackbar(e.getMessage());
         }
         return null;
     }

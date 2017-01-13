@@ -47,10 +47,10 @@ public class MeasureDetailsFragment extends Fragment {
 
         //dateTxt.setText(parameter.getTime().toString());
         dateTxt.setText(formatDateTime(parameter != null ? parameter.getTime() : null));
-        ratingTxt.setText(new DecimalFormat("#.#").format(parameter.getRating()) + "/5");
-        categoryTxt.setText(parameter.getCategory().getText(getResources()));
-        categoryIcon.setImageDrawable(parameter.getCategory().getIcon(getResources()));
-        commentTxt.setText(parameter.getNote());
+        ratingTxt.setText(new DecimalFormat("#.#").format(parameter != null ? parameter.getRating() : 0).concat("/5"));
+        categoryTxt.setText(parameter != null ? parameter.getCategory().getText(getResources()) : null);
+        categoryIcon.setImageDrawable(parameter != null ? parameter.getCategory().getIcon(getResources()) : null);
+        commentTxt.setText(parameter != null ? parameter.getNote() : null);
 
         return rootView;
     }

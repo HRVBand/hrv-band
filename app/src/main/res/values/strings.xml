@@ -4,33 +4,21 @@
 
     <!-- Common words -->
     <string name="common_help">Help</string>
-    <string name="common_settings">Settings</string>
     <string name="common_rate">Rate</string>
     <string name="common_share">Share</string>
     <string name="common_imprint">Imprint</string>
-    <string name="common_ms">ms</string>
-    <string name="common_as">as</string>
-    <string name="common_hello_world">Hello World</string>
-    <string name="common_app">App</string>
     <string name="common_close">Close</string>
-    <string name="common_progress">Progress</string>
     <string name="common_bold_measure">MEASURE</string>
     <string name="common_bold_overview">OVERVIEW</string>
     <string name="common_export">Export</string>
     <string name="common_import">Import</string>
     <string name="common_cancel">Cancel</string>
-    <string name="common_send">Send</string>
     <string name="common_create">Create</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
 
-    <string name="progress_complete">Complete</string>
-    <string name="progress_error">Error</string>
-    <string name="progress_start">Start</string>
-
     <!-- Sentences -->
     <string name="sentence_how_do_you_feel">How Do You Feel?</string>
-    <string name="sentence_this_is_a_description">This is a description.</string>
     <string name="sentence_export_db">Exports the Database into the "data/database" Folder.</string>
     <string name="sentence_import_db">Import Database from \"files/export.sql\"</string>
 
@@ -44,9 +32,6 @@
     <string name="main_drawer_privacy_policy" translatable="false">Privacy Policy</string>
 
     <!-- Title Activity-->
-    <string name="title_activity_help">Help</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_measure">Measurement</string>
     <string name="title_activity_save_values">Measurement Details</string>
     <string name="title_activity_start_measuring">Press To Start Measurement</string>
     <string name="title_activity_value_description">Value Description</string>
@@ -54,16 +39,6 @@
     <string name="title_activity_hrv_value">Measure Details</string>
 
     <!-- Settings Activity -->
-    <string name="settings_login_credentials">Login credentials</string>
-    <string name="settings_your_name_text">Your Name</string>
-    <string name="settings_your_name_summary">Please provide your username</string>
-    <string name="settings_application_updates">Application Updates</string>
-    <string name="settings_application_updates_summary">This option if selected will allow the application to check for latest versions.</string>
-
-    <string name="settings_database" translatable="false">Database</string>
-    <string name="settings_database_summary" translatable="false">Import or Export or Delete Your Data.</string>
-    <string name="settings_delete_db" translatable="false">Delete Data</string>
-    <string name="settings_delete_db_summary" translatable="false">Deletes all previously recorded data.</string>
 
     <!-- Measurement Categories-->
     <string name="measure_category_general">General</string>
@@ -102,23 +77,17 @@
     <string name="overview_list_item_as">as</string>
 
     <!-- HRV Value Activity -->
-    <string name="hrv_value_rr_intervals">RR-Intervals</string>
-    <string name="hrv_value_hrv_values">HRV Values</string>
-    <string name="hrv_value_details">Details</string>
     <string name="hrv_value_standard_date">28 August 2015</string>
     <string name="hrv_value_standard_rating">3.5 / 5</string>
     <string name="hrv_value_standard_category">General</string>
     <string name="hrv_value_comment">That was a great measurement</string>
 
     <!-- spinner category item -->
-    <string name="spinner_cat_item_more_values">More Values</string>
 
     <!-- overview add items footer -->
     <string name="overview_add_items_footer_more_vals">More Values</string>
 
     <!-- content save values -->
-    <string name="content_save_measurement_category">Measurement Category</string>
-    <string name="content_save_add_comment_msg">Add a Comment to Your Measurement</string>
 
     <!-- Share Dialog -->
     <string name="share_subject">New Universal Health App</string>
@@ -140,16 +109,6 @@
     <string name="sample_text">Do you want to create sample data to use functionality that is only usable if you connect a supported device? You can show the data in the overview. Afterwards you need to remove it manually!</string>
 
     <!-- HRV Explanations -->
-    <string name="how_measure_q">How to measure HRV Values?</string>
-    <string name="how_measure_a">Put on your MS Band 2 and start the measurement by pressing the measure button in the main activity. Stay still during the measurement.</string>
-    <string name="what_hrv_q">What is HRV?</string>
-    <string name="what_hrv_a">Heart rate variability (HRV) is the physiological phenomenon of variation in the time interval between heartbeats. It is measured by the variation in the beat-to-beat interval.</string>
-    <string name="what_meaning_q">What is the meaning of this app?</string>
-    <string name="what_meaning_a">This app does a HRV analysis by using time-domain or frequency-domain methods.</string>
-    <string name="how_save_q">How to save my measurement?</string>
-    <string name="how_save_a">After the progress circle fills you get the chance to add more information to your measurement. By clicking the save button the measurement is saved.</string>
-    <string name="how_previous_q">Can I see my previous measurements?</string>
-    <string name="how_previous_a">By selecting the overview tab you can view your previous measurements.</string>
 
     <!-- Imprint -->
     <string name="tab_about">About</string>
@@ -157,12 +116,6 @@
     <string name="tab_disclaimer">Disclaimer</string>
     <string name="tab_privacy">Privacy</string>
 
-    <string name="used_libraries">Libraries</string>
-    <string name="used_libraries_text" translatable="false">
-        "Amplify (https://github.com/stkent/amplify)\n"
-        "Hellocharts (https://github.com/lecho/hellocharts-android)\n"
-        "Apache Commons Lang (http://www.apache.org/licenses/)\n"
-    </string>
     <string name="icon" translatable="false">Logo made by Freepik from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a> \n
     Windows Icon made by Icomoon from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
 
@@ -172,13 +125,7 @@
     <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
     <string name="website" translatable="false">Website: thomcz.github.io/aurora/</string>
 
-    <string name="version_number_text">Version</string>
-    <string name="version_number">1</string>
-
     <!-- Libraries -->
-    <string name="lib_amplify">Amplify</string>
-    <string name="lib_hellocharts">Hellocharts</string>
-    <string name="lib_apache_commons_lang">Apache Commons Lang3</string>
 
     <!-- Error Messages -->
     <string name="error_band_not_paired">Band isn\'t paired with your phone.</string>
@@ -194,8 +141,6 @@
     <string name="msg_connecting">Connecting to Device…</string>
     <string name="msg_disconnecting">Device Disconnected</string>
     <string name="msg_hold_still">Hold Still During Measurement.</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="import_error_msg">No Database at Destination \"files/export.sql\"</string>
     <string name="sentence_import_failed">Could not import Database.</string>
     <string name="sentence_import_worked" translatable="false">Imported Database</string>
     <string name="sentence_export_worked" translatable="false">Exported Database</string>

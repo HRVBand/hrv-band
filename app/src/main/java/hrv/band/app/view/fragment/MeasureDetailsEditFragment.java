@@ -17,7 +17,7 @@ import hrv.band.app.view.adapter.CategorySpinnerAdapter;
  * Created by Thomas on 10.08.2016.
  */
 public class MeasureDetailsEditFragment extends Fragment {
-    private HRVParameters parameter;
+
     private View rootView;
 
     public MeasureDetailsEditFragment() {

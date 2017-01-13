@@ -84,12 +84,12 @@ public class MainActivity extends AppCompatActivity
         //handleIntro();
     }
 
-    private void handleIntro() {
+    /*private void handleIntro() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {
             startActivity(new Intent(this, IntroActivity.class));
         }
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
