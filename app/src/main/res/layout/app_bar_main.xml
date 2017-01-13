@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:menu_icon="@drawable/ic_watch"
+        app:menu_icon="@drawable/ic_communication"
         app:menu_colorNormal="@color/colorAccent"
         app:menu_fab_size="normal"
         app:menu_openDirection="up">
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorAccent"
-            android:src="@drawable/ic_microsoft"
+            android:src="@drawable/ic_watch"
             app:fab_size="mini"
             app:fab_label="@string/connect_to_band" />
 
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorAccent"
-            android:src="@drawable/ic_connect"
+            android:src="@drawable/ic_bluetooth"
             app:fab_size="mini"
             app:fab_label="@string/connect_to_antplus" />
 

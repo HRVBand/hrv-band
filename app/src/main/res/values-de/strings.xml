@@ -3,23 +3,22 @@
 
     <!-- Common words -->
     <string name="common_help">Hilfe</string>
- <string name="common_rate">Bewerten</string>
+    <string name="common_rate">Bewerten</string>
     <string name="common_share">Teilen</string>
     <string name="common_imprint">Impressum</string>
- <string name="common_close">Schließen</string>
- <string name="common_bold_measure">Messen</string>
+    <string name="common_close">Schließen</string>
+    <string name="common_bold_measure">Messen</string>
     <string name="common_bold_overview">Übersicht</string>
     <string name="common_export">Export</string>
     <string name="common_import">Import</string>
     <string name="common_cancel">Abbrechen</string>
- <string name="common_create">Erstellen</string>
+    <string name="common_create">Erstellen</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nein</string>
 
-
  <!-- Sentences -->
     <string name="sentence_how_do_you_feel">Wie fühlst du dich?</string>
- <string name="sentence_export_db">Exportieren der Datenbank in den Ordner "data/database" der App.</string>
+    <string name="sentence_export_db">Exportieren der Datenbank in den Ordner "data/database" der App.</string>
     <string name="sentence_import_db">Importiere Datenbank aus \"files/export.sql\"</string>
 
     <!-- Navigation Drawer -->
@@ -27,15 +26,13 @@
     <string name="navigation_drawer_close">Schließe Navigation</string>
 
     <!-- Title Activity-->
- <string name="title_activity_save_values">Details</string>
+    <string name="title_activity_save_values">Details</string>
     <string name="title_activity_start_measuring">Drücke um Messung zu starten</string>
     <string name="title_activity_value_description">Beschreibungen</string>
     <string name="title_activity_statistic">Historie</string>
     <string name="title_activity_hrv_value">Details</string>
 
-    <!-- Settings Activity -->
-
- <!-- Measurement Categories-->
+    <!-- Measurement Categories-->
     <string name="measure_category_general">Standard</string>
     <string name="measure_category_relaxed">Entspannt</string>
     <string name="measure_category_work">Arbeit</string>
@@ -72,12 +69,8 @@
     <string name="hrv_value_standard_category">Allgemein</string>
     <string name="hrv_value_comment">Das war eine großartige Messung!</string>
 
-    <!-- spinner category item -->
-
  <!-- overview add items footer -->
     <string name="overview_add_items_footer_more_vals">Mehr Werte</string>
-
-    <!-- content save values -->
 
  <!-- Share Dialog -->
     <string name="share_subject">Neue Health App</string>
@@ -97,9 +90,6 @@
     <string name="sample_title">Erstelle Test Daten</string>
     <string name="sample_text">Möchtest du Test Daten erstellen um Funktionalität zu testen, die sonst nur mit einem unterstütztem Gerät nutzbar sind? Im Anschluss müssen die Daten manuell gelöscht werden!</string>
 
-
- <!-- HRV Explanations -->
-
  <!-- Connect Devices -->
     <string name="connect_to_band">Mit MS Band verbinden</string>
     <string name="connect_to_antplus">Mit ANT+ verbinden</string>
@@ -111,12 +101,10 @@
     <string name="tab_disclaimer">Haftung</string>
     <string name="tab_privacy">Datenschutz</string>
 
- <string name="developers">Entwickler</string>
+    <string name="developers">Entwickler</string>
     <string name="developer_thomas">Thomas github.com/thomcz</string>
     <string name="developer_julian">Julian github.com/Fenox</string>
     <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
-
- <!-- Libraries -->
 
  <!-- Error Messages -->
     <string name="error_band_not_paired">Gerät ist nicht mit dem Handy verbunden.</string>
@@ -126,7 +114,7 @@
     <string name="msg_connecting">Verbinde mit Gerät …</string>
     <string name="msg_disconnecting">Gerät getrennt</string>
     <string name="msg_hold_still">Während der Messung still halten!</string>
- <string name="sentence_import_failed">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
+    <string name="sentence_import_failed">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
     <string name="sentence_export_failed">Datenbank konnte nicht exportiert werden.</string>
     <string name="disclaimer">Haftungsausschluss</string>
     <string name="disclaimerText">Die Informationen die diese Anwendung anbietet, dienen nur zu Informationszwecken.

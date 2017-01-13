@@ -38,8 +38,6 @@
     <string name="title_activity_statistic">Measure History</string>
     <string name="title_activity_hrv_value">Measure Details</string>
 
-    <!-- Settings Activity -->
-
     <!-- Measurement Categories-->
     <string name="measure_category_general">General</string>
     <string name="measure_category_relaxed">Relaxed</string>
@@ -82,12 +80,8 @@
     <string name="hrv_value_standard_category">General</string>
     <string name="hrv_value_comment">That was a great measurement</string>
 
-    <!-- spinner category item -->
-
     <!-- overview add items footer -->
     <string name="overview_add_items_footer_more_vals">More Values</string>
-
-    <!-- content save values -->
 
     <!-- Share Dialog -->
     <string name="share_subject">New Universal Health App</string>
@@ -116,16 +110,13 @@
     <string name="tab_disclaimer">Disclaimer</string>
     <string name="tab_privacy">Privacy</string>
 
-    <string name="icon" translatable="false">Logo made by Freepik from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a> \n
-    Windows Icon made by Icomoon from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
+    <string name="icon" translatable="false">Icon made by Freepik from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
 
     <string name="developers">Developers</string>
     <string name="developer_thomas">Thomas github.com/thomcz</string>
     <string name="developer_julian">Julian github.com/Fenox</string>
     <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
     <string name="website" translatable="false">Website: thomcz.github.io/aurora/</string>
-
-    <!-- Libraries -->
 
     <!-- Error Messages -->
     <string name="error_band_not_paired">Band isn\'t paired with your phone.</string>
