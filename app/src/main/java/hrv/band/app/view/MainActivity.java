@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,7 +23,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import hrv.band.app.R;
+import hrv.band.app.view.fragment.CancelMeasuringDialogFragment;
 import hrv.band.app.view.fragment.DisclaimerDialogFragment;
 import hrv.band.app.view.fragment.ExportFragment;
 import hrv.band.app.view.fragment.FeedbackDialogFragment;
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.menu_help) {
@@ -195,6 +197,14 @@ public class MainActivity extends AppCompatActivity
         startActivity(Intent.createChooser(sharingIntent, resources.getString(R.string.share_via)));
     }
 
+    public void stopMeasuring() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof MeasuringFragment) {
+                ((MeasuringFragment) fragment).stopMeasuring();
+            }
+        }
+    }
 
 
     /**

@@ -46,6 +46,9 @@
     <string name="measure_fragment_count">Anzahl:</string>
     <string name="measure_fragment_press_to_start">Drücke um Messung zu starten.</string>
 
+    <string name="measure_cancel_title">Messung beenden?</string>
+    <string name="measure_cancel_desc">Wollen Sie die Messung wirklich beenden?</string>
+
     <!-- fragment measure details -->
     <string name="measure_details_measure_category">Kategorie der Messung</string>
     <string name="measure_detail_add_comment_msg">Füge der Messung einen Kommentar hinzu.</string>

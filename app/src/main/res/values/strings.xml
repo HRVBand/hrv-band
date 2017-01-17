@@ -53,6 +53,9 @@
     <string name="measure_fragment_count">count:</string>
     <string name="measure_fragment_press_to_start">Press To Start Measurement</string>
 
+    <string name="measure_cancel_title">Stop Measuring?</string>
+    <string name="measure_cancel_desc">Do you really want to stop the measurement?</string>
+
     <!-- fragment measure details -->
     <string name="measure_details_measure_category">Measurement Category</string>
     <string name="measure_detail_add_comment_msg">Add a Comment to Your Measurement</string>
@@ -170,8 +173,9 @@
 
     <string name="tutorial_cancel_title">Cancel The Tutorial?</string>
     <string name="tutorial_cancel_desc">Do you really want to cancel the tutorial?</string>
-
-
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 
 </resources>
