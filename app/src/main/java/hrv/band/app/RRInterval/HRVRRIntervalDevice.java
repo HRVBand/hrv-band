@@ -43,7 +43,7 @@ public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator
         }
     }
 
-    protected void notifyDeviceStatusChanged(HRVDeviceStatus status) {
+    public void notifyDeviceStatusChanged(HRVDeviceStatus status) {
         for(HRVRRDeviceListener listener : deviceListeners) {
             listener.deviceStatusChanged(status);
         }

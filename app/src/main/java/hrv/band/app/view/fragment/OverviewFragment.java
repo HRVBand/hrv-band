@@ -24,7 +24,8 @@ public class OverviewFragment extends Fragment {
 
     public static final String valueType = "VALUE_TYPE";
 
-    public OverviewFragment() {
+    public static OverviewFragment newInstance() {
+        return new OverviewFragment();
     }
 
     @Override

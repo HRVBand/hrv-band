@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,6 @@ import android.view.MenuItem;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.view.fragment.CancelMeasuringDialogFragment;
 import hrv.band.app.view.fragment.DisclaimerDialogFragment;
 import hrv.band.app.view.fragment.ExportFragment;
 import hrv.band.app.view.fragment.FeedbackDialogFragment;
@@ -82,16 +82,7 @@ public class MainActivity extends AppCompatActivity
         assert tabLayout != null;
 
         tabLayout.setupWithViewPager(mViewPager);
-
-        //handleIntro();
     }
-
-    /*private void handleIntro() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if(!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {
-            startActivity(new Intent(this, IntroActivity.class));
-        }
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -105,7 +96,6 @@ public class MainActivity extends AppCompatActivity
                 System.exit(0);
             }
         }
-
 
         //If the Navigation Drawer is opened, a backPressed closes the Navigation Drawer.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -125,14 +115,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.menu_help) {
-            Intent intent = new Intent(this, IntroActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, IntroActivity.class));
         } else if (id == R.id.menu_website) {
             openWebsite(WEBSITE_URL);
         } else if (id == R.id.menu_share) {
@@ -140,11 +128,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_privacy) {
             openWebsite(WEBSITE_PRIVACY_URL);
         } else if (id == R.id.menu_feedback) {
-            FeedbackDialogFragment picker = new FeedbackDialogFragment();
-            picker.show(getFragmentManager(), "Feedback");
+            new FeedbackDialogFragment().show(getFragmentManager(), "Feedback");
         } else if (id == R.id.menu_imprint) {
-            Intent intent = new Intent(this, ImprintActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, ImprintActivity.class));
         } else if (id == R.id.menu_rate) {
 
             //Laut Stack overflow
@@ -206,6 +192,18 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void handleDisclaimer() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
+            DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
+            disclaimerDialogFragment.show(getFragmentManager(), "dialog");
+        }
+        //if in older version disclaimer is accepted intro opens on first run after update
+        else if (!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {
+            startActivity(new Intent(this, IntroActivity.class));
+        }
+    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -213,7 +211,7 @@ public class MainActivity extends AppCompatActivity
      */
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -222,9 +220,9 @@ public class MainActivity extends AppCompatActivity
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if (position == 0) {
-                return new MeasuringFragment();
+                return MeasuringFragment.newInstance();
             }
-            return new OverviewFragment();
+            return OverviewFragment.newInstance();
         }
 
         @Override
@@ -245,16 +243,5 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void handleDisclaimer() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
-            DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
-            disclaimerDialogFragment.show(getFragmentManager(), "dialog");
-        }
-        //if in older version disclaimer is accepted intro opens on first run after update
-        else if (!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {
-            startActivity(new Intent(this, IntroActivity.class));
-        }
-    }
 }

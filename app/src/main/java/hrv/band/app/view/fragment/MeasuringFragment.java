@@ -2,16 +2,12 @@ package hrv.band.app.view.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -21,7 +17,6 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 
 import hrv.band.app.Control.Calculation;
@@ -37,7 +32,6 @@ import hrv.band.app.RRInterval.HRVRRIntervalListener;
 import hrv.band.app.RRInterval.Interval;
 import hrv.band.app.RRInterval.antplus.AntPlusRRDataDevice;
 import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
-import hrv.band.app.view.IntroActivity;
 import hrv.band.app.view.MeasureDetailsActivity;
 import hrv.band.app.view.UiHandlingUtil;
 
@@ -45,29 +39,31 @@ import hrv.band.app.view.UiHandlingUtil;
  * Created by thomcz on 23.06.2016.
  */
 
-public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
+public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener/*, View.OnClickListener */{
 
     private static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     private static final String SELECTED_DEVICE_ID = "selected_device_id";
-    private static final int duration = 90000;
+    private static final int duration = 10000;
 
     private enum DeviceID {NONE, MSBAND, ANT}
 
-    private SharedPreferences sharedPreferences;
+    private static SharedPreferences sharedPreferences;
 
-    private HRVRRIntervalDevice hrvRRIntervalDevice;
+    private static HRVRRIntervalDevice hrvRRIntervalDevice;
     private TextView rrStatus;
     private TextView txtStatus;
     private ProgressBar progressBar;
-    private ObjectAnimator animation;
+    private static ObjectAnimator animation;
 
     private com.github.clans.fab.FloatingActionButton connectToBandFAB;
-    private com.github.clans.fab.FloatingActionMenu menuDown;
+    private com.github.clans.fab.FloatingActionButton connectToAntPlusFAB;
+    private com.github.clans.fab.FloatingActionButton disconnectDevices;
 
 
     private View view;
 
-    public MeasuringFragment() {
+    public static MeasuringFragment newInstance() {
+        return new MeasuringFragment();
     }
 
     @Override
@@ -81,65 +77,22 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
         connectToBandFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_band_float_button);
-        com.github.clans.fab.FloatingActionButton connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_antplus_float_button);
-        com.github.clans.fab.FloatingActionButton disconnectDevices = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.disconnect_devices);
-        menuDown = (com.github.clans.fab.FloatingActionMenu) getActivity().findViewById(R.id.menu_down);
+        connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_antplus_float_button);
+        disconnectDevices = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.disconnect_devices);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         hrvRRIntervalDevice = getDevice(DeviceID.values()[sharedPreferences.getInt(SELECTED_DEVICE_ID, 0)]);
         if (hrvRRIntervalDevice != null) {
-            addDeviceListeners();
+            addDeviceListeners(this);
         }
 
+        MeasurementClickListener clickListener = new MeasurementClickListener(this, view);
 
-        progressBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (animation.isRunning()) {
-                    CancelMeasuringDialogFragment cancelIntroFragment = CancelMeasuringDialogFragment.newInstance();
-                    cancelIntroFragment.show(getActivity().getFragmentManager(), "dialog");
-                    //stopMeasuring();
-                } else {
-                    if (hrvRRIntervalDevice != null) {
-                        hrvRRIntervalDevice.tryStartRRIntervalMeasuring();
-                    } else {
-                        menuDown.open(true);
-                    }
-                }
-            }
-        });
-
-        connectToBandFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setDevice(DeviceID.MSBAND);
-
-                hrvRRIntervalDevice = new MSBandRRIntervalDevice(getActivity());
-                initDevice();
-            }
-        });
-
-        connectToAntPlusFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setDevice(DeviceID.ANT);
-
-                hrvRRIntervalDevice = new AntPlusRRDataDevice(getContext(), getActivity());
-                initDevice();
-            }
-        });
-
-        disconnectDevices.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setDevice(DeviceID.NONE);
-                hrvRRIntervalDevice = null;
-                menuDown.toggle(true);
-
-                UiHandlingUtil.showSnackbar(view, getResources().getString(R.string.msg_disconnecting));
-            }
-        });
+        progressBar.setOnClickListener(clickListener);
+        connectToBandFAB.setOnClickListener(clickListener);
+        connectToAntPlusFAB.setOnClickListener(clickListener);
+        disconnectDevices.setOnClickListener(clickListener);
 
         setProgressBarSize();
 
@@ -148,21 +101,9 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         return rootView;
     }
 
-    private void addDeviceListeners() {
-        hrvRRIntervalDevice.addDeviceListener(MeasuringFragment.this);
-        hrvRRIntervalDevice.addRRIntervalListener(MeasuringFragment.this);
-    }
-
-    private void initDevice() {
-        addDeviceListeners();
-        hrvRRIntervalDevice.connect();
-        menuDown.toggle(true);
-    }
-
-    private void setDevice(DeviceID device) {
-        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-        prefsEditor.putInt(SELECTED_DEVICE_ID, device.ordinal());
-        prefsEditor.apply();
+    private static void addDeviceListeners(MeasuringFragment measuringFragment) {
+        hrvRRIntervalDevice.addDeviceListener(measuringFragment);
+        hrvRRIntervalDevice.addRRIntervalListener(measuringFragment);
     }
 
     private HRVRRIntervalDevice getDevice(DeviceID id) {
@@ -171,6 +112,85 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             case ANT: return new AntPlusRRDataDevice(getContext(), getActivity());
         }
         return null;
+    }
+
+    private static class MeasurementClickListener implements View.OnClickListener {
+
+        private MeasuringFragment measuringFragment;
+        private Activity activity;
+        private View view;
+        private com.github.clans.fab.FloatingActionMenu menuDown;
+
+        MeasurementClickListener(MeasuringFragment measuringFragment, View view) {
+            this.measuringFragment = measuringFragment;
+            this.activity = measuringFragment.getActivity();
+            this.view = view;
+            menuDown = (com.github.clans.fab.FloatingActionMenu) activity.findViewById(R.id.menu_down);
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.progressBar:
+                    startMeasurement();
+                    break;
+                case R.id.connect_antplus_float_button:
+                    connectToAnt();
+                    break;
+                case R.id.connect_band_float_button:
+                    connectToMSBand();
+                    break;
+                case R.id.disconnect_devices:
+                    disconnectDevices();
+                    break;
+            }
+        }
+
+        private void startMeasurement() {
+            if (animation.isRunning()) {
+                CancelMeasuringDialogFragment.newInstance().show(activity.getFragmentManager(), "dialog");
+            } else {
+                if (hrvRRIntervalDevice != null) {
+                    hrvRRIntervalDevice.tryStartRRIntervalMeasuring();
+                } else {
+                    menuDown.open(true);
+                }
+            }
+        }
+
+        private void connectToMSBand() {
+            setDevice(DeviceID.MSBAND);
+
+            hrvRRIntervalDevice = new MSBandRRIntervalDevice(activity);
+            initDevice();
+        }
+
+        private void connectToAnt() {
+            setDevice(DeviceID.ANT);
+
+            hrvRRIntervalDevice = new AntPlusRRDataDevice(activity.getApplicationContext(), activity);
+            initDevice();
+        }
+
+        private void disconnectDevices() {
+            setDevice(DeviceID.NONE);
+            hrvRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
+            hrvRRIntervalDevice = null;
+            menuDown.toggle(true);
+
+            UiHandlingUtil.showSnackbar(view, activity.getResources().getString(R.string.msg_disconnecting));
+        }
+        private void initDevice() {
+            addDeviceListeners(measuringFragment);
+            hrvRRIntervalDevice.connect();
+            menuDown.toggle(true);
+        }
+
+        private void setDevice(DeviceID device) {
+            SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+            prefsEditor.putInt(SELECTED_DEVICE_ID, device.ordinal());
+            prefsEditor.apply();
+        }
     }
 
     @Override
@@ -222,7 +242,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             @Override
             public void onAnimationStart(Animator a) {
                 //progressBar.setClickable(false);
-                connectToBandFAB.setClickable(false);
+                setConnectionButtonClickable(false);
             }
 
             @Override
@@ -265,10 +285,18 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private void resetProgress() {
        // progressBar.setClickable(true);
         progressBar.setProgress(progressBar.getMax());
-        connectToBandFAB.setClickable(true);
+        setConnectionButtonClickable(true);
+
+        initAnimation();
 
         UiHandlingUtil.updateTextView(getActivity(), rrStatus, "0,00");
         UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
+    }
+
+    private void setConnectionButtonClickable(boolean clickable) {
+        connectToAntPlusFAB.setClickable(clickable);
+        connectToBandFAB.setClickable(clickable);
+        disconnectDevices.setClickable(clickable);
     }
 
     @Override

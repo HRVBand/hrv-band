@@ -12,6 +12,7 @@ import com.microsoft.band.sensors.HeartRateConsentListener;
 import java.lang.ref.WeakReference;
 
 import hrv.band.app.R;
+import hrv.band.app.RRInterval.HRVDeviceStatus;
 //import hrv.band.app.view.UiHandlingUtil;
 
 /**
@@ -22,7 +23,7 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
     private final WeakReference<Activity> activityWeakReference;
     private final MSBandRRIntervalDevice msBandRRIntervalDevice;
 
-    public MSBandHeartRateConsentTask(WeakReference<Activity> activityWeakReference, MSBandRRIntervalDevice msBandRRIntervalDevice) {
+    MSBandHeartRateConsentTask(WeakReference<Activity> activityWeakReference, MSBandRRIntervalDevice msBandRRIntervalDevice) {
         this.activityWeakReference = activityWeakReference;
         this.msBandRRIntervalDevice = msBandRRIntervalDevice;
     }
@@ -37,6 +38,7 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     client.getSensorManager().requestHeartRateConsent(activityWeakReference.get(), new HeartRateConsentListener() {
                         @Override
                         public void userAccepted(boolean consentGiven) {
+                            msBandRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.Connected);
                         }
                     });
                 }
