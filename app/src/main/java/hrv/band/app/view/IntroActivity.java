@@ -21,9 +21,11 @@ import hrv.band.app.R;
 import hrv.band.app.view.fragment.SampleDataFragment;
 
 /**
- * Created by thomcz on 10.01.2017.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * This Activity shows a tutorial to the user.
  */
-
 public class IntroActivity extends AppIntro {
 
     public static final String APP_INTRO = "app_intro";
@@ -75,6 +77,10 @@ public class IntroActivity extends AppIntro {
         }
     }
 
+    /**
+     * Sets the APP_INTRO preference.
+     * @param context of this activity.
+     */
     private static void setPreference(Context context) {
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
@@ -82,12 +88,18 @@ public class IntroActivity extends AppIntro {
         prefsEditor.apply();
     }
 
+    /**
+     * Opens a cancel dialog.
+     */
     private void cancelTutorial() {
         CancelIntroFragment cancelIntroFragment = CancelIntroFragment.newInstance();
         cancelIntroFragment.show(getFragmentManager(), "dialog");
     }
 
 
+    /**
+     * Dialog which asks the user if he wants to cancel the tutorial.
+     */
     public static class CancelIntroFragment extends DialogFragment {
 
         public static CancelIntroFragment newInstance() {

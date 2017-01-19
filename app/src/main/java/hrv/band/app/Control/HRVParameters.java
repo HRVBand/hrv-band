@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.Date;
 
-import hrv.band.app.view.adapter.CategorySpinnerAdapter;
+import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 /**
  * Created by Julian on 11.06.2016.
@@ -24,7 +24,7 @@ public class HRVParameters implements Parcelable {
     private double baevsky;
     private ArrayList<Double> rrIntervals;
     private double rating;
-    private CategorySpinnerAdapter.MeasureCategory category = CategorySpinnerAdapter.MeasureCategory.GENERAL;
+    private MeasurementCategoryAdapter.MeasureCategory category = MeasurementCategoryAdapter.MeasureCategory.GENERAL;
     private String note;
 
     @Override
@@ -77,13 +77,13 @@ public class HRVParameters implements Parcelable {
         rrIntervals = new ArrayList<>();
         in.readList(rrIntervals, Double.class.getClassLoader());
         rating = in.readDouble();
-        category = (CategorySpinnerAdapter.MeasureCategory) in.readSerializable();
+        category = (MeasurementCategoryAdapter.MeasureCategory) in.readSerializable();
         note = in.readString();
     }
 
     public HRVParameters(Date time, double sdsd, double sd1, double sd2, double lf, double hf, double rmssd,
                          double sdnn, double baevsky, ArrayList<Double> rrIntervals/*, double rating,
-                         CategorySpinnerAdapter.MeasureCategory category, String note*/) {
+                         MeasurementCategoryAdapter.MeasureCategory category, String note*/) {
         this.time = time;
         this.sdsd = sdsd;
         this.sd1 = sd1;
@@ -195,11 +195,11 @@ public class HRVParameters implements Parcelable {
         this.rating = rating;
     }
 
-    public CategorySpinnerAdapter.MeasureCategory getCategory() {
+    public MeasurementCategoryAdapter.MeasureCategory getCategory() {
         return category;
     }
 
-    public void setCategory(CategorySpinnerAdapter.MeasureCategory category) {
+    public void setCategory(MeasurementCategoryAdapter.MeasureCategory category) {
         this.category = category;
     }
 

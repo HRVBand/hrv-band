@@ -24,18 +24,25 @@ import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.SQLite.SQLController;
 import hrv.band.app.view.adapter.HRVValue;
+import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.CalenderPickerFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
 import hrv.band.app.view.fragment.StatisticFragment;
-
+/**
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * This Activity holds the fragments which each shows a HRV value.
+ */
 public class StatisticActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener {
 
+    /** Storage object to manage the sql database. **/
     private IStorage storage;
-    private List<StatisticFragment> fragments;
-
+    /** The Fragments this Activity holds. **/
+    private List<Fragment> fragments;
+    /** Code which indicates that a HRV value was deleted. **/
     public static final int RESULT_DELETED = 42;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +59,11 @@ public class StatisticActivity extends AppCompatActivity
 
         storage = new SQLController();
         initFragments();
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
+        //set up viewpager
+        SectionPagerAdapter sectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
         ViewPager mViewPager = (ViewPager) findViewById(R.id.statistic_viewpager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(sectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.statistic_tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -71,6 +76,9 @@ public class StatisticActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Creates a fragment for each HRV value.
+     */
     private void initFragments() {
         fragments = new ArrayList<>();
         Date date = new Date();
@@ -82,6 +90,19 @@ public class StatisticActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Returns the page titles of the fragments.
+     * @return the page titles of the fragments.
+     */
+    private String[] getPageTitles() {
+        HRVValue[] values = HRVValue.values();
+        String[] titles = new String[values.length];
+        for (int i = 0; i < values.length; i++) {
+            titles[i] = values[i].toString();
+        }
+        return titles;
+    }
+
 
      //What should happen after Date is selected.
      @Override
@@ -91,13 +112,24 @@ public class StatisticActivity extends AppCompatActivity
          updateFragments(c.getTime());
      }
 
+    /**
+     * Updates Fragments if a new date is selected.
+     * @param date selected date to show HRV values.
+     */
     public void updateFragments(Date date) {
         ArrayList<HRVParameters> parameters = getParameters(date);
-        for(StatisticFragment fragment : fragments) {
-            fragment.updateValues(parameters, date);
+        for(Fragment fragment : fragments) {
+            if (fragment instanceof StatisticFragment) {
+                ((StatisticFragment) fragment).updateValues(parameters, date);
+            }
         }
     }
 
+    /**
+     * Returns parameters of given date.
+     * @param date selected date to get all HRV values.
+     * @return parameters of given date
+     */
     private ArrayList<HRVParameters> getParameters(Date date) {
         ArrayList<HRVParameters> result = new ArrayList<>();
 
@@ -106,11 +138,19 @@ public class StatisticActivity extends AppCompatActivity
         return result;
     }
 
+    /**
+     * Opens a calender picker.
+     * @param view the View calling this method.
+     */
     public void openCalender(View view) {
-        CalenderPickerFragment picker = new CalenderPickerFragment();
-        picker.show(getSupportFragmentManager(), "datePicker");
+        new CalenderPickerFragment().show(getSupportFragmentManager(), "datePicker");
     }
 
+    /**
+     * Returns position of the given HRV value.
+     * @param value the HRV value to get the position.
+     * @return position of the given HRV value.
+     */
     private int getTitlePosition(HRVValue value) {
         return value.ordinal();
     }
@@ -121,31 +161,5 @@ public class StatisticActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_statistic, menu);
         return true;
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return HRVValue.values()[position].toString();
-        }
     }
 }

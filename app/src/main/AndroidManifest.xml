@@ -34,7 +34,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.MeasureDetailsActivity"
+            android:name=".view.HRVMeasurementActivity"
             android:label="@string/title_activity_save_values"
             android:parentActivityName=".view.MainActivity"
             android:screenOrientation="portrait"

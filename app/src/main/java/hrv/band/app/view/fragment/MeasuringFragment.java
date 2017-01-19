@@ -34,7 +34,7 @@ import hrv.band.app.RRInterval.HRVRRIntervalListener;
 import hrv.band.app.RRInterval.Interval;
 import hrv.band.app.RRInterval.antplus.AntPlusRRDataDevice;
 import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
-import hrv.band.app.view.MeasureDetailsActivity;
+import hrv.band.app.view.HRVMeasurementActivity;
 
 /**
  * Created by thomcz on 23.06.2016.
@@ -259,7 +259,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 Interval interval = new Interval(new Date());
                 interval.SetRRInterval(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
 
-                Intent intent = new Intent(getContext(), MeasureDetailsActivity.class);
+                Intent intent = new Intent(getContext(), HRVMeasurementActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
                 startActivity(intent);
 

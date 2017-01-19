@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import hrv.band.app.R;
+import hrv.band.app.view.fragment.OverviewFragment;
 
 /**
- * Created by Thomas on 20.06.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Adapter for displaying available HRV values in the {@link OverviewFragment}.
  */
 public class OverviewValueAdapter extends AbstractValueAdapter {
 

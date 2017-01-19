@@ -12,7 +12,8 @@ import android.widget.TextView;
 import hrv.band.app.R;
 
 /**
- * Created by star_ on 02.11.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 02.11.2016
  */
 
 public class AboutFragment extends Fragment {

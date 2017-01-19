@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import hrv.band.app.R;
 
 /**
- * Created by Thomas on 02.08.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * This Activity is shown if the app starts.
  */
 public class SplashActivity extends AppCompatActivity {
 
@@ -33,6 +36,9 @@ public class SplashActivity extends AppCompatActivity {
         }, SPLASH_TIME_OUT);
     }
 
+    /**
+     * Make sure that the logo fades in.
+     */
     private void animateLogo() {
         ImageView imageView = (ImageView) findViewById(R.id.splash_logo);
         Animation startAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);

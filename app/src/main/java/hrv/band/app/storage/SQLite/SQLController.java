@@ -19,7 +19,7 @@ import java.util.List;
 import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.storage.FileUtils;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.view.adapter.CategorySpinnerAdapter;
+import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 /**
  * Created by Julian on 23.06.2016.
@@ -146,7 +146,7 @@ public class SQLController implements IStorage {
             newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
             newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
             String category = c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY));
-            newParam.setCategory(CategorySpinnerAdapter.MeasureCategory.valueOf(category.toUpperCase()));
+            newParam.setCategory(MeasurementCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
             newParam.setNote(c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE)));
 
             returnList.add(newParam);

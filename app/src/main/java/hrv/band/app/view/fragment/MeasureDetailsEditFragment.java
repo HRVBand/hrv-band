@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.view.adapter.CategorySpinnerAdapter;
+import hrv.band.app.view.adapter.AbstractCategoryAdapter;
+import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 /**
  * Created by Thomas on 10.08.2016.
@@ -33,7 +34,7 @@ public class MeasureDetailsEditFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_measure_details_edit, container, false);
 
         Spinner spinner = (Spinner) rootView.findViewById(R.id.measure_categories);
-        CategorySpinnerAdapter spinnerArrayAdapter = new CategorySpinnerAdapter(getContext());
+        AbstractCategoryAdapter spinnerArrayAdapter = new MeasurementCategoryAdapter(getContext());
 
         spinner.setAdapter(spinnerArrayAdapter);
 
@@ -48,16 +49,13 @@ public class MeasureDetailsEditFragment extends Fragment {
         return ratingbar.getRating();
     }
 
-    public CategorySpinnerAdapter.MeasureCategory getCategory() {
+    public MeasurementCategoryAdapter.MeasureCategory getCategory() {
         if (rootView == null) {
-            return CategorySpinnerAdapter.MeasureCategory.GENERAL;
+            return MeasurementCategoryAdapter.MeasureCategory.GENERAL;
         }
         Spinner spinner = (Spinner) rootView.findViewById(R.id.measure_categories);
-        Object item = spinner.getSelectedItem();
-        if (item instanceof CategorySpinnerAdapter.MeasureCategory) {
-            return (CategorySpinnerAdapter.MeasureCategory) item;
-        }
-        return CategorySpinnerAdapter.MeasureCategory.GENERAL;
+        int position = spinner.getSelectedItemPosition();
+        return MeasurementCategoryAdapter.MeasureCategory.values()[position];
     }
 
     public String getNote() {

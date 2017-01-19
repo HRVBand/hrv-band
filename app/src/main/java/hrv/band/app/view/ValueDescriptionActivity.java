@@ -11,10 +11,14 @@ import android.view.View;
 import hrv.band.app.R;
 
 import static hrv.band.app.view.MainActivity.WEBSITE_URL;
-
+/**
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * This Activity shows a description of the HRV values.
+ */
 public class ValueDescriptionActivity extends AppCompatActivity {
 
-    //private TextView description;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

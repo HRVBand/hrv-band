@@ -1,7 +1,10 @@
 package hrv.band.app.view.adapter;
 
 /**
- * Created by Thomas on 29.06.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * This enum holds all available HRV values.
  */
 public enum HRVValue {
     LFHF("LFHF", "%"),
@@ -12,7 +15,9 @@ public enum HRVValue {
     BAEVSKY("Baevsky", "%")
     ;
 
+    /** Name of the value **/
     private final String text;
+    /** Unit in which the value is described. **/
     private final String unit;
 
     HRVValue(final String text, final String unit) {
@@ -25,6 +30,10 @@ public enum HRVValue {
         return text;
     }
 
+    /**
+     * Returns unit in which the value is described.
+     * @return unit in which the value is described.
+     */
     public String getUnit() {
         return unit;
     }
