@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -34,7 +35,6 @@ import hrv.band.app.RRInterval.Interval;
 import hrv.band.app.RRInterval.antplus.AntPlusRRDataDevice;
 import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.MeasureDetailsActivity;
-import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Created by thomcz on 23.06.2016.
@@ -154,6 +154,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 if (hrvRRIntervalDevice != null) {
                     hrvRRIntervalDevice.tryStartRRIntervalMeasuring();
                 } else {
+                    Toast.makeText(activity, activity.getResources().getString(R.string.msg_select_device), Toast.LENGTH_SHORT).show();
                     menuDown.open(true);
                 }
             }
@@ -182,8 +183,6 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             menuDown.toggle(true);
 
             Toast.makeText(activity, activity.getResources().getString(R.string.msg_disconnecting), Toast.LENGTH_SHORT).show();
-
-            //UiHandlingUtil.showSnackbar(view, activity.getResources().getString(R.string.msg_disconnecting));
         }
         private void initDevice() {
             addDeviceListeners(measuringFragment);
@@ -253,7 +252,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (hrvRRIntervalDevice == null) {
-                    UiHandlingUtil.showSnackbar(view, "This should not happen...");
+                    showSnackbar(view, "This should not happen...");
                 }
                 hrvRRIntervalDevice.stopMeasuring();
 
@@ -294,8 +293,8 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         initAnimation();
 
-        UiHandlingUtil.updateTextView(getActivity(), rrStatus, "0,00");
-        UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
+        updateTextView(getActivity(), rrStatus, "0,00");
+        updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
     }
 
     private void setConnectionButtonClickable(boolean clickable) {
@@ -307,7 +306,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     @Override
     public void deviceStartedMeasurement() {
         String msg = getResources().getString(R.string.msg_hold_still);
-        UiHandlingUtil.updateTextView(getActivity(), txtStatus, msg);
+        updateTextView(getActivity(), txtStatus, msg);
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -321,20 +320,20 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
     @Override
     public void deviceError(String error) {
-        UiHandlingUtil.showSnackbar(view, error);
+        showSnackbar(view, error);
     }
 
     @Override
     public void deviceStatusChanged(HRVDeviceStatus status) {
         switch (status) {
             case Connecting:
-                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.msg_connecting));
+                updateTextView(getActivity(), txtStatus, getResources().getString(R.string.msg_connecting));
                 break;
             case Connected:
-                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
+                updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
                 break;
             case Disconnected:
-                UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_band_not_paired));
+                updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_band_not_paired));
                // UiHandlingUtil.showSnackbar(view, getString(R.string.error_device_not_connected_help));
         }
     }
@@ -342,6 +341,32 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     @Override
     public void newRRInterval(HRVRRIntervalEvent event) {
         //UiHandlingUtil.updateTextView(getActivity(), rrStatus, new DecimalFormat("#,##").format(event.getRr()));
-        UiHandlingUtil.updateTextView(getActivity(), rrStatus, String.format("%.2f", event.getRr()));
+        updateTextView(getActivity(), rrStatus, String.format("%.2f", event.getRr()));
+    }
+
+    private static void showSnackbar(View view, final String msg) {
+        final Snackbar snackBar = Snackbar.make(view, msg, Snackbar.LENGTH_INDEFINITE);
+        String closeStr = snackBar.getView().getResources().getString(R.string.common_close);
+
+        snackBar.setAction(closeStr, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
+    }
+
+
+    private static void updateTextView(Activity activity, final TextView txt, final String string) {
+        if (activity == null) {
+            return;
+        }
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt.setText(string);
+            }
+        });
     }
 }

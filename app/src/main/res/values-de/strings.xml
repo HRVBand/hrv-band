@@ -67,15 +67,15 @@
     <string name="overview_list_item_as">wie</string>
 
     <!-- HRV Value Activity -->
- <string name="hrv_value_standard_date">28 August 2015</string>
+    <string name="hrv_value_standard_date">28 August 2015</string>
     <string name="hrv_value_standard_rating">3.5 / 5</string>
     <string name="hrv_value_standard_category">Allgemein</string>
     <string name="hrv_value_comment">Das war eine großartige Messung!</string>
 
- <!-- overview add items footer -->
+    <!-- overview add items footer -->
     <string name="overview_add_items_footer_more_vals">Mehr Werte</string>
 
- <!-- Share Dialog -->
+    <!-- Share Dialog -->
     <string name="share_subject">Neue Health App</string>
     <string name="share_body">Hey, schau dir HRV Band an! Mit der App kannst du deine Herzratenvariabilität mithilfe einer Microsoft Band 2 berechnen!</string>
     <string name="share_via">Teile via</string>
@@ -93,7 +93,7 @@
     <string name="sample_title">Erstelle Test Daten</string>
     <string name="sample_text">Möchtest du Test Daten erstellen um Funktionalität zu testen, die sonst nur mit einem unterstütztem Gerät nutzbar sind? Im Anschluss müssen die Daten manuell gelöscht werden!</string>
 
- <!-- Connect Devices -->
+     <!-- Connect Devices -->
     <string name="connect_to_band">Mit MS Band verbinden</string>
     <string name="connect_to_antplus">Mit ANT+ verbinden</string>
     <string name="disconnect_devices">Gerät trennen</string>
@@ -109,7 +109,7 @@
     <string name="developer_julian">Julian github.com/Fenox</string>
     <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
 
- <!-- Error Messages -->
+    <!-- Error Messages -->
     <string name="error_band_not_paired">Gerät ist nicht mit dem Handy verbunden.</string>
     <string name="error_device_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
 
@@ -117,6 +117,7 @@
     <string name="msg_connecting">Verbinde mit Gerät …</string>
     <string name="msg_disconnecting">Gerät getrennt</string>
     <string name="msg_hold_still">Während der Messung still halten!</string>
+    <string name="msg_select_device">Wähle ein Gerät aus</string>
     <string name="sentence_import_failed">Keine Datenbank in Ordner "files/export.sql\" gefunden.</string>
     <string name="sentence_export_failed">Datenbank konnte nicht exportiert werden.</string>
     <string name="disclaimer">Haftungsausschluss</string>

@@ -135,6 +135,7 @@
     <string name="msg_connecting">Connecting to Device…</string>
     <string name="msg_disconnecting">Device Disconnected</string>
     <string name="msg_hold_still">Hold Still During Measurement.</string>
+    <string name="msg_select_device">Select a Device</string>
     <string name="sentence_import_failed">Could not import Database.</string>
     <string name="sentence_import_worked" translatable="false">Imported Database</string>
     <string name="sentence_export_worked" translatable="false">Exported Database</string>
