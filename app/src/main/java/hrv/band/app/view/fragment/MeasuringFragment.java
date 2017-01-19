@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -174,11 +175,15 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         private void disconnectDevices() {
             setDevice(DeviceID.NONE);
-            hrvRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
-            hrvRRIntervalDevice = null;
+            if (hrvRRIntervalDevice != null) {
+                hrvRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
+                hrvRRIntervalDevice = null;
+            }
             menuDown.toggle(true);
 
-            UiHandlingUtil.showSnackbar(view, activity.getResources().getString(R.string.msg_disconnecting));
+            Toast.makeText(activity, activity.getResources().getString(R.string.msg_disconnecting), Toast.LENGTH_SHORT).show();
+
+            //UiHandlingUtil.showSnackbar(view, activity.getResources().getString(R.string.msg_disconnecting));
         }
         private void initDevice() {
             addDeviceListeners(measuringFragment);
@@ -330,7 +335,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 break;
             case Disconnected:
                 UiHandlingUtil.updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_band_not_paired));
-                UiHandlingUtil.showSnackbar(view, getString(R.string.error_device_not_connected_help));
+               // UiHandlingUtil.showSnackbar(view, getString(R.string.error_device_not_connected_help));
         }
     }
 
