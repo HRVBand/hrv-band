@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 import hrv.band.app.R;
 import hrv.band.app.view.StatisticActivity;
-import hrv.band.app.view.adapter.AbstractValueAdapter;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.OverviewValueAdapter;
 
@@ -33,7 +32,7 @@ public class OverviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.content_overview, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.overview_value_list);
-        final AbstractValueAdapter adapter = new OverviewValueAdapter(getActivity()
+        final OverviewValueAdapter adapter = new OverviewValueAdapter(getActivity()
         );
         listView.setAdapter(adapter);
 

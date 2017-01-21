@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import hrv.band.app.R;
@@ -15,14 +17,36 @@ import hrv.band.app.view.fragment.OverviewFragment;
  *
  * Adapter for displaying available HRV values in the {@link OverviewFragment}.
  */
-public class OverviewValueAdapter extends AbstractValueAdapter {
+public class OverviewValueAdapter extends BaseAdapter {
 
+    /** The context of the activity holding this adapter. **/
     private final Context context;
-    private final int layout;
 
     public OverviewValueAdapter(Context context) {
-        this.layout = R.layout.overview_list_item;
         this.context = context;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.overview_list_item, parent, false);
+            holder = new ViewHolder();
+            holder.firstLine = (TextView) convertView.findViewById(R.id.firstLine);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        holder.firstLine.setText(HRVValue.values()[position].toString());
+        return convertView;
+    }
+
+    @Override
+    public int getCount() {
+        return HRVValue.values().length;
     }
 
     @Override
@@ -31,15 +55,14 @@ public class OverviewValueAdapter extends AbstractValueAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(layout, parent, false);
-        TextView firstLine = (TextView) rowView.findViewById(R.id.firstLine);
-        //TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
+    public long getItemId(int position) {
+        return position;
+    }
 
-        setTextView(firstLine, HRVValue.values()[position].toString());
-        //setTextView(secondLine, HRVValue.values()[position].getString(context.getResources()));
-        return rowView;
+    /**
+     * The ViewHolder of this adapter.
+     */
+    private static class ViewHolder {
+        private TextView firstLine;
     }
 }

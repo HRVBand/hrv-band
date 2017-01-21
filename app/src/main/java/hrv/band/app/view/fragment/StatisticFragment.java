@@ -168,7 +168,7 @@ public class StatisticFragment extends Fragment {
             int minutes = calendar.get(Calendar.MINUTE) / 15;
 
             columns[hour].getValues().set(minutes,
-                    new SubcolumnValue((float) adapter.getHRVValue(hrvType, parameters.get(i)),
+                    new SubcolumnValue((float) HRVValue.getHRVValue(hrvType, parameters.get(i)),
                             ContextCompat.getColor(getContext(), R.color.colorAccent)));
             chartValuesIndex.add(new int[] {hour, minutes});
             columns[hour].setHasLabels(false);

@@ -13,7 +13,6 @@ import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
 import hrv.band.app.view.ValueDescriptionActivity;
-import hrv.band.app.view.adapter.AbstractValueAdapter;
 import hrv.band.app.view.adapter.ValueAdapter;
 
 /**
@@ -41,7 +40,7 @@ public class MeasureValueFragment extends Fragment {
 
         ListView listview = (ListView) rootView.findViewById(R.id.hrv_value_list);
 
-        AbstractValueAdapter adapter = new ValueAdapter(this.getActivity(),
+        ValueAdapter adapter = new ValueAdapter(this.getActivity(),
                 parameter);
         listview.setAdapter(adapter);
 

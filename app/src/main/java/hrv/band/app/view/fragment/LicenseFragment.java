@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import hrv.band.app.R;
-import hrv.band.app.view.adapter.AbstractValueAdapter;
 import hrv.band.app.view.adapter.LicenseAdapter;
 
 /**
@@ -16,9 +15,6 @@ import hrv.band.app.view.adapter.LicenseAdapter;
  */
 
 public class LicenseFragment extends Fragment {
-
-    public LicenseFragment() {
-    }
 
     public static LicenseFragment newInstance() {
         return new LicenseFragment();
@@ -30,7 +26,7 @@ public class LicenseFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_imprint_license, container, false);
 
         ListView listview = (ListView) rootView.findViewById(R.id.licence_list);
-        AbstractValueAdapter adapter = new LicenseAdapter(this.getActivity());
+        LicenseAdapter adapter = new LicenseAdapter(this.getActivity());
         listview.setAdapter(adapter);
 
         return rootView;

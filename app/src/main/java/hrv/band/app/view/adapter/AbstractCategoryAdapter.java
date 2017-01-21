@@ -40,15 +40,23 @@ public abstract class AbstractCategoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) getContext()
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.spinner_category_item, viewGroup, false);
-        TextView categoryTxt = (TextView) view.findViewById(R.id.category_name);
-        ImageView categoryIcon = (ImageView) view.findViewById(R.id.category_icon);
 
-        categoryTxt.setText(getCategories().get(i).getName(getContext().getResources()));
-        categoryIcon.setImageDrawable(getCategories().get(i).getIcon(getContext().getResources()));
-        return view;
+        ViewHolder holder;
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) getContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.spinner_category_item, viewGroup, false);
+            holder = new ViewHolder();
+            holder.categoryTxt = (TextView) convertView.findViewById(R.id.category_name);
+            holder.categoryIcon = (ImageView) convertView.findViewById(R.id.category_icon);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        holder.categoryTxt.setText(getCategories().get(i).getName(getContext().getResources()));
+        holder.categoryIcon.setImageDrawable(getCategories().get(i).getIcon(getContext().getResources()));
+        return convertView;
     }
 
     /**
@@ -95,5 +103,13 @@ public abstract class AbstractCategoryAdapter extends BaseAdapter {
         Drawable getIcon(Resources resources) {
             return ResourcesCompat.getDrawable(resources, icon, null);
         }
+    }
+
+    /**
+     * The ViewHolder of this adapter.
+     */
+    private static class ViewHolder {
+        private TextView categoryTxt;
+        private ImageView categoryIcon;
     }
 }

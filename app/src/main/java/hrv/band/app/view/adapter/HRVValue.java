@@ -1,5 +1,7 @@
 package hrv.band.app.view.adapter;
 
+import hrv.band.app.Control.HRVParameters;
+
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
@@ -36,6 +38,24 @@ public enum HRVValue {
      */
     public String getUnit() {
         return unit;
+    }
+
+    /**
+     * Returns the value for the given HRV value from the given parameter.
+     * @param value the HRV value to extract from parameter.
+     * @param parameter to extract the value from.
+     * @return the extracted value.
+     */
+    public static double getHRVValue(HRVValue value, HRVParameters parameter) {
+        switch(value) {
+            case LFHF: return parameter.getLfhfRatio();
+            case SDNN: return parameter.getSdnn();
+            case SD1: return parameter.getSd1();
+            case SD2: return parameter.getSd2();
+            case BAEVSKY: return parameter.getBaevsky();
+            case RMSSD: return parameter.getRmssd();
+        }
+        return 0;
     }
 
 }

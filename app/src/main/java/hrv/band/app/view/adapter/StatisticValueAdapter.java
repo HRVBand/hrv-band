@@ -1,46 +1,94 @@
 package hrv.band.app.view.adapter;
 
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
+import hrv.band.app.view.fragment.StatisticFragment;
 
 /**
- * Created by Thomas on 28.06.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * This adapter holds the hrv parameters to show in the {@link StatisticFragment}.
  */
-public class StatisticValueAdapter extends AbstractValueAdapter {
+public class StatisticValueAdapter extends BaseAdapter {
+    /** The context of activity holding the adapter. **/
     private final Context context;
-    private final int layout;
+    /** The hrv values to display in fragment as string. **/
     private List<String> values;
+    /** The hrv parameters to display. **/
     private List<HRVParameters> parameters;
+    /** The hrv type to display in the fragment. **/
     private final HRVValue type;
 
     public StatisticValueAdapter(Context context,
                                  HRVValue type, List<HRVParameters> parameters) {
-        this.layout = R.layout.statistic_value_item;
         this.context = context;
         this.type = type;
         this.parameters = parameters;
         values = getValues(this.parameters, type);
     }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.statistic_value_item, parent, false);
+            holder = new ViewHolder();
+            holder.value = (TextView) convertView.findViewById(R.id.stats_value);
+            holder.time = (TextView) convertView.findViewById(R.id.stats_time);
+            holder.category = (TextView) convertView.findViewById(R.id.stats_category);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(context);
+        holder.time.setText(dateFormat.format(parameters.get(position).getTime()));
+        holder.category.setText(parameters.get(position).getCategory().getText(context.getResources()));
+        holder.value.setText(values.get(position));
+
+        return convertView;
+    }
+
+    /**
+     * Returns a list containing the value of the given hrv type of a hrv parameter.
+     * @param parameters the parameter to extract the value.
+     * @param type indicates which value to extract from parameter.
+     * @return a list containing the value of the given hrv type of a hrv parameter.
+     */
     private List<String> getValues(List<HRVParameters> parameters, HRVValue type) {
         List<String> values = new ArrayList<>();
         for (int i = 0; i < parameters.size(); i++) {
-            values.add(trimValue(getHRVValue(type, parameters.get(i))));
+            double value = HRVValue.getHRVValue(type, parameters.get(i));
+            values.add(new DecimalFormat("#.##").format(value));
         }
         return values;
     }
 
-
+    /**
+     * Sets a new set of parameters after something changed (e.g. delete).
+     * @param parameters new set of parameters
+     */
+    public void setDataset(List<HRVParameters> parameters) {
+        this.parameters = parameters;
+        values = getValues(this.parameters, type);
+        notifyDataSetChanged();
+    }
 
     @Override
     public Object getItem(int i) {
@@ -53,27 +101,16 @@ public class StatisticValueAdapter extends AbstractValueAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(layout, parent, false);
-
-        TextView value = (TextView) rowView.findViewById(R.id.stats_value);
-        TextView time = (TextView) rowView.findViewById(R.id.stats_time);
-        TextView category = (TextView) rowView.findViewById(R.id.stats_category);
-
-        String timeFormat = "hh:mm aa";
-        time.setText(DateFormat.format(timeFormat, parameters.get(position).getTime()));
-        category.setText(parameters.get(position).getCategory().getText(context.getResources()));
-        value.setText(values.get(position));
-        //unit.setText(type.getUnit());
-
-        return rowView;
+    public long getItemId(int i) {
+        return i;
     }
 
-    public void setDataset(List<HRVParameters> parameters) {
-        this.parameters = parameters;
-        values = getValues(this.parameters, type);
-        notifyDataSetChanged();
+    /**
+     * The ViewHolder of this adapter.
+     */
+    private static class ViewHolder {
+        private TextView value;
+        private TextView time;
+        private TextView category;
     }
 }
