@@ -9,22 +9,26 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.adapter.AbstractCategoryAdapter;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 /**
- * Created by Thomas on 10.08.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Fragment allowing the user to set the details of a measurement.
  */
 public class MeasureDetailsEditFragment extends Fragment {
 
+    /** rootView of this Fragment. **/
     private View rootView;
 
-    public MeasureDetailsEditFragment() {
-    }
-
-    public static MeasureDetailsEditFragment newInstance(HRVParameters parameter) {
+    /**
+     * Returns a new instance of this fragment.
+     * @return a new instance of this fragment.
+     */
+    public static MeasureDetailsEditFragment newInstance() {
         return new MeasureDetailsEditFragment();
     }
 
@@ -41,6 +45,10 @@ public class MeasureDetailsEditFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Returns the rating of the user for the actual measurement.
+     * @return the rating of the user for the actual measurement.
+     */
     public float getRating() {
         if (rootView == null) {
             return 0;
@@ -49,6 +57,10 @@ public class MeasureDetailsEditFragment extends Fragment {
         return ratingbar.getRating();
     }
 
+    /**
+     * Returns the chosen category.
+     * @return the chosen category.
+     */
     public MeasurementCategoryAdapter.MeasureCategory getCategory() {
         if (rootView == null) {
             return MeasurementCategoryAdapter.MeasureCategory.GENERAL;
@@ -58,6 +70,10 @@ public class MeasureDetailsEditFragment extends Fragment {
         return MeasurementCategoryAdapter.MeasureCategory.values()[position];
     }
 
+    /**
+     * Returns the note the user entered.
+     * @return the note the user entered.
+     */
     public String getNote() {
         if (rootView == null) {
             return "";

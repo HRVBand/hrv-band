@@ -9,14 +9,17 @@ import android.view.ViewGroup;
 import hrv.band.app.R;
 
 /**
- * Created by star_ on 02.11.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Fragment showing the privacy policy of the app.
  */
-
 public class PrivacyFragment extends Fragment {
 
-    public PrivacyFragment() {
-    }
-
+    /**
+     * Returns a new instance of this fragment.
+     * @return a new instance of this fragment.
+     */
     public static PrivacyFragment newInstance() {
         return new PrivacyFragment();
     }

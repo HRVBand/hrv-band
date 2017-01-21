@@ -22,18 +22,25 @@ import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
- * Created by Thomas on 10.08.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Fragment showing the rr intervals of a measurement.
  */
 public class MeasureRRFragment extends Fragment {
 
+    /** The chart showing rr intervals **/
     private ColumnChartView mChart;
+    /** The hrv parameter to extract rr intervals from. **/
     private HRVParameters parameter;
+    /** The root view of this fragment. **/
     private View rootView;
 
-
-    public MeasureRRFragment() {
-    }
-
+    /**
+     * Returns a new instance of this fragment.
+     * @param parameter the hrv parameter to get rr intervals from.
+     * @return a new instance of this fragment.
+     */
     public static MeasureRRFragment newInstance(HRVParameters parameter) {
         MeasureRRFragment fragment = new MeasureRRFragment();
         Bundle args = new Bundle();
@@ -53,10 +60,12 @@ public class MeasureRRFragment extends Fragment {
         initChart();
         setRRStatistic();
 
-
         return rootView;
     }
 
+    /**
+     * Calculates rr interval statistics and sets the text views.
+     */
     private void setRRStatistic() {
         List<Double> rr = parameter.getRRIntervals();
 
@@ -85,14 +94,19 @@ public class MeasureRRFragment extends Fragment {
         countTxt.setText(String.valueOf(rr.size()));
     }
 
+    /**
+     * Trims a single rr interval value into #.#### format.
+     * @param value the rr value to trim
+     * @return the trimmed rr interval value
+     */
     private String trimValue(double value) {
         return new DecimalFormat("#.####").format(value);
     }
 
+    /**
+     * Initialized chart showing rr intervals from hrv measurement.
+     */
     private void initChart() {
-        //int numSubcolumns = 1;
-        //int numColumns = 8;
-        // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
         List<Column> columns = new ArrayList<>();
         List<SubcolumnValue> values;
         for (int i = 0; i < parameter.getRRIntervals().size(); i++) {
@@ -102,8 +116,6 @@ public class MeasureRRFragment extends Fragment {
                     ContextCompat.getColor(getContext(), R.color.colorAccent)));
 
             Column column = new Column(values);
-            //column.setHasLabels(hasLabels);
-            // column.setHasLabelsOnlyForSelected(hasLabelForSelected);
             columns.add(column);
         }
 

@@ -37,7 +37,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
 
     @Override
     protected void addDetailsFragment(List<Fragment> fragments) {
-        fragments.add(MeasureDetailsEditFragment.newInstance(getParameter()));
+        fragments.add(MeasureDetailsEditFragment.newInstance());
     }
 
     /**

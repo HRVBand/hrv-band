@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,9 +15,11 @@ import java.io.IOException;
 import hrv.band.app.R;
 import hrv.band.app.storage.SQLite.SQLController;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 19.01.2017
+ *
+ * Dialog asking the user to import his data.
  */
 public class ImportFragment extends DialogFragment {
 
@@ -39,26 +40,7 @@ public class ImportFragment extends DialogFragment {
                 .setPositiveButton(R.string.common_import, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String saveDir = getActivity().getFilesDir() + "/export.sql";
-                        SQLController sql = new SQLController();
-
-                        try {
-                            int duration = Toast.LENGTH_SHORT;
-
-                            if(!sql.importDB(saveDir, getActivity())) {
-                                CharSequence text = getResources().getText(R.string.sentence_import_failed);
-                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
-                                toast.show();
-                            }
-                            else {
-                                CharSequence text = getResources().getText(R.string.sentence_import_worked);
-                                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
-                                toast.show();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                        importDB();
                     }
                 })
                 .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
@@ -70,6 +52,31 @@ public class ImportFragment extends DialogFragment {
                 });
         builder.setTitle(getResources().getString(R.string.common_import));
         return builder.create();
+    }
+
+    /**
+     * Imports the user database.
+     */
+    private void importDB() {
+        String saveDir = getActivity().getFilesDir() + "/export.sql";
+        SQLController sql = new SQLController();
+
+        try {
+            int duration = Toast.LENGTH_SHORT;
+
+            if(!sql.importDB(saveDir, getActivity())) {
+                CharSequence text = getResources().getText(R.string.sentence_import_failed);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
+                toast.show();
+            }
+            else {
+                CharSequence text = getResources().getText(R.string.sentence_import_worked);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
+                toast.show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -12,11 +12,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import hrv.band.app.R;
-import hrv.band.app.view.adapter.AbstractCategoryAdapter;
 import hrv.band.app.view.adapter.FeedbackCategoryAdapter;
 
 /**
- * Created by Thomas on 27.07.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Dialog asking the user for feedback.
  */
 public class FeedbackDialogFragment extends DialogFragment {
     private static final String FEEDBACK_EMAIL = "hrvband+feedback@gmail.com";
@@ -50,13 +52,19 @@ public class FeedbackDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Sets the spinner values with possible subjects the user can choose.
+     * @param view te view holding the spinner.
+     */
     private void setSpinnerValues(View view) {
         Spinner spinner = (Spinner) view.findViewById(R.id.feedback_category);
-        AbstractCategoryAdapter spinnerArrayAdapter = new FeedbackCategoryAdapter(getActivity().getApplicationContext());
-
-        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setAdapter(new FeedbackCategoryAdapter(getActivity().getApplicationContext()));
     }
 
+    /**
+     * Returns the subject of the feedback the user entered.
+     * @return the subject of the feedback the user entered.
+     */
     private String getSubject() {
         if (view == null) {
             return "";
@@ -66,11 +74,19 @@ public class FeedbackDialogFragment extends DialogFragment {
         return "Feedback - [" + subject + "]";
     }
 
+    /**
+     * Returns the message of the user.
+     * @return the message of the user.
+     */
     private String getText() {
         EditText text = (EditText) view.findViewById(R.id.feedback_text);
         return text.getText() + "\n" + getDeviceInformation();
     }
 
+    /**
+     * Returns the device information of the user phone.
+     * @return the device information of the user phone.
+     */
     private String getDeviceInformation() {
         String info = "Debug-infos:";
         info += "\n OS Version: " + System.getProperty("os.version") + "(" + android.os.Build.VERSION.INCREMENTAL + ")";

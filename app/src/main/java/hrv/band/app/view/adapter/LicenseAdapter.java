@@ -9,12 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import hrv.band.app.R;
+import hrv.band.app.view.fragment.LicenseFragment;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
  *
- * This adapter handel's the licenses in the imprint.
+ * This adapter handel's the licenses in the {@link LicenseFragment}.
  */
 public class LicenseAdapter extends BaseAdapter {
 

@@ -22,16 +22,25 @@ import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.SQLite.SQLController;
 
 /**
- * Created by thomcz on 06.01.2017.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Dialog asking user to create sample data.
  */
-
 public class SampleDataFragment extends DialogFragment {
 
+    /** Count of rr intervals to create. **/
     private static final int rrCount = 50;
+    /** Count of samples to create. **/
     private static final int sampleCount = 4;
-
+    /** Key value that indicates if the activity calling this dialog should be closed. **/
     private static final String ARG_CLOSE_VALUE = "arg_close_value";
 
+    /**
+     * Returns a new instance of this fragment.
+     * @param close true if calling activity should be closed after dialog closes, false otherwise.
+     * @return a new instance of this fragment.
+     */
     public static SampleDataFragment newInstance(boolean close) {
         SampleDataFragment fragment = new SampleDataFragment();
 
@@ -79,6 +88,10 @@ public class SampleDataFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Creates a hrv sample.
+     * @param date of the hrv sample.
+     */
     private void createSampleData(Date date) {
         double[] rrValues = new double[rrCount];
 
@@ -94,11 +107,22 @@ public class SampleDataFragment extends DialogFragment {
         storage.saveData(getActivity(), hrv);
     }
 
+    /**
+     * Returns a random double within the giving range.
+     * @param min value of the random value.
+     * @param max value of the random value.
+     * @return a random double within the giving range.
+     */
     private double getRandomDouble(double min, double max) {
         Random r = new Random();
         return max + (min - max) * r.nextDouble();
     }
 
+    /**
+     * Calculates hrv parameters from given rr interval.
+     * @param interval the given rr interval.
+     * @return hrv parameter.
+     */
     private HRVParameters calculate(Interval interval) {
         //start calculation
         CubicSplineInterpolation inter = new CubicSplineInterpolation();
@@ -110,6 +134,9 @@ public class SampleDataFragment extends DialogFragment {
         return results;
     }
 
+    /**
+     * Closes the calling activity if the context fits.
+     */
     private void closeCallingActivity() {
         if (getArguments().getBoolean(ARG_CLOSE_VALUE)) {
             getActivity().finish();

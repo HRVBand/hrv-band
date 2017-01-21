@@ -10,12 +10,19 @@ import android.widget.ListView;
 import hrv.band.app.R;
 import hrv.band.app.view.adapter.LicenseAdapter;
 
-/**
- * Created by star_ on 02.11.2016.
- */
 
+/**
+ * Copyright (c) 2017
+ * Created by Julian Martin on 19.01.2017
+ *
+ * Fragment holding the licenses of the used libaries.
+ */
 public class LicenseFragment extends Fragment {
 
+    /**
+     * Returns a new instance of this fragment.
+     * @return a new instance of this fragment.
+     */
     public static LicenseFragment newInstance() {
         return new LicenseFragment();
     }

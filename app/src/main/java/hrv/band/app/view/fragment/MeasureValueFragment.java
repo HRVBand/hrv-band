@@ -16,13 +16,18 @@ import hrv.band.app.view.ValueDescriptionActivity;
 import hrv.band.app.view.adapter.ValueAdapter;
 
 /**
- * Created by Thomas on 10.08.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Fragment showing the hrv values from a measurement.
  */
 public class MeasureValueFragment extends Fragment {
 
-    public MeasureValueFragment() {
-    }
-
+    /**
+     * Returns a new instance of this fragment.
+     * @param parameter the hrv parameter to get rr intervals from.
+     * @return a new instance of this fragment.
+     */
     public static MeasureValueFragment newInstance(HRVParameters parameter) {
         MeasureValueFragment fragment = new MeasureValueFragment();
         Bundle args = new Bundle();

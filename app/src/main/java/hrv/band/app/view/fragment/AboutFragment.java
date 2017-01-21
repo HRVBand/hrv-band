@@ -10,16 +10,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import hrv.band.app.R;
+import hrv.band.app.view.ImprintActivity;
 
 /**
  * Copyright (c) 2017
- * Created by Thomas Czogalik on 02.11.2016
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * First Fragment in {@link ImprintActivity} showing imprint.
  */
-
 public class AboutFragment extends Fragment {
 
+    /** The root view of this activity. **/
     private View rootView;
 
+    /**
+     * Creates a new instance of this fragment.
+     * @return a new instance of this fragment.
+     */
     public static AboutFragment newInstance() {
         return new AboutFragment();
     }
@@ -37,6 +44,9 @@ public class AboutFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Sets the actual version of the app into a text view.
+     */
     private void setVersion() throws PackageManager.NameNotFoundException {
         PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(
                 getActivity().getPackageName(), 0);

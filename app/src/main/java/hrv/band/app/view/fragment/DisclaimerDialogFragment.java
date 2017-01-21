@@ -13,9 +13,11 @@ import hrv.band.app.R;
 import hrv.band.app.view.IntroActivity;
 
 /**
- * Created by Julian on 15.11.2016.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 19.01.2017
+ *
+ * Dialog showing the user the disclaimer and asks for agreement.
  */
-
 public class DisclaimerDialogFragment extends DialogFragment {
 
     public static final String DISCLAIMER_AGREEMENT = "DisclaimerAgreementAccepted";
@@ -55,6 +57,9 @@ public class DisclaimerDialogFragment extends DialogFragment {
         System.exit(0);
     }
 
+    /**
+     * Starts the tutorial if the user accepted the disclaimer.
+     */
     private void startTutorial() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if(!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {

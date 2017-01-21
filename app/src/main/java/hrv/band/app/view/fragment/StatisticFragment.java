@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -35,26 +36,39 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 import static hrv.band.app.view.StatisticActivity.RESULT_DELETED;
 
 /**
- * Created by Thomas on 27.06.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Fragment allowing user to start measurement.
  */
 public class StatisticFragment extends Fragment {
+
+    /** Key value for the hrv type of this fragment. **/
     private static final String ARG_SECTION_VALUE = "sectionValue";
+    /** Key value for the parameters to show in this fragment. **/
     private static final String ARG_HRV_VALUE = "hrvValue";
+    /** Key value for the date this fragment is showing. **/
     private static final String ARG_DATE_VALUE = "dateValue";
+    /** The adapter holding the parameters to show. **/
     private StatisticValueAdapter adapter;
-    //private final String dateFormat = "dd.MMM yyyy";
+    /** The root view of this fragment. **/
     private View rootView;
-    //protected BarChart mChart;
+    /** The chart showing the parameters in this fragment. **/
     private ColumnChartView mChart;
+    /** The columns of mChart. **/
     private Column[] columns;
     private List<int[]> chartValuesIndex;
+    /** The hrv type that this fragment is showing. **/
     private HRVValue hrvType;
+    /** The parameters this fragment should show. **/
     private List<HRVParameters> parameters;
+    /** The head line of listview showing actual chosen date. **/
     private TextView date;
 
-    public StatisticFragment() {
-    }
-
+    /**
+     * Returns a new instance of this fragment.
+     * @return a new instance of this fragment.
+     */
     public static StatisticFragment newInstance(HRVValue type, ArrayList<HRVParameters> parameters,
                                                 Date date) {
         StatisticFragment fragment = new StatisticFragment();
@@ -105,12 +119,16 @@ public class StatisticFragment extends Fragment {
         mChart = (ColumnChartView) rootView.findViewById(R.id.stats_chart);
         initChart(parameters);
 
-
         return rootView;
     }
 
+    /**
+     * Formats the given date into the user locale.
+     * @param date the date to format.
+     * @return the formatted given date.
+     */
     private String formatDate(Date date) {
-        java.text.DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getContext());
+        DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getContext());
         return dateFormat.format(date);
     }
 
@@ -127,6 +145,10 @@ public class StatisticFragment extends Fragment {
     }
 
 
+    /**
+     * Initialized the chart and showing the given parameters.
+     * @param parameters the parameters to show in the chart.
+     */
     private void initChart(List<HRVParameters> parameters) {
         int numSubcolumns = 4;
         int numColumns = 24;
@@ -145,6 +167,9 @@ public class StatisticFragment extends Fragment {
         setAxis();
     }
 
+    /**
+     * Sets the properties of the X and Y axis of the chart.
+     */
     private void setAxis() {
         ColumnChartData data = new ColumnChartData(new ArrayList<>(Arrays.asList(columns)));
 
@@ -159,6 +184,10 @@ public class StatisticFragment extends Fragment {
         mChart.setColumnChartData(data);
     }
 
+    /**
+     * Sets the values of the chart with the given parameters.
+     * @param parameters the parameters to show in the chart.
+     */
     private void setChartValues(List<HRVParameters> parameters) {
         resetChartValues();
         for (int i = 0; i < parameters.size(); i++) {
@@ -177,6 +206,9 @@ public class StatisticFragment extends Fragment {
         setAxis();
     }
 
+    /**
+     * Resets the chart value.
+     */
     private void resetChartValues() {
         for (int i = 0; i < chartValuesIndex.size(); i++) {
             int[] tuple = chartValuesIndex.get(i);
@@ -185,6 +217,9 @@ public class StatisticFragment extends Fragment {
         chartValuesIndex = new ArrayList<>();
     }
 
+    /**
+     * Sets user chosen date of list view head.
+     */
     private void setDate() {
         if (rootView == null) {
             return;
@@ -193,6 +228,11 @@ public class StatisticFragment extends Fragment {
         date.setText(formatDate((Date) getArguments().getSerializable(ARG_DATE_VALUE)));
     }
 
+    /**
+     * Updates date und parameters.
+     * @param parameters the new parameters.
+     * @param date the new date.
+     */
     public void updateValues(ArrayList<HRVParameters> parameters, Date date) {
         this.parameters = parameters;
         getArguments().putParcelableArrayList(ARG_HRV_VALUE, parameters);

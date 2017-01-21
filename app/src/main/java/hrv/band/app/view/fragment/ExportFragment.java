@@ -14,6 +14,12 @@ import java.io.IOException;
 import hrv.band.app.R;
 import hrv.band.app.storage.SQLite.SQLController;
 
+/**
+ * Copyright (c) 2017
+ * Created by Julian Martin on 19.01.2017
+ *
+ * Dialog asking the user to export his data.
+ */
 public class ExportFragment extends DialogFragment {
 
     public static ExportFragment newInstance() {
@@ -34,27 +40,7 @@ public class ExportFragment extends DialogFragment {
                 .setPositiveButton(R.string.common_export, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-
-                SQLController sql = new SQLController();
-                try {
-                    int duration = Toast.LENGTH_SHORT;
-
-                    if(!sql.exportDB("export.sql", getActivity())) {
-                        CharSequence text = getResources().getText(R.string.sentence_export_failed);
-                        Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
-                        toast.show();
-                    }
-                    else {
-                        CharSequence text = getResources().getText(R.string.sentence_export_worked);
-                        Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
-                        toast.show();
-                    }
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                exportDB();
             }
         })
         .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
@@ -66,5 +52,30 @@ public class ExportFragment extends DialogFragment {
         });
         builder.setTitle(getResources().getString(R.string.common_export));
         return builder.create();
+    }
+
+    /**
+     * Exports the user database on the phone.
+     */
+    private void exportDB() {
+        SQLController sql = new SQLController();
+        try {
+            int duration = Toast.LENGTH_SHORT;
+
+            if(!sql.exportDB("export.sql", getActivity())) {
+                CharSequence text = getResources().getText(R.string.sentence_export_failed);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
+                toast.show();
+            }
+            else {
+                CharSequence text = getResources().getText(R.string.sentence_export_worked);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
+                toast.show();
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -10,7 +10,10 @@ import java.util.Calendar;
 import hrv.band.app.view.StatisticActivity;
 
 /**
- * Created by Thomas on 03.07.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Shows a calender picker allowing the user to pick a date.
  */
 public class CalenderPickerFragment extends DialogFragment  {
 

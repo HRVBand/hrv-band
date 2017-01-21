@@ -16,13 +16,19 @@ import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.OverviewValueAdapter;
 
 /**
- * Created by s_czogal on 23.06.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Fragment showing available HRV parameters.
  */
-
 public class OverviewFragment extends Fragment {
 
     public static final String valueType = "VALUE_TYPE";
 
+    /**
+     * Returns a new instance of this fragment.
+     * @return a new instance of this fragment.
+     */
     public static OverviewFragment newInstance() {
         return new OverviewFragment();
     }

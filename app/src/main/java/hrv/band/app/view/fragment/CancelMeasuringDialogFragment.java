@@ -13,9 +13,11 @@ import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
 
 /**
- * Created by thomcz on 16.01.2017.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * This dialog allows the user to cancel the measurement.
  */
-
 public class CancelMeasuringDialogFragment extends DialogFragment {
 
     public static CancelMeasuringDialogFragment newInstance() {

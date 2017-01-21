@@ -17,13 +17,18 @@ import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
 
 /**
- * Created by Thomas on 10.08.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 19.01.2017
+ *
+ * Fragment showing the details of a measurement.
  */
 public class MeasureDetailsFragment extends Fragment {
 
-    public MeasureDetailsFragment() {
-    }
-
+    /**
+     * Returns a new instance of this fragment.
+     * @param parameter the hrv parameter to get details from.
+     * @return a new instance of this fragment.
+     */
     public static MeasureDetailsFragment newInstance(HRVParameters parameter) {
         MeasureDetailsFragment fragment = new MeasureDetailsFragment();
         Bundle args = new Bundle();
@@ -55,6 +60,11 @@ public class MeasureDetailsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Formats the date and time for the measurement depending on user local.
+     * @param date the date to format.
+     * @return the formatted date and time for the measurement depending on user local.
+     */
     private String formatDateTime(Date date) {
         DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getContext());
         DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getContext());
