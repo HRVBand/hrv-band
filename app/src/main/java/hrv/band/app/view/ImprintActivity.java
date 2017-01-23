@@ -3,7 +3,6 @@ package hrv.band.app.view;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -30,9 +29,6 @@ import hrv.band.app.view.fragment.PrivacyFragment;
  */
 public class ImprintActivity extends AppCompatActivity {
 
-    /** The Fragments this Activity holds. **/
-    private List<Fragment> fragments;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +41,8 @@ public class ImprintActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        fragments = new ArrayList<>();
+        /* The Fragments this Activity holds. */
+        List<Fragment> fragments = new ArrayList<>();
         fragments.add(AboutFragment.newInstance());
         fragments.add(LicenseFragment.newInstance());
         fragments.add(DisclaimerFragment.newInstance());

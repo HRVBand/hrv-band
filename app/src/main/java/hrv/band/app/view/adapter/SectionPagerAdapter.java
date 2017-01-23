@@ -16,9 +16,9 @@ import java.util.List;
 public class SectionPagerAdapter extends FragmentPagerAdapter {
 
     /** The Fragments contained in this adapter. **/
-    private List<Fragment> fragments;
+    private final List<Fragment> fragments;
     /** The titles of the single Fragments. **/
-    private String[] pageTitles;
+    private final String[] pageTitles;
 
     public SectionPagerAdapter(FragmentManager fm, List<Fragment> fragments, String[] pageTitles) {
         super(fm);

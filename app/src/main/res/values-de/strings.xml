@@ -1,5 +1,5 @@
 <resources>
-   <string name="development_studio">die HRV App für deine MS Band 2!</string>
+   <string name="development_studio">für MS Band 2 und Ant+</string>
 
     <!-- Common words -->
     <string name="common_help">Hilfe</string>
@@ -77,7 +77,7 @@
 
     <!-- Share Dialog -->
     <string name="share_subject">Neue Health App</string>
-    <string name="share_body">Hey, schau dir HRV Band an! Mit der App kannst du deine Herzratenvariabilität mithilfe einer Microsoft Band 2 berechnen!</string>
+    <string name="share_body">Hey, schau dir HRV Band an! Mit der App kannst du deine Herzratenvariabilität mithilfe einer Microsoft Band 2 oder einem Ant+ kompatiblen Gerätes berechnen lassen! https://play.google.com/store/apps/details?id=hrv.band.aurora&amp;hl=de</string>
     <string name="share_via">Teile via</string>
 
     <!-- Feedback Dialog -->
@@ -135,18 +135,18 @@
 
     <!-- Turorial-->
     <string name="tutorial_titel0">Verbinden</string>
-    <string name="tutorial_desc0">To start a measurement put on your device and configure it with your phone as it says on your device instruction!</string>
+    <string name="tutorial_desc0">Um die App verwenden zu können muss das Messgerät mit dem Handy, wie in der Geräteanleitung beschrieben, verbunden werden.</string>
     <string name="tutorial_titel1">Start</string>
-    <string name="tutorial_desc1">Now you can press the big measure button in the middle of the screen to start measurement. Before your first measurement you need to select your device.</string>
-    <string name="tutorial_titel2">Save</string>
-    <string name="tutorial_desc2">Save your measurement and the calculated HRV values by pressing the save button.</string>
-    <string name="tutorial_titel3">Personalize</string>
-    <string name="tutorial_desc3">You can extend your measurement by rating, selecting a category and adding a note to it.</string>
-    <string name="tutorial_titel4">Values</string>
-    <string name="tutorial_desc4">HRV Band calculates multiple HRV values from your measurement which you can monitor.</string>
-    <string name="tutorial_titel5">Monitor</string>
-    <string name="tutorial_desc5">By selecting single measurements you can show all details and remove them if you want.</string>
+    <string name="tutorial_desc1">Zum starten der Messung muss der große Messungs-Button gedrückt werden. Bei der ersten Messung muss zunächst ein Gerät ausgewählt werden.</string>
+    <string name="tutorial_titel2">Speichern</string>
+    <string name="tutorial_desc2">Die Messung kann durch drücken des speichern Buttons abgespeichert werden.</string>
+    <string name="tutorial_titel3">Personalisieren</string>
+    <string name="tutorial_desc3">Die Messung kann durch eine Bewertung, Kategorisierung und hinzufügen einer Notiz erweitert werden.</string>
+    <string name="tutorial_titel4">Werte</string>
+    <string name="tutorial_desc4">HRV Band berechnet verschiedene HRV Parameter die im Anschluss betrachtet und nachverfolgt werden können.</string>
+    <string name="tutorial_titel5">Beobachten</string>
+    <string name="tutorial_desc5">Indem eine Messung ausgewählt wird, können alle Details angezeigt werden und die Messung auch gelöscht werden.</string>
 
-    <string name="tutorial_cancel_title">Cancel The Tutorial?</string>
-    <string name="tutorial_cancel_desc">Do you really want to cancel the tutorial?</string>
+    <string name="tutorial_cancel_title">Einführung beenden?</string>
+    <string name="tutorial_cancel_desc">Soll die Einführung wirklich beendet werden?</string>
 </resources>

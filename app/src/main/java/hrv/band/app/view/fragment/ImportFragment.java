@@ -31,7 +31,7 @@ public class ImportFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        final View view =  View.inflate(getActivity(), R.layout.fragment_text_dialog, null);
+        final View view =  View.inflate(getActivity(), R.layout.dialog_simple_text, null);
 
         TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
         textView.setText(getResources().getString(R.string.sentence_import_db));

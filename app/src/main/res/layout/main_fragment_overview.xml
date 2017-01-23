@@ -11,24 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="hrv.band.app.view.MainActivity">
-   <!--<GridView android:id="@+id/overview_value_list"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:numColumns="1"
-       android:verticalSpacing="2dp"
-       android:horizontalSpacing="5dp"
-       android:stretchMode="columnWidth"
-       android:gravity="center"/>
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="Your Values"
-       android:textSize="20sp"
-       android:padding="6dp"/>
-   <View
-       android:layout_width="match_parent"
-       android:layout_height="2dip"
-      android:background="@color/colorAccent"/>-->
    <ListView
        android:id="@+id/overview_value_list"
        android:layout_width="match_parent"

@@ -35,7 +35,7 @@ public class MeasureDetailsEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_measure_details_edit, container, false);
+        rootView = inflater.inflate(R.layout.hrv_measurement_fragment_details, container, false);
 
         Spinner spinner = (Spinner) rootView.findViewById(R.id.measure_categories);
         AbstractCategoryAdapter spinnerArrayAdapter = new MeasurementCategoryAdapter(getContext());

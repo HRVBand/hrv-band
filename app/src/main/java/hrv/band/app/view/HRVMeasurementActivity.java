@@ -22,7 +22,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
 
     @Override
     protected int getContentViewId() {
-        return R.layout.activity_measure_details;
+        return R.layout.activity_hrv_measurement;
     }
 
     @Override

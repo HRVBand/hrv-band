@@ -52,7 +52,7 @@ public class MeasureRRFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_measure_rr, container, false);
+        rootView = inflater.inflate(R.layout.abstract_hrv_fragment_rr, container, false);
 
         parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
 

@@ -15,9 +15,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.paolorotolo.appintro.AppIntro;
-import com.github.paolorotolo.appintro.AppIntroFragment;
 
 import hrv.band.app.R;
+import hrv.band.app.view.fragment.IntroFragment;
 import hrv.band.app.view.fragment.SampleDataFragment;
 
 /**
@@ -28,6 +28,7 @@ import hrv.band.app.view.fragment.SampleDataFragment;
  */
 public class IntroActivity extends AppIntro {
 
+    /** Key value for tutorial if it should start at app start. **/
     public static final String APP_INTRO = "app_intro";
 
     @Override
@@ -35,14 +36,13 @@ public class IntroActivity extends AppIntro {
         super.onCreate(savedInstanceState);
 
         Resources resources = getResources();
-        int introBackgroundColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
 
-        addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel0), resources.getString(R.string.tutorial_desc0), R.drawable.intro0, introBackgroundColor));
-        addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel1), resources.getString(R.string.tutorial_desc1), R.drawable.intro1, introBackgroundColor));
-        addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel2), resources.getString(R.string.tutorial_desc2), R.drawable.intro2, introBackgroundColor));
-        addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel3), resources.getString(R.string.tutorial_desc3), R.drawable.intro3, introBackgroundColor));
-        addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel4), resources.getString(R.string.tutorial_desc4), R.drawable.intro4, introBackgroundColor));
-        addSlide(AppIntroFragment.newInstance(resources.getString(R.string.tutorial_titel5), resources.getString(R.string.tutorial_desc5), R.drawable.intro5, introBackgroundColor));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_titel0), resources.getString(R.string.tutorial_desc0), R.drawable.intro0));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_titel1), resources.getString(R.string.tutorial_desc1), R.drawable.intro1));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_titel2), resources.getString(R.string.tutorial_desc2), R.drawable.intro2));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_titel3), resources.getString(R.string.tutorial_desc3), R.drawable.intro3));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_titel4), resources.getString(R.string.tutorial_desc4), R.drawable.intro4));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_titel5), resources.getString(R.string.tutorial_desc5), R.drawable.intro5));
 
         setBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
 
@@ -110,7 +110,7 @@ public class IntroActivity extends AppIntro {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-            final View view =  View.inflate(getActivity(), R.layout.fragment_text_dialog, null);
+            final View view =  View.inflate(getActivity(), R.layout.dialog_simple_text, null);
 
             TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
             textView.setText(getResources().getString(R.string.tutorial_cancel_desc));

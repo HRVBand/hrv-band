@@ -83,7 +83,7 @@ public class StatisticFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.content_statistic_fragment, container, false);
+        rootView = inflater.inflate(R.layout.statistic_fragment, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.stats_measure_history);
 
         parameters = getArguments().getParcelableArrayList(ARG_HRV_VALUE);

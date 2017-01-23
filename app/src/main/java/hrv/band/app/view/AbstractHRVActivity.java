@@ -94,7 +94,7 @@ public abstract class AbstractHRVActivity extends AppCompatActivity {
      * Returns the HRV parameter to show.
      * @return the HRV parameter to show.
      */
-    protected HRVParameters getParameter() {
+    HRVParameters getParameter() {
         return parameter;
     }
 

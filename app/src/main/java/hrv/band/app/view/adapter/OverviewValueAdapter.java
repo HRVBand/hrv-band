@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import hrv.band.app.R;
@@ -32,7 +31,7 @@ public class OverviewValueAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.overview_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.overview_value_item, parent, false);
             holder = new ViewHolder();
             holder.firstLine = (TextView) convertView.findViewById(R.id.firstLine);
             convertView.setTag(holder);

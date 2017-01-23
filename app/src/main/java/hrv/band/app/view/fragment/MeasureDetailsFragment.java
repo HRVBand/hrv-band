@@ -40,7 +40,7 @@ public class MeasureDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_measure_details, container, false);
+        View rootView = inflater.inflate(R.layout.hrv_value_fragment_details, container, false);
 
         HRVParameters parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
 

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -57,7 +56,7 @@ public class StatisticValueAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(context);
+        DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(context);
         holder.time.setText(dateFormat.format(parameters.get(position).getTime()));
         holder.category.setText(parameters.get(position).getCategory().getText(context.getResources()));
         holder.value.setText(values.get(position));

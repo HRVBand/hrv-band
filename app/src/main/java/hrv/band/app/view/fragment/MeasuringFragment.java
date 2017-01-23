@@ -49,7 +49,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     /** Key value for the selected measure device. **/
     private static final String SELECTED_DEVICE_ID = "selected_device_id";
     /** The duration of the measurement. **/
-    private static final int duration = 10000;
+    private static final int duration = 90000;
 
     /** Possible devices the user can select. **/
     private enum DeviceID {NONE, MSBAND, ANT}
@@ -90,7 +90,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.content_measure, container, false);
+        View rootView = inflater.inflate(R.layout.main_fragment_measure, container, false);
         view = rootView.findViewById(R.id.measure_fragment);
 
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
@@ -353,11 +353,11 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private static class MeasurementClickListener implements View.OnClickListener {
 
         /** The measuring fragment. **/
-        private MeasuringFragment measuringFragment;
+        private final MeasuringFragment measuringFragment;
         /** The activity holding the fragment. **/
-        private Activity activity;
+        private final Activity activity;
         /** The connection button containing the other buttons to (dis)connect the devices. **/
-        private com.github.clans.fab.FloatingActionMenu menuDown;
+        private final com.github.clans.fab.FloatingActionMenu menuDown;
 
         MeasurementClickListener(MeasuringFragment measuringFragment) {
             this.measuringFragment = measuringFragment;
