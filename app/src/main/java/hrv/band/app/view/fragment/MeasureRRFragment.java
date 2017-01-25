@@ -57,8 +57,11 @@ public class MeasureRRFragment extends Fragment {
         parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
 
         mChart = (ColumnChartView) rootView.findViewById(R.id.rr_chart);
-        initChart();
-        setRRStatistic();
+
+        if (parameter != null) {
+            initChart();
+            setRRStatistic();
+        }
 
         return rootView;
     }
