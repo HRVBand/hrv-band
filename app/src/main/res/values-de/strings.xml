@@ -138,10 +138,13 @@
     <string name="privacyText">HRV Band speichert alle Ihre Daten auf Ihrem Smartphone. Keine Daten werden an irgendwelche Server gesendet!</string>
 
     <!-- Settings -->
-    <string name="settings_record_length">Recording Time (ms)</string>
+    <string name="settings_record_length">RR-Aufnahme-Dauer (ms)</string>
     <string name="settings_export">Exportieren</string>
-    <string name="settigns_import">Importieren</string>
+    <string name="settings_import">Importieren</string>
     <string name="settings_measurement">Messung</string>
+
+    <string name="invalid_input">Ungültige Eingabe</string>
+    <string name="invalid_measurement_length_input">RR-Aufnahme-Dauer darf nur aus Ziffern bestehen.</string>
 
     <!-- Turorial -->
     <string name="tutorial_titel0">Verbinden</string>

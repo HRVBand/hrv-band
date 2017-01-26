@@ -160,10 +160,13 @@
     <string name="baevsky_desc" translatable="false">Baevsky Stressindex as an indicator of overall stress. </string>
 
     <!-- Settings -->
-    <string name="settings_record_length">Recording Time (ms)</string>
+    <string name="settings_record_length">RR-Recording-Time (ms)</string>
     <string name="settings_export">Export</string>
     <string name="settings_import">Import</string>
     <string name="settings_measurement">Measurement</string>
+
+    <string name="invalid_input">Invalid Input</string>
+    <string name="invalid_measurement_length_input">RR-Recording-Time can only contain digits.</string>
 
     <!-- Turorial-->
     <string name="tutorial_titel0">Connecting</string>
