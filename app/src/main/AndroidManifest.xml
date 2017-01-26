@@ -78,6 +78,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="hrv.band.app.view.MainActivity" />
         </activity>
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/main_drawer_settings"
+            android:parentActivityName=".view.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hrv.band.app.view.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

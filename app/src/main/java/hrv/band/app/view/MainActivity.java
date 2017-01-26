@@ -56,12 +56,14 @@ public class MainActivity extends AppCompatActivity
 
         handleDisclaimer();
 
+        //Needed to set default values
+        PreferenceManager.setDefaultValues(this, R.xml.settings_fragment, false);
+
         setContentView(R.layout.navbar_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //NavigationDrawer
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -159,6 +161,8 @@ public class MainActivity extends AppCompatActivity
             ImportFragment.newInstance().show(getFragmentManager(), getResources().getString(R.string.common_import));
         } else if (id == R.id.menu_sample_data) {
             SampleDataFragment.newInstance(false).show(getFragmentManager(), getResources().getString(R.string.common_import));
+        } else if (id == R.id.menu_Settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         assert drawer != null;

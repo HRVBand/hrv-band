@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Settings"
+    android:icon="@drawable/ic_settings_black_24dp">
+
+    <PreferenceCategory
+        android:title="Measurement">
+
+        <EditTextPreference
+            android:key="recording_length"
+            android:title="@string/settings_record_length"
+            android:defaultValue="90000">
+        </EditTextPreference>
+   </PreferenceCategory>
+</PreferenceScreen>

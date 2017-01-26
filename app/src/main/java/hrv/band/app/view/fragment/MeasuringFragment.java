@@ -49,7 +49,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     /** Key value for the selected measure device. **/
     private static final String SELECTED_DEVICE_ID = "selected_device_id";
     /** The duration of the measurement. **/
-    private static final int duration = 90000;
+    private static int duration = 90000;
 
     /** Possible devices the user can select. **/
     private enum DeviceID {NONE, MSBAND, ANT}
@@ -102,6 +102,9 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         disconnectDevices = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.disconnect_devices);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        String durationPrefVal = sharedPreferences.getString("recording_length", "90000");
+        duration = Integer.parseInt(durationPrefVal);
 
         hrvRRIntervalDevice = getDevice(DeviceID.values()[sharedPreferences.getInt(SELECTED_DEVICE_ID, 0)]);
         if (hrvRRIntervalDevice != null) {

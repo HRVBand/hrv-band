@@ -72,8 +72,6 @@ public class ExportFragment extends DialogFragment {
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
                 toast.show();
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
