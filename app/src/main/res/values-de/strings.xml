@@ -139,6 +139,9 @@
 
     <!-- Settings -->
     <string name="settings_record_length">Recording Time (ms)</string>
+    <string name="settings_export">Exportieren</string>
+    <string name="settigns_import">Importieren</string>
+    <string name="settings_measurement">Messung</string>
 
     <!-- Turorial -->
     <string name="tutorial_titel0">Verbinden</string>

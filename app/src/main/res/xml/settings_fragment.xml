@@ -4,12 +4,27 @@
     android:icon="@drawable/ic_settings_black_24dp">
 
     <PreferenceCategory
-        android:title="Measurement">
+        android:title="@string/settings_measurement">
 
         <EditTextPreference
             android:key="recording_length"
             android:title="@string/settings_record_length"
+            android:icon="@drawable/ic_access_alarm_black_24dp"
             android:defaultValue="90000">
         </EditTextPreference>
    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Other">
+
+        <Preference
+            android:title="@string/settings_import"
+            android:key="settings_import"
+            android:icon="@drawable/ic_import"/>
+
+        <Preference
+            android:title="@string/settings_export"
+            android:key="settings_export"
+            android:icon="@drawable/ic_export"/>
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -160,9 +160,10 @@
     <string name="baevsky_desc" translatable="false">Baevsky Stressindex as an indicator of overall stress. </string>
 
     <!-- Settings -->
-    <string name="settings_measurement_header">Measurement</string>
-    <string name="settings_measurement_summary">Settings related to measurements.</string>
     <string name="settings_record_length">Recording Time (ms)</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_import">Import</string>
+    <string name="settings_measurement">Measurement</string>
 
     <!-- Turorial-->
     <string name="tutorial_titel0">Connecting</string>
