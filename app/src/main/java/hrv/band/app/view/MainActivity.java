@@ -27,9 +27,7 @@ import java.util.List;
 import hrv.band.app.R;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.DisclaimerDialogFragment;
-import hrv.band.app.view.fragment.ExportFragment;
 import hrv.band.app.view.fragment.FeedbackDialogFragment;
-import hrv.band.app.view.fragment.ImportFragment;
 import hrv.band.app.view.fragment.MeasuringFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
 import hrv.band.app.view.fragment.SampleDataFragment;
@@ -155,10 +153,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, ImprintActivity.class));
         } else if (id == R.id.menu_rate) {
             rateApp();
-        } else if(id == R.id.menu_export_db) {
-            ExportFragment.newInstance().show(getFragmentManager(), getResources().getString(R.string.common_export   ));
-        } else if(id == R.id.menu_import_db) {
-            ImportFragment.newInstance().show(getFragmentManager(), getResources().getString(R.string.common_import));
         } else if (id == R.id.menu_sample_data) {
             SampleDataFragment.newInstance(false).show(getFragmentManager(), getResources().getString(R.string.common_import));
         } else if (id == R.id.menu_Settings) {

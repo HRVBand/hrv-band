@@ -46,20 +46,6 @@
 
     <group
         android:checkableBehavior="none">
-
-        <item
-            android:id="@+id/menu_import_db"
-            android:icon="@drawable/ic_import"
-            android:title="@string/common_import" />
-
-        <item
-            android:id="@+id/menu_export_db"
-            android:icon="@drawable/ic_export"
-            android:title="@string/common_export" />
-
-    </group>
-    <group
-        android:checkableBehavior="none">
     <item
         android:id="@+id/menu_sample_data"
         android:icon="@drawable/ic_create_sample"
