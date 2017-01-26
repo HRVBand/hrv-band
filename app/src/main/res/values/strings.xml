@@ -30,6 +30,7 @@
     <string name="main_drawer_website" translatable="false">Website</string>
     <string name="main_drawer_feedback" translatable="false">Feedback</string>
     <string name="main_drawer_privacy_policy" translatable="false">Privacy Policy</string>
+    <string name="main_drawer_settings">Settings</string>
 
     <!-- Title Activity-->
     <string name="title_activity_save_values">Measurement Details</string>
@@ -157,6 +158,11 @@
     <string name="sd2_desc" translatable="false">Standard deviation of the horizontal distances in the Poincare plot.</string>
     <string name="sd1sd2_desc" translatable="false">Ratio of SD1 and SD2.</string>
     <string name="baevsky_desc" translatable="false">Baevsky Stressindex as an indicator of overall stress. </string>
+
+    <!-- Settings -->
+    <string name="settings_measurement_header">Measurement</string>
+    <string name="settings_measurement_summary">Settings related to measurements.</string>
+    <string name="settings_record_length">Recording Time (ms)</string>
 
     <!-- Turorial-->
     <string name="tutorial_titel0">Connecting</string>

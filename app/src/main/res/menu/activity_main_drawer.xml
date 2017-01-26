@@ -65,4 +65,11 @@
         android:icon="@drawable/ic_create_sample"
         android:title="Create Sample Data" />
     </group>
+    <group
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/menu_Settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/main_drawer_settings" />
+    </group>
 </menu>
