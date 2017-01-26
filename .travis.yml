@@ -1,0 +1,24 @@
+language: android
+jdk: oraclejdk8
+env:
+  global:
+    - ANDROID_TARGET=android-25
+    - ANDROID_ABI=armeabi-v7a
+android:
+  components:
+  - tools
+  - platform-tools
+  - build-tools-25.0.2
+  - android-25
+  - extra-android-m2repository
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+script:
+  - ./gradlew build 
+before_install:
+        - chmod +x gradlew
+branches:
+        only:
+            - master
