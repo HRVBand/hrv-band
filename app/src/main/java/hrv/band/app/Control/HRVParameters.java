@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
+import hrv.calc.AllHRVIndiceCalculator;
 
 /**
  * Created by Julian on 11.06.2016.
@@ -222,5 +223,10 @@ public class HRVParameters implements Parcelable {
 
         return param.getTime().equals(this.getTime());
 
+    }
+
+    public static HRVParameters from(AllHRVIndiceCalculator calc, Date time, ArrayList<Double> rr) {
+        return new HRVParameters(time, calc.getSdsd(), calc.getSd1(),
+                calc.getSd2(), calc.getLf(), calc.getHf(), calc.getRmssd(), calc.getSdnn(), 0, rr);
     }
 }

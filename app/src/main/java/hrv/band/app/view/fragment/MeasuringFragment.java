@@ -19,12 +19,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Date;
+import org.apache.commons.lang3.ArrayUtils;
 
-import hrv.band.app.Control.Calculation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import hrv.RRData;
 import hrv.band.app.Control.HRVParameters;
-import hrv.band.app.Fourier.FastFourierTransform;
-import hrv.band.app.Interpolation.CubicSplineInterpolation;
 import hrv.band.app.R;
 import hrv.band.app.RRInterval.HRVDeviceStatus;
 import hrv.band.app.RRInterval.HRVRRDeviceListener;
@@ -35,6 +38,7 @@ import hrv.band.app.RRInterval.Interval;
 import hrv.band.app.RRInterval.antplus.AntPlusRRDataDevice;
 import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.HRVMeasurementActivity;
+import hrv.calc.AllHRVIndiceCalculator;
 
 /**
  * Copyright (c) 2017
@@ -185,11 +189,13 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      */
     private HRVParameters calculate(Interval interval) {
         //start calculation
-        CubicSplineInterpolation inter = new CubicSplineInterpolation();
-        FastFourierTransform fft = new FastFourierTransform(4096);
+        AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
+        calc.calculateAll(RRData.createFromRRInterval(interval.GetRRInterval(), RRData.RRDataUnit.s));
 
-        Calculation calc = new Calculation(fft, inter);
-        HRVParameters results = calc.Calculate(interval);
+        Double[] bigDouble = ArrayUtils.toObject(interval.GetRRInterval());
+        List<Double> listDouble = Arrays.asList(bigDouble);
+
+        HRVParameters results = HRVParameters.from(calc, interval.GetStartTime(), new ArrayList<>(listDouble));
         results.setTime(interval.GetStartTime());
         return results;
     }
@@ -198,7 +204,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      * Initialize the animation of the progress bar.
      */
     private void initAnimation() {
-        // see this max value coming back here, we animale towards that value
+        // see this max value coming back here, we animate towards that value
         animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000);
         animation.setDuration (duration); //in milliseconds
         animation.setInterpolator (new LinearInterpolator());
