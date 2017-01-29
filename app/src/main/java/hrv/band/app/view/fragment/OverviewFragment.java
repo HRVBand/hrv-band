@@ -47,20 +47,12 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                int count = adapter.getCount();
-                if (count > position) {
-                    Intent intent = new Intent(getContext(), StatisticActivity.class);
-                    intent.putExtra(valueType, HRVValue.values()[position]);
-                    startActivity(intent);
-                } else if (position == count){
-                    Snackbar.make(rootView, "More Values Coming Soon!", Snackbar.LENGTH_LONG).show();
-                }
+                Intent intent = new Intent(getContext(), StatisticActivity.class);
+                intent.putExtra(valueType, HRVValue.values()[position]);
+                startActivity(intent);
             }
 
         });
-
-        View footerView =  View.inflate(getActivity(), R.layout.overview_add_items_footer, null);
-        listView.addFooterView(footerView);
 
         return rootView;
     }

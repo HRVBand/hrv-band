@@ -1,56 +1,68 @@
-package hrv.band.app.adapter;
+package adapter;
 
-import android.app.Activity;
-import android.support.test.filters.LargeTest;
-import android.support.test.runner.AndroidJUnit4;
+import android.os.Build;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
-import java.util.List;
+import hrv.band.app.BuildConfig;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 24.01.2017
  */
 
-@RunWith(AndroidJUnit4.class)
-@LargeTest
+@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
+@RunWith(RobolectricTestRunner.class)
 public abstract class AbstractAdapterTest {
 
-    public abstract BaseAdapter getAdapter();
+    protected Fragment fragment;
+
+    public abstract ListView getListView();
     public abstract int getSize();
-    public abstract Activity getActivity();
     public abstract void checkViewElement(View view, int position);
     public abstract Object getItemAtIndex(int index);
     public abstract View getItemLayout();
+    public abstract Fragment getFragment();
+
+    @Before
+    public void setUpFragment() throws Exception {
+        fragment = getFragment();
+        SupportFragmentTestUtil.startVisibleFragment(fragment);
+    }
 
     @Test
     public void shouldNotBeNull() throws Exception {
-        assertNotNull(getAdapter());
+        assertNotNull(getListView());
     }
 
     @Test
     public void getCountShouldReturnProperCount() throws Exception {
-        assertEquals(getAdapter().getCount(), getSize());
+        assertEquals(getListView().getCount(), getSize());
     }
 
     @Test
     public void getItemShouldReturnProperItem() throws Exception {
         for (int index = 0; index < getSize(); index++) {
-            assertEquals(getAdapter().getItem(index), getItemAtIndex(index));
+            assertEquals(getListView().getItemAtPosition(index), getItemAtIndex(index));
         }
     }
 
     @Test
     public void getItemIdShouldReturnProperItemId() throws Exception {
         for (int index = 0; index < getSize(); index++) {
-            assertEquals(getAdapter().getItemId(index), index );
+            assertEquals(getListView().getItemIdAtPosition(index), index );
         }
     }
 
@@ -62,7 +74,7 @@ public abstract class AbstractAdapterTest {
     @Test
     public void viewReturnedByGetViewShouldHaveName() throws Exception {
         for (int index = 0; index < getSize(); index++) {
-            checkViewElement(getViewAtIndex(index, null), index);
+            checkViewElement(getListView().getAdapter().getView(index, null, null), index);
         }
     }
 
@@ -76,6 +88,6 @@ public abstract class AbstractAdapterTest {
     }
 
     private View getViewAtIndex(int index, View parent) {
-        return getAdapter().getView(index, parent, null);
+        return getListView().getAdapter().getView(index, parent, null);
     }
 }

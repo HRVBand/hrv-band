@@ -3,6 +3,7 @@ package hrv.band.app.view.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -69,12 +70,12 @@ public class StatisticFragment extends Fragment {
      * Returns a new instance of this fragment.
      * @return a new instance of this fragment.
      */
-    public static StatisticFragment newInstance(HRVValue type, ArrayList<HRVParameters> parameters,
+    public static StatisticFragment newInstance(HRVValue type, List<HRVParameters> parameters,
                                                 Date date) {
         StatisticFragment fragment = new StatisticFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_SECTION_VALUE, type);
-        args.putParcelableArrayList(ARG_HRV_VALUE, parameters);
+        args.putParcelableArrayList(ARG_HRV_VALUE, new ArrayList<>(parameters));
         args.putSerializable(ARG_DATE_VALUE, date);
         fragment.setArguments(args);
         return fragment;

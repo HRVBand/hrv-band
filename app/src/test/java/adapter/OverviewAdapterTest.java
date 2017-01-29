@@ -1,18 +1,15 @@
-package hrv.band.app.adapter;
+package adapter;
 
-import android.app.Activity;
-import android.support.test.rule.ActivityTestRule;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.junit.BeforeClass;
-import org.junit.ClassRule;
 
 import hrv.band.app.R;
-import hrv.band.app.view.MainActivity;
 import hrv.band.app.view.adapter.HRVValue;
-import hrv.band.app.view.adapter.OverviewValueAdapter;
+import hrv.band.app.view.fragment.OverviewFragment;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -24,33 +21,26 @@ import static org.junit.Assert.assertNotNull;
 
 
 public class OverviewAdapterTest extends AbstractAdapterTest {
-    private static OverviewValueAdapter overviewValueAdapter;
     private static HRVValue[] hrvValues;
-
-    @ClassRule
-    public static ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(
-            MainActivity.class);
-
 
     @BeforeClass
     public static void setUp() throws Exception {
         hrvValues = HRVValue.values();
-        overviewValueAdapter = new OverviewValueAdapter(activityRule.getActivity());
     }
 
     @Override
-    public BaseAdapter getAdapter() {
-        return overviewValueAdapter;
+    public Fragment getFragment() {
+        return OverviewFragment.newInstance();
+    }
+
+    @Override
+    public ListView getListView() {
+        return (ListView)fragment.getActivity().findViewById(R.id.overview_value_list);
     }
 
     @Override
     public int getSize() {
         return hrvValues.length;
-    }
-
-    @Override
-    public Activity getActivity() {
-        return activityRule.getActivity();
     }
 
     @Override
@@ -67,6 +57,6 @@ public class OverviewAdapterTest extends AbstractAdapterTest {
 
     @Override
     public View getItemLayout() {
-        return getActivity().findViewById(R.id.overview_value_list);
+        return fragment.getActivity().findViewById(R.id.overview_value_list);
     }
 }

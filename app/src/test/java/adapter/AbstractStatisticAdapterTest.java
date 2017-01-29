@@ -1,14 +1,11 @@
-package hrv.band.app.adapter;
+package adapter;
 
-import android.app.Activity;
-import android.support.test.rule.ActivityTestRule;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -20,9 +17,8 @@ import java.util.List;
 
 import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.view.StatisticActivity;
 import hrv.band.app.view.adapter.HRVValue;
-import hrv.band.app.view.adapter.StatisticValueAdapter;
+import hrv.band.app.view.fragment.StatisticFragment;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -35,40 +31,31 @@ import static org.junit.Assert.assertNotNull;
 
 public abstract class AbstractStatisticAdapterTest extends AbstractAdapterTest {
 
-    private static StatisticValueAdapter valueAdapter;
     private static List<HRVParameters> parameters;
 
     public abstract HRVValue getHrvType();
 
-    @ClassRule
-    public static ActivityTestRule<StatisticActivity> activityRule = new ActivityTestRule<>(
-            StatisticActivity.class);
-
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUpData() throws Exception {
         parameters = new ArrayList<>();
         parameters.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new ArrayList<Double>()));
         parameters.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new ArrayList<Double>()));
     }
 
-    @Before
-    public void initAdapter() {
-        valueAdapter = new StatisticValueAdapter(activityRule.getActivity(), getHrvType(), parameters);
+
+    @Override
+    public Fragment getFragment() {
+        return StatisticFragment.newInstance(getHrvType(), parameters, new Date(1000));
     }
 
     @Override
-    public BaseAdapter getAdapter() {
-        return valueAdapter;
+    public ListView getListView() {
+        return (ListView)fragment.getActivity().findViewById(R.id.stats_measure_history);
     }
 
     @Override
     public int getSize() {
         return parameters.size();
-    }
-
-    @Override
-    public Activity getActivity() {
-        return activityRule.getActivity();
     }
 
     @Override
@@ -81,10 +68,10 @@ public abstract class AbstractStatisticAdapterTest extends AbstractAdapterTest {
         assertNotNull(time);
         assertNotNull(category);
 
-        DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(getActivity());
+        DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(fragment.getActivity());
         assertEquals(dateFormat.format(parameters.get(position).getTime()), time.getText());
 
-        assertEquals(parameters.get(position).getCategory().getText(getActivity().getResources()), category.getText());
+        assertEquals(parameters.get(position).getCategory().getText(fragment.getActivity().getResources()), category.getText());
 
         assertEquals(getValues(parameters, getHrvType()).get(position), value.getText());
     }
@@ -96,7 +83,7 @@ public abstract class AbstractStatisticAdapterTest extends AbstractAdapterTest {
 
     @Override
     public View getItemLayout() {
-        return getActivity().findViewById(R.id.stats_measure_history);
+        return fragment.getActivity().findViewById(R.id.stats_measure_history);
     }
 
     /**

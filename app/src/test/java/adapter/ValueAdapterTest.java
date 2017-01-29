@@ -1,13 +1,11 @@
-package hrv.band.app.adapter;
+package adapter;
 
-import android.app.Activity;
-import android.support.test.rule.ActivityTestRule;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.junit.BeforeClass;
-import org.junit.ClassRule;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -15,9 +13,8 @@ import java.util.Date;
 
 import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.view.HRVMeasurementActivity;
 import hrv.band.app.view.adapter.HRVValue;
-import hrv.band.app.view.adapter.ValueAdapter;
+import hrv.band.app.view.fragment.MeasureValueFragment;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -30,33 +27,26 @@ import static org.junit.Assert.assertNotNull;
 
 public class ValueAdapterTest extends AbstractAdapterTest {
 
-    private static ValueAdapter valueAdapter;
     private static HRVParameters parameter;
 
-    @ClassRule
-    public static ActivityTestRule<HRVMeasurementActivity> activityRule = new ActivityTestRule<>(
-            HRVMeasurementActivity.class);
-
-
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUpData() throws Exception {
         parameter = new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new ArrayList<Double>());
-        valueAdapter = new ValueAdapter(activityRule.getActivity(), parameter);
     }
 
     @Override
-    public BaseAdapter getAdapter() {
-        return valueAdapter;
+    public Fragment getFragment() {
+        return MeasureValueFragment.newInstance(parameter);
+    }
+
+    @Override
+    public ListView getListView() {
+        return (ListView) fragment.getActivity().findViewById(R.id.hrv_value_list);
     }
 
     @Override
     public int getSize() {
         return HRVValue.values().length;
-    }
-
-    @Override
-    public Activity getActivity() {
-        return activityRule.getActivity();
     }
 
     @Override
@@ -85,6 +75,6 @@ public class ValueAdapterTest extends AbstractAdapterTest {
 
     @Override
     public View getItemLayout() {
-        return getActivity().findViewById(R.id.hrv_value_list);
+        return fragment.getActivity().findViewById(R.id.hrv_value_list);
     }
 }
