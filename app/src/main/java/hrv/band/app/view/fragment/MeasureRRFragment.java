@@ -129,7 +129,7 @@ public class MeasureRRFragment extends Fragment {
         Axis axisX = new Axis();
         Axis axisY = new Axis().setHasLines(true);
         axisX.setName("s");
-        axisY.setName("ms");
+        axisY.setName("s");
         data.setAxisXBottom(axisX);
         data.setAxisYLeft(axisY);
 

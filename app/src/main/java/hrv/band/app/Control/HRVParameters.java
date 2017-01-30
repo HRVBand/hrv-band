@@ -13,7 +13,7 @@ import hrv.calc.AllHRVIndiceCalculator;
  * the actual rr-data, user note about the measurement, measurement category.
  *
  * TODO: this class has too many responsibilities in terms of the multiple
- * TODO: data that it stores in addition, the name does not fit entirely to the stored data
+ * TODO: data that it stores. In addition, the name does not fit entirely to the stored data
  *
  * Created by Julian on 11.06.2016.
  */
@@ -81,8 +81,8 @@ public class HRVParameters implements Parcelable {
         rmssd = in.readDouble();
         sdnn = in.readDouble();
         baevsky = in.readDouble();
-        int rrIntervallength = in.readInt();
-        rrIntervals = new double[rrIntervallength];
+        int rrIntervalLength= in.readInt();
+        rrIntervals = new double[rrIntervalLength];
         in.readDoubleArray(rrIntervals);
         rating = in.readDouble();
         category = (MeasurementCategoryAdapter.MeasureCategory) in.readSerializable();
@@ -225,11 +225,10 @@ public class HRVParameters implements Parcelable {
         HRVParameters param = (HRVParameters)other;
 
         return param.getTime().equals(this.getTime());
-
     }
 
     /**
-     * Creates a new HRVParameter Object froma ALLHRVIndiceCalculator object
+     * Creates a new HRVParameter-Object from a ALLHRVIndiceCalculator object
      * At the time the data unit can not be changed according to the incoming data
      * thats why the data has to be converted to the units given in the HRVValue class
      * @param calc AllHRVIndiceCalculator object
@@ -242,8 +241,8 @@ public class HRVParameters implements Parcelable {
                 calc.getSdsd().getValue(),
                 calc.getSd1().getValue() * 1000, //Convert to ms
                 calc.getSd2().getValue() * 1000, //Convert to ms
-                calc.getLf().getValue(),
-                calc.getHf().getValue(),
+                calc.getLf().getValue() * 1000,
+                calc.getHf().getValue() * 1000,
                 calc.getRmssd().getValue() * 1000, //Convert to ms
                 calc.getSdnn().getValue() * 1000 , //Convert to ms
                 calc.getBaevsky().getValue(),
