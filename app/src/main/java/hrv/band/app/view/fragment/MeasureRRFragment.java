@@ -68,6 +68,8 @@ public class MeasureRRFragment extends Fragment {
 
     /**
      * Calculates rr interval statistics and sets the text views.
+     *
+     * TODO: calculating statistics should not be the responsibility of the view!!!
      */
     private void setRRStatistic() {
         List<Double> rr = parameter.getRRIntervals();

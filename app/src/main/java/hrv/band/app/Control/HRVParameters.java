@@ -227,9 +227,25 @@ public class HRVParameters implements Parcelable {
 
     }
 
+    /**
+     * Creates a new HRVParameter Object froma ALLHRVIndiceCalculator object
+     * At the time the data unit can not be changed according to the incoming data
+     * thats why the data has to be converted to the units given in the HRVValue class
+     * @param calc AllHRVIndiceCalculator object
+     * @param time Time when the measurement began
+     * @param rr Original RR-Data
+     * @return New HRVParameters object
+     */
     public static HRVParameters from(AllHRVIndiceCalculator calc, Date time, ArrayList<Double> rr) {
-        return new HRVParameters(time, calc.getSdsd().getValue(), calc.getSd1().getValue(),
-                calc.getSd2().getValue(), calc.getLf().getValue(), calc.getHf().getValue(),
-                calc.getRmssd().getValue(), calc.getSdnn().getValue(), calc.getBaevsky().getValue(), rr);
+        return new HRVParameters(time,
+                calc.getSdsd().getValue(),
+                calc.getSd1().getValue() * 1000, //Convert to ms
+                calc.getSd2().getValue() * 1000, //Convert to ms
+                calc.getLf().getValue(),
+                calc.getHf().getValue(),
+                calc.getRmssd().getValue() * 1000, //Convert to ms
+                calc.getSdnn().getValue() * 1000 , //Convert to ms
+                calc.getBaevsky().getValue(),
+                rr);
     }
 }
