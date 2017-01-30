@@ -3,7 +3,6 @@ package hrv.band.app.Control;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
@@ -29,7 +28,7 @@ public class HRVParameters implements Parcelable {
     private double rmssd;
     private double sdnn;
     private double baevsky;
-    private ArrayList<Double> rrIntervals;
+    private double[] rrIntervals;
     private double rating;
     private MeasurementCategoryAdapter.MeasureCategory category = MeasurementCategoryAdapter.MeasureCategory.GENERAL;
     private String note;
@@ -51,7 +50,8 @@ public class HRVParameters implements Parcelable {
         out.writeDouble(rmssd);
         out.writeDouble(sdnn);
         out.writeDouble(baevsky);
-        out.writeList(rrIntervals);
+        out.writeInt(rrIntervals.length);
+        out.writeDoubleArray(rrIntervals);
         out.writeDouble(rating);
         out.writeSerializable(category);
         out.writeString(note);
@@ -81,15 +81,16 @@ public class HRVParameters implements Parcelable {
         rmssd = in.readDouble();
         sdnn = in.readDouble();
         baevsky = in.readDouble();
-        rrIntervals = new ArrayList<>();
-        in.readList(rrIntervals, Double.class.getClassLoader());
+        int rrIntervallength = in.readInt();
+        rrIntervals = new double[rrIntervallength];
+        in.readDoubleArray(rrIntervals);
         rating = in.readDouble();
         category = (MeasurementCategoryAdapter.MeasureCategory) in.readSerializable();
         note = in.readString();
     }
 
     public HRVParameters(Date time, double sdsd, double sd1, double sd2, double lf, double hf, double rmssd,
-                         double sdnn, double baevsky, ArrayList<Double> rrIntervals) {
+                         double sdnn, double baevsky, double[] rrIntervals) {
         this.time = time;
         this.sdsd = sdsd;
         this.sd1 = sd1;
@@ -182,11 +183,11 @@ public class HRVParameters implements Parcelable {
     public void setSdnn(double sdnn) {
         this.sdnn = sdnn;
     }
-    public ArrayList<Double> getRRIntervals() {
+    public double[] getRRIntervals() {
         return rrIntervals;
     }
 
-    public void setRRIntervals(ArrayList<Double> rrIntervals) {
+    public void setRRIntervals(double[] rrIntervals) {
         this.rrIntervals = rrIntervals;
     }
 
@@ -236,7 +237,7 @@ public class HRVParameters implements Parcelable {
      * @param rr Original RR-Data
      * @return New HRVParameters object
      */
-    public static HRVParameters from(AllHRVIndiceCalculator calc, Date time, ArrayList<Double> rr) {
+    public static HRVParameters from(AllHRVIndiceCalculator calc, Date time, double[] rr) {
         return new HRVParameters(time,
                 calc.getSdsd().getValue(),
                 calc.getSd1().getValue() * 1000, //Convert to ms

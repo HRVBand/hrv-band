@@ -8,13 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.ArrayUtils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 import hrv.RRData;
@@ -132,10 +127,7 @@ public class SampleDataFragment extends DialogFragment {
         AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
         calc.calculateAll(RRData.createFromRRInterval(interval.GetRRInterval(), RRData.RRDataUnit.s));
 
-        Double[] bigDouble = ArrayUtils.toObject(interval.GetRRInterval());
-        List<Double> listDouble = Arrays.asList(bigDouble);
-
-        HRVParameters results = HRVParameters.from(calc, interval.GetStartTime(), new ArrayList<>(listDouble));
+        HRVParameters results = HRVParameters.from(calc, interval.GetStartTime(), interval.GetRRInterval());
         results.setTime(interval.GetStartTime());
         return results;
     }

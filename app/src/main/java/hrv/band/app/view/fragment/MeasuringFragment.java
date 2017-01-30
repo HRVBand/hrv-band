@@ -19,12 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.commons.lang3.ArrayUtils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import hrv.RRData;
 import hrv.band.app.Control.HRVParameters;
@@ -192,10 +187,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
         calc.calculateAll(RRData.createFromRRInterval(interval.GetRRInterval(), RRData.RRDataUnit.s));
 
-        Double[] bigDouble = ArrayUtils.toObject(interval.GetRRInterval());
-        List<Double> listDouble = Arrays.asList(bigDouble);
-
-        HRVParameters results = HRVParameters.from(calc, interval.GetStartTime(), new ArrayList<>(listDouble));
+        HRVParameters results = HRVParameters.from(calc, interval.GetStartTime(), interval.GetRRInterval());
         results.setTime(interval.GetStartTime());
         return results;
     }

@@ -72,21 +72,21 @@ public class MeasureRRFragment extends Fragment {
      * TODO: calculating statistics should not be the responsibility of the view!!!
      */
     private void setRRStatistic() {
-        List<Double> rr = parameter.getRRIntervals();
+        double[] rr = parameter.getRRIntervals();
 
         double average = 0;
         double min = Double.MAX_VALUE;
         double max = 0;
-        for (int i = 0; i < rr.size(); i++) {
-            average += rr.get(i);
-            if (min > rr.get(i)) {
-                min = rr.get(i);
+        for (int i = 0; i < rr.length; i++) {
+            average += rr[i];
+            if (min > rr[i]) {
+                min = rr[i];
             }
-            if (max < rr.get(i)) {
-                max = rr.get(i);
+            if (max < rr[i]) {
+                max = rr[i];
             }
         }
-        average /= rr.size();
+        average /= rr.length;
 
         TextView minTxt = (TextView) rootView.findViewById(R.id.rr_min);
         TextView maxTxt = (TextView) rootView.findViewById(R.id.rr_max);
@@ -96,7 +96,7 @@ public class MeasureRRFragment extends Fragment {
         minTxt.setText(trimValue(min));
         maxTxt.setText(trimValue(max));
         averageTxt.setText(trimValue(average));
-        countTxt.setText(String.valueOf(rr.size()));
+        countTxt.setText(String.valueOf(rr.length));
     }
 
     /**
@@ -114,10 +114,10 @@ public class MeasureRRFragment extends Fragment {
     private void initChart() {
         List<Column> columns = new ArrayList<>();
         List<SubcolumnValue> values;
-        for (int i = 0; i < parameter.getRRIntervals().size(); i++) {
+        for (int i = 0; i < parameter.getRRIntervals().length; i++) {
 
             values = new ArrayList<>();
-            values.add(new SubcolumnValue(parameter.getRRIntervals().get(i).floatValue(),
+            values.add(new SubcolumnValue((float)parameter.getRRIntervals()[i],
                     ContextCompat.getColor(getContext(), R.color.colorAccent)));
 
             Column column = new Column(values);
