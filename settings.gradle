@@ -1,1 +1,1 @@
-include ':app', ':hrvlib'
+include ':app'

@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/hrv-band.iml" filepath="$PROJECT_DIR$/hrv-band.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hrvlib/hrvlib.iml" filepath="$PROJECT_DIR$/hrvlib/hrvlib.iml" />
     </modules>
   </component>
 </project>

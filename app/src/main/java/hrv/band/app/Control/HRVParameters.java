@@ -10,6 +10,12 @@ import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 import hrv.calc.AllHRVIndiceCalculator;
 
 /**
+ * Class that stores: Calculated HRV-Parameter values, Date of the measurement,
+ * the actual rr-data, user note about the measurement, measurement category.
+ *
+ * TODO: this class has too many responsibilities in terms of the multiple
+ * TODO: data that it stores in addition, the name does not fit entirely to the stored data
+ *
  * Created by Julian on 11.06.2016.
  */
 public class HRVParameters implements Parcelable {
@@ -83,8 +89,7 @@ public class HRVParameters implements Parcelable {
     }
 
     public HRVParameters(Date time, double sdsd, double sd1, double sd2, double lf, double hf, double rmssd,
-                         double sdnn, double baevsky, ArrayList<Double> rrIntervals/*, double rating,
-                         MeasurementCategoryAdapter.MeasureCategory category, String note*/) {
+                         double sdnn, double baevsky, ArrayList<Double> rrIntervals) {
         this.time = time;
         this.sdsd = sdsd;
         this.sd1 = sd1;
@@ -95,9 +100,6 @@ public class HRVParameters implements Parcelable {
         this.sdnn = sdnn;
         this.baevsky = baevsky;
         this.rrIntervals = rrIntervals;
-        /*this.rating = rating;
-        this.category = category;
-        this.note = note;*/
     }
 
     public Date getTime() {
@@ -226,7 +228,8 @@ public class HRVParameters implements Parcelable {
     }
 
     public static HRVParameters from(AllHRVIndiceCalculator calc, Date time, ArrayList<Double> rr) {
-        return new HRVParameters(time, calc.getSdsd(), calc.getSd1(),
-                calc.getSd2(), calc.getLf(), calc.getHf(), calc.getRmssd(), calc.getSdnn(), 0, rr);
+        return new HRVParameters(time, calc.getSdsd().getValue(), calc.getSd1().getValue(),
+                calc.getSd2().getValue(), calc.getLf().getValue(), calc.getHf().getValue(),
+                calc.getRmssd().getValue(), calc.getSdnn().getValue(), calc.getBaevsky().getValue(), rr);
     }
 }
