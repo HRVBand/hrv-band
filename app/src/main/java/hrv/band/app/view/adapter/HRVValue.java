@@ -50,7 +50,7 @@ public enum HRVValue {
      */
     public static double getHRVValue(HRVValue value, HRVParameters parameter) {
         switch(value) {
-            case LFHF: return parameter.getLfhfRatio();
+            case LFHF: return parameter.getLfhfRatio() * 100;//Convert to %
             case SDNN: return parameter.getSdnn();
             case SD1: return parameter.getSd1();
             case SD2: return parameter.getSd2();

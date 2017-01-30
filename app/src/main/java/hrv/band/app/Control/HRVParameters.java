@@ -245,7 +245,7 @@ public class HRVParameters implements Parcelable {
                 calc.getHf().getValue() * 1000,
                 calc.getRmssd().getValue() * 1000, //Convert to ms
                 calc.getSdnn().getValue() * 1000 , //Convert to ms
-                calc.getBaevsky().getValue(),
+                calc.getBaevsky().getValue() * 100, //Convert to %
                 rr);
     }
 }
