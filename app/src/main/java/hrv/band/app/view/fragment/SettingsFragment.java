@@ -48,7 +48,8 @@ public class SettingsFragment extends PreferenceFragment {
                 new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object o) {
-                        boolean integerParseResult = ((String) o).matches("\\\\d+");
+                        String newRecordLength = (String) o;
+                        boolean integerParseResult = newRecordLength.matches("[0-9]+");
 
                         if (!integerParseResult) {
                             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());

@@ -10,6 +10,8 @@ import hrv.band.app.Control.HRVParameters;
  */
 public enum HRVValue {
     LFHF("LFHF", "%"),
+    HF("HF", "s²"),
+    LF("LF", "s²"),
     SDNN("SDNN", "ms"),
     SD1("SD1", "ms"),
     SD2("SD2", "ms"),
@@ -48,12 +50,14 @@ public enum HRVValue {
      */
     public static double getHRVValue(HRVValue value, HRVParameters parameter) {
         switch(value) {
-            case LFHF: return parameter.getLfhfRatio();
+            case LFHF: return parameter.getLfhfRatio() * 100;//Convert to %
             case SDNN: return parameter.getSdnn();
             case SD1: return parameter.getSd1();
             case SD2: return parameter.getSd2();
             case BAEVSKY: return parameter.getBaevsky();
             case RMSSD: return parameter.getRmssd();
+            case LF: return parameter.getLf();
+            case HF: return parameter.getHf();
         }
         return 0;
     }

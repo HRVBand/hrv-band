@@ -165,13 +165,15 @@ public class SQLController implements IStorage {
             if (crr.getCount() == 0)
                 return returnList;
 
-            ArrayList<Double> rrValues = new ArrayList<>();
+            double[] rrValues = new double[crr.getCount()];
+            int rrIndex = 0;
             crr.moveToFirst();
             if (!crr.isAfterLast()) {
                 do {
                     int columnIndex = crr.getColumnIndex(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE);
                     double loadedValue = crr.getDouble(columnIndex);
-                    rrValues.add(loadedValue);
+                    rrValues[rrIndex] = loadedValue;
+                    rrIndex++;
                 } while (crr.moveToNext());
             }
 

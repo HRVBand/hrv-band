@@ -102,7 +102,20 @@
     <string name="connect_to_antplus">Mit ANT+ verbinden</string>
     <string name="disconnect_devices">Gerät trennen</string>
 
-    <!-- Imprint -->
+    <!--HRV Value Desc -->
+    <string name="lf_desc">Integral des Leistungsdichtespektrums zw. 0.02 und 0.15 Hz. Indikator für hauptsächlich sympathische Aktivität.</string>
+    <string name="hf_desc">Integral des Leistungsdichtespektrums zw. 0.15 und 0.4 Hz. Indikator für parasympathische Aktivität.</string>
+    <string name="lfhf_desc">Verhältnis von LF und HF. Oft als Indikator der vegetativen Balance von Parasympathikus und Sympathikus bezeichnet. </string>
+    <string name="rmssd_desc">Quadratische Mittle der RR-Intervalle. Indikator für parasympathische Aktivität.</string>
+    <string name="sdsd_desc">Standardabweichung der differenz aufeinanderfolgender RR-Intervalle</string>
+    <string name="sdnn_desc">Standardabweichung aller RR-Intervalle. (Indikator für Gesamtvariabilität)</string>
+    <string name="sd1_desc">Standardabweichung der orthogonalen Abstände im Poincare Diagramm. </string>
+    <string name="sd2_desc">Standardabweichung der horizontalen Absätnde im Poincare Diagramm.</string>
+    <string name="sd1sd2_desc">Verhältnis ovn SD1 und SD2.</string>
+    <string name="baevsky_desc">Baevsky Stressindex (SI). Indikator für Stress.</string>
+
+
+ <!-- Imprint -->
     <string name="tab_about">Über</string>
     <string name="tab_license">Lizensen</string>
     <string name="tab_disclaimer">Haftung</string>

@@ -8,7 +8,6 @@ import android.widget.TextView;
 import org.junit.BeforeClass;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.app.Control.HRVParameters;
@@ -31,7 +30,7 @@ public class ValueAdapterTest extends AbstractAdapterTest {
 
     @BeforeClass
     public static void setUpData() throws Exception {
-        parameter = new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new ArrayList<Double>());
+        parameter = new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1,1});
     }
 
     @Override

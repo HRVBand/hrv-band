@@ -12,14 +12,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import hrv.band.app.Control.Calculation;
+import hrv.RRData;
 import hrv.band.app.Control.HRVParameters;
-import hrv.band.app.Fourier.FastFourierTransform;
-import hrv.band.app.Interpolation.CubicSplineInterpolation;
 import hrv.band.app.R;
 import hrv.band.app.RRInterval.Interval;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.SQLite.SQLController;
+import hrv.calc.AllHRVIndiceCalculator;
 
 /**
  * Copyright (c) 2017
@@ -125,11 +124,10 @@ public class SampleDataFragment extends DialogFragment {
      */
     private HRVParameters calculate(Interval interval) {
         //start calculation
-        CubicSplineInterpolation inter = new CubicSplineInterpolation();
-        FastFourierTransform fft = new FastFourierTransform(4096);
+        AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
+        calc.calculateAll(RRData.createFromRRInterval(interval.GetRRInterval(), RRData.RRDataUnit.s));
 
-        Calculation calc = new Calculation(fft, inter);
-        HRVParameters results = calc.Calculate(interval);
+        HRVParameters results = HRVParameters.from(calc, interval.GetStartTime(), interval.GetRRInterval());
         results.setTime(interval.GetStartTime());
         return results;
     }

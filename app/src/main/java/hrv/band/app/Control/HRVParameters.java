@@ -3,12 +3,18 @@ package hrv.band.app.Control;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
+import hrv.calc.AllHRVIndiceCalculator;
 
 /**
+ * Class that stores: Calculated HRV-Parameter values, Date of the measurement,
+ * the actual rr-data, user note about the measurement, measurement category.
+ *
+ * TODO: this class has too many responsibilities in terms of the multiple
+ * TODO: data that it stores. In addition, the name does not fit entirely to the stored data
+ *
  * Created by Julian on 11.06.2016.
  */
 public class HRVParameters implements Parcelable {
@@ -22,7 +28,7 @@ public class HRVParameters implements Parcelable {
     private double rmssd;
     private double sdnn;
     private double baevsky;
-    private ArrayList<Double> rrIntervals;
+    private double[] rrIntervals;
     private double rating;
     private MeasurementCategoryAdapter.MeasureCategory category = MeasurementCategoryAdapter.MeasureCategory.GENERAL;
     private String note;
@@ -44,7 +50,8 @@ public class HRVParameters implements Parcelable {
         out.writeDouble(rmssd);
         out.writeDouble(sdnn);
         out.writeDouble(baevsky);
-        out.writeList(rrIntervals);
+        out.writeInt(rrIntervals.length);
+        out.writeDoubleArray(rrIntervals);
         out.writeDouble(rating);
         out.writeSerializable(category);
         out.writeString(note);
@@ -74,16 +81,16 @@ public class HRVParameters implements Parcelable {
         rmssd = in.readDouble();
         sdnn = in.readDouble();
         baevsky = in.readDouble();
-        rrIntervals = new ArrayList<>();
-        in.readList(rrIntervals, Double.class.getClassLoader());
+        int rrIntervalLength= in.readInt();
+        rrIntervals = new double[rrIntervalLength];
+        in.readDoubleArray(rrIntervals);
         rating = in.readDouble();
         category = (MeasurementCategoryAdapter.MeasureCategory) in.readSerializable();
         note = in.readString();
     }
 
     public HRVParameters(Date time, double sdsd, double sd1, double sd2, double lf, double hf, double rmssd,
-                         double sdnn, double baevsky, ArrayList<Double> rrIntervals/*, double rating,
-                         MeasurementCategoryAdapter.MeasureCategory category, String note*/) {
+                         double sdnn, double baevsky, double[] rrIntervals) {
         this.time = time;
         this.sdsd = sdsd;
         this.sd1 = sd1;
@@ -94,9 +101,6 @@ public class HRVParameters implements Parcelable {
         this.sdnn = sdnn;
         this.baevsky = baevsky;
         this.rrIntervals = rrIntervals;
-        /*this.rating = rating;
-        this.category = category;
-        this.note = note;*/
     }
 
     public Date getTime() {
@@ -179,11 +183,11 @@ public class HRVParameters implements Parcelable {
     public void setSdnn(double sdnn) {
         this.sdnn = sdnn;
     }
-    public ArrayList<Double> getRRIntervals() {
+    public double[] getRRIntervals() {
         return rrIntervals;
     }
 
-    public void setRRIntervals(ArrayList<Double> rrIntervals) {
+    public void setRRIntervals(double[] rrIntervals) {
         this.rrIntervals = rrIntervals;
     }
 
@@ -221,6 +225,27 @@ public class HRVParameters implements Parcelable {
         HRVParameters param = (HRVParameters)other;
 
         return param.getTime().equals(this.getTime());
+    }
 
+    /**
+     * Creates a new HRVParameter-Object from a ALLHRVIndiceCalculator object
+     * At the time the data unit can not be changed according to the incoming data
+     * thats why the data has to be converted to the units given in the HRVValue class
+     * @param calc AllHRVIndiceCalculator object
+     * @param time Time when the measurement began
+     * @param rr Original RR-Data
+     * @return New HRVParameters object
+     */
+    public static HRVParameters from(AllHRVIndiceCalculator calc, Date time, double[] rr) {
+        return new HRVParameters(time,
+                calc.getSdsd().getValue(),
+                calc.getSd1().getValue() * 1000, //Convert to ms
+                calc.getSd2().getValue() * 1000, //Convert to ms
+                calc.getLf().getValue() * 1000,
+                calc.getHf().getValue() * 1000,
+                calc.getRmssd().getValue() * 1000, //Convert to ms
+                calc.getSdnn().getValue() * 1000 , //Convert to ms
+                calc.getBaevsky().getValue() * 100, //Convert to %
+                rr);
     }
 }
