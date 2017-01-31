@@ -30,7 +30,7 @@ public class FeedbackCategoryAdapter extends AbstractCategoryAdapter {
     }
 
     @Override
-    protected List<Category> getCategories() {
+    public List<Category> getCategories() {
         List<Category> categories = new ArrayList<>();
         for (FeedbackCategory category : FeedbackCategory.values()) {
             categories.add(new Category(category.text, category.icon));

@@ -23,6 +23,10 @@ import hrv.band.app.storage.SQLite.SQLController;
  */
 public class ImportFragment extends DialogFragment {
 
+    /**
+     * Returns a new instance of this fragment.
+     * @return a new instance of this fragment.
+     */
     public static ImportFragment newInstance() {
         return new ImportFragment();
     }

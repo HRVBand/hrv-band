@@ -21,15 +21,15 @@ import hrv.band.app.view.adapter.ValueAdapter;
  *
  * Fragment showing the hrv values from a measurement.
  */
-public class MeasureValueFragment extends Fragment {
+public class MeasuredValueFragment extends Fragment {
 
     /**
      * Returns a new instance of this fragment.
      * @param parameter the hrv parameter to get rr intervals from.
      * @return a new instance of this fragment.
      */
-    public static MeasureValueFragment newInstance(HRVParameters parameter) {
-        MeasureValueFragment fragment = new MeasureValueFragment();
+    public static MeasuredValueFragment newInstance(HRVParameters parameter) {
+        MeasuredValueFragment fragment = new MeasuredValueFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.HRV_VALUE, parameter);
         fragment.setArguments(args);

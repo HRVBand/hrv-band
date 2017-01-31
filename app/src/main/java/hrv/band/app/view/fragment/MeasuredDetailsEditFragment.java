@@ -19,7 +19,7 @@ import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
  *
  * Fragment allowing the user to set the details of a measurement.
  */
-public class MeasureDetailsEditFragment extends Fragment {
+public class MeasuredDetailsEditFragment extends Fragment {
 
     /** rootView of this Fragment. **/
     private View rootView;
@@ -28,8 +28,8 @@ public class MeasureDetailsEditFragment extends Fragment {
      * Returns a new instance of this fragment.
      * @return a new instance of this fragment.
      */
-    public static MeasureDetailsEditFragment newInstance() {
-        return new MeasureDetailsEditFragment();
+    public static MeasuredDetailsEditFragment newInstance() {
+        return new MeasuredDetailsEditFragment();
     }
 
     @Override

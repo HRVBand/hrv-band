@@ -22,15 +22,15 @@ import hrv.band.app.view.MainActivity;
  *
  * Fragment showing the details of a measurement.
  */
-public class MeasureDetailsFragment extends Fragment {
+public class MeasuredDetailsFragment extends Fragment {
 
     /**
      * Returns a new instance of this fragment.
      * @param parameter the hrv parameter to get details from.
      * @return a new instance of this fragment.
      */
-    public static MeasureDetailsFragment newInstance(HRVParameters parameter) {
-        MeasureDetailsFragment fragment = new MeasureDetailsFragment();
+    public static MeasuredDetailsFragment newInstance(HRVParameters parameter) {
+        MeasuredDetailsFragment fragment = new MeasuredDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.HRV_VALUE, parameter);
         fragment.setArguments(args);

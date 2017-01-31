@@ -9,7 +9,8 @@ import java.util.List;
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.SQLite.SQLController;
-import hrv.band.app.view.fragment.MeasureDetailsEditFragment;
+import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
+import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
 
 /**
  * Copyright (c) 2017
@@ -37,7 +38,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
 
     @Override
     protected void addDetailsFragment(List<Fragment> fragments) {
-        fragments.add(MeasureDetailsEditFragment.newInstance());
+        fragments.add(MeasuredDetailsEditFragment.newInstance());
     }
 
     /**
@@ -56,16 +57,18 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
      * Sets the details of the actual measured and calculated HRV parameter.
      */
     private void setMeasurementDetails() {
-        MeasureDetailsEditFragment fragment = null;
+        MeasuredDetailsEditFragment fragment = null;
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        for (int i = 0; i < fragments.size(); i++) {
-            if (fragments.get(i) instanceof MeasureDetailsEditFragment) {
-                fragment = (MeasureDetailsEditFragment) fragments.get(i);
-                break;
+        if (fragments != null) {
+            for (int i = 0; i < fragments.size(); i++) {
+                if (fragments.get(i) instanceof MeasuredDetailsEditFragment) {
+                    fragment = (MeasuredDetailsEditFragment) fragments.get(i);
+                    break;
+                }
             }
         }
         getParameter().setRating(fragment != null ? fragment.getRating() : 0);
-        getParameter().setCategory(fragment != null ? fragment.getCategory() : null);
-        getParameter().setNote(fragment != null ? fragment.getNote() : null);
+        getParameter().setCategory(fragment != null ? fragment.getCategory() : MeasurementCategoryAdapter.MeasureCategory.GENERAL);
+        getParameter().setNote(fragment != null ? fragment.getNote() : "");
     }
 }

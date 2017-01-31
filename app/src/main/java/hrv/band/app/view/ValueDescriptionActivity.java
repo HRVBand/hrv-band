@@ -28,7 +28,7 @@ public class ValueDescriptionActivity extends AppCompatActivity {
 
         //int position = getIntent().getIntExtra(MainActivity.HRV_VALUE_ID, 0);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_more);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

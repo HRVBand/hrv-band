@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.menu_privacy) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WEBSITE_PRIVACY_URL)));
         } else if (id == R.id.menu_feedback) {
-            new FeedbackDialogFragment().show(getFragmentManager(), "Feedback");
+            new FeedbackDialogFragment().show(getSupportFragmentManager(), "Feedback");
         } else if (id == R.id.menu_imprint) {
             startActivity(new Intent(this, ImprintActivity.class));
         } else if (id == R.id.menu_rate) {

@@ -74,6 +74,18 @@ public class StatisticActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        storage = null;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        storage = null;
+    }
+
     /**
      * Creates a fragment for each HRV value.
      */

@@ -8,7 +8,7 @@ import java.util.List;
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.SQLite.SQLController;
-import hrv.band.app.view.fragment.MeasureDetailsFragment;
+import hrv.band.app.view.fragment.MeasuredDetailsFragment;
 
 import static hrv.band.app.view.StatisticActivity.RESULT_DELETED;
 
@@ -37,7 +37,7 @@ public class HRVValueActivity extends AbstractHRVActivity {
 
     @Override
     protected void addDetailsFragment(List<Fragment> fragments) {
-        fragments.add(MeasureDetailsFragment.newInstance(getParameter()));
+        fragments.add(MeasuredDetailsFragment.newInstance(getParameter()));
     }
 
     /**

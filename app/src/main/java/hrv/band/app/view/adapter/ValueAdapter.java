@@ -11,13 +11,13 @@ import java.text.DecimalFormat;
 
 import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.view.fragment.MeasureValueFragment;
+import hrv.band.app.view.fragment.MeasuredValueFragment;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
  *
- * This adapter holds the hrv parameters to show in the {@link MeasureValueFragment}.
+ * This adapter holds the hrv parameters to show in the {@link MeasuredValueFragment}.
  */
 public class ValueAdapter extends BaseAdapter {
 

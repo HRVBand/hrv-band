@@ -14,8 +14,8 @@ import java.util.List;
 import hrv.band.app.Control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
-import hrv.band.app.view.fragment.MeasureRRFragment;
-import hrv.band.app.view.fragment.MeasureValueFragment;
+import hrv.band.app.view.fragment.MeasuredRRFragment;
+import hrv.band.app.view.fragment.MeasuredValueFragment;
 
 /**
  * Copyright (c) 2017
@@ -85,8 +85,8 @@ public abstract class AbstractHRVActivity extends AppCompatActivity {
      * Adds Fragments to this Activity.
      */
     private void createFragments() {
-        fragments.add(MeasureValueFragment.newInstance(parameter));
-        fragments.add(MeasureRRFragment.newInstance(parameter));
+        fragments.add(MeasuredValueFragment.newInstance(parameter));
+        fragments.add(MeasuredRRFragment.newInstance(parameter));
         addDetailsFragment(fragments);
     }
 

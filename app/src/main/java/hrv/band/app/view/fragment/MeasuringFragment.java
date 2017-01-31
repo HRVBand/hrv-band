@@ -113,9 +113,15 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         MeasurementClickListener clickListener = new MeasurementClickListener(this);
 
         progressBar.setOnClickListener(clickListener);
-        connectToBandFAB.setOnClickListener(clickListener);
-        connectToAntPlusFAB.setOnClickListener(clickListener);
-        disconnectDevices.setOnClickListener(clickListener);
+        if (connectToBandFAB != null) {
+            connectToBandFAB.setOnClickListener(clickListener);
+        }
+        if (connectToAntPlusFAB != null) {
+            connectToAntPlusFAB.setOnClickListener(clickListener);
+        }
+        if (disconnectDevices != null) {
+            disconnectDevices.setOnClickListener(clickListener);
+        }
 
         setProgressBarSize();
 

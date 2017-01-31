@@ -2,11 +2,11 @@ package hrv.band.app.view.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,6 +23,14 @@ import hrv.band.app.view.adapter.FeedbackCategoryAdapter;
 public class FeedbackDialogFragment extends DialogFragment {
     private static final String FEEDBACK_EMAIL = "hrvband+feedback@gmail.com";
     private View view;
+
+    /**
+     * Returns a new instance of this fragment.
+     * @return a new instance of this fragment.
+     */
+    public static FeedbackDialogFragment newInstance() {
+        return new FeedbackDialogFragment();
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

@@ -27,7 +27,7 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  *
  * Fragment showing the rr intervals of a measurement.
  */
-public class MeasureRRFragment extends Fragment {
+public class MeasuredRRFragment extends Fragment {
 
     /** The chart showing rr intervals **/
     private ColumnChartView mChart;
@@ -41,8 +41,8 @@ public class MeasureRRFragment extends Fragment {
      * @param parameter the hrv parameter to get rr intervals from.
      * @return a new instance of this fragment.
      */
-    public static MeasureRRFragment newInstance(HRVParameters parameter) {
-        MeasureRRFragment fragment = new MeasureRRFragment();
+    public static MeasuredRRFragment newInstance(HRVParameters parameter) {
+        MeasuredRRFragment fragment = new MeasuredRRFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.HRV_VALUE, parameter);
         fragment.setArguments(args);

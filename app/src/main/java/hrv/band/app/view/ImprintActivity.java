@@ -78,7 +78,7 @@ public class ImprintActivity extends AppCompatActivity {
      */
     public void sendFeedback(View view) {
         FeedbackDialogFragment picker = new FeedbackDialogFragment();
-        picker.show(getFragmentManager(), "Feedback");
+        picker.show(getSupportFragmentManager(), "Feedback");
     }
 
     /**
