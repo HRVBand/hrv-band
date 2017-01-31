@@ -38,8 +38,8 @@ public abstract class AbstractStatisticAdapterTest extends AbstractAdapterTest {
     @BeforeClass
     public static void setUpData() throws Exception {
         parameters = new ArrayList<>();
-        parameters.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new ArrayList<Double>()));
-        parameters.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new ArrayList<Double>()));
+        parameters.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1}));
+        parameters.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1}));
     }
 
 
