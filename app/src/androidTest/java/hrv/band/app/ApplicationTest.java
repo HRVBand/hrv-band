@@ -35,7 +35,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testInserts()
     {
         ArrayList<HRVParameters> listOfParams = new ArrayList<>();
-        listOfParams.add(new HRVParameters(new Date(1000), 0,0,0,0,0,0,0,0, new ArrayList<Double>()));
+        listOfParams.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1}));
 
         controller.saveData(context, listOfParams.get(0));
         controller.saveData(context, listOfParams);
@@ -47,7 +47,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testDeleteAll() {
         ArrayList<HRVParameters> listOfParams = new ArrayList<>();
-        listOfParams.add(new HRVParameters(new Date(1000), 0,0,0,0,0,0,0,0, new ArrayList<Double>()));
+        listOfParams.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1}));
 
         controller.saveData(context, listOfParams.get(0));
         controller.deleteAllData(context);
@@ -57,7 +57,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testImportExport() {
         ArrayList<HRVParameters> listOfParams = new ArrayList<>();
-        listOfParams.add(new HRVParameters(new Date(1000), 0,0,0,0,0,0,0,0, new ArrayList<Double>()));
+        listOfParams.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1}));
 
         controller.saveData(context, listOfParams.get(0));
         String saveDir = context.getFilesDir() + "/test_test.sql";
