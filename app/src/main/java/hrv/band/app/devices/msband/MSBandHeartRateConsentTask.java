@@ -1,4 +1,4 @@
-package hrv.band.app.RRInterval.msband;
+package hrv.band.app.devices.msband;
 /**
  * Created by Thomas on 13.06.2016.
  */
@@ -12,7 +12,7 @@ import com.microsoft.band.sensors.HeartRateConsentListener;
 import java.lang.ref.WeakReference;
 
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.HRVDeviceStatus;
+import hrv.band.app.devices.HRVDeviceStatus;
 //import hrv.band.app.view.UiHandlingUtil;
 
 /**

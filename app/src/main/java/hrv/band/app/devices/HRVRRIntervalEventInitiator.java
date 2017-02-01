@@ -1,4 +1,4 @@
-package hrv.band.app.RRInterval;
+package hrv.band.app.devices;
 
 /**
  * Created by Julian on 02.01.2017.

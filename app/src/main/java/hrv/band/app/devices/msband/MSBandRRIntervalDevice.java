@@ -1,4 +1,4 @@
-package hrv.band.app.RRInterval.msband;
+package hrv.band.app.devices.msband;
 
 import android.app.Activity;
 
@@ -15,8 +15,8 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.HRVDeviceStatus;
-import hrv.band.app.RRInterval.HRVRRIntervalDevice;
+import hrv.band.app.devices.HRVDeviceStatus;
+import hrv.band.app.devices.HRVRRIntervalDevice;
 
 /**
  * Created by Thomas on 13.06.2016.

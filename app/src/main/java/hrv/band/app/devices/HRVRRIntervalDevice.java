@@ -1,4 +1,4 @@
-package hrv.band.app.RRInterval;
+package hrv.band.app.devices;
 
 import java.util.ArrayList;
 import java.util.List;

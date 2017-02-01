@@ -1,4 +1,4 @@
-package hrv.band.app.RRInterval.antplus;
+package hrv.band.app.devices.antplus;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 import java.util.EnumSet;
 import java.util.List;
 
-import hrv.band.app.RRInterval.HRVDeviceStatus;
-import hrv.band.app.RRInterval.HRVRRIntervalDevice;
+import hrv.band.app.devices.HRVDeviceStatus;
+import hrv.band.app.devices.HRVRRIntervalDevice;
 
 /**
  * Created by Julian on 29.12.2016.
