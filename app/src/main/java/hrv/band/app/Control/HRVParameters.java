@@ -34,41 +34,6 @@ public class HRVParameters implements Parcelable {
     private MeasurementCategoryAdapter.MeasureCategory category = MeasurementCategoryAdapter.MeasureCategory.GENERAL;
     private String note;
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    // write your object's data to the passed-in Parcel
-    @Override
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeValue(time);
-        out.writeDouble(sdsd);
-        out.writeDouble(sd1);
-        out.writeDouble(sd2);
-        out.writeDouble(lf);
-        out.writeDouble(hf);
-        out.writeDouble(rmssd);
-        out.writeDouble(sdnn);
-        out.writeDouble(baevsky);
-        out.writeInt(rrIntervals.length);
-        out.writeDoubleArray(rrIntervals);
-        out.writeDouble(rating);
-        out.writeSerializable(category);
-        out.writeString(note);
-    }
-
-    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
-    public static final Parcelable.Creator<HRVParameters> CREATOR = new Parcelable.Creator<HRVParameters>() {
-        public HRVParameters createFromParcel(Parcel in) {
-            return new HRVParameters(in);
-        }
-
-        public HRVParameters[] newArray(int size) {
-            return new HRVParameters[size];
-        }
-    };
-
     public HRVParameters() {}
 
     // example constructor that takes a Parcel and gives you an object populated with it's values
@@ -103,6 +68,42 @@ public class HRVParameters implements Parcelable {
         this.baevsky = baevsky;
         this.rrIntervals = rrIntervals;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // write your object's data to the passed-in Parcel
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeValue(time);
+        out.writeDouble(sdsd);
+        out.writeDouble(sd1);
+        out.writeDouble(sd2);
+        out.writeDouble(lf);
+        out.writeDouble(hf);
+        out.writeDouble(rmssd);
+        out.writeDouble(sdnn);
+        out.writeDouble(baevsky);
+        out.writeInt(rrIntervals.length);
+        out.writeDoubleArray(rrIntervals);
+        out.writeDouble(rating);
+        out.writeSerializable(category);
+        out.writeString(note);
+    }
+
+    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+    public static final Parcelable.Creator<HRVParameters> CREATOR = new Parcelable.Creator<HRVParameters>() {
+        @Override
+        public HRVParameters createFromParcel(Parcel in) {
+            return new HRVParameters(in);
+        }
+        @Override
+        public HRVParameters[] newArray(int size) {
+            return new HRVParameters[size];
+        }
+    };
 
     public Date getTime() {
         return time;
@@ -219,9 +220,15 @@ public class HRVParameters implements Parcelable {
     @Override
     public boolean equals(Object other)
     {
-        if(other == null) return false;
-        if(other == this) return true;
-        if(!(other instanceof HRVParameters)) return false;
+        if(other == null) {
+            return false;
+        }
+        if(other == this) {
+            return true;
+        }
+        if(!(other instanceof HRVParameters)) {
+            return false;
+        }
 
         HRVParameters param = (HRVParameters)other;
 
