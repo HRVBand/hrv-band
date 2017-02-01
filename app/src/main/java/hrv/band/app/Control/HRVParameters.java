@@ -254,6 +254,4 @@ public class HRVParameters implements Parcelable {
                 calc.getBaevsky().getValue() * 100, //Convert to %
                 rr);
     }
-
-
 }

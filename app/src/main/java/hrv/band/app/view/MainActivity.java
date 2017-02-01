@@ -108,12 +108,12 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
 
         //Close the app, if disclaimer has not yet been accepted
-        int backstackCount = getFragmentManager().getBackStackEntryCount();
-        if(backstackCount != 0) {
+        int backStackCount = getFragmentManager().getBackStackEntryCount();
+        if(backStackCount != 0) {
 
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             if(!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
-                System.exit(0);
+                finish();
             }
         }
 
