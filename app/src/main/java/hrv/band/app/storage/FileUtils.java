@@ -12,6 +12,11 @@ import java.nio.channels.FileChannel;
 public class FileUtils {
 
     /**
+     * Private constructor to prevent object creation.
+     */
+    private FileUtils() {}
+
+    /**
      * Creates the specified <code>toFile</code> as a byte for byte copy of the
      * <code>fromFile</code>. If <code>toFile</code> already exists, then it
      * will be replaced with a copy of <code>fromFile</code>. The name and path

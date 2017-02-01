@@ -31,12 +31,12 @@ public class SQLiteStorageController extends SQLiteOpenHelper {
             + ")";
 
     private static final String SQL_CREATE_RRINTERVALTABLE = "CREATE TABLE "
-            + RRIntervalContract.RRIntercalEntry.TABLE_NAME
-            + "(" + RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " INTEGER, "
-            + RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE + " REAL)";
+            + RRIntervalContract.RRIntervalEntry.TABLE_NAME
+            + "(" + RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID + " INTEGER, "
+            + RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE + " REAL)";
 
     private static final String SQL_DELETE_RRINTERVALS =
-            "DROP TABLE IF EXISTS " + RRIntervalContract.RRIntercalEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + RRIntervalContract.RRIntervalEntry.TABLE_NAME;
 
     private static final String SQL_DELETE_HRVPAARAMETERS =
             "DROP TABLE IF EXISTS " + HRVParameterContract.HRVParameterEntry.TABLE_NAME;
@@ -55,6 +55,7 @@ public class SQLiteStorageController extends SQLiteOpenHelper {
         return INSTANCE;
     }
 
+    @Override
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(SQL_CREATE_HRVTABLE);

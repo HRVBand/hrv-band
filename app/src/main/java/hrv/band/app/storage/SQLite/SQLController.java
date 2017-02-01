@@ -66,11 +66,11 @@ public class SQLController implements IStorage {
 
         for (Double rrVal : parameter.getRRIntervals()) {
             ContentValues valuesRR = new ContentValues();
-            valuesRR.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID, firstId);
-            valuesRR.put(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE, rrVal);
+            valuesRR.put(RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID, firstId);
+            valuesRR.put(RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE, rrVal);
 
-            db2.insert(RRIntervalContract.RRIntercalEntry.TABLE_NAME,
-                    RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE,
+            db2.insert(RRIntervalContract.RRIntervalEntry.TABLE_NAME,
+                    RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE,
                     valuesRR);
         }
         db2.setTransactionSuccessful();
@@ -152,9 +152,9 @@ public class SQLController implements IStorage {
             returnList.add(newParam);
             //Laden der rr daten
             Cursor crr = db.query(
-                    RRIntervalContract.RRIntercalEntry.TABLE_NAME,
+                    RRIntervalContract.RRIntervalEntry.TABLE_NAME,
                     null,  //All Columns
-                    RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_ID + " = ?",
+                    RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID + " = ?",
                     new String[]{Integer.toString(rrid)},
                     null,
                     null,
@@ -170,7 +170,7 @@ public class SQLController implements IStorage {
             crr.moveToFirst();
             if (!crr.isAfterLast()) {
                 do {
-                    int columnIndex = crr.getColumnIndex(RRIntervalContract.RRIntercalEntry.COLUMN_NAME_ENTRY_VALUE);
+                    int columnIndex = crr.getColumnIndex(RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE);
                     double loadedValue = crr.getDouble(columnIndex);
                     rrValues[rrIndex] = loadedValue;
                     rrIndex++;

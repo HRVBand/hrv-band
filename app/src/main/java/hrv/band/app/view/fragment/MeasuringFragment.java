@@ -308,13 +308,11 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 break;
             case DISCONNECTED:
                 updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_band_not_paired));
-               // UiHandlingUtil.showSnackbar(view, getString(R.string.error_device_not_connected_help));
         }
     }
 
     @Override
     public void newRRInterval(HRVRRIntervalEvent event) {
-        //UiHandlingUtil.updateTextView(getActivity(), rrStatus, new DecimalFormat("#,##").format(event.getRr()));
         updateTextView(getActivity(), rrStatus, String.format("%.2f", event.getRr()));
     }
 

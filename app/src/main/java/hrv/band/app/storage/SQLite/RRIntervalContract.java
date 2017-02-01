@@ -7,12 +7,15 @@ import android.provider.BaseColumns;
  */
 class RRIntervalContract {
 
-    RRIntervalContract() {}
+    /**
+     * Private constructor to prevent object creation
+     */
+    private RRIntervalContract() {}
 
-    public static abstract class RRIntercalEntry implements BaseColumns
+    public static abstract class RRIntervalEntry implements BaseColumns
     {
-        public static final String TABLE_NAME = "RRIinterval";
-        public static final String COLUMN_NAME_ENTRY_ID = "id";
-        public static final String COLUMN_NAME_ENTRY_VALUE = "rrvalue";
+        public final static String TABLE_NAME = "RRIinterval";
+        public final static String COLUMN_NAME_ENTRY_ID = "id";
+        public final static String COLUMN_NAME_ENTRY_VALUE = "rrvalue";
     }
 }
