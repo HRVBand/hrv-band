@@ -25,6 +25,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
     private BandClient client;
     private final Activity activity;
     private final WeakReference<Activity> reference;
+
     /**
      *Handels when a new RRInterval is incoming
      */
@@ -56,9 +57,6 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
             if (client != null) {
                 client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
             }
-            /*if (animation != null) {
-                animation.cancel();
-            }*/
         } catch (BandIOException e) {
             e.printStackTrace();
         }
@@ -119,6 +117,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
         return mRRIntervalEventListener;
     }
 
+    @Override
     public List<Double> getRRIntervals() {
         return rrMeasurements;
     }

@@ -10,14 +10,14 @@ public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator
 
     protected final List<Double> rrMeasurements = new ArrayList<>();
 
+    private final List<HRVRRIntervalListener> listeners = new ArrayList<>();
+    private final List<HRVRRDeviceListener> deviceListeners = new ArrayList<>();
+
     public abstract void connect();
     public abstract void tryStartRRIntervalMeasuring();
     public abstract void stopMeasuring();
     public abstract void destroy();
     public abstract void pauseMeasuring();
-
-    private final List<HRVRRIntervalListener> listeners = new ArrayList<>();
-    private final List<HRVRRDeviceListener> deviceListeners = new ArrayList<>();
 
     public List<Double> getRRIntervals() {
         return rrMeasurements;

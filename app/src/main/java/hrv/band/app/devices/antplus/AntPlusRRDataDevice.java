@@ -52,11 +52,7 @@ public class AntPlusRRDataDevice
                 notifyDeviceStatusChanged(HRVDeviceStatus.CONNECTED);
                 break;
             case USER_CANCELLED:
-                notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED);
-                break;
             case SEARCH_TIMEOUT:
-                notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED);
-                break;
             case OTHER_FAILURE:
                 notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED);
                 break;

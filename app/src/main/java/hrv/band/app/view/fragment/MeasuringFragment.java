@@ -191,10 +191,10 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private HRVParameters calculate(Interval interval) {
         //start calculation
         AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
-        calc.calculateAll(RRData.createFromRRInterval(interval.GetRRInterval(), RRData.RRDataUnit.s));
+        calc.calculateAll(RRData.createFromRRInterval(interval.getRRInterval(), RRData.RRDataUnit.s));
 
-        HRVParameters results = HRVParameters.from(calc, interval.GetStartTime(), interval.GetRRInterval());
-        results.setTime(interval.GetStartTime());
+        HRVParameters results = HRVParameters.from(calc, interval.getStartTime(), interval.getRRInterval());
+        results.setTime(interval.getStartTime());
         return results;
     }
 
@@ -221,7 +221,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 hrvRRIntervalDevice.stopMeasuring();
 
                 Interval interval = new Interval(new Date());
-                interval.SetRRInterval(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
+                interval.setRRInterval(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
 
                 Intent intent = new Intent(getContext(), HRVMeasurementActivity.class);
                 intent.putExtra(HRV_PARAMETER_ID, calculate(interval));

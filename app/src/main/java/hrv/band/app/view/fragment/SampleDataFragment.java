@@ -125,10 +125,10 @@ public class SampleDataFragment extends DialogFragment {
     private HRVParameters calculate(Interval interval) {
         //start calculation
         AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
-        calc.calculateAll(RRData.createFromRRInterval(interval.GetRRInterval(), RRData.RRDataUnit.s));
+        calc.calculateAll(RRData.createFromRRInterval(interval.getRRInterval(), RRData.RRDataUnit.s));
 
-        HRVParameters results = HRVParameters.from(calc, interval.GetStartTime(), interval.GetRRInterval());
-        results.setTime(interval.GetStartTime());
+        HRVParameters results = HRVParameters.from(calc, interval.getStartTime(), interval.getRRInterval());
+        results.setTime(interval.getStartTime());
         return results;
     }
 

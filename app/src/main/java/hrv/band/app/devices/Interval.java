@@ -20,12 +20,12 @@ public class Interval {
         this.startTime = startTime;
     }
 
-    public double[] GetRRInterval()
+    public double[] getRRInterval()
     {
         return rrInterval;
     }
 
-    public void SetRRInterval(Double[] rrInterval)
+    public void setRRInterval(Double[] rrInterval)
     {
         this.rrInterval = new double[rrInterval.length];
         for (int i= 0; i < rrInterval.length;i++ ) {
@@ -33,7 +33,7 @@ public class Interval {
         }
     }
 
-    public Date GetStartTime()
+    public Date getStartTime()
     {
         return startTime;
     }

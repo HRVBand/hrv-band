@@ -13,7 +13,6 @@ import java.lang.ref.WeakReference;
 
 import hrv.band.app.R;
 import hrv.band.app.devices.HRVDeviceStatus;
-//import hrv.band.app.view.UiHandlingUtil;
 
 /**
  * Class that gets user-permission for measuring the heartrate (and rrIntervals)
@@ -27,6 +26,7 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
         this.activityWeakReference = activityWeakReference;
         this.msBandRRIntervalDevice = msBandRRIntervalDevice;
     }
+
     //register eventhandler, so we can recieve wether the user has accepted the measurement
     @Override
     protected Void doInBackground(Void... params) {
@@ -45,7 +45,6 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
             } else {
                 String msg = activityWeakReference.get().getResources().getString(R.string.error_device_not_connected_help);
                 msBandRRIntervalDevice.notifyDeviceError(msg);
-                //UiHandlingUtil.showSnackbar(msg);
             }
         } catch (BandException e) {
             String exceptionMessage;
@@ -61,11 +60,9 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     break;
             }
             msBandRRIntervalDevice.notifyDeviceError(exceptionMessage);
-            //UiHandlingUtil.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
             msBandRRIntervalDevice.notifyDeviceError(e.getMessage());
-           // UiHandlingUtil.showSnackbar(e.getMessage());
         }
         return null;
     }
