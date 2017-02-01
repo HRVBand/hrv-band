@@ -107,7 +107,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
             return true;
         }
 
-        notifyDeviceStatusChanged(HRVDeviceStatus.Connecting);
+        notifyDeviceStatusChanged(HRVDeviceStatus.CONNECTING);
         return ConnectionState.CONNECTED == client.connect().await();
     }
 

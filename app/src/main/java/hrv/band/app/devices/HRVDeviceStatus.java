@@ -5,7 +5,7 @@ package hrv.band.app.devices;
  */
 
 public enum HRVDeviceStatus {
-    Connected,
-    Disconnected,
-    Connecting,
+    CONNECTED,
+    DISCONNECTED,
+    CONNECTING,
 }

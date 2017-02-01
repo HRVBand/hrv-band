@@ -300,13 +300,13 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     @Override
     public void deviceStatusChanged(HRVDeviceStatus status) {
         switch (status) {
-            case Connecting:
+            case CONNECTING:
                 updateTextView(getActivity(), txtStatus, getResources().getString(R.string.msg_connecting));
                 break;
-            case Connected:
+            case CONNECTED:
                 updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
                 break;
-            case Disconnected:
+            case DISCONNECTED:
                 updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_band_not_paired));
                // UiHandlingUtil.showSnackbar(view, getString(R.string.error_device_not_connected_help));
         }
@@ -432,7 +432,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         private void disconnectDevices() {
             setDevice(DeviceID.NONE);
             if (hrvRRIntervalDevice != null) {
-                hrvRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.Disconnected);
+                hrvRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED);
                 hrvRRIntervalDevice = null;
             }
             menuDown.toggle(true);
