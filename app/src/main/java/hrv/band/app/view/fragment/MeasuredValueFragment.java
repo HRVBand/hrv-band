@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
 import hrv.band.app.view.ValueDescriptionActivity;

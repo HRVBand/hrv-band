@@ -13,7 +13,7 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.view.fragment.MeasuredDetailsFragment;
 
 import static junit.framework.Assert.assertNotNull;

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.fragment.MeasuredValueFragment;
 

@@ -1,4 +1,4 @@
-package hrv.band.app.Control;
+package hrv.band.app.control;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -3,7 +3,6 @@ package hrv.band.app.view.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -21,7 +20,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.HRVValueActivity;
 import hrv.band.app.view.MainActivity;

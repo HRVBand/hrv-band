@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.fragment.StatisticFragment;
 

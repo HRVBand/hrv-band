@@ -1,6 +1,6 @@
 package hrv.band.app.view.adapter;
 
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 
 /**
  * Copyright (c) 2017

@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.MeasuredRRFragment;

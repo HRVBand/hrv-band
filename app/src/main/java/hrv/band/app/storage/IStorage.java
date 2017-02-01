@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.Date;
 import java.util.List;
 
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 
 /**
  * Created by Thomas on 18.06.2016.

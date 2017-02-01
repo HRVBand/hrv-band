@@ -22,16 +22,16 @@ import android.widget.Toast;
 import java.util.Date;
 
 import hrv.RRData;
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.HRVDeviceStatus;
-import hrv.band.app.RRInterval.HRVRRDeviceListener;
-import hrv.band.app.RRInterval.HRVRRIntervalDevice;
-import hrv.band.app.RRInterval.HRVRRIntervalEvent;
-import hrv.band.app.RRInterval.HRVRRIntervalListener;
-import hrv.band.app.RRInterval.Interval;
-import hrv.band.app.RRInterval.antplus.AntPlusRRDataDevice;
-import hrv.band.app.RRInterval.msband.MSBandRRIntervalDevice;
+import hrv.band.app.devices.HRVDeviceStatus;
+import hrv.band.app.devices.HRVRRDeviceListener;
+import hrv.band.app.devices.HRVRRIntervalDevice;
+import hrv.band.app.devices.HRVRRIntervalEvent;
+import hrv.band.app.devices.HRVRRIntervalListener;
+import hrv.band.app.devices.Interval;
+import hrv.band.app.devices.antplus.AntPlusRRDataDevice;
+import hrv.band.app.devices.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.HRVMeasurementActivity;
 import hrv.calc.AllHRVIndiceCalculator;
 

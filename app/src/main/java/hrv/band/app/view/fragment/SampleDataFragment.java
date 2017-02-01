@@ -13,9 +13,9 @@ import java.util.Date;
 import java.util.Random;
 
 import hrv.RRData;
-import hrv.band.app.Control.HRVParameters;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.RRInterval.Interval;
+import hrv.band.app.devices.Interval;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.SQLite.SQLController;
 import hrv.calc.AllHRVIndiceCalculator;
