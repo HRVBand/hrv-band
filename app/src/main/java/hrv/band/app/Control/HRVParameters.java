@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.Objects;
 
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 import hrv.calc.AllHRVIndiceCalculator;
@@ -227,6 +228,11 @@ public class HRVParameters implements Parcelable {
         return param.getTime().equals(this.getTime());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getTime());
+    }
+
     /**
      * Creates a new HRVParameter-Object from a ALLHRVIndiceCalculator object
      * At the time the data unit can not be changed according to the incoming data
@@ -248,4 +254,6 @@ public class HRVParameters implements Parcelable {
                 calc.getBaevsky().getValue() * 100, //Convert to %
                 rr);
     }
+
+
 }
