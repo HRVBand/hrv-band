@@ -69,13 +69,13 @@
         </LinearLayout>
       </LinearLayout>
 
-    <TextView
-      android:id="@+id/measure_status"
-      android:layout_width="200dp"
-      android:layout_height="wrap_content"
-      android:text="@string/title_activity_start_measuring"
-      android:textSize="18sp"
-      android:textAlignment="center"/>
+      <TextView
+        android:id="@+id/measure_status"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/title_activity_start_measuring"
+        android:textSize="18sp"
+        android:textAlignment="center"/>
     </LinearLayout>
   </RelativeLayout>
 </LinearLayout>

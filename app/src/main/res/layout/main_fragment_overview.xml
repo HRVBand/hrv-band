@@ -11,9 +11,9 @@
   android:paddingTop="@dimen/activity_vertical_margin"
   app:layout_behavior="@string/appbar_scrolling_view_behavior"
   tools:context="hrv.band.app.view.MainActivity">
-   <ListView
-     android:id="@+id/overview_value_list"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:layout_marginBottom="?attr/actionBarSize"/>
+  <ListView
+    android:id="@+id/overview_value_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="?attr/actionBarSize"/>
 </LinearLayout>

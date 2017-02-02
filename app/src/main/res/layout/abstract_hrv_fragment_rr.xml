@@ -12,102 +12,94 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="3"/>
-
-  <!--<ListView
-    android:id="@+id/rr_value_list"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="2"/>-->
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_weight="1">
-
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
-    <TextView
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:textColor="@color/colorAccent"
-    android:layout_weight="1"
-    android:textSize="18sp"
-    android:text="@string/measure_fragment_min"/>
-    <TextView
-    android:id="@+id/rr_min"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"/>
-    <TextView
-      android:layout_width="wrap_content"
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textSize="18sp"
-      android:text="@string/measure_fragment_time_unit"/>
-  </LinearLayout>
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-      android:layout_width="0dp"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:text="@string/measure_fragment_min"/>
+      <TextView
+        android:id="@+id/rr_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/measure_fragment_time_unit"/>
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textColor="@color/colorAccent"
-      android:layout_weight="1"
-      android:textSize="18sp"
-      android:text="@string/measure_fragment_max"/>
-    <TextView
-      android:id="@+id/rr_max"
-      android:layout_width="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:text="@string/measure_fragment_max"/>
+      <TextView
+        android:id="@+id/rr_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/measure_fragment_time_unit"/>
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textSize="18sp"/>
-    <TextView
-      android:layout_width="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:text="@string/measure_fragment_avg"/>
+      <TextView
+        android:id="@+id/rr_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/measure_fragment_time_unit"/>
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textSize="18sp"
-      android:text="@string/measure_fragment_time_unit"/>
-  </LinearLayout>
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:textColor="@color/colorAccent"
-      android:layout_weight="1"
-      android:textSize="18sp"
-      android:text="@string/measure_fragment_avg"/>
-    <TextView
-      android:id="@+id/rr_average"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="18sp"/>
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="18sp"
-      android:text="@string/measure_fragment_time_unit"/>
-  </LinearLayout>
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:textColor="@color/colorAccent"
-      android:layout_weight="1"
-      android:textSize="18sp"
-      android:text="@string/measure_fragment_count"/>
-    <TextView
-      android:id="@+id/rr_count"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="18sp"/>
-  </LinearLayout>
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:text="@string/measure_fragment_count"/>
+      <TextView
+        android:id="@+id/rr_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"/>
+    </LinearLayout>
   </LinearLayout>
 
 </LinearLayout>

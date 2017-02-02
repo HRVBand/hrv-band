@@ -13,21 +13,20 @@
   tools:context="hrv.band.app.view.MainActivity"
   android:id="@+id/measure_fragment"
   android:gravity="center_vertical|center_horizontal">
-   <View
-     android:layout_width="match_parent"
-     android:layout_height="0dp"
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
     android:layout_weight="2"/>
-   <ImageView
-     android:id="@+id/splash_logo"
-     android:layout_width="200dp"
-     android:layout_height="200dp"
-     android:src="@drawable/ic_launcher"
-     android:layout_weight="1"
-     />
-   <TextView
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:textSize="20sp"
-     android:text="@string/app_name"
-     android:layout_weight="2"/>
+  <ImageView
+    android:id="@+id/splash_logo"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:src="@drawable/ic_launcher"
+    android:layout_weight="1"/>
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:text="@string/app_name"
+    android:layout_weight="2"/>
 </LinearLayout>
