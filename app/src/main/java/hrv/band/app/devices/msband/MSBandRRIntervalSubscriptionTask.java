@@ -1,25 +1,25 @@
 package hrv.band.app.devices.msband;
 
-/**
- * Created by Thomas on 13.06.2016.
- */
-
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandException;
 import com.microsoft.band.UserConsent;
 import com.microsoft.band.sensors.BandSensorManager;
 
-//import hrv.band.app.view.UiHandlingUtil;
-
 /**
- * Class that meassures the RRInterval (get results via Eventhandler...)
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik 13.06.2016.
+ *
+ * Collaborator Julian Martin
+ *
+ * Class that measures the RRInterval (get results via Eventhandler).
  */
 class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
 
     private final MSBandRRIntervalDevice msBandRRIntervalDevice;
-    public MSBandRRIntervalSubscriptionTask(MSBandRRIntervalDevice msBandRRIntervalDevice) {
+    MSBandRRIntervalSubscriptionTask(MSBandRRIntervalDevice msBandRRIntervalDevice) {
         this.msBandRRIntervalDevice = msBandRRIntervalDevice;
     }
 
@@ -27,28 +27,25 @@ class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
        try {
-            if (msBandRRIntervalDevice.getConnectedBandClient()) {
-                BandClient client = msBandRRIntervalDevice.getClient();
-                int hardwareVersion = Integer.parseInt(client.getHardwareVersion().await());
-                if (hardwareVersion >= 20) {
-                    BandSensorManager sensorManager = client.getSensorManager();
-                    if (sensorManager.getCurrentHeartRateConsent() == UserConsent.GRANTED) {
-                        sensorManager.registerRRIntervalEventListener(msBandRRIntervalDevice.getRRIntervalEventListener());
-                        //msBandRRIntervalDevice.setupAnimation();
-                        msBandRRIntervalDevice.notifyDeviceStartedMeasurement();
-                    } else {
-                        //msBandRRIntervalDevice.showConsentSnackbar("Please give consent to access heart rate data");
-                        msBandRRIntervalDevice.connect();
-                    }
-                } else {
-                    msBandRRIntervalDevice.notifyDeviceError("The RR Interval sensor is only supported with MS Band 2.\n");
-                    //UiHandlingUtil.showSnackbar("The RR Interval sensor is only supported with MS Band 2.\n");
-                }
-            } else {
-                msBandRRIntervalDevice.notifyDeviceError("Device isn't connected. Is bluetooth on and the device in range?\n");
-                //UiHandlingUtil.showSnackbar("Device isn't connected. Is bluetooth on and the device in range?\n");
-            }
+           if (!msBandRRIntervalDevice.getConnectedBandClient()) {
+               msBandRRIntervalDevice.notifyDeviceError("Device isn't connected. Is bluetooth on and the device in range?\n");
+               return null;
+           }
+           BandClient client = msBandRRIntervalDevice.getClient();
+           int hardwareVersion = Integer.parseInt(client.getHardwareVersion().await());
+           if (hardwareVersion < 20) {
+               msBandRRIntervalDevice.notifyDeviceError("The RR Interval sensor is only supported with MS Band 2.\n");
+               return null;
+           }
+           BandSensorManager sensorManager = client.getSensorManager();
+           if (sensorManager.getCurrentHeartRateConsent() != UserConsent.GRANTED) {
+               msBandRRIntervalDevice.connect();
+               return null;
+           }
+           sensorManager.registerRRIntervalEventListener(msBandRRIntervalDevice.getRRIntervalEventListener());
+           msBandRRIntervalDevice.notifyDeviceStartedMeasurement();
         } catch (BandException e) {
+           Log.e(e.getClass().getName(), "BandException", e);
             String exceptionMessage;
             switch (e.getErrorType()) {
                 case UNSUPPORTED_SDK_VERSION_ERROR:
@@ -62,11 +59,10 @@ class MSBandRRIntervalSubscriptionTask extends AsyncTask<Void, Void, Void> {
                     break;
             }
            msBandRRIntervalDevice.notifyDeviceError(exceptionMessage);
-           //UiHandlingUtil.showSnackbar(exceptionMessage);
 
         } catch (Exception e) {
+           Log.e(e.getClass().getName(), "Exception", e);
            msBandRRIntervalDevice.notifyDeviceError(e.getMessage());
-           //UiHandlingUtil.showSnackbar(e.getMessage());
         }
         return null;
     }

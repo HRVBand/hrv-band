@@ -31,10 +31,24 @@ public class HRVParameters implements Parcelable {
     private double baevsky;
     private double[] rrIntervals;
     private double rating;
-    private MeasurementCategoryAdapter.MeasureCategory category = MeasurementCategoryAdapter.MeasureCategory.GENERAL;
+    private MeasurementCategoryAdapter.MeasureCategory category;
     private String note;
 
-    public HRVParameters() {}
+    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+    public static final Parcelable.Creator<HRVParameters> CREATOR = new Parcelable.Creator<HRVParameters>() {
+        @Override
+        public HRVParameters createFromParcel(Parcel in) {
+            return new HRVParameters(in);
+        }
+        @Override
+        public HRVParameters[] newArray(int size) {
+            return new HRVParameters[size];
+        }
+    };
+
+    public HRVParameters() {
+        //the standard constructor
+    }
 
     // example constructor that takes a Parcel and gives you an object populated with it's values
     private HRVParameters(Parcel in) {
@@ -67,6 +81,8 @@ public class HRVParameters implements Parcelable {
         this.sdnn = sdnn;
         this.baevsky = baevsky;
         this.rrIntervals = rrIntervals;
+        this.category = MeasurementCategoryAdapter.MeasureCategory.GENERAL;
+        this.note = "";
     }
 
     @Override
@@ -92,18 +108,6 @@ public class HRVParameters implements Parcelable {
         out.writeSerializable(category);
         out.writeString(note);
     }
-
-    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
-    public static final Parcelable.Creator<HRVParameters> CREATOR = new Parcelable.Creator<HRVParameters>() {
-        @Override
-        public HRVParameters createFromParcel(Parcel in) {
-            return new HRVParameters(in);
-        }
-        @Override
-        public HRVParameters[] newArray(int size) {
-            return new HRVParameters[size];
-        }
-    };
 
     public Date getTime() {
         return time;
@@ -202,6 +206,9 @@ public class HRVParameters implements Parcelable {
     }
 
     public MeasurementCategoryAdapter.MeasureCategory getCategory() {
+        if (category == null) {
+            return MeasurementCategoryAdapter.MeasureCategory.GENERAL;
+        }
         return category;
     }
 
@@ -210,6 +217,9 @@ public class HRVParameters implements Parcelable {
     }
 
     public String getNote() {
+        if (note == null) {
+            return "";
+        }
         return note;
     }
 

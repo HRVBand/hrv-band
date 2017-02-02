@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.app.control.HRVParameters;
-import hrv.band.app.storage.SQLite.SQLController;
+import hrv.band.app.storage.sqlite.SQLController;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

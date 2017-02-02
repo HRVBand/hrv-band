@@ -1,43 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="horizontal"
+  android:minHeight="?android:attr/listPreferredItemHeight" >
+
+  <TextView
+    android:id="@+id/firstLine" 
+    android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:minHeight="?android:attr/listPreferredItemHeight" >
-
-       <!-- <ImageView
-            android:id="@+id/icon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="6dp"
-            android:src="@drawable/ic_chart"
-            android:tint="@color/colorAccent"
-            android:layout_weight="3"/>-->
-        <!--<LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">-->
-            <TextView
-                android:id="@+id/firstLine"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:textSize="20sp"
-                android:padding="10sp"
-                android:gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/overview_list_item_as"/>
-            <!--<TextView
-                android:id="@+id/secondLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="asd"/>-->
-        <!--</LinearLayout>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="6dp"
-            android:src="@drawable/ic_info"
-            android:layout_weight="1"/>-->
-
+    android:textSize="20sp"
+    android:padding="10sp"
+    android:gravity="center_vertical"
+    android:layout_weight="1"
+    android:text="@string/overview_list_item_as"/>
 </LinearLayout>

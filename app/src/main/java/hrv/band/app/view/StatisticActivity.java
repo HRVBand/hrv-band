@@ -20,7 +20,7 @@ import java.util.List;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.SQLite.SQLController;
+import hrv.band.app.storage.sqlite.SQLController;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.CalenderPickerFragment;
@@ -67,23 +67,11 @@ public class StatisticActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(mViewPager);
 
         HRVValue type = (HRVValue)
-                getIntent().getSerializableExtra(OverviewFragment.valueType);
+                getIntent().getSerializableExtra(OverviewFragment.VALUE_TYPE);
 
-        if (!(type == null)) {
+        if (type != null) {
             mViewPager.setCurrentItem(getTitlePosition(type));
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        storage = null;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        storage = null;
     }
 
     /**

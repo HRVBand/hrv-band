@@ -51,6 +51,7 @@ public class FeedbackDialogFragment extends DialogFragment {
                     }
                 })
                 .setNegativeButton(R.string.feedback_cancel, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int id) {
                         FeedbackDialogFragment.this.getDialog().cancel();
                     }

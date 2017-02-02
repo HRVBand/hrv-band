@@ -2,7 +2,6 @@ package hrv.band.app.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import hrv.band.app.view.adapter.OverviewValueAdapter;
  */
 public class OverviewFragment extends Fragment {
 
-    public static final String valueType = "VALUE_TYPE";
+    public static final String VALUE_TYPE = "value_type";
 
     /**
      * Returns a new instance of this fragment.
@@ -48,7 +47,7 @@ public class OverviewFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 Intent intent = new Intent(getContext(), StatisticActivity.class);
-                intent.putExtra(valueType, HRVValue.values()[position]);
+                intent.putExtra(VALUE_TYPE, HRVValue.values()[position]);
                 startActivity(intent);
             }
 

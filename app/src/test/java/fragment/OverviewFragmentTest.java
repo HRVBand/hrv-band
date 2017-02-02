@@ -65,7 +65,7 @@ public class OverviewFragmentTest {
         ShadowActivity shadowActivity = Shadows.shadowOf(fragment.getActivity());
         Intent actualIntent = shadowActivity.getNextStartedActivity();
 
-        assertTrue(expectedHrvValue.equals(actualIntent.getSerializableExtra(OverviewFragment.valueType)));
+        assertTrue(expectedHrvValue.equals(actualIntent.getSerializableExtra(OverviewFragment.VALUE_TYPE)));
         assertTrue(actualIntent.filterEquals(expectedIntent));
     }
     @Test

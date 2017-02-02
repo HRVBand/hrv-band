@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Thomas on 13.06.2016.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 03.01.2016.
+ *
+ * Collaborator Thomas Czogalik
  */
 public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator {
 

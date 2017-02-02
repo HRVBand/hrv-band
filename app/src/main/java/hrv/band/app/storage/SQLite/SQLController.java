@@ -1,4 +1,4 @@
-package hrv.band.app.storage.SQLite;
+package hrv.band.app.storage.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,9 +22,10 @@ import hrv.band.app.storage.IStorage;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 /**
- * Responsible for saving and loading user data.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 23.06.2016.
  *
- * Created by Julian on 23.06.2016.
+ * Responsible for saving and loading user data.
  */
 public class SQLController implements IStorage {
 
@@ -54,13 +55,7 @@ public class SQLController implements IStorage {
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY, parameter.getBaevsky());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING, parameter.getRating());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().toString());
-
-        //Note is a nullable type and thereby has to be checked for being null before it is stored.
-        if(parameter.getNote() != null){
-            valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
-        } else {
-            valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
-        }
+        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
 
         //Insert new entry and get the Id of the new entry
         SQLiteDatabase db = controller.getWritableDatabase();

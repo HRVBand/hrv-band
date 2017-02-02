@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import hrv.band.app.R;
-import hrv.band.app.storage.SQLite.SQLController;
+import hrv.band.app.storage.sqlite.SQLController;
 
 /**
  * Copyright (c) 2017
@@ -79,7 +80,7 @@ public class ImportFragment extends DialogFragment {
                 toast.show();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(e.getClass().getName(), "IOException", e);
         }
     }
 

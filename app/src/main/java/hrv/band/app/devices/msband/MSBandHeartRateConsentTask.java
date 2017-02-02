@@ -1,9 +1,8 @@
 package hrv.band.app.devices.msband;
-/**
- * Created by Thomas on 13.06.2016.
- */
+
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandException;
@@ -15,7 +14,12 @@ import hrv.band.app.R;
 import hrv.band.app.devices.HRVDeviceStatus;
 
 /**
- * Class that gets user-permission for measuring the heartrate (and rrIntervals)
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik 13.06.2016.
+ *
+ * Collaborator Julian Martin
+ *
+ * Class that gets user-permission for measuring the heart rate (and rr intervals)
  */
 class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
 
@@ -47,6 +51,7 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                 msBandRRIntervalDevice.notifyDeviceError(msg);
             }
         } catch (BandException e) {
+            Log.e(e.getClass().getName(), "BandException", e);
             String exceptionMessage;
             switch (e.getErrorType()) {
                 case UNSUPPORTED_SDK_VERSION_ERROR:
@@ -62,6 +67,7 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
             msBandRRIntervalDevice.notifyDeviceError(exceptionMessage);
 
         } catch (Exception e) {
+            Log.e(e.getClass().getName(), "BandException", e);
             msBandRRIntervalDevice.notifyDeviceError(e.getMessage());
         }
         return null;

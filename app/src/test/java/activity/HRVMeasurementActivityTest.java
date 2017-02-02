@@ -15,7 +15,7 @@ import org.robolectric.shadows.ShadowApplication;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.SQLite.SQLController;
+import hrv.band.app.storage.sqlite.SQLController;
 import hrv.band.app.view.HRVMeasurementActivity;
 import hrv.band.app.view.MainActivity;
 import java.util.Date;

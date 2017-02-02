@@ -1,61 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-    <group
-        android:checkableBehavior="none">
-        <item
-            android:id="@+id/menu_help"
-            android:icon="@drawable/ic_help"
-            android:title="@string/common_help"/>
-    </group>
-
-    <group
-        android:checkableBehavior="none">
-        <item
-            android:id="@+id/menu_rate"
-            android:icon="@drawable/ic_rate"
-            android:title="@string/common_rate" />
-        <item
-            android:id="@+id/menu_share"
-            android:icon="@drawable/ic_share"
-            android:title="@string/common_share" />
-        <item
-            android:id="@+id/menu_feedback"
-            android:icon="@drawable/ic_feedback"
-            android:title="@string/main_drawer_feedback" />
-    </group>
+  <group
+    android:checkableBehavior="none">
+      <item
+        android:id="@+id/menu_help"
+        android:icon="@drawable/ic_help"
+        android:title="@string/common_help"/>
+  </group>
+  <group
+    android:checkableBehavior="none">
+      <item
+        android:id="@+id/menu_rate"
+        android:icon="@drawable/ic_rate"
+        android:title="@string/common_rate" />
+      <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/common_share" />
+      <item
+        android:id="@+id/menu_feedback"
+        android:icon="@drawable/ic_feedback"
+        android:title="@string/main_drawer_feedback" />
+  </group>
 
 
 
-    <group
-        android:checkableBehavior="none">
-        <item
-            android:id="@+id/menu_website"
-            android:icon="@drawable/ic_website"
-            android:title="@string/main_drawer_website" />
-        <item
-            android:id="@+id/menu_privacy"
-            android:icon="@drawable/ic_privacy"
-            android:title="@string/main_drawer_privacy_policy" />
-        <item
-            android:id="@+id/menu_imprint"
-            android:icon="@drawable/ic_imprint"
-            android:title="@string/common_imprint" />
-    </group>
+  <group
+    android:checkableBehavior="none">
+      <item
+        android:id="@+id/menu_website"
+        android:icon="@drawable/ic_website"
+        android:title="@string/main_drawer_website" />
+      <item
+        android:id="@+id/menu_privacy"
+        android:icon="@drawable/ic_privacy"
+        android:title="@string/main_drawer_privacy_policy" />
+      <item
+        android:id="@+id/menu_imprint"
+        android:icon="@drawable/ic_imprint"
+        android:title="@string/common_imprint" />
+  </group>
 
-    <group
-        android:checkableBehavior="none">
-    <item
+  <group
+    android:checkableBehavior="none">
+      <item
         android:id="@+id/menu_sample_data"
         android:icon="@drawable/ic_create_sample"
         android:title="Create Sample Data" />
-    </group>
-    <group
-        android:checkableBehavior="none">
-        <item
-            android:id="@+id/menu_Settings"
-            android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/main_drawer_settings" />
-    </group>
+  </group>
+  <group
+    android:checkableBehavior="none">
+      <item
+        android:id="@+id/menu_Settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/main_drawer_settings" />
+  </group>
 </menu>

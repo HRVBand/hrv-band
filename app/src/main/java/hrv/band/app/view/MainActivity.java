@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -182,6 +183,7 @@ public class MainActivity extends AppCompatActivity
         try {
             startActivity(goToMarket);
         } catch (ActivityNotFoundException e) {
+            Log.e(e.getClass().getName(), "ActivityNotFoundException", e);
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
         }

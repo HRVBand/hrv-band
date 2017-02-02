@@ -50,7 +50,6 @@ public class MeasuredDetailsFragment extends Fragment {
         ImageView categoryIcon =(ImageView) rootView.findViewById(R.id.hrv_category_icon);
         TextView commentTxt =(TextView) rootView.findViewById(R.id.hrv_comment);
 
-        //dateTxt.setText(parameter.getTime().toString());
         dateTxt.setText(formatDateTime(parameter != null ? parameter.getTime() : null));
         ratingTxt.setText(new DecimalFormat("#.#").format(parameter != null ? parameter.getRating() : 0).concat("/5"));
         categoryTxt.setText(parameter != null ? parameter.getCategory().getText(getResources()) : null);

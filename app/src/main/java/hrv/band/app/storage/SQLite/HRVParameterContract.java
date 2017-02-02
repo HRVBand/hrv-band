@@ -1,32 +1,38 @@
-package hrv.band.app.storage.SQLite;
+package hrv.band.app.storage.sqlite;
 
 import android.provider.BaseColumns;
 
 /**
- * Created by Julian on 23.06.2016.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 23.06.2016.
  */
 class HRVParameterContract {
 
     /**
      * Private constructor to prevent object creation
      */
-    private HRVParameterContract() {}
+    private HRVParameterContract() { }
 
-    public static abstract class HRVParameterEntry implements BaseColumns
+    abstract static class HRVParameterEntry implements BaseColumns
     {
-        public final static String TABLE_NAME = "HRVEntry";
-        public final static String COLUMN_NAME_ENTRY_ID = "id";
-        public final static String COLUMN_NAME_TIME = "time";
-        public final static String COLUMN_NAME_SD1 = "sd1";
-        public final static String COLUMN_NAME_SD2 = "sd2";
-        public final static String COLUMN_NAME_LF = "lf";
-        public final static String COLUMN_NAME_HF = "hf";
-        public final static String COLUMN_NAME_RMSSD = "rmssd";
-        public final static String COLUMN_NAME_SDNN = "sdnn";
-        public final static String COLUMN_NAME_BAEVSKY = "baevsky";
-        public final static String COLUMN_NAME_RRDATAID = "rrid";
-        public final static String COLUMN_NAME_RATING = "rating";
-        public final static String COLUMN_NAME_CATEGORY = "category";
-        public final static String COLUMN_NAME_NOTE = "note";
+        static final String TABLE_NAME = "HRVEntry";
+        static final String COLUMN_NAME_ENTRY_ID = "id";
+        static final String COLUMN_NAME_TIME = "time";
+        static final String COLUMN_NAME_SD1 = "sd1";
+        static final String COLUMN_NAME_SD2 = "sd2";
+        static final String COLUMN_NAME_LF = "lf";
+        static final String COLUMN_NAME_HF = "hf";
+        static final String COLUMN_NAME_RMSSD = "rmssd";
+        static final String COLUMN_NAME_SDNN = "sdnn";
+        static final String COLUMN_NAME_BAEVSKY = "baevsky";
+        static final String COLUMN_NAME_RRDATAID = "rrid";
+        static final String COLUMN_NAME_RATING = "rating";
+        static final String COLUMN_NAME_CATEGORY = "category";
+        static final String COLUMN_NAME_NOTE = "note";
+
+        /**
+         * "private construcotr hodes the implicit public one"
+         */
+        private HRVParameterEntry() { }
     }
 }

@@ -4,6 +4,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class AboutFragment extends Fragment {
         try {
             setVersion();
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            Log.e(e.getClass().getName(), "NameNotFoundException", e);
         }
 
         return rootView;

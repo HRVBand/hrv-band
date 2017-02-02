@@ -1,9 +1,10 @@
-package hrv.band.app.storage.SQLite;
+package hrv.band.app.storage.sqlite;
 
 import android.provider.BaseColumns;
 
 /**
- * Created by Julian on 23.06.2016.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 23.06.2016.
  */
 class RRIntervalContract {
 
@@ -12,10 +13,15 @@ class RRIntervalContract {
      */
     private RRIntervalContract() {}
 
-    public static abstract class RRIntervalEntry implements BaseColumns
+    abstract static class RRIntervalEntry implements BaseColumns
     {
-        public final static String TABLE_NAME = "RRIinterval";
-        public final static String COLUMN_NAME_ENTRY_ID = "id";
-        public final static String COLUMN_NAME_ENTRY_VALUE = "rrvalue";
+        static final String TABLE_NAME = "RRIinterval";
+        static final String COLUMN_NAME_ENTRY_ID = "id";
+        static final String COLUMN_NAME_ENTRY_VALUE = "rrvalue";
+
+        /**
+         * Private constructor to prevent object creation
+         */
+        private RRIntervalEntry() {}
     }
 }

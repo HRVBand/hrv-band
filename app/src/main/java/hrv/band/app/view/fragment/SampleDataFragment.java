@@ -17,7 +17,7 @@ import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.devices.Interval;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.SQLite.SQLController;
+import hrv.band.app.storage.sqlite.SQLController;
 import hrv.calc.AllHRVIndiceCalculator;
 
 /**
@@ -29,9 +29,9 @@ import hrv.calc.AllHRVIndiceCalculator;
 public class SampleDataFragment extends DialogFragment {
 
     /** Count of rr intervals to create. **/
-    private static final int rrCount = 50;
+    private static final int RR_COUNT = 50;
     /** Count of samples to create. **/
-    private static final int sampleCount = 4;
+    private static final int SAMPLE_COUNT = 4;
     /** Key value that indicates if the activity calling this dialog should be closed. **/
     private static final String ARG_CLOSE_VALUE = "arg_close_value";
 
@@ -63,7 +63,7 @@ public class SampleDataFragment extends DialogFragment {
                 .setPositiveButton(R.string.common_create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        for (int i = 0; i < sampleCount; i++) {
+                        for (int i = 0; i < SAMPLE_COUNT; i++) {
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(new Date());
                             cal.add(Calendar.HOUR_OF_DAY, i);
@@ -83,7 +83,6 @@ public class SampleDataFragment extends DialogFragment {
                     }
                 });
         builder.setTitle(getResources().getString(R.string.sample_title));
-        //builder.setTitle(getResources().getString(R.string.common_export));
         return builder.create();
     }
 
@@ -92,7 +91,7 @@ public class SampleDataFragment extends DialogFragment {
      * @param date of the hrv sample.
      */
     private void createSampleData(Date date) {
-        double[] rrValues = new double[rrCount];
+        double[] rrValues = new double[RR_COUNT];
 
         for (int i = 0; i < rrValues.length; i++) {
             rrValues[i] = getRandomDouble(0.5, 1.5);

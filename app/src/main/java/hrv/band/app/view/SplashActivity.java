@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
 
         animateLogo();
 
-        final int SPLASH_TIME_OUT = 1000;
+        final int splashTimeOut = 1000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, SPLASH_TIME_OUT);
+        }, splashTimeOut);
     }
 
     /**
