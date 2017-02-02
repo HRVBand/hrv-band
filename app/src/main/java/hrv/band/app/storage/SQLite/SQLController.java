@@ -22,6 +22,8 @@ import hrv.band.app.storage.IStorage;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 /**
+ * Responsible for saving and loading user data.
+ *
  * Created by Julian on 23.06.2016.
  */
 public class SQLController implements IStorage {
@@ -38,8 +40,7 @@ public class SQLController implements IStorage {
     public void saveData(Context context, HRVParameters parameter) {
         SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
 
-        SQLiteDatabase db = controller.getWritableDatabase();
-
+        //Create new Entry in DB, this entry stores meta data to a given RR-Interval
         ContentValues valuesParams = new ContentValues();
         long time = parameter.getTime().getTime();
 
@@ -53,14 +54,23 @@ public class SQLController implements IStorage {
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY, parameter.getBaevsky());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING, parameter.getRating());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().toString());
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
 
+        //Note is a nullable type and thereby has to be checked for being null before it is stored.
+        if(parameter.getNote() != null){
+            valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
+        } else {
+            valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
+        }
+
+        //Insert new entry and get the Id of the new entry
+        SQLiteDatabase db = controller.getWritableDatabase();
         long firstId = db.insert(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
                 valuesParams);
 
         db.close();
 
+        //Store the RR-Interval-Raw-Data
         SQLiteDatabase db2 = controller.getWritableDatabase();
         db2.beginTransaction();
 
@@ -147,7 +157,11 @@ public class SQLController implements IStorage {
             newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
             String category = c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY));
             newParam.setCategory(MeasurementCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
-            newParam.setNote(c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE)));
+
+            //Check whether stored note is null
+            if(!c.isNull(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE))) {
+                newParam.setNote(c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE)));
+            }
 
             returnList.add(newParam);
             //Laden der rr daten
