@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="Settings"
-    android:icon="@drawable/ic_settings_black_24dp">
+  android:icon="@drawable/ic_settings_black_24dp"
+  android:title="Settings">
 
-    <PreferenceCategory
-        android:title="@string/settings_measurement">
+   <PreferenceCategory android:title="@string/settings_measurement">
 
-        <EditTextPreference
-            android:key="recording_length"
-            android:title="@string/settings_record_length"
-            android:icon="@drawable/ic_access_alarm_black_24dp"
-            android:defaultValue="90">
-        </EditTextPreference>
+      <EditTextPreference
+        android:defaultValue="90"
+        android:icon="@drawable/ic_access_alarm_black_24dp"
+        android:key="recording_length"
+        android:title="@string/settings_record_length" />
    </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="Other">
+   <PreferenceCategory android:title="Other">
 
-        <Preference
-            android:title="@string/settings_import"
-            android:key="settings_import"
-            android:icon="@drawable/ic_import"/>
+      <Preference
+        android:icon="@drawable/ic_import"
+        android:key="settings_import"
+        android:title="@string/settings_import" />
 
-        <Preference
-            android:title="@string/settings_export"
-            android:key="settings_export"
-            android:icon="@drawable/ic_export"/>
-    </PreferenceCategory>
+      <Preference
+        android:icon="@drawable/ic_export"
+        android:key="settings_export"
+        android:title="@string/settings_export" />
+   </PreferenceCategory>
 </PreferenceScreen>

@@ -12,131 +12,140 @@
   app:layout_behavior="@string/appbar_scrolling_view_behavior"
   tools:context="hrv.band.app.view.ValueDescriptionActivity"
   tools:showIn="@layout/activity_value_description">
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-  <TextView
-    android:text="LF"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent"/>
-  <TextView
-    android:text="@string/lf_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
 
-  <TextView
-    android:text="HF"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent" />
-  <TextView
-    android:text="@string/hf_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
+   <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical">
 
-  <TextView
-    android:text="LF/HF"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent" />
-  <TextView
-    android:text="@string/lfhf_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LF"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
 
-  <TextView
-    android:text="RMSSD"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lf_desc"
+        android:textSize="16sp" />
 
-  <TextView
-    android:text="@string/rmssd_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HF"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
 
-  <TextView
-    android:text="SDSD"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent"/>
-  <TextView
-    android:text="@string/sdsd_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hf_desc"
+        android:textSize="16sp" />
 
-  <TextView
-    android:text="SDNN"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent"/>
-  <TextView
-    android:text="@string/sdnn_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LF/HF"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
 
-  <TextView
-    android:text="SD1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent"/>
-  <TextView
-    android:text="@string/sd1_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lfhf_desc"
+        android:textSize="16sp" />
 
-  <TextView
-    android:text="SD2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RMSSD"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
 
-  <TextView
-    android:text="@string/sd2_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rmssd_desc"
+        android:textSize="16sp" />
 
-  <TextView
-    android:text="SD1/SD2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent"/>
-  <TextView
-    android:text="@string/sd1sd2_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SDSD"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
 
-  <TextView
-    android:text="Stressindex (SI)"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@color/colorAccent"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sdsd_desc"
+        android:textSize="16sp" />
 
-  <TextView
-    android:text="@string/baevsky_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"/>
-</LinearLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SDNN"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sdnn_desc"
+        android:textSize="16sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SD1"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sd1_desc"
+        android:textSize="16sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SD2"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sd2_desc"
+        android:textSize="16sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SD1/SD2"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sd1sd2_desc"
+        android:textSize="16sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stressindex (SI)"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/baevsky_desc"
+        android:textSize="16sp" />
+   </LinearLayout>
 </ScrollView>

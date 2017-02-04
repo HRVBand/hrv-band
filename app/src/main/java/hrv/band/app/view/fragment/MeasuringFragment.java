@@ -268,7 +268,8 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
     @Override
     public void newRRInterval(HRVRRIntervalEvent event) {
-        updateTextView(getActivity(), rrStatus, String.format("%.2f", event.getRr()));
+        String format = String.format("%.2f", event.getRr());
+        updateTextView(getActivity(), rrStatus, format);
     }
 
     /**
