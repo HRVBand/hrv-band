@@ -5,6 +5,7 @@ import android.os.Build;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,14 +14,20 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 import org.robolectric.util.ActivityController;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import hrv.band.app.BuildConfig;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.view.StatisticActivity;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.fragment.OverviewFragment;
+import hrv.band.app.view.fragment.StatisticFragment;
 
 import static junit.framework.Assert.assertNotNull;
 
@@ -34,50 +41,40 @@ import static junit.framework.Assert.assertNotNull;
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
 @RunWith(RobolectricTestRunner.class)
 public abstract class AbstractStatisticActivityTest {
+    //TODO: https://github.com/robolectric/robolectric/issues/2010
     // ActivityController is a Robolectric class that drives the Activity lifecycle
-    private ActivityController<StatisticActivity> controller;
     private StatisticActivity activity;
+    private static List<HRVParameters> parameters;
 
     public abstract HRVValue getHrvType();
 
+    @Ignore
+    @BeforeClass
+    public static void init() {
+        parameters = new ArrayList<>();
+        parameters.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1}));
+    }
+    @Ignore
     @Before
     public void setup()  {
-        controller = Robolectric.buildActivity(StatisticActivity.class);
+        activity = Robolectric.setupActivity(StatisticActivity.class);
     }
-
     @Ignore
     @Test
     public void checkActivityNotNull() throws Exception {
         assertNotNull(activity);
     }
-
     @Ignore
     @Test
-    public void createsAndDestroysActivity() {
-        Intent intent = new Intent(RuntimeEnvironment.application, StatisticActivity.class);
-        intent.putExtra(OverviewFragment.valueType, getHrvType());
+    public void registerFragments() throws Exception {
+        StatisticFragment fragment = StatisticFragment.newInstance(getHrvType(), parameters, new Date(1000));
+        SupportFragmentTestUtil.startVisibleFragment(fragment);
 
-        activity = controller
-                .withIntent(intent)
-                .create()
-                .get();
-
-        assertNotNull(activity);
     }
 
-    @After
-    public void tearDown() throws Exception {
 
-        Field field = StatisticActivity.class.getDeclaredField("storage");
-        field.setAccessible(true);
-        field.set(null, null);
 
-        // Destroy activity after every test
-        controller
-                .pause()
-                .stop()
-                .destroy();
-    }
+
 
     @RunWith(Suite.class)
     @Suite.SuiteClasses({LFHFStatisticTest.class,

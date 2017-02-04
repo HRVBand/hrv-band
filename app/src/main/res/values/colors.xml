@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Design Colors -->
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+  <!-- Design Colors -->
+  <color name="colorPrimary">#2196F3</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="colorAccent">#FF4081</color>
 
-    <!-- Font Colors -->
-    <color name="textColorSecondary">@android:color/tertiary_text_dark</color>
+  <!-- Font Colors -->
+  <color name="textColorSecondary">@android:color/tertiary_text_dark</color>
 </resources>

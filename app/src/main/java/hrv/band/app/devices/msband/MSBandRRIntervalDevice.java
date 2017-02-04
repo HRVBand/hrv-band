@@ -1,6 +1,7 @@
 package hrv.band.app.devices.msband;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.microsoft.band.BandClient;
 import com.microsoft.band.BandClientManager;
@@ -19,7 +20,10 @@ import hrv.band.app.devices.HRVDeviceStatus;
 import hrv.band.app.devices.HRVRRIntervalDevice;
 
 /**
- * Created by Thomas on 13.06.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik 13.06.2016.
+ *
+ * Collaborator Julian Martin
  */
 public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
     private BandClient client;
@@ -58,7 +62,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
                 client.getSensorManager().unregisterRRIntervalEventListener(mRRIntervalEventListener);
             }
         } catch (BandIOException e) {
-            e.printStackTrace();
+            Log.e(e.getClass().getName(), "BandIOException", e);
         }
     }
 
@@ -75,12 +79,10 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
             try {
                 client.disconnect().await();
             } catch (InterruptedException | BandException e) {
-                // Do nothing as this is happening during destroy
+                Log.e(e.getClass().getName(), "InterruptedException | BandException", e);
             }
         }
     }
-
-
 
     @Override
     public void connect(){
@@ -93,7 +95,7 @@ public class MSBandRRIntervalDevice extends HRVRRIntervalDevice {
      * @throws InterruptedException	connection has dropped e.g.
      * @throws BandException ohter stuff that should not happen
      */
-    public boolean getConnectedBandClient() throws InterruptedException, BandException {
+    boolean getConnectedBandClient() throws InterruptedException, BandException {
         if (client == null) {
             BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
             if (devices.length == 0) {

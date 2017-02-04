@@ -7,7 +7,7 @@ import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.SQLite.SQLController;
+import hrv.band.app.storage.sqlite.SQLController;
 import hrv.band.app.view.fragment.MeasuredDetailsFragment;
 
 import static hrv.band.app.view.StatisticActivity.RESULT_DELETED;

@@ -8,7 +8,8 @@ import java.util.List;
 import hrv.band.app.control.HRVParameters;
 
 /**
- * Created by Thomas on 18.06.2016.
+ * Copyright (c) 2017
+ * Created by Thomas Czogalik on 18.06.2016.
  */
 public interface IStorage {
     void saveData(Context context, List<HRVParameters> parameters);

@@ -3,7 +3,6 @@ package hrv.band.app.view;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -80,36 +79,4 @@ public class ImprintActivity extends AppCompatActivity {
         FeedbackDialogFragment picker = new FeedbackDialogFragment();
         picker.show(getSupportFragmentManager(), "Feedback");
     }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    /*public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch(position) {
-                case 0: return getResources().getString(R.string.tab_about);
-                case 1: return getResources().getString(R.string.tab_license);
-                case 2: return getResources().getString(R.string.tab_disclaimer);
-                case 3: return getResources().getString(R.string.tab_privacy);
-                default: return "";
-            }
-        }
-    }*/
 }

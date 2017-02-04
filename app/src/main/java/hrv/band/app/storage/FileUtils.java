@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 /**
- * Created by Julian on 26.10.2016.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 26.10.2016.
  */
-
 public class FileUtils {
 
     /**

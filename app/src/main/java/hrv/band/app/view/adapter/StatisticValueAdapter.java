@@ -71,12 +71,12 @@ public class StatisticValueAdapter extends BaseAdapter {
      * @return a list containing the value of the given hrv type of a hrv parameter.
      */
     private List<String> getValues(List<HRVParameters> parameters, HRVValue type) {
-        List<String> values = new ArrayList<>();
+        List<String> hrvValues = new ArrayList<>();
         for (int i = 0; i < parameters.size(); i++) {
             double value = HRVValue.getHRVValue(type, parameters.get(i));
-            values.add(new DecimalFormat("#.##").format(value));
+            hrvValues.add(new DecimalFormat("#.##").format(value));
         }
-        return values;
+        return hrvValues;
     }
 
     /**

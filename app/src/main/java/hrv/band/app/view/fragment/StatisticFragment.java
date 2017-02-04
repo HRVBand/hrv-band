@@ -138,8 +138,8 @@ public class StatisticFragment extends Fragment {
         if(resultCode==RESULT_DELETED){
             Activity root = getActivity();
             if (root instanceof StatisticActivity) {
-                Date date = (Date) getArguments().getSerializable(ARG_DATE_VALUE);
-                ((StatisticActivity) root).updateFragments(date);
+                Date newDate = (Date) getArguments().getSerializable(ARG_DATE_VALUE);
+                ((StatisticActivity) root).updateFragments(newDate);
             }
         }
     }
@@ -224,7 +224,6 @@ public class StatisticFragment extends Fragment {
         if (rootView == null) {
             return;
         }
-        //TextView date = (TextView) rootView.findViewById(R.id.stats_date);
         date.setText(formatDate((Date) getArguments().getSerializable(ARG_DATE_VALUE)));
     }
 
@@ -233,9 +232,9 @@ public class StatisticFragment extends Fragment {
      * @param parameters the new parameters.
      * @param date the new date.
      */
-    public void updateValues(ArrayList<HRVParameters> parameters, Date date) {
+    public void updateValues(List<HRVParameters> parameters, Date date) {
         this.parameters = parameters;
-        getArguments().putParcelableArrayList(ARG_HRV_VALUE, parameters);
+        getArguments().putParcelableArrayList(ARG_HRV_VALUE, new ArrayList<>(parameters));
         getArguments().putSerializable(ARG_DATE_VALUE, date);
         setDate();
         if (adapter != null) {

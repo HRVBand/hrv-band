@@ -3,6 +3,7 @@ package activity;
 import android.content.Intent;
 import android.os.Build;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -18,7 +19,7 @@ import java.util.Date;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.SQLite.SQLController;
+import hrv.band.app.storage.sqlite.SQLController;
 import hrv.band.app.view.HRVMeasurementActivity;
 import hrv.band.app.view.HRVValueActivity;
 import hrv.band.app.view.MainActivity;
@@ -38,10 +39,12 @@ import static junit.framework.Assert.assertNotNull;
 public class HRVValueActivityTest {
     private HRVValueActivity activity;
     private static HRVParameters parameter;
+    private static IStorage storage;
 
     @BeforeClass
     public static void init() {
         parameter = new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1});
+        storage = new SQLController();
     }
 
     @Before
@@ -61,14 +64,20 @@ public class HRVValueActivityTest {
         activity.onBackPressed();
     }
 
-    @Test @Ignore
+    @Ignore
+    @Test
     public void checkDeletedParameter() {
         //Because: activity.findViewById(R.id.fab_save).performClick(); won't work.
         activity.deleteParameter(null);
-        IStorage storage = new SQLController();
 
 
         assertEquals(0, storage.loadData(activity, new Date(1000)).size());
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        parameter = null;
+        storage = null;
     }
 
 }

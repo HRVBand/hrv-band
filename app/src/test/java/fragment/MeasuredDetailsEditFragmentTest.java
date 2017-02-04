@@ -12,8 +12,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
-import java.util.Random;
-
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
@@ -50,11 +48,10 @@ public class MeasuredDetailsEditFragmentTest {
     public void checkRating() throws Exception {
         RatingBar ratingbar = (RatingBar) fragment.getActivity().findViewById(R.id.measure_rating);
 
-        Random r = new Random();
-        float rating = (int) (5 + (0 - 5) * r.nextDouble());
-
-        ratingbar.setRating(rating);
-        assertEquals(rating, fragment.getRating());
+        for (int rating = 0; rating <= 5; rating++) {
+            ratingbar.setRating(rating);
+            assertEquals((float) rating, fragment.getRating());
+        }
     }
 
     @Test
@@ -62,11 +59,11 @@ public class MeasuredDetailsEditFragmentTest {
         Spinner spinner = (Spinner) fragment.getActivity().findViewById(R.id.measure_categories);
 
         int max = MeasurementCategoryAdapter.MeasureCategory.values().length;
-        Random r = new Random();
-        int categoryPosition = (int) (max + (0 - max) * r.nextDouble());
 
-        spinner.setSelection(categoryPosition);
-        assertEquals(MeasurementCategoryAdapter.MeasureCategory.values()[categoryPosition], fragment.getCategory());
+        for (int position = 0; position < max; position++) {
+            spinner.setSelection(position);
+            assertEquals(MeasurementCategoryAdapter.MeasureCategory.values()[position], fragment.getCategory());
+        }
     }
 
     @Test

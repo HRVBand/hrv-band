@@ -3,7 +3,8 @@ package hrv.band.app.devices;
 import java.util.Date;
 
 /**
- * Created by Julian on 11.06.2016.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 03.01.2016.
  */
 public class Interval {
 
@@ -28,7 +29,7 @@ public class Interval {
     public void setRRInterval(Double[] rrInterval)
     {
         this.rrInterval = new double[rrInterval.length];
-        for (int i= 0; i < rrInterval.length;i++ ) {
+        for (int i = 0; i < rrInterval.length; i++ ) {
             this.rrInterval[i] = rrInterval[i];
         }
     }

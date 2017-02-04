@@ -43,7 +43,7 @@ public class DisclaimerDialogFragment extends DialogFragment {
             .setNegativeButton(R.string.disagree, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    System.exit(0);
+                    dialog.cancel();
                 }
             });
 
@@ -53,8 +53,7 @@ public class DisclaimerDialogFragment extends DialogFragment {
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
-
-        System.exit(0);
+        this.getActivity().finishAffinity();
     }
 
     /**

@@ -15,9 +15,9 @@ import java.util.List;
 
 import hrv.band.app.devices.HRVDeviceStatus;
 import hrv.band.app.devices.HRVRRIntervalDevice;
-
 /**
- * Created by Julian on 29.12.2016.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 29.12.2016.
  */
 public class AntPlusRRDataDevice
         extends HRVRRIntervalDevice
@@ -84,7 +84,7 @@ public class AntPlusRRDataDevice
 
     @Override
     public void pauseMeasuring() {
-
+        stopMeasuring();
     }
 
     @Override

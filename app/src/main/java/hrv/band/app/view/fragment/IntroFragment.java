@@ -2,10 +2,8 @@ package hrv.band.app.view.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +20,6 @@ import hrv.band.app.R;
  */
 public class IntroFragment extends Fragment {
 
-    /** The root view of this fragment. **/
-    private View rootView;
     /** Key value for the tutorial title of this intro page (fragment). **/
     private static final String INTRO_TITLE_ID = "intro_title_id";
     /** Key value for the tutorial description of this intro page (fragment). **/
@@ -48,7 +44,7 @@ public class IntroFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.intro_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.intro_fragment, container, false);
 
         TextView title = (TextView) rootView.findViewById(R.id.intro_title);
         ImageView image = (ImageView) rootView.findViewById(R.id.intro_image);
@@ -61,7 +57,7 @@ public class IntroFragment extends Fragment {
 
         Bitmap img = BitmapFactory.decodeResource(getResources(), getArguments().getInt(INTRO_IMAGE_ID), o);
         image.setImageBitmap(img);
-        //setImageDrawable(ContextCompat.getDrawable(getActivity(), getArguments().getInt(INTRO_IMAGE_ID)));
+
         desc.setText(getArguments().getString(INTRO_DESC_ID));
 
         return rootView;

@@ -1,9 +1,9 @@
 package hrv.band.app.devices;
 
 /**
- * Created by Julian on 02.01.2017.
+ * Copyright (c) 2017
+ * Created by Julian Martin on 03.01.2016.
  */
-
 public class HRVRRIntervalEvent {
 
     private double rr;

@@ -8,7 +8,7 @@ import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.SQLite.SQLController;
+import hrv.band.app.storage.sqlite.SQLController;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
 
