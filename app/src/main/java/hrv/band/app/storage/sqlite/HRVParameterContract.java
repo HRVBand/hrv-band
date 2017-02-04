@@ -31,7 +31,7 @@ class HRVParameterContract {
         static final String COLUMN_NAME_NOTE = "note";
 
         /**
-         * "private construcotr hodes the implicit public one"
+         * "private constructor hides the implicit public one"
          */
         private HRVParameterEntry() { }
     }

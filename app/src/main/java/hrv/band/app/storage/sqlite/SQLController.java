@@ -24,10 +24,18 @@ import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 /**
  * Copyright (c) 2017
  * Created by Julian Martin on 23.06.2016.
- *
+ * <p>
  * Responsible for saving and loading user data.
  */
 public class SQLController implements IStorage {
+
+    private static Date getEndOfDay(Date date) {
+        return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
+    }
+
+    private static Date getStartOfDay(Date date) {
+        return DateUtils.truncate(date, Calendar.DATE);
+    }
 
     @Override
     public void saveData(Context context, List<HRVParameters> parameters) {
@@ -54,7 +62,19 @@ public class SQLController implements IStorage {
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN, parameter.getSdnn());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY, parameter.getBaevsky());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING, parameter.getRating());
+
+        if (parameter.getCategory() != null) {
+            valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().toString());
+        } else {
+            valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY);
+        }
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().toString());
+
+        if (parameter.getNote() != null) {
+            valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
+        } else {
+            valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
+        }
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
 
         //Insert new entry and get the Id of the new entry
@@ -81,14 +101,6 @@ public class SQLController implements IStorage {
         db2.setTransactionSuccessful();
         db2.endTransaction();
         db2.close();
-    }
-
-    private static Date getEndOfDay(Date date) {
-        return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
-    }
-
-    private static Date getStartOfDay(Date date) {
-        return DateUtils.truncate(date, Calendar.DATE);
     }
 
     @Override
@@ -150,12 +162,18 @@ public class SQLController implements IStorage {
             newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
             newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
             newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
-            String category = c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY));
-            newParam.setCategory(MeasurementCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
+
+            //Read nullable category
+            int columnIndexCategory = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY);
+            if(!c.isNull(columnIndexCategory)) {
+                String category = c.getString(columnIndexCategory);
+                newParam.setCategory(MeasurementCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
+            }
 
             //Check whether stored note is null
-            if(!c.isNull(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE))) {
-                newParam.setNote(c.getString(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE)));
+            int columnIndexNote = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
+            if (!c.isNull(columnIndexNote)) {
+                newParam.setNote(c.getString(columnIndexNote));
             }
 
             returnList.add(newParam);
@@ -204,7 +222,7 @@ public class SQLController implements IStorage {
         String timeStr = Long.toString(parameter.getTime().getTime());
 
         String whereClause = HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + "=?";
-        String[] whereArgs = new String[] {timeStr};
+        String[] whereArgs = new String[]{timeStr};
 
         return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 whereClause, whereArgs
@@ -235,8 +253,7 @@ public class SQLController implements IStorage {
 
         FileOutputStream outStream = con.openFileOutput(dbPath, Context.MODE_PRIVATE);
 
-        if(dbToExport.exists())
-        {
+        if (dbToExport.exists()) {
             FileUtils.copyFile(new FileInputStream(dbToExport), outStream);
             return true;
         }
@@ -252,7 +269,7 @@ public class SQLController implements IStorage {
         File newDB = new File(dbPath);
         File oldDB = new File(dbToImportToPath);
 
-        if(newDB.exists()) {
+        if (newDB.exists()) {
             FileUtils.copyFile(new FileInputStream(newDB), new FileOutputStream(oldDB));
             // Access the copied database so SQLiteHelper will cache it and mark
             // it as created.
