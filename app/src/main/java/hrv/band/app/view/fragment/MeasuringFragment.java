@@ -48,9 +48,6 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     /** Key value for the selected measure device. **/
     private static final String SELECTED_DEVICE_ID = "selected_device_id";
 
-    /** The duration of the measurement. **/
-    private static int duration = 90;
-
     /** Possible devices the user can select. **/
     private enum DeviceID {NONE, MSBAND, ANT}
 
@@ -133,7 +130,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      * @return measurement duration in ms.
      */
     private int getDuration() {
-        String durationPrefVal = sharedPreferences.getString("recording_length", "90000");
+        String durationPrefVal = sharedPreferences.getString("recording_length", "90");
         return Integer.parseInt(durationPrefVal) * 1000;
     }
 
