@@ -47,8 +47,9 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     /** Key value for the selected measure device. **/
     private static final String SELECTED_DEVICE_ID = "selected_device_id";
+
     /** The duration of the measurement. **/
-    private static int duration = 90000;
+    private static int duration = 90;
 
     /** Possible devices the user can select. **/
     private enum DeviceID {NONE, MSBAND, ANT}
@@ -101,9 +102,6 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         disconnectDevices = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.disconnect_devices);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        String durationPrefVal = sharedPreferences.getString("recording_length", "90000");
-        duration = Integer.parseInt(durationPrefVal);
 
         hrvRRIntervalDevice = getDevice(DeviceID.values()[sharedPreferences.getInt(SELECTED_DEVICE_ID, 0)]);
         if (hrvRRIntervalDevice != null) {
@@ -204,7 +202,12 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private void initAnimation() {
         // see this max value coming back here, we animate towards that value
         animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000);
-        animation.setDuration (duration); //in milliseconds
+
+        //Load measurement duration time from settings
+        String durationPrefVal = sharedPreferences.getString("recording_length", "90");
+        duration = Integer.parseInt(durationPrefVal);
+        animation.setDuration (duration * 1000); //in milliseconds
+
         animation.setInterpolator (new LinearInterpolator());
         animation.addListener(new Animator.AnimatorListener() {
             @Override

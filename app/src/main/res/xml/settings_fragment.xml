@@ -10,7 +10,7 @@
             android:key="recording_length"
             android:title="@string/settings_record_length"
             android:icon="@drawable/ic_access_alarm_black_24dp"
-            android:defaultValue="90000">
+            android:defaultValue="90">
         </EditTextPreference>
    </PreferenceCategory>
 
