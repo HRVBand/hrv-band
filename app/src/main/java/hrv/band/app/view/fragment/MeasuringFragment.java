@@ -191,7 +191,6 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      * Initialize the animation of the progress bar.
      */
     private void initAnimation() {
-        // see this max value coming back here, we animate towards that value
         animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000);
         animation.setDuration (getDuration()); //convert to milliseconds
         animation.setInterpolator (new LinearInterpolator());
@@ -332,6 +331,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
             startActivity(intent);
 
+            hrvRRIntervalDevice.clearRRIntervals();
             resetProgress();
         }
 
