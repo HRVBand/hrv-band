@@ -3,8 +3,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   tools:context="hrv.band.app.view.StatisticActivity">
   <item
-    android:id="@+id/menu_ic_calender"
-    android:icon="@drawable/ic_calender"
+    android:id="@+id/menu_ic_feedback"
+    android:icon="@drawable/ic_mail"
     android:title="@string/menu_calender"
     app:showAsAction="ifRoom" />
 </menu>

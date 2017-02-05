@@ -9,7 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.DatePicker;
 
 import java.util.ArrayList;
@@ -137,14 +137,6 @@ public class StatisticActivity extends AppCompatActivity
     }
 
     /**
-     * Opens a calender picker.
-     * @param view the View calling this method.
-     */
-    public void openCalender(View view) {
-        new CalenderPickerFragment().show(getSupportFragmentManager(), "datePicker");
-    }
-
-    /**
      * Returns position of the given HRV value.
      * @param value the HRV value to get the position.
      * @return position of the given HRV value.
@@ -159,5 +151,15 @@ public class StatisticActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_statistic, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /** Opens a calender picker. **/
+        if (item.getItemId() == R.id.menu_ic_calender) {
+            new CalenderPickerFragment().show(getSupportFragmentManager(), "datePicker");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

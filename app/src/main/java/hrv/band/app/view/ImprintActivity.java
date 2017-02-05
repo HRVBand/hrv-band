@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -71,11 +73,20 @@ public class ImprintActivity extends AppCompatActivity {
         };
     }
 
-    /**
-     * Opens a Feedback dialog.
-     * @param view the View calling this method.
-     */
-    public void sendFeedback(View view) {
-        FeedbackDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_imprint, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /** Opens a feedback dialog. **/
+        if (item.getItemId() == R.id.menu_ic_feedback) {
+            FeedbackDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

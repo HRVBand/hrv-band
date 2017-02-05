@@ -1,7 +1,8 @@
 package hrv.band.app.view;
 
 import android.support.v4.app.Fragment;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -40,11 +41,28 @@ public class HRVValueActivity extends AbstractHRVActivity {
         fragments.add(MeasuredDetailsFragment.newInstance(getParameter()));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_hrv_value, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /** Saves the measurement. **/
+        if (item.getItemId() == R.id.menu_ic_delete) {
+            deleteParameter();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     /**
      * Deletes the actual parameter.
-     * @param view the View calling this method.
      */
-    public void deleteParameter(View view) {
+    private void deleteParameter() {
         if (getParameter() == null) {
             return;
         }

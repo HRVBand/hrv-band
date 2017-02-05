@@ -2,7 +2,9 @@ package activity;
 
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.view.menu.ActionMenuItemView;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -17,6 +19,7 @@ import org.robolectric.shadows.ShadowApplication;
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
+import hrv.band.app.R;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
@@ -52,7 +55,7 @@ public class HRVValueActivityTest {
         Intent intent = new Intent(ShadowApplication.getInstance().getApplicationContext(), HRVMeasurementActivity.class);
         intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameter);
         activity = Robolectric.buildActivity(HRVValueActivity.class).withIntent(intent)
-                .create().get();
+                .create().visible().get();
     }
     @Test
     public void checkActivityNotNull() throws Exception {
@@ -67,17 +70,22 @@ public class HRVValueActivityTest {
     @Ignore
     @Test
     public void checkDeletedParameter() {
-        //Because: activity.findViewById(R.id.fab_save).performClick(); won't work.
-        activity.deleteParameter(null);
-
+        ActionMenuItemView item = (ActionMenuItemView) activity.findViewById(R.id.menu_ic_delete);
+        activity.onOptionsItemSelected(item.getItemData());
 
         assertEquals(0, storage.loadData(activity, new Date(1000)).size());
     }
 
+    @After
+    public void tearDown() {
+        activity = null;
+    }
+
     @AfterClass
-    public static void tearDown() {
-        parameter = null;
+    public static void afterClassTearDown() {
         storage = null;
+        parameter = null;
+
     }
 
 }
