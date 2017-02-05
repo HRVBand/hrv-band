@@ -172,40 +172,54 @@ public class HRVSQLController implements IStorage {
 
             try {
                 for (int i = 0; i < allHrvParams.size(); i++) {
-                    File ibiFile = new File(documentsDir.getAbsolutePath(), "/RR" + i + ".ibi");
-                    ibiFile.deleteOnExit();
-
-                    if(ibiFile.exists()) {
-                        if(!ibiFile.delete()) {
-                            return false;
-                        }
-                    }
-
-                    if(!ibiFile.createNewFile()) {
+                    if (!exportIBIFile(documentsDir, allHrvParams.get(i))) {
                         return false;
                     }
-
-                    FileOutputStream outStr = new FileOutputStream(ibiFile);
-                    PrintWriter out = new PrintWriter(outStr);
-
-                    double[] rrIntervals = allHrvParams.get(i).getRRIntervals();
-                    for (double rrInterval : rrIntervals) {
-                        out.println(rrInterval);
-                    }
-
-                    out.close();
                 }
 
                 return true;
 
-            } catch(IOException ex) {
-                Log.e("ERROR", "IOException on sql save: " + ex.getMessage());
             } catch(SecurityException ex) {
                 Log.e("ERROR", "SecurityException on sql save: " + ex.getMessage());
             }
         }
 
         return false;
+    }
+
+    /**
+     * Exports the given param to the given directory
+     * @param documentsDir Directory to export to
+     * @param param param to export
+     * @return Whether the export was successful
+     * @throws IOException
+     */
+    private boolean exportIBIFile(File documentsDir, HRVParameters param) throws IOException {
+        final String s = param.getTime().toString();
+        File ibiFile = new File(documentsDir.getAbsolutePath(), "/RR" + s + ".ibi");
+        ibiFile.deleteOnExit();
+
+        if(ibiFile.exists()) {
+            if(!ibiFile.delete()) {
+                return false;
+            }
+        }
+
+        if(!ibiFile.createNewFile()) {
+            return false;
+        }
+
+        FileOutputStream outStr = new FileOutputStream(ibiFile);
+        PrintWriter out = new PrintWriter(outStr);
+
+        double[] rrIntervals = param.getRRIntervals();
+        for (double rrInterval : rrIntervals) {
+            out.println(rrInterval);
+        }
+
+        out.close();
+        outStr.close();
+        return true;
     }
 
     private boolean isExternalStorageWritable() {
