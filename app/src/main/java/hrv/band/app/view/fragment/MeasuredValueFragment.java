@@ -12,7 +12,7 @@ import android.widget.ListView;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
-import hrv.band.app.view.ValueDescriptionActivity;
+import hrv.band.app.view.WebActivity;
 import hrv.band.app.view.adapter.ValueAdapter;
 
 /**
@@ -54,8 +54,8 @@ public class MeasuredValueFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                Intent intent = new Intent(getContext(), ValueDescriptionActivity.class);
-                intent.putExtra(MainActivity.HRV_VALUE_ID, position);
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.putExtra(WebActivity.WEBSITE_URL_ID, WebActivity.WEBSITE_PARAMETER_URL);
                 startActivity(intent);
             }
 

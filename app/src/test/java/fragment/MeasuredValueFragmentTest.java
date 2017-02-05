@@ -20,7 +20,7 @@ import java.util.Date;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.view.ValueDescriptionActivity;
+import hrv.band.app.view.WebActivity;
 import hrv.band.app.view.fragment.MeasuredValueFragment;
 
 import static junit.framework.Assert.assertNotNull;
@@ -66,7 +66,7 @@ public class MeasuredValueFragmentTest {
                     i,
                     listView.getAdapter().getItemId(i));
 
-            Intent expectedIntent = new Intent(fragment.getActivity(), ValueDescriptionActivity.class);
+            Intent expectedIntent = new Intent(fragment.getActivity(), WebActivity.class);
             checkExpectedIntent(expectedIntent);
         }
     }

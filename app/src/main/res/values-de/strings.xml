@@ -32,9 +32,9 @@
   <!-- Title Activity-->
   <string name="title_activity_save_values">Details</string>
   <string name="title_activity_start_measuring">Drücke um Messung zu starten</string>
-  <string name="title_activity_value_description">Beschreibungen</string>
   <string name="title_activity_statistic">Historie</string>
   <string name="title_activity_hrv_value">Details</string>
+  <string name="title_activity_web">Webseite</string>
 
   <!-- Measurement Categories-->
   <string name="measure_category_general">Standard</string>
@@ -76,7 +76,6 @@
   <string name="hrv_value_comment">Das war eine großartige Messung!</string>
 
   <!-- overview add items footer -->
-  <string name="overview_add_items_footer_more_vals">Mehr Werte</string>
 
   <!-- Share Dialog -->
   <string name="share_subject">Neue Health App</string>
@@ -102,16 +101,6 @@
   <string name="disconnect_devices">Gerät trennen</string>
 
   <!--HRV Value Desc -->
-  <string name="lf_desc">Integral des Leistungsdichtespektrums zw. 0.02 und 0.15 Hz. Indikator für hauptsächlich sympathische Aktivität.</string>
-  <string name="hf_desc">Integral des Leistungsdichtespektrums zw. 0.15 und 0.4 Hz. Indikator für parasympathische Aktivität.</string>
-  <string name="lfhf_desc">Verhältnis von LF und HF. Oft als Indikator der vegetativen Balance von Parasympathikus und Sympathikus bezeichnet. </string>
-  <string name="rmssd_desc">Quadratische Mittle der RR-Intervalle. Indikator für parasympathische Aktivität.</string>
-  <string name="sdsd_desc">Standardabweichung der differenz aufeinanderfolgender RR-Intervalle</string>
-  <string name="sdnn_desc">Standardabweichung aller RR-Intervalle. (Indikator für Gesamtvariabilität)</string>
-  <string name="sd1_desc">Standardabweichung der orthogonalen Abstände im Poincare Diagramm. </string>
-  <string name="sd2_desc">Standardabweichung der horizontalen Absätnde im Poincare Diagramm.</string>
-  <string name="sd1sd2_desc">Verhältnis ovn SD1 und SD2.</string>
-  <string name="baevsky_desc">Baevsky Stressindex (SI). Indikator für Stress.</string>
 
 
   <!-- Imprint -->

@@ -1,9 +1,7 @@
 package activity;
 
-import android.content.Intent;
 import android.os.Build;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -12,12 +10,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
-import org.robolectric.util.ActivityController;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +21,6 @@ import hrv.band.app.BuildConfig;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.view.StatisticActivity;
 import hrv.band.app.view.adapter.HRVValue;
-import hrv.band.app.view.fragment.OverviewFragment;
 import hrv.band.app.view.fragment.StatisticFragment;
 
 import static junit.framework.Assert.assertNotNull;
@@ -46,7 +40,7 @@ public abstract class AbstractStatisticActivityTest {
     private StatisticActivity activity;
     private static List<HRVParameters> parameters;
 
-    public abstract HRVValue getHrvType();
+    protected abstract HRVValue getHrvType();
 
     @Ignore
     @BeforeClass
@@ -80,8 +74,7 @@ public abstract class AbstractStatisticActivityTest {
     @Suite.SuiteClasses({LFHFStatisticTest.class,
             BaevskyStatisticTest.class, SDNNStatisticTest.class, SD1StatisticTest.class,
             SD2StatisticTest.class,  RMSSDStatisticTest.class})
-
-    public class StatisticAdapterTestSuite { }
+    private class StatisticAdapterTestSuite { }
 
     public static class LFHFStatisticTest extends AbstractStatisticActivityTest {
 

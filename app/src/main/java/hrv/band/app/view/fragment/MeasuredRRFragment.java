@@ -77,13 +77,13 @@ public class MeasuredRRFragment extends Fragment {
         double average = 0;
         double min = Double.MAX_VALUE;
         double max = 0;
-        for (int i = 0; i < rr.length; i++) {
-            average += rr[i];
-            if (min > rr[i]) {
-                min = rr[i];
+        for (double aRr : rr) {
+            average += aRr;
+            if (min > aRr) {
+                min = aRr;
             }
-            if (max < rr[i]) {
-                max = rr[i];
+            if (max < aRr) {
+                max = aRr;
             }
         }
         average /= rr.length;

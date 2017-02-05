@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     public static final String HRV_DATE = "HRV_DATE";
     public static final String HRV_VALUE = "hrv_rr_value";
-    public static final String WEBSITE_URL = "https://thomcz.github.io/hrv-band";
-    private static final String WEBSITE_PRIVACY_URL = WEBSITE_URL + "/privacy";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,13 +141,17 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.menu_help) {
             startActivity(new Intent(this, IntroActivity.class));
         } else if (id == R.id.menu_website) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WEBSITE_URL)));
+            Intent webIntent = new Intent(this, WebActivity.class);
+            webIntent.putExtra(WebActivity.WEBSITE_URL_ID, WebActivity.WEBSITE_URL);
+            startActivity(webIntent);
         } else if (id == R.id.menu_share) {
             openShareIntent();
         } else if (id == R.id.menu_privacy) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(WEBSITE_PRIVACY_URL)));
+            Intent webIntent = new Intent(this, WebActivity.class);
+            webIntent.putExtra(WebActivity.WEBSITE_URL_ID, WebActivity.WEBSITE_PRIVACY_URL);
+            startActivity(webIntent);
         } else if (id == R.id.menu_feedback) {
-            new FeedbackDialogFragment().show(getSupportFragmentManager(), "Feedback");
+            FeedbackDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
         } else if (id == R.id.menu_imprint) {
             startActivity(new Intent(this, ImprintActivity.class));
         } else if (id == R.id.menu_rate) {
