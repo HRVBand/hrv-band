@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
@@ -45,7 +46,7 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
     }
 
     @Override
-    public ArrayList<HRVParameters> select(String whereClause, String[] whereClauseParams) {
+    public List<HRVParameters> select(String whereClause, String[] whereClauseParams) {
 
         ArrayList<HRVParameters> returnList = new ArrayList<>();
 
@@ -63,8 +64,12 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
                 RRIntervalObjectAdapter rrSelectObj = new RRIntervalObjectAdapter(db);
                 String rrWhereClause = RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID + " = ?";
                 String[] rrWhereParams = new String[]{Integer.toString(rrid)};
-                double[] rr = rrSelectObj.select(rrWhereClause, rrWhereParams).get(0); //TODO: Handle null
-                newParam.setRRIntervals(rr);
+
+                final List<double[]> select = rrSelectObj.select(rrWhereClause, rrWhereParams);
+                if(select != null && !select.isEmpty()) {
+                    double[] rr = select.get(0);
+                    newParam.setRRIntervals(rr);
+                }
 
                 returnList.add(newParam);
 

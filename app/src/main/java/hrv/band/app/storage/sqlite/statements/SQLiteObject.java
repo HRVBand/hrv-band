@@ -3,7 +3,7 @@ package hrv.band.app.storage.sqlite.statements;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SQLite select needs a projection of the needed data.
@@ -34,5 +34,5 @@ abstract class SQLiteObject<T> {
                         null);
     }
 
-    public abstract ArrayList<T> select(String whereClause, String[] whereClauseParams);
+    public abstract List<T> select(String whereClause, String[] whereClauseParams);
 }

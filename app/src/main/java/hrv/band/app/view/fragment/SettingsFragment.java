@@ -22,8 +22,7 @@ import hrv.band.app.R;
 
 public class SettingsFragment extends PreferenceFragment {
 
-    private final int exportDatabaseRequestId = 200;
-    private final int importDatabaseRequestId = 201;
+    private static final int EXPORT_DATABASE_REQUEST_ID = 200;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,27 +34,11 @@ public class SettingsFragment extends PreferenceFragment {
             exportPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    if(hasFileWritePermission()) {
-                        ExportDB();
+                    if (hasFileWritePermission()) {
+                        startExportFragment();
                         return true;
                     } else {
-                        getFileWritePermission(exportDatabaseRequestId);
-                        return true;
-                    }
-                }
-            });
-        }
-
-        Preference importPreference = getPreferenceManager().findPreference("settings_import");
-        if (importPreference != null) {
-            importPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    if(hasFileWritePermission()) {
-                        ImportDB();
-                        return true;
-                    } else {
-                        getFileWritePermission(importDatabaseRequestId);
+                        getFileWritePermission(EXPORT_DATABASE_REQUEST_ID);
                         return true;
                     }
                 }
@@ -86,32 +69,38 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     private boolean canMakeSmores() {
-        return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
     /**
      * Tries to get the file write permission
+     *
      * @param requestId Id specifies the usage that the permission is needed for.
      * @return Returns false if permission could not be granted, true otherwise
      */
     private boolean getFileWritePermission(final int requestId) {
-        if (canMakeSmores()) {
-            if (!hasFileWritePermission()) {
+        if (!canMakeSmores()) {
+            return false;
+        }
 
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (!hasFileWritePermission()) {
+            return true;
+        }
 
-                    // Show an explanation to the user *asynchronously* -- don't block
-                    // this thread waiting for the user's response! After the user
-                    // sees the explanation, try again to request the permission.
-                    View view = getView();
-                    if(view == null)
-                        return false;
+        // Should we show an explanation?
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-                    Snackbar.make(view, R.string.settings_request_ext_write_message,
-                            Snackbar.LENGTH_INDEFINITE).setAction(R.string.common_ok,
-                            new View.OnClickListener() {
+            // Show an explanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            View view = getView();
+            if (view == null)
+                return false;
+
+            Snackbar.make(view, R.string.settings_request_ext_write_message,
+                    Snackbar.LENGTH_INDEFINITE).setAction(R.string.common_ok,
+                    new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             ActivityCompat.requestPermissions(getActivity(),
@@ -120,17 +109,15 @@ public class SettingsFragment extends PreferenceFragment {
                     }).show();
 
 
-                } else {
-                    // No explanation needed, we can request the permission.
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, requestId);
-                }
-            }
-            return true;
         } else {
-            return false;
+            // No explanation needed, we can request the permission.
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, requestId);
         }
+
+        return true;
     }
+
 
     private boolean hasFileWritePermission() {
         return ContextCompat.checkSelfPermission(getActivity(),
@@ -140,34 +127,17 @@ public class SettingsFragment extends PreferenceFragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case exportDatabaseRequestId: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                                           String[] permissions, int[] grantResults) {
+        if (requestCode == EXPORT_DATABASE_REQUEST_ID
+                && (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
 
-                    // permission was granted, yay! Export the Database
-                    ExportDB();
-                }
-                return;
-            }
-            case importDatabaseRequestId: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Import the Database
-                    ImportDB();
-                }
-            }
+            // permission was granted, yay! Export the Database
+            startExportFragment();
         }
     }
 
-    private void ExportDB() {
+    private void startExportFragment() {
         ExportFragment.newInstance().show(getFragmentManager(), getResources().getString(R.string.common_export));
-    }
-
-    private void ImportDB() {
-        ImportFragment.newInstance().show(getFragmentManager(), getResources().getString(R.string.common_import));
     }
 }
