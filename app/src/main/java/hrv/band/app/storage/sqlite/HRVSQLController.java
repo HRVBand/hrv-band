@@ -2,8 +2,9 @@ package hrv.band.app.storage.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
+import android.util.Log;
 
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -11,7 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.List;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.storage.FileUtils;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
+import hrv.band.app.storage.sqlite.statements.HRVParamSQLiteObjectAdapter;
+import hrv.band.app.storage.sqlite.statements.HRVParameterContract;
+import hrv.band.app.storage.sqlite.statements.RRIntervalContract;
 
 /**
  * Copyright (c) 2017
@@ -27,15 +30,7 @@ import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
  * <p>
  * Responsible for saving and loading user data.
  */
-public class SQLController implements IStorage {
-
-    private static Date getEndOfDay(Date date) {
-        return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
-    }
-
-    private static Date getStartOfDay(Date date) {
-        return DateUtils.truncate(date, Calendar.DATE);
-    }
+public class HRVSQLController implements IStorage {
 
     @Override
     public void saveData(Context context, List<HRVParameters> parameters) {
@@ -106,111 +101,23 @@ public class SQLController implements IStorage {
     @Override
     public List<HRVParameters> loadData(Context context, Date date) {
 
-
-        List<HRVParameters> returnList = new ArrayList<>();
         SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
-
         SQLiteDatabase db = controller.getReadableDatabase();
 
-        String[] projection = {
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE
-        };
-
+        HRVParamSQLiteObjectAdapter hrvParamSelect = new HRVParamSQLiteObjectAdapter(db);
+        String whereClause = HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " BETWEEN ? AND ?";
         String timeOfDayEndStr = Long.toString(getEndOfDay(date).getTime());
         String timeOfDayStartStr = Long.toString(getStartOfDay(date).getTime());
+        String[] whereClauseParams = new String[]{timeOfDayStartStr, timeOfDayEndStr};
+        return hrvParamSelect.select(whereClause, whereClauseParams);
+    }
 
-        Cursor c = db.query(
-                HRVParameterContract.HRVParameterEntry.TABLE_NAME,
-                projection,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " BETWEEN ? AND ?",
-                new String[]{timeOfDayStartStr, timeOfDayEndStr},
-                null,
-                null,
-                null,
-                null
-        );
+    private List<HRVParameters> loadAllHRVParams(Context context) {
+        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
+        SQLiteDatabase db = controller.getReadableDatabase();
 
-        if (c.getCount() == 0)
-            return returnList;
-
-        c.moveToFirst();
-
-        do {
-
-            HRVParameters newParam = new HRVParameters();
-            int rrid = c.getInt(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID));
-            long time = c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
-            Date timeAsDate = new Date(time);
-
-            newParam.setTime(timeAsDate);
-            newParam.setSd1(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1)));
-            newParam.setSd2(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2)));
-            newParam.setLf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF)));
-            newParam.setHf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF)));
-            newParam.setRmssd(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD)));
-            newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
-            newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
-            newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
-
-            //Read nullable category
-            int columnIndexCategory = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY);
-            if(!c.isNull(columnIndexCategory)) {
-                String category = c.getString(columnIndexCategory);
-                newParam.setCategory(MeasurementCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
-            }
-
-            //Check whether stored note is null
-            int columnIndexNote = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
-            if (!c.isNull(columnIndexNote)) {
-                newParam.setNote(c.getString(columnIndexNote));
-            }
-
-            returnList.add(newParam);
-            //Laden der rr daten
-            Cursor crr = db.query(
-                    RRIntervalContract.RRIntervalEntry.TABLE_NAME,
-                    null,  //All Columns
-                    RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID + " = ?",
-                    new String[]{Integer.toString(rrid)},
-                    null,
-                    null,
-                    null,
-                    null
-            );
-
-            if (crr.getCount() == 0)
-                return returnList;
-
-            double[] rrValues = new double[crr.getCount()];
-            int rrIndex = 0;
-            crr.moveToFirst();
-            if (!crr.isAfterLast()) {
-                do {
-                    int columnIndex = crr.getColumnIndex(RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE);
-                    double loadedValue = crr.getDouble(columnIndex);
-                    rrValues[rrIndex] = loadedValue;
-                    rrIndex++;
-                } while (crr.moveToNext());
-            }
-
-            newParam.setRRIntervals(rrValues);
-
-            crr.close();
-        } while (c.moveToNext());
-
-        c.close();
-        return returnList;
+        HRVParamSQLiteObjectAdapter hrvParamSelect = new HRVParamSQLiteObjectAdapter(db);
+        return hrvParamSelect.select(null, null);
     }
 
     @Override
@@ -244,21 +151,66 @@ public class SQLController implements IStorage {
         return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME, null, null) >= 0;
     }
 
-    public boolean exportDB(String dbPath, Context con) throws IOException {
-        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(con);
+    /**
+     * Tries to export the database to the users documents folder.
+     * Returns whether the export was successfully or not
+     * @param con Context
+     * @return True if export was successful, false otherwise
+     * @throws IOException
+     */
+    public boolean exportDB(Context con) throws IOException {
 
-        String dbToExportPath = String.valueOf(con.getDatabasePath(controller.getDatabaseName()));
+        //Experimental zone
+        if (isExternalStorageWritable()) {
+            //Activity has to check for write external storage permission
+            // try to write the file and return error if not able to write.
 
-        File dbToExport = new File(dbToExportPath);
+            File documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS + "/hrvband");
+            documentsDir.mkdirs();
 
-        FileOutputStream outStream = con.openFileOutput(dbPath, Context.MODE_PRIVATE);
+            List<HRVParameters> allHrvParams = loadAllHRVParams(con);
 
-        if (dbToExport.exists()) {
-            FileUtils.copyFile(new FileInputStream(dbToExport), outStream);
-            return true;
+            try {
+                for (int i = 0; i < allHrvParams.size(); i++) {
+                    File ibiFile = new File(documentsDir.getAbsolutePath(), "/RR" + i + ".ibi");
+                    ibiFile.deleteOnExit();
+
+                    if(ibiFile.exists()) {
+                        if(!ibiFile.delete()) {
+                            return false;
+                        }
+                    }
+
+                    if(!ibiFile.createNewFile()) {
+                        return false;
+                    }
+
+                    FileOutputStream outStr = new FileOutputStream(ibiFile);
+                    PrintWriter out = new PrintWriter(outStr);
+
+                    double[] rrIntervals = allHrvParams.get(i).getRRIntervals();
+                    for (double rrInterval : rrIntervals) {
+                        out.println(rrInterval);
+                    }
+
+                    out.close();
+                }
+
+                return true;
+
+            } catch(IOException ex) {
+                Log.e("ERROR", "IOException on sql save: " + ex.getMessage());
+            } catch(SecurityException ex) {
+                Log.e("ERROR", "SecurityException on sql save: " + ex.getMessage());
+            }
         }
 
         return false;
+    }
+
+    private boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     public boolean importDB(String dbPath, Context con) throws IOException {
@@ -279,6 +231,14 @@ public class SQLController implements IStorage {
         }
 
         return false;
+    }
+
+    private static Date getEndOfDay(Date date) {
+        return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
+    }
+
+    private static Date getStartOfDay(Date date) {
+        return DateUtils.truncate(date, Calendar.DATE);
     }
 }
 

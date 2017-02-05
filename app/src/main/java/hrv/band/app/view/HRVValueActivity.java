@@ -7,7 +7,7 @@ import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.SQLController;
+import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.fragment.MeasuredDetailsFragment;
 
 import static hrv.band.app.view.StatisticActivity.RESULT_DELETED;
@@ -48,7 +48,7 @@ public class HRVValueActivity extends AbstractHRVActivity {
         if (getParameter() == null) {
             return;
         }
-        IStorage storage = new SQLController();
+        IStorage storage = new HRVSQLController();
         storage.deleteData(getApplicationContext(), getParameter());
         setResult(RESULT_DELETED);
         this.finish();

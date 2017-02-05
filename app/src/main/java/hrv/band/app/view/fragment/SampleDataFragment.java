@@ -17,7 +17,7 @@ import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.devices.Interval;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.SQLController;
+import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.calc.AllHRVIndiceCalculator;
 
 /**
@@ -101,7 +101,7 @@ public class SampleDataFragment extends DialogFragment {
         hrv.setRating(getRandomDouble(0.0, 5.0));
         hrv.setNote("This is a sample data");
 
-        IStorage storage = new SQLController();
+        IStorage storage = new HRVSQLController();
         storage.saveData(getActivity(), hrv);
     }
 

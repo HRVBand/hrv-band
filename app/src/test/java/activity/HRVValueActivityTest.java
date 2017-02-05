@@ -19,7 +19,7 @@ import java.util.Date;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.SQLController;
+import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.HRVMeasurementActivity;
 import hrv.band.app.view.HRVValueActivity;
 import hrv.band.app.view.MainActivity;
@@ -44,7 +44,7 @@ public class HRVValueActivityTest {
     @BeforeClass
     public static void init() {
         parameter = new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1});
-        storage = new SQLController();
+        storage = new HRVSQLController();
     }
 
     @Before

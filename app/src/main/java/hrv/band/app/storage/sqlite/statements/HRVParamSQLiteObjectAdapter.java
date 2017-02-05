@@ -1,0 +1,111 @@
+package hrv.band.app.storage.sqlite.statements;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import hrv.band.app.control.HRVParameters;
+import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
+
+/**
+ * Object that helps assembling the SQLite select statement for HRVParameters
+ * <p>
+ * Created by Julian on 04.02.2017.
+ */
+
+public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
+
+    public HRVParamSQLiteObjectAdapter(SQLiteDatabase db) {
+        super(db);
+    }
+
+    @Override
+    public String getTableName() {
+        return HRVParameterContract.HRVParameterEntry.TABLE_NAME;
+    }
+
+    @Override
+    public String[] getProjection() {
+        return new String[]{
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE
+        };
+    }
+
+    @Override
+    public ArrayList<HRVParameters> select(String whereClause, String[] whereClauseParams) {
+
+        ArrayList<HRVParameters> returnList = new ArrayList<>();
+
+        Cursor c = getCursor(whereClause, whereClauseParams);
+
+        if(c != null && c.moveToFirst()) {
+            //Load new HRV-Params
+            while (!c.isAfterLast()) {
+
+                int columnIndex = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID);
+                int rrid = c.getInt(columnIndex);
+                HRVParameters newParam = loadHRVParam(c);
+
+                //Load rr data.
+                RRIntervalObjectAdapter rrSelectObj = new RRIntervalObjectAdapter(db);
+                String rrWhereClause = RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID + " = ?";
+                String[] rrWhereParams = new String[]{Integer.toString(rrid)};
+                double[] rr = rrSelectObj.select(rrWhereClause, rrWhereParams).get(0); //TODO: Handle null
+                newParam.setRRIntervals(rr);
+
+                returnList.add(newParam);
+
+                c.moveToNext();
+            }
+
+            c.close();
+        }
+
+        return returnList;
+    }
+
+    private HRVParameters loadHRVParam(Cursor c) {
+
+        HRVParameters newParam = new HRVParameters();
+        long time = c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
+        Date timeAsDate = new Date(time);
+
+        newParam.setTime(timeAsDate);
+        newParam.setSd1(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1)));
+        newParam.setSd2(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2)));
+        newParam.setLf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF)));
+        newParam.setHf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF)));
+        newParam.setRmssd(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD)));
+        newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
+        newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
+        newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
+
+        //Read nullable category
+        int columnIndexCategory = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY);
+        if (!c.isNull(columnIndexCategory)) {
+            String category = c.getString(columnIndexCategory);
+            newParam.setCategory(MeasurementCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
+        }
+
+        //Check whether stored note is null
+        int columnIndexNote = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
+        if (!c.isNull(columnIndexNote)) {
+            newParam.setNote(c.getString(columnIndexNote));
+        }
+
+        return newParam;
+    }
+}

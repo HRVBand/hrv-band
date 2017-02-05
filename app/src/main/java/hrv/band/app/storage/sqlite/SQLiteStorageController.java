@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import hrv.band.app.storage.sqlite.statements.HRVParameterContract;
+import hrv.band.app.storage.sqlite.statements.RRIntervalContract;
+
 /**
  * Copyright (c) 2017
  * Created by Julian Martin on 23.06.2016.
@@ -50,7 +53,7 @@ class SQLiteStorageController extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static synchronized SQLiteStorageController getINSTANCE(Context context) {
+    static synchronized SQLiteStorageController getINSTANCE(Context context) {
         if(instance == null) {
             instance = new SQLiteStorageController(context);
         }

@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import hrv.band.app.R;
-import hrv.band.app.storage.sqlite.SQLController;
+import hrv.band.app.storage.sqlite.HRVSQLController;
 
 /**
  * Copyright (c) 2017
@@ -64,7 +64,7 @@ public class ImportFragment extends DialogFragment {
      */
     private void importDB() {
         String saveDir = getActivity().getFilesDir() + "/export.sql";
-        SQLController sql = new SQLController();
+        HRVSQLController sql = new HRVSQLController();
 
         try {
             int duration = Toast.LENGTH_SHORT;

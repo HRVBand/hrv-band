@@ -12,13 +12,14 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
+import java.util.Date;
+
 import hrv.band.app.BuildConfig;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.SQLController;
+import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.HRVMeasurementActivity;
 import hrv.band.app.view.MainActivity;
-import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -62,7 +63,7 @@ public class HRVMeasurementActivityTest {
     public void checkSavedParameter() {
         //Because: activity.findViewById(R.id.fab_save).performClick(); won't work.
         activity.saveMeasurement(null);
-        IStorage storage = new SQLController();
+        IStorage storage = new HRVSQLController();
         assertEquals(parameter, storage.loadData(activity, new Date(1000)).get(0));
     }
 

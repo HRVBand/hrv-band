@@ -8,7 +8,7 @@ import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.SQLController;
+import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
 
@@ -46,7 +46,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
      * @param view the View calling this method.
      */
     public void saveMeasurement(View view) {
-        IStorage storage = new SQLController();
+        IStorage storage = new HRVSQLController();
         setMeasurementDetails();
         storage.saveData(getApplicationContext(), getParameter());
         Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();

@@ -20,7 +20,7 @@ import java.util.List;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.SQLController;
+import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.CalenderPickerFragment;
@@ -55,7 +55,7 @@ public class StatisticActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        storage = new SQLController();
+        storage = new HRVSQLController();
         initFragments();
 
         //set up viewpager

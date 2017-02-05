@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import hrv.band.app.R;
-import hrv.band.app.storage.sqlite.SQLController;
+import hrv.band.app.storage.sqlite.HRVSQLController;
 
 /**
  * Copyright (c) 2017
@@ -59,11 +59,11 @@ public class ExportFragment extends DialogFragment {
      * Exports the user database on the phone.
      */
     private void exportDB() {
-        SQLController sql = new SQLController();
+        HRVSQLController sql = new HRVSQLController();
         try {
             int duration = Toast.LENGTH_SHORT;
 
-            if(!sql.exportDB("export.sql", getActivity())) {
+            if(!sql.exportDB(getActivity())) {
                 CharSequence text = getResources().getText(R.string.sentence_export_failed);
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
                 toast.show();
