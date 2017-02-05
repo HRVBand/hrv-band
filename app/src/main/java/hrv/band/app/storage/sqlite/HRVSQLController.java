@@ -32,6 +32,14 @@ import hrv.band.app.storage.sqlite.statements.RRIntervalContract;
  */
 public class HRVSQLController implements IStorage {
 
+    private static Date getEndOfDay(Date date) {
+        return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
+    }
+
+    private static Date getStartOfDay(Date date) {
+        return DateUtils.truncate(date, Calendar.DATE);
+    }
+
     @Override
     public void saveData(Context context, List<HRVParameters> parameters) {
 
@@ -154,6 +162,7 @@ public class HRVSQLController implements IStorage {
     /**
      * Tries to export the database to the users documents folder.
      * Returns whether the export was successfully or not
+     *
      * @param con Context
      * @return True if export was successful, false otherwise
      * @throws IOException
@@ -161,51 +170,63 @@ public class HRVSQLController implements IStorage {
     public boolean exportDB(Context con) throws IOException {
 
         //Experimental zone
-        if (isExternalStorageWritable()) {
-            //Activity has to check for write external storage permission
-            // try to write the file and return error if not able to write.
+        if (!isExternalStorageWritable()) {
+            return false;
+        }
+        //Activity has to check for write external storage permission
+        // try to write the file and return error if not able to write.
 
-            File documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS + "/hrvband");
-            documentsDir.mkdirs();
+        File documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS + "/hrvband");
+        documentsDir.mkdirs();
 
-            List<HRVParameters> allHrvParams = loadAllHRVParams(con);
+        List<HRVParameters> allHrvParams = loadAllHRVParams(con);
 
-            try {
-                for (int i = 0; i < allHrvParams.size(); i++) {
-                    File ibiFile = new File(documentsDir.getAbsolutePath(), "/RR" + i + ".ibi");
-                    ibiFile.deleteOnExit();
-
-                    if(ibiFile.exists()) {
-                        if(!ibiFile.delete()) {
-                            return false;
-                        }
-                    }
-
-                    if(!ibiFile.createNewFile()) {
-                        return false;
-                    }
-
-                    FileOutputStream outStr = new FileOutputStream(ibiFile);
-                    PrintWriter out = new PrintWriter(outStr);
-
-                    double[] rrIntervals = allHrvParams.get(i).getRRIntervals();
-                    for (double rrInterval : rrIntervals) {
-                        out.println(rrInterval);
-                    }
-
-                    out.close();
+        try {
+            for (int i = 0; i < allHrvParams.size(); i++) {
+                if (!exportIBIFile(documentsDir, allHrvParams.get(i))) {
+                    return false;
                 }
-
-                return true;
-
-            } catch(IOException ex) {
-                Log.e("ERROR", "IOException on sql save: " + ex.getMessage());
-            } catch(SecurityException ex) {
-                Log.e("ERROR", "SecurityException on sql save: " + ex.getMessage());
             }
+
+            return true;
+
+        } catch (SecurityException e) {
+            Log.e(e.getClass().getName(), "SecurityException", e);
         }
 
         return false;
+    }
+
+
+    /**
+     * Exports the given param to the given directory
+     *
+     * @param documentsDir Directory to export to
+     * @param param        param to export
+     * @return Whether the export was successful
+     * @throws IOException
+     */
+    private boolean exportIBIFile(File documentsDir, HRVParameters param) throws IOException {
+        final String s = param.getTime().toString();
+        File ibiFile = new File(documentsDir.getAbsolutePath(), "/RR" + s + ".ibi");
+        ibiFile.deleteOnExit();
+
+        if (ibiFile.exists() && !ibiFile.delete()
+                || !ibiFile.createNewFile()) {
+            return false;
+        }
+
+        FileOutputStream outStr = new FileOutputStream(ibiFile);
+        PrintWriter out = new PrintWriter(outStr);
+
+        double[] rrIntervals = param.getRRIntervals();
+        for (double rrInterval : rrIntervals) {
+            out.println(rrInterval);
+        }
+
+        out.close();
+        outStr.close();
+        return true;
     }
 
     private boolean isExternalStorageWritable() {
@@ -231,14 +252,6 @@ public class HRVSQLController implements IStorage {
         }
 
         return false;
-    }
-
-    private static Date getEndOfDay(Date date) {
-        return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
-    }
-
-    private static Date getStartOfDay(Date date) {
-        return DateUtils.truncate(date, Calendar.DATE);
     }
 }
 

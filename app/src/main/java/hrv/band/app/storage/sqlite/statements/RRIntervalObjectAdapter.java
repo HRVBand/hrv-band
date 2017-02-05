@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SQLite Adapter for the RR-Intervall Array
@@ -28,7 +29,7 @@ class RRIntervalObjectAdapter extends SQLiteObject<double[]> {
     }
 
     @Override
-    public ArrayList<double[]> select(String whereClause, String[] whereClauseParams) {
+    public List<double[]> select(String whereClause, String[] whereClauseParams) {
         Cursor crr = getCursor(whereClause, whereClauseParams);
         ArrayList<double[]> values = new ArrayList<>();
 
@@ -48,7 +49,7 @@ class RRIntervalObjectAdapter extends SQLiteObject<double[]> {
         return values;
     }
 
-
+    @Override
     protected Cursor getCursor(String whereClause, String[] whereClauseParams) {
         return db.query(
                 getTableName(),

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator {
 
-    protected final List<Double> rrMeasurements = new ArrayList<>();
+    protected List<Double> rrMeasurements = new ArrayList<>();
 
     private final List<HRVRRIntervalListener> listeners = new ArrayList<>();
     private final List<HRVRRDeviceListener> deviceListeners = new ArrayList<>();
@@ -24,6 +24,10 @@ public abstract class HRVRRIntervalDevice implements HRVRRIntervalEventInitiator
 
     public List<Double> getRRIntervals() {
         return rrMeasurements;
+    }
+
+    public void clearRRIntervals() {
+        rrMeasurements = new ArrayList<>();
     }
 
     @Override
