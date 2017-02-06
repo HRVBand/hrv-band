@@ -69,7 +69,7 @@ public class HRVValueActivityTest {
 
     @Ignore
     @Test
-    public void checkDeletedParameter() {
+    public void onOptionsItemSelectedDelete() {
         ActionMenuItemView item = (ActionMenuItemView) activity.findViewById(R.id.menu_ic_delete);
         activity.onOptionsItemSelected(item.getItemData());
 

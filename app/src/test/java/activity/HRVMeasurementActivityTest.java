@@ -1,5 +1,6 @@
 package activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.view.menu.ActionMenuItemView;
@@ -14,6 +15,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.shadows.ShadowDialog;
 
 import java.util.Date;
 
@@ -66,7 +68,7 @@ public class HRVMeasurementActivityTest {
     }
 
     @Test
-    public void checkSavedParameter() {
+    public void onOptionsItemSelectedSave() {
         ActionMenuItemView item = (ActionMenuItemView) activity.findViewById(R.id.menu_ic_save);
         activity.onOptionsItemSelected(item.getItemData());
 

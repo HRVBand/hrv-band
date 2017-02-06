@@ -1,6 +1,7 @@
 package fragment;
 
 import android.os.Build;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertSame;
 
 /**
  * Copyright (c) 2017
@@ -73,5 +75,20 @@ public class MeasuredDetailsEditFragmentTest {
         note.setText(msg);
 
         assertEquals(msg, fragment.getNote());
+    }
+
+    @Test
+    public void checkIfViewIsRecycled() throws Exception {
+        Spinner spinner = (Spinner) fragment.getActivity().findViewById(R.id.measure_categories);
+
+        for (int index = 0; index < spinner.getCount(); index++) {
+            View view = getViewAtIndex(index, null, spinner);
+            View viewRecycled = getViewAtIndex(index, view, spinner);
+            assertSame(view, viewRecycled);
+        }
+    }
+
+    private View getViewAtIndex(int index, View parent, Spinner spinner) {
+        return spinner.getAdapter().getView(index, parent, null);
     }
 }

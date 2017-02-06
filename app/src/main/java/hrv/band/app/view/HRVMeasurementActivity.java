@@ -68,7 +68,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
     /**
      * Saves the actual measured and calculated HRV parameter.
      */
-    public void saveMeasurement() {
+    private void saveMeasurement() {
         IStorage storage = new HRVSQLController();
         setMeasurementDetails();
         storage.saveData(getApplicationContext(), getParameter());

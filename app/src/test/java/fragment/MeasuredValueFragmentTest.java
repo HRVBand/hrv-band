@@ -23,6 +23,7 @@ import hrv.band.app.R;
 import hrv.band.app.view.WebActivity;
 import hrv.band.app.view.fragment.MeasuredValueFragment;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.assertTrue;
@@ -70,6 +71,15 @@ public class MeasuredValueFragmentTest {
             checkExpectedIntent(expectedIntent);
         }
     }
+
+    @Test
+    public void checkItems() throws Exception {
+        ListView listView = (ListView) fragment.getActivity().findViewById(R.id.hrv_value_list);
+        for (int i = 0; i < listView.getCount(); i ++) {
+            assertEquals(parameter, listView.getItemAtPosition(i));
+        }
+    }
+
     private void checkExpectedIntent(Intent expectedIntent) {
         ShadowActivity shadowActivity = Shadows.shadowOf(fragment.getActivity());
         Intent actualIntent = shadowActivity.getNextStartedActivity();

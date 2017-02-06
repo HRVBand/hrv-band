@@ -79,8 +79,6 @@ public class HRVValueActivity extends AbstractHRVActivity {
 
     @Override
     public void onBackPressed() {
-        //TODO: Implement Cancel Dialog here which asks if the user really don't want to save
-        // the measurement
         finish();
     }
 
