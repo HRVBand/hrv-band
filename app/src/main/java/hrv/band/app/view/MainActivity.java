@@ -42,7 +42,6 @@ import hrv.band.app.view.fragment.SampleDataFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String HRV_VALUE_ID = "HRV_VALUE";
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     public static final String HRV_DATE = "HRV_DATE";
     public static final String HRV_VALUE = "hrv_rr_value";

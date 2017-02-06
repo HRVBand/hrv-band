@@ -2,21 +2,21 @@
   <string name="app_name" translatable="false">HRV Band</string>
   <string name="development_studio">for MS Band 2 and Ant+</string>
 
-   <!-- Common words -->
-   <string name="common_help">Help</string>
-   <string name="common_rate">Rate</string>
-   <string name="common_share">Share</string>
-   <string name="common_imprint">Imprint</string>
-   <string name="common_close">Close</string>
-   <string name="common_bold_measure">MEASURE</string>
-   <string name="common_bold_overview">OVERVIEW</string>
-   <string name="common_export">Export</string>
-   <string name="common_import">Import</string>
-   <string name="common_cancel">Cancel</string>
-   <string name="common_create">Create</string>
-   <string name="common_yes">Yes</string>
-   <string name="common_no">No</string>
-   <string name="common_ok">OK</string>
+  <!-- Common words -->
+  <string name="common_help">Help</string>
+  <string name="common_rate">Rate</string>
+  <string name="common_share">Share</string>
+  <string name="common_imprint">Imprint</string>
+  <string name="common_close">Close</string>
+  <string name="common_bold_measure">MEASURE</string>
+  <string name="common_bold_overview">OVERVIEW</string>
+  <string name="common_export">Export</string>
+  <string name="common_import">Import</string>
+  <string name="common_cancel">Cancel</string>
+  <string name="common_create">Create</string>
+  <string name="common_yes">Yes</string>
+  <string name="common_no">No</string>
+  <string name="common_ok">OK</string>
 
   <!-- Sentences -->
   <string name="sentence_how_do_you_feel">How Do You Feel?</string>
@@ -152,12 +152,12 @@
 
   <!--HRV Value Desc -->
 
-   <!-- Settings -->
-   <string name="settings_record_length">RR-Recording-Time (s)</string>
-   <string name="settings_export">Export</string>
-   <string name="settings_import">Import</string>
-   <string name="settings_measurement">Measurement</string>
-   <string name="settings_request_ext_write_message">Needed to write file.</string>
+  <!-- Settings -->
+  <string name="settings_record_length">RR-Recording-Time (s)</string>
+  <string name="settings_export">Export</string>
+  <string name="settings_import">Import</string>
+  <string name="settings_measurement">Measurement</string>
+  <string name="settings_request_ext_write_message">Needed to write file.</string>
 
   <string name="invalid_input">Invalid Input</string>
   <string name="invalid_measurement_length_input">RR-Recording-Time can only contain digits.</string>

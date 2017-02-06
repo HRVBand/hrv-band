@@ -50,7 +50,7 @@
   </group>
   <group
     android:checkableBehavior="none">
-     <item
+    <item
       android:id="@+id/menu_Settings"
       android:icon="@drawable/ic_settings"
       android:title="@string/main_drawer_settings" />
