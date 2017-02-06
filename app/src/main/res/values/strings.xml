@@ -85,6 +85,9 @@
   <string name="hrv_value_standard_category">General</string>
   <string name="hrv_value_comment">That was a great measurement</string>
 
+  <string name="hrv_measurement_cancel_title">Cancel Measurement?</string>
+  <string name="hrv_measurement_cancel_desc">Do you want to NOT save the measurement?</string>
+
   <!-- overview add items footer -->
 
   <!-- Share Dialog -->

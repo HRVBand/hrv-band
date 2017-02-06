@@ -1,7 +1,8 @@
 package hrv.band.app.view;
 
 import android.support.v4.app.Fragment;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
+import hrv.band.app.view.fragment.TextDialogFragment;
 
 /**
  * Copyright (c) 2017
@@ -41,11 +43,32 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
         fragments.add(MeasuredDetailsEditFragment.newInstance());
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_hrv_measurement, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            /** Saves the measurement. **/
+            case R.id.menu_ic_save:
+                saveMeasurement();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     /**
      * Saves the actual measured and calculated HRV parameter.
-     * @param view the View calling this method.
      */
-    public void saveMeasurement(View view) {
+    public void saveMeasurement() {
         IStorage storage = new HRVSQLController();
         setMeasurementDetails();
         storage.saveData(getApplicationContext(), getParameter());
@@ -70,5 +93,49 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
         getParameter().setRating(fragment != null ? fragment.getRating() : 0);
         getParameter().setCategory(fragment != null ? fragment.getCategory() : MeasurementCategoryAdapter.MeasureCategory.GENERAL);
         getParameter().setNote(fragment != null ? fragment.getNote() : "");
+    }
+
+    @Override
+    public void onBackPressed() {
+        CancelMeasurementFragment.newInstance().show(getSupportFragmentManager(), "cancel");
+    }
+    /**
+     * Dialog which asks the user if he wants to save the measurement.
+     */
+    public static class CancelMeasurementFragment extends TextDialogFragment {
+
+        public static TextDialogFragment newInstance() {
+            return new CancelMeasurementFragment();
+        }
+
+        @Override
+        public void positiveButton() {
+            getActivity().finish();
+        }
+
+        @Override
+        public void negativeButton() {
+            CancelMeasurementFragment.this.getDialog().cancel();
+        }
+
+        @Override
+        public String getDialogTitle() {
+            return getResources().getString(R.string.hrv_measurement_cancel_title);
+        }
+
+        @Override
+        public String getDialogDescription() {
+            return getResources().getString(R.string.hrv_measurement_cancel_desc);
+        }
+
+        @Override
+        public int getDialogPositiveLabel() {
+            return R.string.common_yes;
+        }
+
+        @Override
+        public int getDialogNegativeLabel() {
+            return R.string.common_no;
+        }
     }
 }

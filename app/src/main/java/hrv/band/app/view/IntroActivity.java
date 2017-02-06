@@ -1,24 +1,19 @@
 package hrv.band.app.view;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.widget.TextView;
 
 import com.github.paolorotolo.appintro.AppIntro;
 
 import hrv.band.app.R;
 import hrv.band.app.view.fragment.IntroFragment;
 import hrv.band.app.view.fragment.SampleDataFragment;
+import hrv.band.app.view.fragment.TextDialogFragment;
 
 /**
  * Copyright (c) 2017
@@ -92,45 +87,48 @@ public class IntroActivity extends AppIntro {
      * Opens a cancel dialog.
      */
     private void cancelTutorial() {
-        CancelIntroFragment cancelIntroFragment = CancelIntroFragment.newInstance();
-        cancelIntroFragment.show(getFragmentManager(), "dialog");
+        CancelIntroFragment.newInstance().show(getSupportFragmentManager(), "dialog");
     }
 
 
     /**
      * Dialog which asks the user if he wants to cancel the tutorial.
      */
-    public static class CancelIntroFragment extends DialogFragment {
+    public static class CancelIntroFragment extends TextDialogFragment {
 
-        public static CancelIntroFragment newInstance() {
+        public static TextDialogFragment newInstance() {
             return new CancelIntroFragment();
         }
 
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        public void positiveButton() {
+            setPreference(getActivity());
+            getActivity().finish();
+        }
 
-            final View view =  View.inflate(getActivity(), R.layout.dialog_simple_text, null);
+        @Override
+        public void negativeButton() {
+            CancelIntroFragment.this.getDialog().cancel();
+        }
 
-            TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
-            textView.setText(getResources().getString(R.string.tutorial_cancel_desc));
+        @Override
+        public String getDialogTitle() {
+            return getResources().getString(R.string.tutorial_cancel_title);
+        }
 
-            builder.setView(view)
-                    .setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            setPreference(getActivity());
-                            getActivity().finish();
-                        }
-                    })
-                    .setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            CancelIntroFragment.this.getDialog().cancel();
-                        }
-                    });
-            builder.setTitle(getResources().getString(R.string.tutorial_cancel_title));
-            return builder.create();
+        @Override
+        public String getDialogDescription() {
+            return getResources().getString(R.string.tutorial_cancel_desc);
+        }
+
+        @Override
+        public int getDialogPositiveLabel() {
+            return R.string.common_yes;
+        }
+
+        @Override
+        public int getDialogNegativeLabel() {
+            return R.string.common_no;
         }
     }
 }

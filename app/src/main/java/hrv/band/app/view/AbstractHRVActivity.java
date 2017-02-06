@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -37,9 +36,10 @@ public abstract class AbstractHRVActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
         parameter = getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID);
@@ -49,6 +49,9 @@ public abstract class AbstractHRVActivity extends AppCompatActivity {
 
         setViewPager();
     }
+
+    @Override
+    public abstract void onBackPressed();
 
     /**
      * Sets the ViewPager of this Activity.

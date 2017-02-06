@@ -50,12 +50,17 @@ public class HRVValueActivity extends AbstractHRVActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /** Saves the measurement. **/
-        if (item.getItemId() == R.id.menu_ic_delete) {
-            deleteParameter();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            /** Deletes the measurement. **/
+            case R.id.menu_ic_delete:
+                deleteParameter();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -70,6 +75,13 @@ public class HRVValueActivity extends AbstractHRVActivity {
         storage.deleteData(getApplicationContext(), getParameter());
         setResult(RESULT_DELETED);
         this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //TODO: Implement Cancel Dialog here which asks if the user really don't want to save
+        // the measurement
+        finish();
     }
 
 }
