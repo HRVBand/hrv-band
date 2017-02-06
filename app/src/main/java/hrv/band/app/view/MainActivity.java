@@ -226,10 +226,5 @@ public class MainActivity extends AppCompatActivity
             DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
             disclaimerDialogFragment.show(getFragmentManager(), "dialog");
         }
-        //if in older version disclaimer is accepted intro opens on first run after update
-        //TODO remove this code starting with version 1.2
-        else if (!sharedPreferences.getBoolean(IntroActivity.APP_INTRO, false)) {
-            startActivity(new Intent(this, IntroActivity.class));
-        }
     }
 }
