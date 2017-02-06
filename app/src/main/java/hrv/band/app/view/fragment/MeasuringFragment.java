@@ -192,7 +192,6 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      */
     private void initAnimation() {
         animation = ObjectAnimator.ofInt (progressBar, "progress", 0, 1000);
-        animation.setDuration (getDuration()); //convert to milliseconds
         animation.setInterpolator (new LinearInterpolator());
         animation.addListener(new ProgressBarAnimatorListener());
     }
@@ -240,6 +239,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             @Override
             public void run() {
                 if (animation != null) {
+                    animation.setDuration(getDuration());
                     animation.start();
                 }
             }
