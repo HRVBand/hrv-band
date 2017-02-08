@@ -83,7 +83,7 @@ public class SettingsFragment extends PreferenceFragment {
             return false;
         }
 
-        if (!hasFileWritePermission()) {
+        if (hasFileWritePermission()) {
             return true;
         }
 

@@ -22,7 +22,6 @@ import hrv.band.app.view.fragment.TextDialogFragment;
  */
 public class HRVMeasurementActivity extends AbstractHRVActivity {
 
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_hrv_measurement;
