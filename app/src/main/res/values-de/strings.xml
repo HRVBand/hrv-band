@@ -34,7 +34,7 @@
   <string name="title_activity_start_measuring">Drücke um Messung zu starten</string>
   <string name="title_activity_statistic">Historie</string>
   <string name="title_activity_hrv_value">Details</string>
-  <string name="title_activity_web">Webseite</string>
+  <string name="title_activity_web_view">Webseite</string>
 
   <!-- Measurement Categories-->
   <string name="measure_category_general">Standard</string>
@@ -164,4 +164,13 @@
 
   <string name="tutorial_cancel_title">Einführung beenden?</string>
   <string name="tutorial_cancel_desc">Soll die Einführung wirklich beendet werden?</string>
+
+  <!-- Webactivity -->
+  <string name="web_back">Zurück</string>
+  <string name="web_navigation">Navigation</string>
+  <string name="web_home">Startseite</string>
+  <string name="web_background">Hintergrund</string>
+  <string name="web_faq">FAQ</string>
+  <string name="web_privacy">Datenschutz</string>
+  <string name="web_about">Impressum</string>
 </resources>

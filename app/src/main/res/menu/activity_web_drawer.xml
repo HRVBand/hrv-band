@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group
+    android:checkableBehavior="none">
+    <item
+      android:id="@+id/web_nav_back"
+      android:icon="@android:drawable/ic_menu_revert"
+      android:title="@string/web_back" />
+  </group>
+  <item android:title="@string/web_navigation">
+    <menu>
+      <item
+        android:id="@+id/web_nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/web_home" />
+      <item
+        android:id="@+id/web_nav_background"
+        android:icon="@drawable/ic_heart"
+        android:title="@string/web_background" />
+      <item
+        android:id="@+id/web_nav_faq"
+        android:icon="@drawable/ic_help"
+        android:title="@string/web_faq" />
+      <item
+        android:id="@+id/web_nav_privacy"
+        android:icon="@drawable/ic_privacy"
+        android:title="@string/web_privacy" />
+      <item
+        android:id="@+id/web_nav_about"
+        android:icon="@drawable/ic_imprint"
+        android:title="@string/web_about" />
+    </menu>
+  </item>
+
+</menu>

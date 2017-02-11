@@ -21,6 +21,7 @@
       android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
+
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
@@ -84,7 +85,7 @@
     </activity>
     <activity
       android:name=".view.WebActivity"
-      android:label="@string/title_activity_web"
+      android:label="@string/title_activity_web_view"
       android:theme="@style/AppTheme"/>
   </application>
 

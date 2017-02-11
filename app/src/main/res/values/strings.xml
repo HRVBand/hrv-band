@@ -37,7 +37,7 @@
   <string name="title_activity_start_measuring">Press To Start Measurement</string>
   <string name="title_activity_statistic">Measure History</string>
   <string name="title_activity_hrv_value">Measure Details</string>
-  <string name="title_activity_web">Website</string>
+  <string name="title_activity_web_view">Website</string>
 
   <!-- Measurement Categories-->
   <string name="measure_category_general">General</string>
@@ -123,7 +123,7 @@
   <string name="developer_thomas">Thomas github.com/thomcz</string>
   <string name="developer_julian">Julian github.com/Fenox</string>
   <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
-  <string name="website" translatable="false">Website: thomcz.github.io/hrv-band/</string>
+  <string name="website" translatable="false">Website: hrvband.de</string>
 
   <!-- Error Messages -->
   <string name="error_band_not_paired">Band isn\'t paired with your phone.</string>
@@ -178,4 +178,15 @@
 
   <string name="tutorial_cancel_title">Cancel The Tutorial?</string>
   <string name="tutorial_cancel_desc">Do you really want to cancel the tutorial?</string>
+
+  <!-- Webactivity -->
+  <string name="web_back">Return</string>
+  <string name="web_navigation">Navigation</string>
+  <string name="web_home">Home</string>
+  <string name="web_background">Background</string>
+  <string name="web_faq">FAQ</string>
+  <string name="web_privacy">Privacy</string>
+  <string name="web_about">About</string>
+
+
 </resources>
