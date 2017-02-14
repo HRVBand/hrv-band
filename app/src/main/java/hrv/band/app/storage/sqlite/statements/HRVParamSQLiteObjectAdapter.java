@@ -32,13 +32,6 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
         return new String[]{
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE
@@ -89,13 +82,6 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
         Date timeAsDate = new Date(time);
 
         newParam.setTime(timeAsDate);
-        newParam.setSd1(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1)));
-        newParam.setSd2(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2)));
-        newParam.setLf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF)));
-        newParam.setHf(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF)));
-        newParam.setRmssd(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD)));
-        newParam.setSdnn(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN)));
-        newParam.setBaevsky(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY)));
         newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
 
         //Read nullable category

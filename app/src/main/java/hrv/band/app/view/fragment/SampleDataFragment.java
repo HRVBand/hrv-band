@@ -12,13 +12,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import hrv.RRData;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
-import hrv.band.app.devices.Interval;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
-import hrv.calc.AllHRVIndiceCalculator;
 
 /**
  * Copyright (c) 2017
@@ -97,7 +94,9 @@ public class SampleDataFragment extends DialogFragment {
             rrValues[i] = getRandomDouble(0.5, 1.5);
         }
 
-        HRVParameters hrv = calculate(new Interval(date, rrValues));
+        HRVParameters hrv = new HRVParameters();
+        hrv.setTime(date);
+        hrv.setRRIntervals(rrValues);
         hrv.setRating(getRandomDouble(0.0, 5.0));
         hrv.setNote("This is a sample data");
 
@@ -114,21 +113,6 @@ public class SampleDataFragment extends DialogFragment {
     private double getRandomDouble(double min, double max) {
         Random r = new Random();
         return max + (min - max) * r.nextDouble();
-    }
-
-    /**
-     * Calculates hrv parameters from given rr interval.
-     * @param interval the given rr interval.
-     * @return hrv parameter.
-     */
-    private HRVParameters calculate(Interval interval) {
-        //start calculation
-        AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
-        calc.calculateAll(RRData.createFromRRInterval(interval.getRRInterval(), RRData.RRDataUnit.s));
-
-        HRVParameters results = HRVParameters.from(calc, interval.getStartTime(), interval.getRRInterval());
-        results.setTime(interval.getStartTime());
-        return results;
     }
 
     /**

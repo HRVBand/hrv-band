@@ -30,7 +30,7 @@ abstract class SQLiteObject<T> {
                         whereClauseParams,
                         null,
                         null,
-                        null,
+                        HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME,
                         null);
     }
 

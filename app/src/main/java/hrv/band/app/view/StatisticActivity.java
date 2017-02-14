@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import hrv.RRData;
 import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
@@ -26,6 +27,8 @@ import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.CalenderPickerFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
 import hrv.band.app.view.fragment.StatisticFragment;
+import hrv.calc.AllHRVIndiceCalculator;
+
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
@@ -81,7 +84,7 @@ public class StatisticActivity extends AppCompatActivity
         fragments = new ArrayList<>();
         Date date = new Date();
 
-        ArrayList<HRVParameters> params = getParameters(date);
+        List<HRVParameters> params = getParameters(date);
         for(int i = 0; i < HRVValue.values().length; i++) {
             fragments.add(StatisticFragment.newInstance(HRVValue.values()[i], params,
                     date));
@@ -115,7 +118,7 @@ public class StatisticActivity extends AppCompatActivity
      * @param date selected date to show HRV values.
      */
     public void updateFragments(Date date) {
-        ArrayList<HRVParameters> parameters = getParameters(date);
+        List<HRVParameters> parameters = getParameters(date);
         for(Fragment fragment : fragments) {
             if (fragment instanceof StatisticFragment) {
                 ((StatisticFragment) fragment).updateValues(parameters, date);
@@ -128,11 +131,21 @@ public class StatisticActivity extends AppCompatActivity
      * @param date selected date to get all HRV values.
      * @return parameters of given date
      */
-    private ArrayList<HRVParameters> getParameters(Date date) {
-        ArrayList<HRVParameters> result = new ArrayList<>();
+    private List<HRVParameters> getParameters(Date date) {
+        List<HRVParameters> result = new ArrayList<>();
 
         List<HRVParameters> params = storage.loadData(this, date);
-        result.addAll(params);
+        AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
+
+        for (HRVParameters parameter : params) {
+            calc.calculateAll(RRData.createFromRRInterval(parameter.getRRIntervals(), RRData.RRDataUnit.s));
+            HRVParameters temp = HRVParameters.from(calc, parameter.getTime(), parameter.getRRIntervals());
+            temp.setCategory(parameter.getCategory());
+            temp.setRating(parameter.getRating());
+            temp.setNote(parameter.getNote());
+            result.add(temp);
+        }
+
         return result;
     }
 

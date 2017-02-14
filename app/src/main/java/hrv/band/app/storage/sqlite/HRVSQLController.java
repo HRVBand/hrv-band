@@ -57,13 +57,6 @@ public class HRVSQLController implements IStorage {
         long time = parameter.getTime().getTime();
 
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME, time);
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1, parameter.getSd1());
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2, parameter.getSd2());
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF, parameter.getLf());
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF, parameter.getHf());
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD, parameter.getRmssd());
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN, parameter.getSdnn());
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY, parameter.getBaevsky());
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING, parameter.getRating());
 
         if (parameter.getCategory() != null) {
@@ -71,19 +64,17 @@ public class HRVSQLController implements IStorage {
         } else {
             valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY);
         }
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().toString());
 
         if (parameter.getNote() != null) {
             valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
         } else {
             valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
         }
-        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
 
         //Insert new entry and get the Id of the new entry
         SQLiteDatabase db = controller.getWritableDatabase();
         long firstId = db.insert(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
-                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF,
+                HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
                 valuesParams);
 
         db.close();
