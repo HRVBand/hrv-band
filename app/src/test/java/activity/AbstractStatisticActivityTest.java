@@ -46,7 +46,8 @@ public abstract class AbstractStatisticActivityTest {
     @BeforeClass
     public static void init() {
         parameters = new ArrayList<>();
-        parameters.add(new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1}));
+        HRVParameters.MeasurementBuilder builder = new HRVParameters.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
+        parameters.add(builder.build());
     }
     @Ignore
     @Before

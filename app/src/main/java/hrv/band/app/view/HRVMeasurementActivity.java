@@ -8,6 +8,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import hrv.band.app.R;
+import hrv.band.app.control.HRVParameters;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
@@ -69,8 +70,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
      */
     private void saveMeasurement() {
         IStorage storage = new HRVSQLController();
-        setMeasurementDetails();
-        storage.saveData(getApplicationContext(), getParameter());
+        storage.saveData(getApplicationContext(), createSavableMeasurement());
         Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -78,7 +78,23 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
     /**
      * Sets the details of the actual measured and calculated HRV parameter.
      */
-    private void setMeasurementDetails() {
+    private HRVParameters createSavableMeasurement() {
+        MeasuredDetailsEditFragment fragment = getMeasuredDetailsEditFragment();
+
+        float rating = fragment != null ? fragment.getRating() : 0;
+        MeasurementCategoryAdapter.MeasureCategory category = fragment != null ? fragment.getCategory() : MeasurementCategoryAdapter.MeasureCategory.GENERAL;
+        String note = fragment != null ? fragment.getNote() : "";
+
+
+        HRVParameters.MeasurementBuilder measurementBuilder = new HRVParameters.MeasurementBuilder(getParameter())
+                .rating(rating)
+                .category(category)
+                .note(note);
+        return measurementBuilder.build();
+    }
+
+
+    private MeasuredDetailsEditFragment getMeasuredDetailsEditFragment() {
         MeasuredDetailsEditFragment fragment = null;
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments != null) {
@@ -89,9 +105,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
                 }
             }
         }
-        getParameter().setRating(fragment != null ? fragment.getRating() : 0);
-        getParameter().setCategory(fragment != null ? fragment.getCategory() : MeasurementCategoryAdapter.MeasureCategory.GENERAL);
-        getParameter().setNote(fragment != null ? fragment.getNote() : "");
+        return fragment;
     }
 
     @Override

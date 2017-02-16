@@ -355,9 +355,8 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
             calc.calculateAll(RRData.createFromRRInterval(interval.getRRInterval(), RRData.RRDataUnit.s));
 
-            HRVParameters results = HRVParameters.from(calc, interval.getStartTime(), interval.getRRInterval());
-            results.setTime(interval.getStartTime());
-            return results;
+            HRVParameters.MeasurementBuilder measurementBuilder = HRVParameters.from(calc, interval.getStartTime(), interval.getRRInterval());
+            return measurementBuilder.build();
         }
     }
 

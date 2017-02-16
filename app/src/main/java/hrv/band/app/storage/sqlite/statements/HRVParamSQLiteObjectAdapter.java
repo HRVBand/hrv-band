@@ -50,20 +50,8 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
             while (!c.isAfterLast()) {
 
                 int columnIndex = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID);
-                int rrid = c.getInt(columnIndex);
-                HRVParameters newParam = loadHRVParam(c);
 
-                //Load rr data.
-                RRIntervalObjectAdapter rrSelectObj = new RRIntervalObjectAdapter(db);
-                String rrWhereClause = RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID + " = ?";
-                String[] rrWhereParams = new String[]{Integer.toString(rrid)};
-
-                final List<double[]> select = rrSelectObj.select(rrWhereClause, rrWhereParams);
-                if(select != null && !select.isEmpty()) {
-                    double[] rr = select.get(0);
-                    newParam.setRRIntervals(rr);
-                }
-
+                HRVParameters newParam = loadHRVParam(c, columnIndex);
                 returnList.add(newParam);
 
                 c.moveToNext();
@@ -75,28 +63,50 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
         return returnList;
     }
 
-    private HRVParameters loadHRVParam(Cursor c) {
+    private double[] loadRRIntervals(Cursor c, int columnIndex) {
+        int rrid = c.getInt(columnIndex);
+        RRIntervalObjectAdapter rrSelectObj = new RRIntervalObjectAdapter(db);
+        String rrWhereClause = RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID + " = ?";
+        String[] rrWhereParams = new String[]{Integer.toString(rrid)};
 
-        HRVParameters newParam = new HRVParameters();
+        final List<double[]> select = rrSelectObj.select(rrWhereClause, rrWhereParams);
+        if(select != null && !select.isEmpty()) {
+            return select.get(0);
+        }
+        return new double[0];
+    }
+
+    private HRVParameters loadHRVParam(Cursor c, int columnIndex) {
+
         long time = c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
         Date timeAsDate = new Date(time);
 
-        newParam.setTime(timeAsDate);
-        newParam.setRating(c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING)));
+        HRVParameters.MeasurementBuilder measurementBuilder = new HRVParameters
+                .MeasurementBuilder(timeAsDate, loadRRIntervals(c, columnIndex))
+                .rating(loadRating(c))
+                .category(loadCategory(c))
+                .note(loadNote(c));
 
-        //Read nullable category
+        return measurementBuilder.build();
+    }
+    private float loadRating(Cursor c) {
+        return c.getFloat(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING));
+    }
+
+    private MeasurementCategoryAdapter.MeasureCategory loadCategory(Cursor c) {
         int columnIndexCategory = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY);
         if (!c.isNull(columnIndexCategory)) {
             String category = c.getString(columnIndexCategory);
-            newParam.setCategory(MeasurementCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase()));
+            return MeasurementCategoryAdapter.MeasureCategory.valueOf(category.toUpperCase());
         }
+        return MeasurementCategoryAdapter.MeasureCategory.GENERAL;
+    }
 
-        //Check whether stored note is null
+    private String loadNote(Cursor c) {
         int columnIndexNote = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
         if (!c.isNull(columnIndexNote)) {
-            newParam.setNote(c.getString(columnIndexNote));
+            return c.getString(columnIndexNote);
         }
-
-        return newParam;
+        return "";
     }
 }

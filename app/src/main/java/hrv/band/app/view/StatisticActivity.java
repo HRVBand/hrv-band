@@ -139,11 +139,11 @@ public class StatisticActivity extends AppCompatActivity
 
         for (HRVParameters parameter : params) {
             calc.calculateAll(RRData.createFromRRInterval(parameter.getRRIntervals(), RRData.RRDataUnit.s));
-            HRVParameters temp = HRVParameters.from(calc, parameter.getTime(), parameter.getRRIntervals());
-            temp.setCategory(parameter.getCategory());
-            temp.setRating(parameter.getRating());
-            temp.setNote(parameter.getNote());
-            result.add(temp);
+            HRVParameters.MeasurementBuilder measurementBuilder = HRVParameters.from(calc, parameter.getTime(), parameter.getRRIntervals())
+                    .category(parameter.getCategory())
+                    .rating(parameter.getRating())
+                    .note(parameter.getNote());
+            result.add(measurementBuilder.build());
         }
 
         return result;

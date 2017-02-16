@@ -46,7 +46,8 @@ public class HRVValueActivityTest {
 
     @BeforeClass
     public static void init() {
-        parameter = new HRVParameters(new Date(1000), 0, 0, 0, 0, 0, 0, 0, 0, new double[] {1,1,1,1,1});
+        HRVParameters.MeasurementBuilder builder = new HRVParameters.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
+        parameter = builder.build();
         storage = new HRVSQLController();
     }
 

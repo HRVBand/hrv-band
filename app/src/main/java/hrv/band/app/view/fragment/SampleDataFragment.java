@@ -16,6 +16,7 @@ import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
+import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 /**
  * Copyright (c) 2017
@@ -94,11 +95,12 @@ public class SampleDataFragment extends DialogFragment {
             rrValues[i] = getRandomDouble(0.5, 1.5);
         }
 
-        HRVParameters hrv = new HRVParameters();
-        hrv.setTime(date);
-        hrv.setRRIntervals(rrValues);
-        hrv.setRating(getRandomDouble(0.0, 5.0));
-        hrv.setNote("This is a sample data");
+        HRVParameters.MeasurementBuilder measurementBuilder = new HRVParameters.MeasurementBuilder(date, rrValues);
+        HRVParameters hrv = measurementBuilder
+                .rating(4.4)
+                .category(MeasurementCategoryAdapter.MeasureCategory.SPORT)
+                .note("This is a sample data")
+                .build();
 
         IStorage storage = new HRVSQLController();
         storage.saveData(getActivity(), hrv);
