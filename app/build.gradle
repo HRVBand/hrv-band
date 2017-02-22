@@ -45,7 +45,7 @@ dependencies {
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
     compile files('libs/antpluginlib_3-5-0.jar')
     compile 'com.github.clans:fab:1.6.4'
-    compile files('libs/hrvlib.jar')
+    compile files('libs/HRVLib.jar')
 }
 
 dependencies {
