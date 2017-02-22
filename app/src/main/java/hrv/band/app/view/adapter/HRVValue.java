@@ -16,7 +16,7 @@ public enum HRVValue {
     SD1("SD1", "ms"),
     SD2("SD2", "ms"),
     RMSSD("RMSSD", "ms"),
-    BAEVSKY("Baevsky", "%")
+    BAEVSKY("Baevsky", "")
     ;
 
     /** Name of the value **/
