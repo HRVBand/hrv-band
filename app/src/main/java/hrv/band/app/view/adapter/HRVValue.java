@@ -1,6 +1,6 @@
 package hrv.band.app.view.adapter;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 
 /**
  * Copyright (c) 2017
@@ -10,8 +10,8 @@ import hrv.band.app.control.HRVParameters;
  */
 public enum HRVValue {
     LFHF("LFHF", "%"),
-    HF("HF", "s²"),
-    LF("LF", "s²"),
+    HF("HF", "ms²"),
+    LF("LF", "ms²"),
     SDNN("SDNN", "ms"),
     SD1("SD1", "ms"),
     SD2("SD2", "ms"),
@@ -48,7 +48,7 @@ public enum HRVValue {
      * @param parameter to extract the value from.
      * @return the extracted value.
      */
-    public static double getHRVValue(HRVValue value, HRVParameters parameter) {
+    public static double getHRVValue(HRVValue value, Measurement parameter) {
         switch(value) {
             case LFHF: return parameter.getLfhfRatio() * 100;//Convert to %
             case SDNN: return parameter.getSdnn();

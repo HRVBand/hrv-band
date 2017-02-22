@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.fragment.MeasuredValueFragment;
 
@@ -24,9 +24,9 @@ public class ValueAdapter extends BaseAdapter {
     /** The context of activity holding the adapter. **/
     private final Context context;
     /** The hrv parameter to display. **/
-    private final HRVParameters parameter;
+    private final Measurement parameter;
 
-    public ValueAdapter(Context context, HRVParameters parameter) {
+    public ValueAdapter(Context context, Measurement parameter) {
         this.context = context;
         this.parameter = parameter;
     }

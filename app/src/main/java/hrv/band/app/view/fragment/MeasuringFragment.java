@@ -22,7 +22,7 @@ import android.widget.Toast;
 import java.util.Date;
 
 import hrv.RRData;
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.devices.HRVDeviceStatus;
 import hrv.band.app.devices.HRVRRDeviceListener;
@@ -33,7 +33,7 @@ import hrv.band.app.devices.Interval;
 import hrv.band.app.devices.antplus.AntPlusRRDataDevice;
 import hrv.band.app.devices.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.HRVMeasurementActivity;
-import hrv.calc.AllHRVIndiceCalculator;
+import units.TimeUnitConverter;
 
 /**
  * Copyright (c) 2017
@@ -350,12 +350,11 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
          * @param interval measured rr interval.
          * @return calculated hrv parameter from given rr interval.
          */
-        private HRVParameters calculate(Interval interval) {
+        private Measurement calculate(Interval interval) {
             //start calculation
-            AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
-            calc.calculateAll(RRData.createFromRRInterval(interval.getRRInterval(), RRData.RRDataUnit.s));
+            RRData.createFromRRInterval(interval.getRRInterval(), TimeUnitConverter.TimeUnit.SECOND);
 
-            HRVParameters.MeasurementBuilder measurementBuilder = HRVParameters.from(calc, interval.getStartTime(), interval.getRRInterval());
+            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(interval.getStartTime(), interval.getRRInterval());
             return measurementBuilder.build();
         }
     }

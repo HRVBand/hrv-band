@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 /**
- * Object that helps assembling the SQLite select statement for HRVParameters
+ * Object that helps assembling the SQLite select statement for Measurement
  * <p>
  * Created by Julian on 04.02.2017.
  */
 
-public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
+public class HRVParamSQLiteObjectAdapter extends SQLiteObject<Measurement> {
 
     public HRVParamSQLiteObjectAdapter(SQLiteDatabase db) {
         super(db);
@@ -39,9 +39,9 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
     }
 
     @Override
-    public List<HRVParameters> select(String whereClause, String[] whereClauseParams) {
+    public List<Measurement> select(String whereClause, String[] whereClauseParams) {
 
-        ArrayList<HRVParameters> returnList = new ArrayList<>();
+        ArrayList<Measurement> returnList = new ArrayList<>();
 
         Cursor c = getCursor(whereClause, whereClauseParams);
 
@@ -51,7 +51,7 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
 
                 int columnIndex = c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID);
 
-                HRVParameters newParam = loadHRVParam(c, columnIndex);
+                Measurement newParam = loadHRVParam(c, columnIndex);
                 returnList.add(newParam);
 
                 c.moveToNext();
@@ -76,12 +76,12 @@ public class HRVParamSQLiteObjectAdapter extends SQLiteObject<HRVParameters> {
         return new double[0];
     }
 
-    private HRVParameters loadHRVParam(Cursor c, int columnIndex) {
+    private Measurement loadHRVParam(Cursor c, int columnIndex) {
 
         long time = c.getLong(c.getColumnIndex(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME));
         Date timeAsDate = new Date(time);
 
-        HRVParameters.MeasurementBuilder measurementBuilder = new HRVParameters
+        Measurement.MeasurementBuilder measurementBuilder = new Measurement
                 .MeasurementBuilder(timeAsDate, loadRRIntervals(c, columnIndex))
                 .rating(loadRating(c))
                 .category(loadCategory(c))

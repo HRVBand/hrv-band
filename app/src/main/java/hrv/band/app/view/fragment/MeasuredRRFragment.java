@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
 import lecho.lib.hellocharts.model.Axis;
@@ -32,7 +32,7 @@ public class MeasuredRRFragment extends Fragment {
     /** The chart showing rr intervals **/
     private ColumnChartView mChart;
     /** The hrv parameter to extract rr intervals from. **/
-    private HRVParameters parameter;
+    private Measurement parameter;
     /** The root view of this fragment. **/
     private View rootView;
 
@@ -41,7 +41,7 @@ public class MeasuredRRFragment extends Fragment {
      * @param parameter the hrv parameter to get rr intervals from.
      * @return a new instance of this fragment.
      */
-    public static MeasuredRRFragment newInstance(HRVParameters parameter) {
+    public static MeasuredRRFragment newInstance(Measurement parameter) {
         MeasuredRRFragment fragment = new MeasuredRRFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.HRV_VALUE, parameter);

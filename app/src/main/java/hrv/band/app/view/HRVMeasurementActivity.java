@@ -8,7 +8,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
@@ -78,7 +78,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
     /**
      * Sets the details of the actual measured and calculated HRV parameter.
      */
-    private HRVParameters createSavableMeasurement() {
+    private Measurement createSavableMeasurement() {
         MeasuredDetailsEditFragment fragment = getMeasuredDetailsEditFragment();
 
         float rating = fragment != null ? fragment.getRating() : 0;
@@ -86,7 +86,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
         String note = fragment != null ? fragment.getNote() : "";
 
 
-        HRVParameters.MeasurementBuilder measurementBuilder = new HRVParameters.MeasurementBuilder(getParameter())
+        Measurement.MeasurementBuilder measurementBuilder = new Measurement.MeasurementBuilder(getParameter())
                 .rating(rating)
                 .category(category)
                 .note(note);

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.fragment.StatisticFragment;
 
@@ -33,7 +33,7 @@ public class StatisticFragmentTest {
     private StatisticFragment fragment;
     @Before
     public void setup()  {
-        fragment = StatisticFragment.newInstance(HRVValue.BAEVSKY, new ArrayList<HRVParameters>(), new Date());
+        fragment = StatisticFragment.newInstance(HRVValue.BAEVSKY, new ArrayList<Measurement>(), new Date());
         SupportFragmentTestUtil.startVisibleFragment(fragment);
     }
     @Test

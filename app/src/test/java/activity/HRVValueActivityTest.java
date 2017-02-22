@@ -20,7 +20,7 @@ import java.util.Date;
 
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.HRVMeasurementActivity;
@@ -41,12 +41,12 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 public class HRVValueActivityTest {
     private HRVValueActivity activity;
-    private static HRVParameters parameter;
+    private static Measurement parameter;
     private static IStorage storage;
 
     @BeforeClass
     public static void init() {
-        HRVParameters.MeasurementBuilder builder = new HRVParameters.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
+        Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
         parameter = builder.build();
         storage = new HRVSQLController();
     }

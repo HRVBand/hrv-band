@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.HRVValueActivity;
 import hrv.band.app.view.MainActivity;
@@ -61,7 +61,7 @@ public class StatisticFragment extends Fragment {
     /** The hrv type that this fragment is showing. **/
     private HRVValue hrvType;
     /** The parameters this fragment should show. **/
-    private List<HRVParameters> parameters;
+    private List<Measurement> parameters;
     /** The head line of listview showing actual chosen date. **/
     private TextView date;
 
@@ -69,7 +69,7 @@ public class StatisticFragment extends Fragment {
      * Returns a new instance of this fragment.
      * @return a new instance of this fragment.
      */
-    public static StatisticFragment newInstance(HRVValue type, List<HRVParameters> parameters,
+    public static StatisticFragment newInstance(HRVValue type, List<Measurement> parameters,
                                                 Date date) {
         StatisticFragment fragment = new StatisticFragment();
         Bundle args = new Bundle();
@@ -149,7 +149,7 @@ public class StatisticFragment extends Fragment {
      * Initialized the chart and showing the given parameters.
      * @param parameters the parameters to show in the chart.
      */
-    private void initChart(List<HRVParameters> parameters) {
+    private void initChart(List<Measurement> parameters) {
         int numSubcolumns = 4;
         int numColumns = 24;
 
@@ -188,7 +188,7 @@ public class StatisticFragment extends Fragment {
      * Sets the values of the chart with the given parameters.
      * @param parameters the parameters to show in the chart.
      */
-    private void setChartValues(List<HRVParameters> parameters) {
+    private void setChartValues(List<Measurement> parameters) {
         resetChartValues();
         for (int i = 0; i < parameters.size(); i++) {
             Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
@@ -232,7 +232,7 @@ public class StatisticFragment extends Fragment {
      * @param parameters the new parameters.
      * @param date the new date.
      */
-    public void updateValues(List<HRVParameters> parameters, Date date) {
+    public void updateValues(List<Measurement> parameters, Date date) {
         this.parameters = parameters;
         getArguments().putParcelableArrayList(ARG_HRV_VALUE, new ArrayList<>(parameters));
         getArguments().putSerializable(ARG_DATE_VALUE, date);

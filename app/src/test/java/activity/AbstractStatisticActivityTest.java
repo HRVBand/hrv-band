@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.view.StatisticActivity;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.fragment.StatisticFragment;
@@ -38,7 +38,7 @@ public abstract class AbstractStatisticActivityTest {
     //TODO: https://github.com/robolectric/robolectric/issues/2010
     // ActivityController is a Robolectric class that drives the Activity lifecycle
     private StatisticActivity activity;
-    private static List<HRVParameters> parameters;
+    private static List<Measurement> parameters;
 
     protected abstract HRVValue getHrvType();
 
@@ -46,7 +46,7 @@ public abstract class AbstractStatisticActivityTest {
     @BeforeClass
     public static void init() {
         parameters = new ArrayList<>();
-        HRVParameters.MeasurementBuilder builder = new HRVParameters.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
+        Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
         parameters.add(builder.build());
     }
     @Ignore
