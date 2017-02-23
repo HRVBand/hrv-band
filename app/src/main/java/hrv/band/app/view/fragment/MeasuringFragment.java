@@ -23,6 +23,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Date;
 
+import hrv.HRVParameter;
 import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.control.Measurement;
@@ -32,6 +33,8 @@ import hrv.band.app.devices.HRVRRIntervalDevice;
 import hrv.band.app.devices.antplus.AntPlusRRDataDevice;
 import hrv.band.app.devices.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.HRVMeasurementActivity;
+import hrv.calc.continous.HRVContinousPulse;
+import hrv.calc.continous.HRVParameterChangedListener;
 import hrv.calc.continous.HRVRRIntervalEvent;
 import hrv.calc.continous.HRVRRIntervalListener;
 import units.TimeUnitConverter;
@@ -42,7 +45,7 @@ import units.TimeUnitConverter;
  *
  * Fragment allowing user to start measurement.
  */
-public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
+public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener, HRVParameterChangedListener {
 
     /** Key value for the calculated hrv parameter. **/
     private static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
@@ -58,14 +61,18 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     /** Device to measure rr interval. **/
     private HRVRRIntervalDevice hrvRRIntervalDevice;
 
-    /** Text view showing the actual rr interval. **/
+    /** Text view showing the current rr interval. **/
     private TextView rrStatus;
+    /** Text view showing the current pulse **/
+    private TextView pulse;
     /** Text view showing the status of the measurement. **/
     private TextView txtStatus;
     /** Indicates the progress of the measurement. **/
     private ProgressBar progressBar;
     /** The animation of the progress bar. **/
     private ObjectAnimator animation;
+    /** continously calculates the pulse **/
+    private HRVContinousPulse pulseCalculator;
 
     /** Button to connect with the ms band. **/
     private com.github.clans.fab.FloatingActionButton connectToBandFAB;
@@ -92,6 +99,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         view = rootView.findViewById(R.id.measure_fragment);
 
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
+        pulse = (TextView) rootView.findViewById(R.id.pulseValue);
         txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
@@ -101,6 +109,8 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
+        pulseCalculator = new HRVContinousPulse(10);
+        pulseCalculator.addHRVParameterChangedListener(this);
         hrvRRIntervalDevice = getDevice(DeviceID.values()[sharedPreferences.getInt(SELECTED_DEVICE_ID, 0)]);
         if (hrvRRIntervalDevice != null) {
             addDeviceListeners(this);
@@ -119,6 +129,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             disconnectDevices.setOnClickListener(clickListener);
         }
 
+
         setProgressBarSize();
 
         initAnimation();
@@ -131,7 +142,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      * @return measurement duration in ms.
      */
     private int getDuration() {
-        String durationPrefVal = sharedPreferences.getString("recording_length", "90");
+        String durationPrefVal = sharedPreferences.getString("recording_length", "128");
         return Integer.parseInt(durationPrefVal) * 1000;
     }
 
@@ -142,6 +153,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private void addDeviceListeners(MeasuringFragment measuringFragment) {
         hrvRRIntervalDevice.addDeviceListener(measuringFragment);
         hrvRRIntervalDevice.addRRIntervalListener(measuringFragment);
+        hrvRRIntervalDevice.addRRIntervalListener(pulseCalculator);
     }
 
     /**
@@ -219,6 +231,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         updateTextView(getActivity(), rrStatus, "0,00");
         updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
+        updateTextView(getActivity(), pulse, getResources().getString(R.string.measure_fragment_standard_pulse_value));
     }
 
     /**
@@ -270,6 +283,12 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     public void newRRInterval(HRVRRIntervalEvent event) {
         String format = String.format("%.2f", event.getRr());
         updateTextView(getActivity(), rrStatus, format);
+    }
+
+    @Override
+    public void parameterChanged(HRVParameter eventArgs) {
+        String format = ((Integer)((int)eventArgs.getValue())).toString();
+        updateTextView(getActivity(), pulse, format);
     }
 
     /**

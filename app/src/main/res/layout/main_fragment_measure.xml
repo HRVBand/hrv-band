@@ -41,12 +41,13 @@
         android:orientation="horizontal">
 
         <TextView
-          android:id="@+id/pulseValue"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:id="@+id/pulseValue"
           android:text="@string/measure_fragment_standard_pulse_value"
           android:layout_marginEnd="7sp"
           android:textSize="40sp"/>
+
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import hrv.calc.frequency.psd.PowerSpectrum;
 import hrv.calc.frequency.psd.StandardPowerSpectralDensityEstimator;
 import hrv.calc.manipulator.HRVCutToPowerTwoDataManipulator;
 import hrv.calc.manipulator.HRVMultiDataManipulator;
+import hrv.calc.manipulator.HRVSplineInterpolator;
 import hrv.calc.manipulator.HRVSubstractMeanManipulator;
 import hrv.calc.statistical.BaevskyCalculator;
 import hrv.calc.statistical.NN50Calculator;
@@ -118,6 +119,7 @@ public class HRVCalculatorController {
     public PowerSpectrum getPowerSpectrum() {
         if(this.ps == null) {
             HRVMultiDataManipulator mani = new HRVMultiDataManipulator();
+            mani.addManipulator(new HRVSplineInterpolator(4));
             mani.addManipulator(new HRVCutToPowerTwoDataManipulator());
             mani.addManipulator(new HRVSubstractMeanManipulator());
             RRData manipulatedData = mani.manipulate(data);
