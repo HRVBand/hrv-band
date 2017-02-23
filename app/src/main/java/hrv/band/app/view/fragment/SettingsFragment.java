@@ -38,9 +38,13 @@ public class SettingsFragment extends PreferenceFragment {
                         startExportFragment();
                         return true;
                     } else {
-                        getFileWritePermission(EXPORT_DATABASE_REQUEST_ID);
-                        return true;
+                        if(getFileWritePermission(EXPORT_DATABASE_REQUEST_ID)) {
+                            startExportFragment();
+                            return true;
+                        }
                     }
+
+                    return false;
                 }
             });
         }

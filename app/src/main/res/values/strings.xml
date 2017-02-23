@@ -154,7 +154,9 @@
 
   <!-- Settings -->
   <string name="settings_record_length">RR-Recording-Time (s)</string>
+  <string name="settings_record_length_summary">Record length should be larger than 128 seconds to ensure proper results.</string>
   <string name="settings_export">Export</string>
+  <string name="settings_export_summary">Data gets exported to the documents folder.</string>
   <string name="settings_import">Import</string>
   <string name="settings_measurement">Measurement</string>
   <string name="settings_request_ext_write_message">Needed to write file.</string>
@@ -162,26 +164,26 @@
   <string name="invalid_input">Invalid Input</string>
   <string name="invalid_measurement_length_input">RR-Recording-Time can only contain digits.</string>
 
-  <!-- Turorial-->
-  <string name="tutorial_welcome_titel">Welcome</string>
+  <!-- Tutorial-->
+  <string name="tutorial_welcome_title">Welcome</string>
   <string name="tutorial_welcome_desc">Welcome to HRV Band! This app helps you to keep track of your heart rate variability (HRV).</string>
-  <string name="tutorial_connecting_titel">Connecting</string>
+  <string name="tutorial_connecting_title">Connecting</string>
   <string name="tutorial_connecting_desc">To start a measurement put on your device and configure it with your phone as it says on your device instruction!</string>
-  <string name="tutorial_measurement_titel">Start</string>
+  <string name="tutorial_measurement_title">Start</string>
   <string name="tutorial_measurement_desc">Now you can press the big measure button in the middle of the screen to start measurement. Before your first measurement you need to select your device.</string>
-  <string name="tutorial_saving_titel">Save</string>
+  <string name="tutorial_saving_title">Save</string>
   <string name="tutorial_saving_desc">Save your measurement and the calculated HRV parameters by pressing the save button.</string>
-  <string name="tutorial_personalize_titel">Personalize</string>
+  <string name="tutorial_personalize_title">Personalize</string>
   <string name="tutorial_personalize_desc">You can extend your measurement by rating, selecting a category and adding a note to it.</string>
-  <string name="tutorial_values_titel">Values</string>
+  <string name="tutorial_values_title">Values</string>
   <string name="tutorial_values_desc">HRV Band calculates multiple HRV parameters which can indicate stress or other issues! Explore the app to learn more!</string>
-  <string name="tutorial_monitor_titel">Monitor</string>
-  <string name="tutorial_monitor_desc">Monitor your measurings and analyze single measurements by clicking on them.</string>
+  <string name="tutorial_monitor_title">Monitor</string>
+  <string name="tutorial_monitor_desc">Monitor your measurements and analyze single measurements by clicking on them.</string>
 
   <string name="tutorial_cancel_title">Cancel The Tutorial?</string>
   <string name="tutorial_cancel_desc">Do you really want to cancel the tutorial?</string>
 
-  <!-- Webactivity -->
+  <!-- Web Activity -->
   <string name="web_back">Return</string>
   <string name="web_navigation">Navigation</string>
   <string name="web_home">Home</string>

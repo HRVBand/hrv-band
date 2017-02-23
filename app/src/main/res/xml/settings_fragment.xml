@@ -8,7 +8,8 @@
       android:defaultValue="90"
       android:icon="@drawable/ic_access_alarm"
       android:key="recording_length"
-     android:title="@string/settings_record_length" />
+      android:title="@string/settings_record_length"
+      android:summary="@string/settings_record_length_summary"/>
   </PreferenceCategory>
 
   <PreferenceCategory android:title="Other">
@@ -16,6 +17,7 @@
     <Preference
       android:icon="@drawable/ic_export"
       android:key="settings_export"
-      android:title="@string/settings_export" />
+      android:title="@string/settings_export"
+      android:summary="@string/settings_export_summary"/>
   </PreferenceCategory>
 </PreferenceScreen>

@@ -32,13 +32,13 @@ public class IntroActivity extends AppIntro {
 
         Resources resources = getResources();
 
-        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_welcome_titel), resources.getString(R.string.tutorial_welcome_desc), R.drawable.hrv_logo));
-        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_connecting_titel), resources.getString(R.string.tutorial_connecting_desc), R.drawable.intro_connecting));
-        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_measurement_titel), resources.getString(R.string.tutorial_measurement_desc), R.drawable.intro_measurement));
-        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_saving_titel), resources.getString(R.string.tutorial_saving_desc), R.drawable.intro_saving));
-        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_personalize_titel), resources.getString(R.string.tutorial_personalize_desc), R.drawable.intro_personalize));
-        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_values_titel), resources.getString(R.string.tutorial_values_desc), R.drawable.intro_values));
-        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_monitor_titel), resources.getString(R.string.tutorial_monitor_desc), R.drawable.intro_monitor));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_welcome_title), resources.getString(R.string.tutorial_welcome_desc), R.drawable.hrv_logo));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_connecting_title), resources.getString(R.string.tutorial_connecting_desc), R.drawable.intro_connecting));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_measurement_title), resources.getString(R.string.tutorial_measurement_desc), R.drawable.intro_measurement));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_saving_title), resources.getString(R.string.tutorial_saving_desc), R.drawable.intro_saving));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_personalize_title), resources.getString(R.string.tutorial_personalize_desc), R.drawable.intro_personalize));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_values_title), resources.getString(R.string.tutorial_values_desc), R.drawable.intro_values));
+        addSlide(IntroFragment.newInstance(resources.getString(R.string.tutorial_monitor_title), resources.getString(R.string.tutorial_monitor_desc), R.drawable.intro_monitor));
 
         setBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
 
