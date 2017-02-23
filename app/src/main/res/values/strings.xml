@@ -53,6 +53,8 @@
   <string name="measure_fragment_avg">average:</string>
   <string name="measure_fragment_count">count:</string>
   <string name="measure_fragment_press_to_start">Press To Start Measurement</string>
+  <string name="measure_fragment_pulse">Pulse</string>
+  <string name="measure_fragment_standard_pulse_value">0</string>
 
   <string name="measure_cancel_title">Stop Measuring?</string>
   <string name="measure_cancel_desc">Do you really want to stop the measurement?</string>

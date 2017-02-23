@@ -19,20 +19,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.Date;
 
 import hrv.RRData;
-import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.devices.HRVDeviceStatus;
 import hrv.band.app.devices.HRVRRDeviceListener;
 import hrv.band.app.devices.HRVRRIntervalDevice;
-import hrv.band.app.devices.HRVRRIntervalEvent;
-import hrv.band.app.devices.HRVRRIntervalListener;
-import hrv.band.app.devices.Interval;
 import hrv.band.app.devices.antplus.AntPlusRRDataDevice;
 import hrv.band.app.devices.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.HRVMeasurementActivity;
+import hrv.calc.continous.HRVRRIntervalEvent;
+import hrv.calc.continous.HRVRRIntervalListener;
 import units.TimeUnitConverter;
 
 /**
@@ -324,11 +325,10 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             }
             hrvRRIntervalDevice.stopMeasuring();
 
-            Interval interval = new Interval(new Date());
-            interval.setRRInterval(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
+            double[] rrIntervals = ArrayUtils.toPrimitive(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
 
             Intent intent = new Intent(getContext(), HRVMeasurementActivity.class);
-            intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
+            intent.putExtra(HRV_PARAMETER_ID, createMeasurement(rrIntervals, new Date()));
             startActivity(intent);
 
             hrvRRIntervalDevice.clearRRIntervals();
@@ -347,14 +347,15 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         /**
          * Calculates hrv parameter from given rr interval.
-         * @param interval measured rr interval.
+         * @param rrInterval measured rr interval.
+         * @param time time the measurement was created.
          * @return calculated hrv parameter from given rr interval.
          */
-        private Measurement calculate(Interval interval) {
+        private Measurement createMeasurement(double[] rrInterval, Date time) {
             //start calculation
-            RRData.createFromRRInterval(interval.getRRInterval(), TimeUnitConverter.TimeUnit.SECOND);
+            RRData.createFromRRInterval(rrInterval, TimeUnitConverter.TimeUnit.SECOND);
 
-            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(interval.getStartTime(), interval.getRRInterval());
+            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(time, rrInterval);
             return measurementBuilder.build();
         }
     }

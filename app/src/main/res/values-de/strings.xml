@@ -49,6 +49,8 @@
   <string name="measure_fragment_avg">Durchschnitt:</string>
   <string name="measure_fragment_count">Anzahl:</string>
   <string name="measure_fragment_press_to_start">Drücke um Messung zu starten.</string>
+  <string name="measure_fragment_pulse">Puls</string>
+  <string name="measure_fragment_standard_pulse_value">0</string>
 
   <string name="measure_cancel_title">Messung beenden?</string>
   <string name="measure_cancel_desc">Wollen Sie die Messung wirklich beenden?</string>

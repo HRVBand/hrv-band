@@ -1,5 +1,7 @@
 package hrv.band.app.devices;
 
+import hrv.calc.continous.HRVRRIntervalListener;
+
 /**
  * Copyright (c) 2017
  * Created by Julian Martin on 03.01.2016.
