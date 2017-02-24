@@ -11,6 +11,7 @@ import hrv.RRData;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.control.HRVCalculatorController;
 import hrv.calc.frequency.psd.PowerSpectrum;
+import hrv.calc.frequency.psd.StandardPowerSpectralDensityEstimator;
 import units.TimeUnitConverter;
 
 import static junit.framework.Assert.assertEquals;
@@ -53,7 +54,8 @@ public class HRVCalculatorControllerTest {
         assertNotNull(controller.getSDNN());
         assertNotNull(controller.getSDSD());
 
-        PowerSpectrum ps = controller.getPowerSpectrum();
+        StandardPowerSpectralDensityEstimator estimator = new StandardPowerSpectralDensityEstimator();
+        PowerSpectrum ps = estimator.calculateEstimate(rr);
         assertNotNull(ps);
 
         double[] freqResult = ps.getFrequency();
