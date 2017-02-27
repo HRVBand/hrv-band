@@ -27,9 +27,9 @@
   <string name="navigation_drawer_close">Close navigation drawer</string>
 
   <!-- Activity Main Drawer -->
-  <string name="main_drawer_website" translatable="false">Website</string>
+  <string name="main_drawer_website">Website</string>
   <string name="main_drawer_feedback" translatable="false">Feedback</string>
-  <string name="main_drawer_privacy_policy" translatable="false">Privacy Policy</string>
+  <string name="main_drawer_privacy_policy">Privacy Policy</string>
   <string name="main_drawer_settings">Settings</string>
 
   <!-- Title Activity-->
@@ -53,7 +53,7 @@
   <string name="measure_fragment_avg">average:</string>
   <string name="measure_fragment_count">count:</string>
   <string name="measure_fragment_press_to_start">Press To Start Measurement</string>
-  <string name="measure_fragment_pulse">Pulse</string>
+  <string name="measure_fragment_bpm">bpm</string>
   <string name="measure_fragment_standard_pulse_value">0</string>
 
   <string name="measure_cancel_title">Stop Measuring?</string>
@@ -65,7 +65,7 @@
 
   <!-- content measure -->
   <string name="measure_content_rr_status_standard">0,00</string>
-  <string name="measure_content_rr">RR</string>
+  <string name="measure_content_rr" translatable="false">RR-I</string>
   <string name="measure_content_time_unit">sec</string>
 
   <!-- measure list item -->
@@ -157,10 +157,13 @@
   <!-- Settings -->
   <string name="settings_record_length">RR-Recording-Time (s)</string>
   <string name="settings_record_length_summary">Record length should be larger than 128 seconds to ensure proper results.</string>
+  <string name="settings_group_other">Other</string>
   <string name="settings_export">Export</string>
   <string name="settings_export_summary">Data gets exported to the documents folder.</string>
   <string name="settings_import">Import</string>
-  <string name="settings_measurement">Measurement</string>
+  <string name="settings_sample">Create Sample Data</string>
+  <string name="settings_sample_summary">Create a set of sample data to view them in the overview.</string>
+  <string name="settings_group_measurement">Measurement</string>
   <string name="settings_request_ext_write_message">Needed to write file.</string>
 
   <string name="invalid_input">Invalid Input</string>

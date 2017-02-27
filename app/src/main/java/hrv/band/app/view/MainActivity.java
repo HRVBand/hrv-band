@@ -31,7 +31,6 @@ import hrv.band.app.view.fragment.DisclaimerDialogFragment;
 import hrv.band.app.view.fragment.FeedbackDialogFragment;
 import hrv.band.app.view.fragment.MeasuringFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
-import hrv.band.app.view.fragment.SampleDataFragment;
 
 /**
  * Copyright (c) 2017
@@ -155,8 +154,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, ImprintActivity.class));
         } else if (id == R.id.menu_rate) {
             rateApp();
-        } else if (id == R.id.menu_sample_data) {
-            SampleDataFragment.newInstance(false).show(getFragmentManager(), getResources().getString(R.string.common_import));
         } else if (id == R.id.menu_Settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         }

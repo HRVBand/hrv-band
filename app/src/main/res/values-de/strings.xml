@@ -27,7 +27,9 @@
 
 
   <!-- Activity Main Drawer -->
-  <string name="main_drawer_settings">Settings</string>
+  <string name="main_drawer_settings">Einstellungen</string>
+  <string name="main_drawer_website">Webseite</string>
+  <string name="main_drawer_privacy_policy">Datenschutzerklärung</string>
 
   <!-- Title Activity-->
   <string name="title_activity_save_values">Details</string>
@@ -49,7 +51,7 @@
   <string name="measure_fragment_avg">Durchschnitt:</string>
   <string name="measure_fragment_count">Anzahl:</string>
   <string name="measure_fragment_press_to_start">Drücke um Messung zu starten.</string>
-  <string name="measure_fragment_pulse">Puls</string>
+  <string name="measure_fragment_bpm">HF</string>
   <string name="measure_fragment_standard_pulse_value">0</string>
 
   <string name="measure_cancel_title">Messung beenden?</string>
@@ -61,7 +63,6 @@
 
   <!-- content measure -->
   <string name="measure_content_rr_status_standard">0,00</string>
-  <string name="measure_content_rr">RR</string>
   <string name="measure_content_time_unit">sek</string>
 
   <!-- measure list item -->
@@ -143,10 +144,13 @@
   <!-- Settings -->
   <string name="settings_record_length">RR-Aufnahme-Dauer (s)</string>
   <string name="settings_record_length_summary">RR-Aufnahme-Dauer sollte mehr als 128s betragen um die Qualität der Messung sicherzustellen.</string>
+  <string name="settings_group_other">Sonstige</string>
   <string name="settings_export">Exportieren</string>
   <string name="settings_export_summary">Daten werden in den Dokumente Ordner exportiert.</string>
   <string name="settings_import">Importieren</string>
-  <string name="settings_measurement">Messung</string>
+  <string name="settings_sample">Erstelle Test Daten</string>
+  <string name="settings_sample_summary">Erstelle ein paar Testdaten um sie in der Übersicht anzuzeigen.</string>
+  <string name="settings_group_measurement">Messung</string>
   <string name="settings_request_ext_write_message">Benötigt im Datei zu schreiben.</string>
 
   <string name="invalid_input">Ungültige Eingabe</string>

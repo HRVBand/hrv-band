@@ -3,21 +3,28 @@
   android:icon="@drawable/ic_settings"
   android:title="Settings">
 
-  <PreferenceCategory android:title="@string/settings_measurement">
+  <PreferenceCategory android:title="@string/settings_group_measurement">
     <EditTextPreference
       android:defaultValue="90"
       android:icon="@drawable/ic_access_alarm"
       android:key="recording_length"
+      android:inputType="numberDecimal"
       android:title="@string/settings_record_length"
       android:summary="@string/settings_record_length_summary"/>
   </PreferenceCategory>
 
-  <PreferenceCategory android:title="Other">
+  <PreferenceCategory android:title="@string/settings_group_other">
 
     <Preference
       android:icon="@drawable/ic_export"
       android:key="settings_export"
       android:title="@string/settings_export"
       android:summary="@string/settings_export_summary"/>
+
+    <Preference
+      android:icon="@drawable/ic_create_sample"
+      android:key="settings_sample"
+      android:title="@string/settings_sample"
+      android:summary="@string/settings_sample_summary"/>
   </PreferenceCategory>
 </PreferenceScreen>

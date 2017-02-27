@@ -23,8 +23,6 @@
       android:title="@string/main_drawer_feedback" />
   </group>
 
-
-
   <group
     android:checkableBehavior="none">
     <item
@@ -41,13 +39,6 @@
       android:title="@string/common_imprint" />
   </group>
 
-  <group
-    android:checkableBehavior="none">
-    <item
-      android:id="@+id/menu_sample_data"
-      android:icon="@drawable/ic_create_sample"
-      android:title="Create Sample Data" />
-  </group>
   <group
     android:checkableBehavior="none">
     <item

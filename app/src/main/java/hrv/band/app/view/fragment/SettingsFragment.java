@@ -70,6 +70,14 @@ public class SettingsFragment extends PreferenceFragment {
                     }
                 }
         );
+
+        getPreferenceManager().findPreference("settings_sample").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                SampleDataFragment.newInstance(false).show(getFragmentManager(), getResources().getString(R.string.common_import));
+                return false;
+            }
+        });
     }
 
     private boolean canMakeSmores() {
@@ -144,4 +152,5 @@ public class SettingsFragment extends PreferenceFragment {
     private void startExportFragment() {
         ExportFragment.newInstance().show(getFragmentManager(), getResources().getString(R.string.common_export));
     }
+
 }
