@@ -15,7 +15,7 @@ import org.robolectric.annotation.Config;
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 
 import static junit.framework.Assert.assertEquals;
@@ -29,9 +29,9 @@ import static junit.framework.Assert.assertNotNull;
 
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
 @RunWith(RobolectricTestRunner.class)
-public class HRVParametersTest {
+public class MeasurementTest {
 
-    private HRVParameters.MeasurementBuilder measurementBuilder;
+    private Measurement.MeasurementBuilder measurementBuilder;
     private static Date date;
     private static double[] rr;
 
@@ -43,13 +43,13 @@ public class HRVParametersTest {
 
     @Before
     public void setupBuilder() {
-        measurementBuilder = new HRVParameters
+        measurementBuilder = new Measurement
                 .MeasurementBuilder(date, rr);
     }
 
     @Test
     public void buildSimpleMeasurement() {
-        HRVParameters parameter = measurementBuilder.build();
+        Measurement parameter = measurementBuilder.build();
         assertNotNull(parameter);
         assertEquals(date, parameter.getTime());
         assertEquals(rr, parameter.getRRIntervals());
@@ -58,7 +58,7 @@ public class HRVParametersTest {
     @Test
     public void buildSMeasurementWithRating() {
         double rating = 4.2;
-        HRVParameters parameter = measurementBuilder.rating(rating).build();
+        Measurement parameter = measurementBuilder.rating(rating).build();
         assertNotNull(parameter);
         assertEquals(rating, parameter.getRating());
     }
@@ -69,7 +69,7 @@ public class HRVParametersTest {
                 .MeasureCategory.values();
 
         for (MeasurementCategoryAdapter.MeasureCategory category : categories) {
-            HRVParameters parameter = measurementBuilder.category(category).build();
+            Measurement parameter = measurementBuilder.category(category).build();
             assertNotNull(parameter);
             assertEquals(category, parameter.getCategory());
         }
@@ -78,12 +78,12 @@ public class HRVParametersTest {
 
     @Test
     public void parcelableTest() {
-        HRVParameters parameter = measurementBuilder.build();
+        Measurement parameter = measurementBuilder.build();
         Parcel parcel = Parcel.obtain();
         parameter.writeToParcel(parcel, parameter.describeContents());
         parcel.setDataPosition(0);
 
-        HRVParameters createFromParcel = HRVParameters.CREATOR.createFromParcel(parcel);
+        Measurement createFromParcel = Measurement.CREATOR.createFromParcel(parcel);
         assertEquals(parameter.getTime(), createFromParcel.getTime());
 
         assertEquals(parameter.getRRIntervals().length, createFromParcel.getRRIntervals().length);
@@ -97,7 +97,7 @@ public class HRVParametersTest {
     @Test
     public void buildSMeasurementWithNote() {
         String note = "this is a note";
-        HRVParameters parameter = measurementBuilder.note(note).build();
+        Measurement parameter = measurementBuilder.note(note).build();
         assertNotNull(parameter);
         assertEquals(note, parameter.getNote());
     }

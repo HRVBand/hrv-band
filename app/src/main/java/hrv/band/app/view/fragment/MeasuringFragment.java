@@ -7,33 +7,40 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.Date;
 
+import hrv.HRVParameter;
 import hrv.RRData;
-import hrv.band.app.control.HRVParameters;
 import hrv.band.app.R;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.devices.HRVDeviceStatus;
 import hrv.band.app.devices.HRVRRDeviceListener;
 import hrv.band.app.devices.HRVRRIntervalDevice;
-import hrv.band.app.devices.HRVRRIntervalEvent;
-import hrv.band.app.devices.HRVRRIntervalListener;
-import hrv.band.app.devices.Interval;
 import hrv.band.app.devices.antplus.AntPlusRRDataDevice;
 import hrv.band.app.devices.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.HRVMeasurementActivity;
-import hrv.calc.AllHRVIndiceCalculator;
+import hrv.calc.continous.HRVContinousPulse;
+import hrv.calc.continous.HRVParameterChangedListener;
+import hrv.calc.continous.HRVRRIntervalEvent;
+import hrv.calc.continous.HRVRRIntervalListener;
+import units.TimeUnitConverter;
 
 /**
  * Copyright (c) 2017
@@ -41,7 +48,7 @@ import hrv.calc.AllHRVIndiceCalculator;
  *
  * Fragment allowing user to start measurement.
  */
-public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener {
+public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, HRVRRIntervalListener, HRVParameterChangedListener {
 
     /** Key value for the calculated hrv parameter. **/
     private static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
@@ -57,14 +64,20 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     /** Device to measure rr interval. **/
     private HRVRRIntervalDevice hrvRRIntervalDevice;
 
-    /** Text view showing the actual rr interval. **/
+    /** Text view showing the current rr interval. **/
     private TextView rrStatus;
+    /** Text view showing the current pulse **/
+    private TextView pulse;
+    /** Text view showing the time left of the measurement. **/
+    private TextView txtMeasureTime;
     /** Text view showing the status of the measurement. **/
     private TextView txtStatus;
     /** Indicates the progress of the measurement. **/
     private ProgressBar progressBar;
     /** The animation of the progress bar. **/
     private ObjectAnimator animation;
+    /** continously calculates the pulse **/
+    private HRVContinousPulse pulseCalculator;
 
     /** Button to connect with the ms band. **/
     private com.github.clans.fab.FloatingActionButton connectToBandFAB;
@@ -72,6 +85,9 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private com.github.clans.fab.FloatingActionButton connectToAntPlusFAB;
     /** Button to disconnect with devices. **/
     private com.github.clans.fab.FloatingActionButton disconnectDevices;
+
+    /** The timer that shows the time to go for the measurement. **/
+    private CountDownTimer countDownTimer;
 
     /** Root view of this fragment. **/
     private View view;
@@ -91,7 +107,10 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         view = rootView.findViewById(R.id.measure_fragment);
 
         rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
+        pulse = (TextView) rootView.findViewById(R.id.pulseValue);
         txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
+        txtMeasureTime = (TextView) rootView.findViewById(R.id.measureTime);
+
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
         connectToBandFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_band_float_button);
@@ -99,7 +118,10 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         disconnectDevices = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.disconnect_devices);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        txtMeasureTime.setText(String.valueOf(getDuration() / 1000));
 
+        pulseCalculator = new HRVContinousPulse(10);
+        pulseCalculator.addHRVParameterChangedListener(this);
         hrvRRIntervalDevice = getDevice(DeviceID.values()[sharedPreferences.getInt(SELECTED_DEVICE_ID, 0)]);
         if (hrvRRIntervalDevice != null) {
             addDeviceListeners(this);
@@ -118,6 +140,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             disconnectDevices.setOnClickListener(clickListener);
         }
 
+
         setProgressBarSize();
 
         initAnimation();
@@ -126,11 +149,27 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     }
 
     /**
+     * Starts a countdown that shows how long the measurement will go on.
+     */
+    private void startCountdown() {
+        countDownTimer = new CountDownTimer(getDuration(), 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                txtMeasureTime.setText(String.valueOf(millisUntilFinished / 1000));
+            }
+            @Override
+            public void onFinish() {
+                txtMeasureTime.setText(String.valueOf(getDuration()));
+            }
+        }.start();
+    }
+
+    /**
      * Returns the measurement duration in ms.
      * @return measurement duration in ms.
      */
     private int getDuration() {
-        String durationPrefVal = sharedPreferences.getString("recording_length", "90");
+        String durationPrefVal = sharedPreferences.getString("recording_length", "128");
         return Integer.parseInt(durationPrefVal) * 1000;
     }
 
@@ -141,6 +180,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     private void addDeviceListeners(MeasuringFragment measuringFragment) {
         hrvRRIntervalDevice.addDeviceListener(measuringFragment);
         hrvRRIntervalDevice.addRRIntervalListener(measuringFragment);
+        hrvRRIntervalDevice.addRRIntervalListener(pulseCalculator);
     }
 
     /**
@@ -184,7 +224,18 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         params.height = width;
         params.width = width;
 
+        setStatusTextSize(width);
+
         progressBar.setLayoutParams(params);
+    }
+
+    /**
+     * Sets the font size of the RR status text view.
+     * @param width the width of the phone screen.
+     */
+    private void setStatusTextSize(int width) {
+        float density = getResources().getDisplayMetrics().density;
+        rrStatus.setTextSize(TypedValue.COMPLEX_UNIT_SP, (width)/(density * 5));
     }
 
     /**
@@ -218,6 +269,14 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         updateTextView(getActivity(), rrStatus, "0,00");
         updateTextView(getActivity(), txtStatus, getResources().getString(R.string.measure_fragment_press_to_start));
+        updateTextView(getActivity(), pulse, getResources().getString(R.string.measure_fragment_standard_pulse_value));
+
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        updateTextView(getActivity(), txtMeasureTime, String.valueOf(getDuration() / 1000));
+
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     /**
@@ -241,6 +300,8 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 if (animation != null) {
                     animation.setDuration(getDuration());
                     animation.start();
+                    startCountdown();
+                    getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 }
             }
         });
@@ -269,6 +330,12 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     public void newRRInterval(HRVRRIntervalEvent event) {
         String format = String.format("%.2f", event.getRr());
         updateTextView(getActivity(), rrStatus, format);
+    }
+
+    @Override
+    public void parameterChanged(HRVParameter eventArgs) {
+        String format = ((Integer)((int) eventArgs.getValue())).toString();
+        updateTextView(getActivity(), pulse, format);
     }
 
     /**
@@ -324,11 +391,10 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
             }
             hrvRRIntervalDevice.stopMeasuring();
 
-            Interval interval = new Interval(new Date());
-            interval.setRRInterval(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
+            double[] rrIntervals = ArrayUtils.toPrimitive(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
 
             Intent intent = new Intent(getContext(), HRVMeasurementActivity.class);
-            intent.putExtra(HRV_PARAMETER_ID, calculate(interval));
+            intent.putExtra(HRV_PARAMETER_ID, createMeasurement(rrIntervals, new Date()));
             startActivity(intent);
 
             hrvRRIntervalDevice.clearRRIntervals();
@@ -347,15 +413,15 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
         /**
          * Calculates hrv parameter from given rr interval.
-         * @param interval measured rr interval.
+         * @param rrInterval measured rr interval.
+         * @param time time the measurement was created.
          * @return calculated hrv parameter from given rr interval.
          */
-        private HRVParameters calculate(Interval interval) {
+        private Measurement createMeasurement(double[] rrInterval, Date time) {
             //start calculation
-            AllHRVIndiceCalculator calc = new AllHRVIndiceCalculator();
-            calc.calculateAll(RRData.createFromRRInterval(interval.getRRInterval(), RRData.RRDataUnit.s));
+            RRData.createFromRRInterval(rrInterval, TimeUnitConverter.TimeUnit.SECOND);
 
-            HRVParameters.MeasurementBuilder measurementBuilder = HRVParameters.from(calc, interval.getStartTime(), interval.getRRInterval());
+            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(time, rrInterval);
             return measurementBuilder.build();
         }
     }

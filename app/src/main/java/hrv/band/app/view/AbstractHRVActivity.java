@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.MeasuredRRFragment;
@@ -24,7 +24,7 @@ import hrv.band.app.view.fragment.MeasuredValueFragment;
  */
 public abstract class AbstractHRVActivity extends AppCompatActivity {
     /** The HRV parameter to show. **/
-    private HRVParameters parameter;
+    private Measurement parameter;
     /** The Fragments this Activity holds. **/
     private List<Fragment> fragments;
 
@@ -97,7 +97,7 @@ public abstract class AbstractHRVActivity extends AppCompatActivity {
      * Returns the HRV parameter to show.
      * @return the HRV parameter to show.
      */
-    HRVParameters getParameter() {
+    Measurement getParameter() {
         return parameter;
     }
 

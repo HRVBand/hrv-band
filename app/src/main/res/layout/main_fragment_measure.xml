@@ -13,6 +13,83 @@
   tools:context="hrv.band.app.view.MainActivity"
   android:id="@+id/measure_fragment">
 
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end"
+      android:orientation="horizontal"
+      android:layout_weight="1">
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="7dp">
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:tint="@color/colorAccent"
+          android:src="@drawable/ic_access_alarm"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/measure_content_time_unit"
+          android:textSize="20sp"/>
+      </LinearLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/measureTime"
+        android:text="@string/measure_fragment_standard_pulse_value"
+        android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end"
+      android:orientation="horizontal">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/pulseValue"
+        android:text="@string/measure_fragment_standard_pulse_value"
+        android:layout_marginEnd="7dp"
+        android:textSize="20sp"/>
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="0dp">
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="end"
+          android:tint="@color/colorAccent"
+          android:src="@drawable/ic_heart"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/measure_fragment_bpm"
+          android:textSize="20sp"/>
+      </LinearLayout>
+    </LinearLayout>
+  </LinearLayout>
+
+
+
+  <View
+      android:layout_width="fill_parent"
+      android:layout_height="1.5dip"
+      android:background="#808080" />
   <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -35,6 +112,8 @@
       android:layout_centerHorizontal="true"
       android:layout_centerVertical="true">
 
+
+
       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -45,11 +124,11 @@
           android:id="@+id/rrStatus"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/measure_content_rr_status_standard"
-          android:textSize="70sp"/>
+          android:layout_gravity="center_vertical"
+          android:text="@string/measure_content_rr_status_standard" />
         <LinearLayout
           android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:orientation="vertical"
           android:layout_marginTop="7dp">
           <ImageView
@@ -71,11 +150,12 @@
 
       <TextView
         android:id="@+id/measure_status"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="@string/title_activity_start_measuring"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textAlignment="center"/>
     </LinearLayout>
   </RelativeLayout>
+
 </LinearLayout>

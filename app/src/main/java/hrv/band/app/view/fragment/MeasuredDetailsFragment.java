@@ -12,7 +12,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
 
@@ -29,7 +29,7 @@ public class MeasuredDetailsFragment extends Fragment {
      * @param parameter the hrv parameter to get details from.
      * @return a new instance of this fragment.
      */
-    public static MeasuredDetailsFragment newInstance(HRVParameters parameter) {
+    public static MeasuredDetailsFragment newInstance(Measurement parameter) {
         MeasuredDetailsFragment fragment = new MeasuredDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.HRV_VALUE, parameter);
@@ -42,7 +42,7 @@ public class MeasuredDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.hrv_value_fragment_details, container, false);
 
-        HRVParameters parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
+        Measurement parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
 
         TextView dateTxt =(TextView) rootView.findViewById(R.id.hrv_date);
         TextView ratingTxt =(TextView) rootView.findViewById(R.id.hrv_rating);

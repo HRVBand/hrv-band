@@ -1,9 +1,6 @@
 package fragment;
 
 import android.os.Build;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.Spinner;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,12 +13,10 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.R;
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.view.fragment.MeasuredDetailsFragment;
 
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertSame;
 
 /**
  * Copyright (c) 2017
@@ -35,11 +30,11 @@ import static junit.framework.Assert.assertSame;
 public class MeasuredDetailsFragmentTest {
 
     private MeasuredDetailsFragment fragment;
-    private static HRVParameters parameter;
+    private static Measurement parameter;
 
     @BeforeClass
     public static void init() {
-        HRVParameters.MeasurementBuilder builder = new HRVParameters.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
+        Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
         parameter = builder.build();
     }
 

@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
@@ -95,8 +95,8 @@ public class SampleDataFragment extends DialogFragment {
             rrValues[i] = getRandomDouble(0.5, 1.5);
         }
 
-        HRVParameters.MeasurementBuilder measurementBuilder = new HRVParameters.MeasurementBuilder(date, rrValues);
-        HRVParameters hrv = measurementBuilder
+        Measurement.MeasurementBuilder measurementBuilder = new Measurement.MeasurementBuilder(date, rrValues);
+        Measurement hrv = measurementBuilder
                 .rating(4.4)
                 .category(MeasurementCategoryAdapter.MeasureCategory.SPORT)
                 .note("This is a sample data")

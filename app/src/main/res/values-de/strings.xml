@@ -27,7 +27,9 @@
 
 
   <!-- Activity Main Drawer -->
-  <string name="main_drawer_settings">Settings</string>
+  <string name="main_drawer_settings">Einstellungen</string>
+  <string name="main_drawer_website">Webseite</string>
+  <string name="main_drawer_privacy_policy">Datenschutzerklärung</string>
 
   <!-- Title Activity-->
   <string name="title_activity_save_values">Details</string>
@@ -49,6 +51,8 @@
   <string name="measure_fragment_avg">Durchschnitt:</string>
   <string name="measure_fragment_count">Anzahl:</string>
   <string name="measure_fragment_press_to_start">Drücke um Messung zu starten.</string>
+  <string name="measure_fragment_bpm">HF</string>
+  <string name="measure_fragment_standard_pulse_value">0</string>
 
   <string name="measure_cancel_title">Messung beenden?</string>
   <string name="measure_cancel_desc">Wollen Sie die Messung wirklich beenden?</string>
@@ -59,7 +63,6 @@
 
   <!-- content measure -->
   <string name="measure_content_rr_status_standard">0,00</string>
-  <string name="measure_content_rr">RR</string>
   <string name="measure_content_time_unit">sek</string>
 
   <!-- measure list item -->
@@ -140,28 +143,33 @@
 
   <!-- Settings -->
   <string name="settings_record_length">RR-Aufnahme-Dauer (s)</string>
+  <string name="settings_record_length_summary">RR-Aufnahme-Dauer sollte mehr als 128s betragen um die Qualität der Messung sicherzustellen.</string>
+  <string name="settings_group_other">Sonstige</string>
   <string name="settings_export">Exportieren</string>
+  <string name="settings_export_summary">Daten werden in den Dokumente Ordner exportiert.</string>
   <string name="settings_import">Importieren</string>
-  <string name="settings_measurement">Messung</string>
+  <string name="settings_sample">Erstelle Test Daten</string>
+  <string name="settings_sample_summary">Erstelle ein paar Testdaten um sie in der Übersicht anzuzeigen.</string>
+  <string name="settings_group_measurement">Messung</string>
   <string name="settings_request_ext_write_message">Benötigt im Datei zu schreiben.</string>
 
   <string name="invalid_input">Ungültige Eingabe</string>
   <string name="invalid_measurement_length_input">RR-Aufnahme-Dauer darf nur aus Ziffern bestehen.</string>
 
   <!-- Turorial -->
-  <string name="tutorial_welcome_titel">Willkommen</string>
+  <string name="tutorial_welcome_title">Willkommen</string>
   <string name="tutorial_welcome_desc">Willkommen zu HRV Band! Diese App hilft die deine Herzratenvariabilität (HRV) im Auge zu behalten!</string>
-  <string name="tutorial_connecting_titel">Verbinden</string>
+  <string name="tutorial_connecting_title">Verbinden</string>
   <string name="tutorial_connecting_desc">Um die App verwenden zu können muss das Messgerät mit dem Handy, wie in der Geräteanleitung beschrieben, verbunden werden.</string>
-  <string name="tutorial_measurement_titel">Start</string>
+  <string name="tutorial_measurement_title">Start</string>
   <string name="tutorial_measurement_desc">Zum starten der Messung muss der große Messungs-Button gedrückt werden. Bei der ersten Messung muss zunächst ein Gerät ausgewählt werden.</string>
-  <string name="tutorial_saving_titel">Speichern</string>
+  <string name="tutorial_saving_title">Speichern</string>
   <string name="tutorial_saving_desc">Die Messung kann durch drücken des speichern Buttons abgespeichert werden.</string>
-  <string name="tutorial_personalize_titel">Personalisieren</string>
+  <string name="tutorial_personalize_title">Personalisieren</string>
   <string name="tutorial_personalize_desc">Die Messung kann durch eine Bewertung, Kategorisierung und hinzufügen einer Notiz erweitert werden.</string>
-  <string name="tutorial_values_titel">Werte</string>
+  <string name="tutorial_values_title">Werte</string>
   <string name="tutorial_values_desc">HRV Band berechnet verschiedene HRV Parameter die aufschluss über verschiedene Dinge wie Stress geben können. Für mehr Infos erkunde die App!</string>
-  <string name="tutorial_monitor_titel">Beobachten</string>
+  <string name="tutorial_monitor_title">Beobachten</string>
   <string name="tutorial_monitor_desc">Behalte deine Messungen im Auge und untersuche sie näher indem du sie anklickst!</string>
 
   <string name="tutorial_cancel_title">Einführung beenden?</string>

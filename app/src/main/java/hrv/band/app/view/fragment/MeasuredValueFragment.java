@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.MainActivity;
 import hrv.band.app.view.WebActivity;
@@ -28,7 +28,7 @@ public class MeasuredValueFragment extends Fragment {
      * @param parameter the hrv parameter to get rr intervals from.
      * @return a new instance of this fragment.
      */
-    public static MeasuredValueFragment newInstance(HRVParameters parameter) {
+    public static MeasuredValueFragment newInstance(Measurement parameter) {
         MeasuredValueFragment fragment = new MeasuredValueFragment();
         Bundle args = new Bundle();
         args.putParcelable(MainActivity.HRV_VALUE, parameter);
@@ -41,7 +41,7 @@ public class MeasuredValueFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.abstract_hrv_fragment_values, container, false);
 
-        HRVParameters parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
+        Measurement parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
 
         ListView listview = (ListView) rootView.findViewById(R.id.hrv_value_list);
 

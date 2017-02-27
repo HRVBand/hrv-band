@@ -5,20 +5,20 @@ import android.content.Context;
 import java.util.Date;
 import java.util.List;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 18.06.2016.
  */
 public interface IStorage {
-    void saveData(Context context, List<HRVParameters> parameters);
+    void saveData(Context context, List<Measurement> parameters);
 
-    void saveData(Context context, HRVParameters parameter);
+    void saveData(Context context, Measurement parameter);
 
-    List<HRVParameters> loadData(Context context, Date date);
+    List<Measurement> loadData(Context context, Date date);
 
-    boolean deleteData(Context context, HRVParameters parameter);
+    boolean deleteData(Context context, Measurement parameter);
 
-    boolean deleteData(Context context, List<HRVParameters> parameters);
+    boolean deleteData(Context context, List<Measurement> parameters);
 }

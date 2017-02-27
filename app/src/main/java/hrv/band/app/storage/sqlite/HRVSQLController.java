@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.storage.FileUtils;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.statements.HRVParamSQLiteObjectAdapter;
@@ -41,15 +41,15 @@ public class HRVSQLController implements IStorage {
     }
 
     @Override
-    public void saveData(Context context, List<HRVParameters> parameters) {
+    public void saveData(Context context, List<Measurement> parameters) {
 
-        for (HRVParameters param : parameters) {
+        for (Measurement param : parameters) {
             saveData(context, param);
         }
     }
 
     @Override
-    public void saveData(Context context, HRVParameters parameter) {
+    public void saveData(Context context, Measurement parameter) {
         SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
 
         //Create new Entry in DB, this entry stores meta data to a given RR-Interval
@@ -98,7 +98,7 @@ public class HRVSQLController implements IStorage {
     }
 
     @Override
-    public List<HRVParameters> loadData(Context context, Date date) {
+    public List<Measurement> loadData(Context context, Date date) {
 
         SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
         SQLiteDatabase db = controller.getReadableDatabase();
@@ -111,7 +111,7 @@ public class HRVSQLController implements IStorage {
         return hrvParamSelect.select(whereClause, whereClauseParams);
     }
 
-    private List<HRVParameters> loadAllHRVParams(Context context) {
+    private List<Measurement> loadAllHRVParams(Context context) {
         SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
         SQLiteDatabase db = controller.getReadableDatabase();
 
@@ -120,7 +120,7 @@ public class HRVSQLController implements IStorage {
     }
 
     @Override
-    public boolean deleteData(Context context, HRVParameters parameter) {
+    public boolean deleteData(Context context, Measurement parameter) {
         SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
 
         SQLiteDatabase db = controller.getReadableDatabase();
@@ -136,7 +136,7 @@ public class HRVSQLController implements IStorage {
     }
 
     @Override
-    public boolean deleteData(Context context, List<HRVParameters> parameters) {
+    public boolean deleteData(Context context, List<Measurement> parameters) {
         for (int i = 0; i < parameters.size(); i++) {
             deleteData(context, parameters.get(i));
         }
@@ -170,7 +170,7 @@ public class HRVSQLController implements IStorage {
         File documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS + "/hrvband");
         documentsDir.mkdirs();
 
-        List<HRVParameters> allHrvParams = loadAllHRVParams(con);
+        List<Measurement> allHrvParams = loadAllHRVParams(con);
 
         try {
             for (int i = 0; i < allHrvParams.size(); i++) {
@@ -197,7 +197,7 @@ public class HRVSQLController implements IStorage {
      * @return Whether the export was successful
      * @throws IOException
      */
-    private boolean exportIBIFile(File documentsDir, HRVParameters param) throws IOException {
+    private boolean exportIBIFile(File documentsDir, Measurement param) throws IOException {
         final String s = param.getTime().toString();
         File ibiFile = new File(documentsDir.getAbsolutePath(), "/RR" + s + ".ibi");
         ibiFile.deleteOnExit();

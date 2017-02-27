@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.fragment.StatisticFragment;
 
@@ -28,12 +28,12 @@ public class StatisticValueAdapter extends BaseAdapter {
     /** The hrv values to display in fragment as string. **/
     private List<String> values;
     /** The hrv parameters to display. **/
-    private List<HRVParameters> parameters;
+    private List<Measurement> parameters;
     /** The hrv type to display in the fragment. **/
     private final HRVValue type;
 
     public StatisticValueAdapter(Context context,
-                                 HRVValue type, List<HRVParameters> parameters) {
+                                 HRVValue type, List<Measurement> parameters) {
         this.context = context;
         this.type = type;
         this.parameters = parameters;
@@ -70,7 +70,7 @@ public class StatisticValueAdapter extends BaseAdapter {
      * @param type indicates which value to extract from parameter.
      * @return a list containing the value of the given hrv type of a hrv parameter.
      */
-    private List<String> getValues(List<HRVParameters> parameters, HRVValue type) {
+    private List<String> getValues(List<Measurement> parameters, HRVValue type) {
         List<String> hrvValues = new ArrayList<>();
         for (int i = 0; i < parameters.size(); i++) {
             double value = HRVValue.getHRVValue(type, parameters.get(i));
@@ -83,7 +83,7 @@ public class StatisticValueAdapter extends BaseAdapter {
      * Sets a new set of parameters after something changed (e.g. delete).
      * @param parameters new set of parameters
      */
-    public void setDataset(List<HRVParameters> parameters) {
+    public void setDataset(List<Measurement> parameters) {
         this.parameters = parameters;
         values = getValues(this.parameters, type);
         notifyDataSetChanged();

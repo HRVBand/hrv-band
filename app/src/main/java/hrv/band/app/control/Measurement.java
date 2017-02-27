@@ -6,8 +6,9 @@ import android.os.Parcelable;
 import java.util.Date;
 import java.util.Objects;
 
+import hrv.RRData;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
-import hrv.calc.AllHRVIndiceCalculator;
+import units.TimeUnitConverter;
 
 /**
  * Class that stores: Calculated HRV-Parameter values, Date of the measurement,
@@ -15,7 +16,7 @@ import hrv.calc.AllHRVIndiceCalculator;
  *
  * Created by Julian on 11.06.2016.
  */
-public class HRVParameters implements Parcelable {
+public class Measurement implements Parcelable {
 
     private final Date time;
     private final double sd1;
@@ -31,19 +32,19 @@ public class HRVParameters implements Parcelable {
     private final String note;
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
-    public static final Parcelable.Creator<HRVParameters> CREATOR = new Parcelable.Creator<HRVParameters>() {
+    public static final Parcelable.Creator<Measurement> CREATOR = new Parcelable.Creator<Measurement>() {
         @Override
-        public HRVParameters createFromParcel(Parcel in) {
-            return new HRVParameters(in);
+        public Measurement createFromParcel(Parcel in) {
+            return new Measurement(in);
         }
         @Override
-        public HRVParameters[] newArray(int size) {
-            return new HRVParameters[size];
+        public Measurement[] newArray(int size) {
+            return new Measurement[size];
         }
     };
 
     // example constructor that takes a Parcel and gives you an object populated with it's values
-    private HRVParameters(Parcel in) {
+    private Measurement(Parcel in) {
         this.time = (Date) in.readValue(getClass().getClassLoader());
         this.sd1 = in.readDouble();
         this.sd2 = in.readDouble();
@@ -60,7 +61,7 @@ public class HRVParameters implements Parcelable {
         this.note = in.readString();
     }
 
-    public HRVParameters(MeasurementBuilder builder) {
+    public Measurement(MeasurementBuilder builder) {
         this.time = builder.time;
         this.sd1 = builder.sd1;
         this.sd2 = builder.sd2;
@@ -166,11 +167,11 @@ public class HRVParameters implements Parcelable {
         if(other == this) {
             return true;
         }
-        if(!(other instanceof HRVParameters)) {
+        if(!(other instanceof Measurement)) {
             return false;
         }
 
-        HRVParameters param = (HRVParameters)other;
+        Measurement param = (Measurement)other;
 
         return param.getTime().equals(this.getTime());
     }
@@ -184,24 +185,27 @@ public class HRVParameters implements Parcelable {
      * Creates a new HRVParameter-Object from a ALLHRVIndiceCalculator object
      * At the time the data unit can not be changed according to the incoming data
      * thats why the data has to be converted to the units given in the HRVValue class
-     * @param calc AllHRVIndiceCalculator object
      * @param time Time when the measurement began
      * @param rr Original RR-Data
-     * @return New HRVParameters object
+     * @return New Measurement object
      */
-    public static MeasurementBuilder from(AllHRVIndiceCalculator calc, Date time, double[] rr) {
+    public static MeasurementBuilder from(Date time, double[] rr) {
+
+        RRData data = RRData.createFromRRInterval(rr, TimeUnitConverter.TimeUnit.SECOND);
+        HRVCalculatorController calc = new HRVCalculatorController(data);
+
         return new MeasurementBuilder(time, rr).
-                sd1(calc.getSd1().getValue() * 1000).
-                sd2(calc.getSd2().getValue() * 1000). //Convert to ms
-                lf(calc.getLf().getValue() * 1000).
-                hf(calc.getHf().getValue() * 1000).
-                rmssd(calc.getRmssd().getValue() * 1000). //Convert to ms
-                sdnn(calc.getSdnn().getValue() * 1000). //Convert to ms
+                sd1(calc.getSD1().getValue() * 1000).
+                sd2(calc.getSD2().getValue() * 1000). //Convert to ms
+                lf(calc.getLF().getValue()).
+                hf(calc.getHF().getValue()).
+                rmssd(calc.getRMSSD().getValue() * 1000). //Convert to ms
+                sdnn(calc.getSDNN().getValue() * 1000). //Convert to ms
                 baevsky(calc.getBaevsky().getValue() * 100);
     }
 
     /**
-     * Class builder for {@link HRVParameters}.
+     * Class builder for {@link Measurement}.
      */
     public static class MeasurementBuilder {
         private Date time;
@@ -222,7 +226,7 @@ public class HRVParameters implements Parcelable {
             this.rrIntervals = rrIntervals;
         }
 
-        public MeasurementBuilder(HRVParameters parameter) {
+        public MeasurementBuilder(Measurement parameter) {
             this.time = parameter.getTime();
             this.sd1 = parameter.getSd1();
             this.sd2 = parameter.getSd2();
@@ -275,9 +279,8 @@ public class HRVParameters implements Parcelable {
             return this;
         }
 
-        public HRVParameters build() {
-            return new HRVParameters(this);
+        public Measurement build() {
+            return new Measurement(this);
         }
-
     }
 }

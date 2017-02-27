@@ -1,6 +1,5 @@
 package activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.view.menu.ActionMenuItemView;
@@ -15,13 +14,12 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowDialog;
 
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
-import hrv.band.app.control.HRVParameters;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.HRVMeasurementActivity;
@@ -41,13 +39,13 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 public class HRVMeasurementActivityTest {
     private HRVMeasurementActivity activity;
-    private static HRVParameters parameter;
+    private static Measurement parameter;
     private static IStorage storage;
 
     @BeforeClass
     public static void init() {
         storage = new HRVSQLController();
-        HRVParameters.MeasurementBuilder builder = new HRVParameters.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
+        Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
         parameter = builder.build();
     }
 

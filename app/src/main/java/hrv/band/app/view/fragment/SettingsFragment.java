@@ -38,9 +38,13 @@ public class SettingsFragment extends PreferenceFragment {
                         startExportFragment();
                         return true;
                     } else {
-                        getFileWritePermission(EXPORT_DATABASE_REQUEST_ID);
-                        return true;
+                        if(getFileWritePermission(EXPORT_DATABASE_REQUEST_ID)) {
+                            startExportFragment();
+                            return true;
+                        }
                     }
+
+                    return false;
                 }
             });
         }
@@ -66,6 +70,14 @@ public class SettingsFragment extends PreferenceFragment {
                     }
                 }
         );
+
+        getPreferenceManager().findPreference("settings_sample").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                SampleDataFragment.newInstance(false).show(getFragmentManager(), getResources().getString(R.string.common_import));
+                return false;
+            }
+        });
     }
 
     private boolean canMakeSmores() {
@@ -140,4 +152,5 @@ public class SettingsFragment extends PreferenceFragment {
     private void startExportFragment() {
         ExportFragment.newInstance().show(getFragmentManager(), getResources().getString(R.string.common_export));
     }
+
 }
