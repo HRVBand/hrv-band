@@ -1,5 +1,5 @@
 # hrv-band
-[![Build Status](https://travis-ci.org/thomcz/hrv-band.svg?branch=master)](https://travis-ci.org/thomcz/hrv-band)
+[![Build Status](https://travis-ci.org/HRVBand/hrv-band.svg?branch=master)](https://travis-ci.org/HRVBand/hrv-band)
 [![SonarQube Coverage](https://img.shields.io/sonar/http/sonar.qatools.ru/ru.yandex.qatools.allure:allure-core/coverage.svg)](https://sonarqube.com/dashboard/index?id=hrv-band)
 [![SonarQube Tech Debt](https://img.shields.io/sonar/http/sonar.qatools.ru/ru.yandex.qatools.allure:allure-core/tech_debt.svg)](https://sonarqube.com/dashboard/index?id=hrv-band)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
