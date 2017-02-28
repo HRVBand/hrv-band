@@ -143,7 +143,7 @@
 
   <!-- Settings -->
   <string name="settings_record_length">RR-Aufnahme-Dauer (s)</string>
-  <string name="settings_record_length_summary">RR-Aufnahme-Dauer sollte mehr als 128s betragen um die Qualität der Messung sicherzustellen.</string>
+  <string name="settings_record_length_summary">RR-Aufnahme-Dauer sollte mehr als 64s betragen um die Qualität der Messung sicherzustellen.</string>
   <string name="settings_group_other">Sonstige</string>
   <string name="settings_export">Exportieren</string>
   <string name="settings_export_summary">Daten werden in den Dokumente Ordner exportiert.</string>

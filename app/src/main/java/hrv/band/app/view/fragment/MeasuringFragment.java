@@ -169,7 +169,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      * @return measurement duration in ms.
      */
     private int getDuration() {
-        String durationPrefVal = sharedPreferences.getString("recording_length", "128");
+        String durationPrefVal = sharedPreferences.getString("recording_length", "90");
         return Integer.parseInt(durationPrefVal) * 1000;
     }
 

@@ -156,7 +156,7 @@
 
   <!-- Settings -->
   <string name="settings_record_length">RR-Recording-Time (s)</string>
-  <string name="settings_record_length_summary">Record length should be larger than 128 seconds to ensure proper results.</string>
+  <string name="settings_record_length_summary">Record length should be larger than 64 seconds to ensure proper results.</string>
   <string name="settings_group_other">Other</string>
   <string name="settings_export">Export</string>
   <string name="settings_export_summary">Data gets exported to the documents folder.</string>
