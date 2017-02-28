@@ -9,7 +9,7 @@ import org.robolectric.annotation.Config;
 
 import hrv.RRData;
 import hrv.band.app.BuildConfig;
-import hrv.band.app.control.HRVCalculatorController;
+import hrv.band.app.control.HRVCalculatorFacade;
 import hrv.calc.frequency.psd.PowerSpectrum;
 import hrv.calc.frequency.psd.StandardPowerSpectralDensityEstimator;
 import units.TimeUnitConverter;
@@ -23,7 +23,7 @@ import static junit.framework.Assert.assertNotNull;
  */
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
 @RunWith(RobolectricTestRunner.class)
-public class HRVCalculatorControllerTest {
+public class HRVCalculatorFacadeTest {
 
     @Test
     public void testCalculation() {
@@ -40,7 +40,7 @@ public class HRVCalculatorControllerTest {
 
         RRData rr = new RRData(sinX, TimeUnitConverter.TimeUnit.SECOND, sinY, TimeUnitConverter.TimeUnit.SECOND);
 
-        HRVCalculatorController controller = new HRVCalculatorController(rr);
+        HRVCalculatorFacade controller = new HRVCalculatorFacade(rr);
         assertNotNull(controller.getBaevsky());
         assertNotNull(controller.getHF());
         assertNotNull(controller.getLF());

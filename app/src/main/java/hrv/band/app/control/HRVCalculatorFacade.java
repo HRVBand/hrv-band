@@ -27,7 +27,7 @@ import hrv.calc.statistical.SDSDCalculator;
  * Created by Julian on 22.02.2017.
  */
 
-public class HRVCalculatorController {
+public class HRVCalculatorFacade {
 
     private double lfLowerBound = 0.04;
     private double lfUpperBound = 0.15;
@@ -37,7 +37,7 @@ public class HRVCalculatorController {
     private RRData data;
     private PowerSpectrum ps;
 
-    public HRVCalculatorController(RRData data) {
+    public HRVCalculatorFacade(RRData data) {
         this.data = data;
     }
 
