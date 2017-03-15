@@ -134,7 +134,7 @@
 
   <!-- Error Messages -->
   <string name="error">Error</string>
-  <string name="error_defective_rr_data">"RR-Data was defective."</string>
+  <string name="error_defective_rr_data">"RR-Data was defective. Is your device connected or your measure time to low?"</string>
   <string name="error_band_not_paired">Band isn\'t paired with your phone.</string>
   <string name="error_device_not_connected_help">"Device isn't connected. Is bluetooth on and the device in range?</string>
 

@@ -253,6 +253,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     public void stopMeasuring() {
         if (hrvRRIntervalDevice != null && animation != null) {
             hrvRRIntervalDevice.stopMeasuring();
+            hrvRRIntervalDevice.clearRRIntervals();
             animation.cancel();
             resetProgress();
         }
