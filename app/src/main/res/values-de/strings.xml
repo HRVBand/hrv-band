@@ -119,7 +119,7 @@
 
   <!-- Error Messages -->
   <string name="error">Fehler</string>
-  <string name="error_defective_rr_data">"RR-Data ist fehlerhaft."</string>
+  <string name="error_defective_rr_data">"RR-Daten sind fehlerhaft. Ist dein Gerät verbunden oder die Messdauer zu kurz?"</string>
   <string name="error_band_not_paired">Gerät ist nicht mit dem Handy verbunden.</string>
   <string name="error_device_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
 
@@ -157,6 +157,8 @@
 
   <string name="invalid_input">Ungültige Eingabe</string>
   <string name="invalid_measurement_length_character">RR-Aufnahme-Dauer darf nur aus Ziffern bestehen.</string>
+  <string name="settings_invalid_measurement_length">RR-Aufnahme-Dauer muss zwischen 10 und 999999 sein</string>
+
 
   <!-- Turorial -->
   <string name="tutorial_welcome_title">Willkommen</string>
