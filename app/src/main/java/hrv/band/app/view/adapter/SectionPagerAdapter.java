@@ -5,6 +5,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+import hrv.band.app.view.fragment.FragmentObserver;
 
 /**
  * Copyright (c) 2017
@@ -20,6 +24,8 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
     /** The titles of the single Fragments. **/
     private final String[] pageTitles;
 
+    private Observable mObservers = new FragmentObserver();
+
     public SectionPagerAdapter(FragmentManager fm, List<Fragment> fragments, String[] pageTitles) {
         super(fm);
         this.fragments = fragments;
@@ -28,7 +34,11 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return fragments.get(position);
+        Fragment fragment = fragments.get(position);
+        if (fragment instanceof Observer) {
+            mObservers.addObserver((Observer) fragment);
+        }
+        return fragment;
     }
 
     @Override
@@ -39,5 +49,9 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return pageTitles[position];
+    }
+
+    public void updateFragments() {
+        mObservers.notifyObservers();
     }
 }

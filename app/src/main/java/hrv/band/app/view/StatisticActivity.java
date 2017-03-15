@@ -1,6 +1,7 @@
 package hrv.band.app.view;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,9 +25,14 @@ import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
+import hrv.band.app.view.chart.ChartDrawDayStrategy;
+import hrv.band.app.view.chart.ChartDrawWeekStrategy;
+import hrv.band.app.view.chart.StatisticListener;
+import hrv.band.app.view.chart.ChartStrategyContext;
 import hrv.band.app.view.fragment.CalenderPickerFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
 import hrv.band.app.view.fragment.StatisticFragment;
+import lecho.lib.hellocharts.view.ColumnChartView;
 import units.TimeUnitConverter;
 
 /**
@@ -36,7 +42,7 @@ import units.TimeUnitConverter;
  * This Activity holds the fragments which each shows a HRV value.
  */
 public class StatisticActivity extends AppCompatActivity
-        implements DatePickerDialog.OnDateSetListener {
+        implements DatePickerDialog.OnDateSetListener, StatisticListener {
 
     /** Storage object to manage the sql database. **/
     private IStorage storage;
@@ -44,6 +50,14 @@ public class StatisticActivity extends AppCompatActivity
     private List<Fragment> fragments;
     /** Code which indicates that a HRV value was deleted. **/
     public static final int RESULT_DELETED = 42;
+
+    private SectionPagerAdapter sectionsPagerAdapter;
+
+    private ChartStrategyContext chartContext;
+
+    private List<Measurement> parameters;
+
+    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +75,11 @@ public class StatisticActivity extends AppCompatActivity
         storage = new HRVSQLController();
         initFragments();
 
+        chartContext = new ChartStrategyContext();
+        chartContext.setStrategy(new ChartDrawWeekStrategy());
+
         //set up viewpager
-        SectionPagerAdapter sectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
+        sectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
         ViewPager mViewPager = (ViewPager) findViewById(R.id.statistic_viewpager);
         mViewPager.setAdapter(sectionsPagerAdapter);
 
@@ -82,12 +99,11 @@ public class StatisticActivity extends AppCompatActivity
      */
     private void initFragments() {
         fragments = new ArrayList<>();
-        Date date = new Date();
+        date = new Date();
 
-        List<Measurement> params = getParameters(date);
+        parameters = getParameters(date);
         for(int i = 0; i < HRVValue.values().length; i++) {
-            fragments.add(StatisticFragment.newInstance(HRVValue.values()[i], params,
-                    date));
+            fragments.add(StatisticFragment.newInstance(HRVValue.values()[i]));
         }
     }
 
@@ -110,20 +126,14 @@ public class StatisticActivity extends AppCompatActivity
      public void onDateSet(DatePicker view, int year, int month, int day) {
          Calendar c = Calendar.getInstance();
          c.set(year, month, day, 0, 0, 0);
-         updateFragments(c.getTime());
+         date = c.getTime();
+         updateFragments(date);
      }
 
-    /**
-     * Updates Fragments if a new date is selected.
-     * @param date selected date to show HRV values.
-     */
+    @Override
     public void updateFragments(Date date) {
-        List<Measurement> parameters = getParameters(date);
-        for(Fragment fragment : fragments) {
-            if (fragment instanceof StatisticFragment) {
-                ((StatisticFragment) fragment).updateValues(parameters, date);
-            }
-        }
+        parameters = getParameters(date);
+        sectionsPagerAdapter.updateFragments();
     }
 
     /**
@@ -167,11 +177,36 @@ public class StatisticActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /** Opens a calender picker. **/
-        if (item.getItemId() == R.id.menu_ic_calender) {
-            new CalenderPickerFragment().show(getSupportFragmentManager(), "datePicker");
-            return true;
+
+        switch (item.getItemId()) {
+            case R.id.menu_ic_calender:
+                /** Opens a calender picker. **/
+                new CalenderPickerFragment().show(getSupportFragmentManager(), "datePicker");
+                return true;
+            case R.id.menu_day:
+                return true;
+            case R.id.menu_week:
+                return true;
+            case R.id.menu_month:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void drawChart(List<Measurement> parameters, ColumnChartView chart, HRVValue hrvValue,
+                          Context context) {
+        chartContext.drawChart(parameters, chart, hrvValue, context);
+    }
+
+    @Override
+    public List<Measurement> getParameters() {
+        return parameters;
+    }
+
+    @Override
+    public Date getDate() {
+        return date;
     }
 }

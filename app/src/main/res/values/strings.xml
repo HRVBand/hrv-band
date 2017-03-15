@@ -76,7 +76,12 @@
   <string name="stat_val_item_std_time" translatable="false">14:00 PM</string>
   <string name="stat_val_item_std_category" translatable="false">General</string>
   <string name="stat_val_item_std_stats_value" translatable="false">12,13</string>
+
+  <!-- statistic activity -->
   <string name="menu_calender" translatable="false">Calender</string>
+  <string name="menu_calender_day">Day</string>
+  <string name="menu_calender_week">Week</string>
+  <string name="menu_calender_month">Month</string>
 
   <!-- overview list item -->
   <string name="overview_list_item_as">as</string>

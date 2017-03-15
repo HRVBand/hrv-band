@@ -117,6 +117,11 @@
   <string name="developer_julian">Julian github.com/Fenox</string>
   <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
 
+  <!-- statistic activity -->
+  <string name="menu_calender_day">Tag</string>
+  <string name="menu_calender_week">Woche</string>
+  <string name="menu_calender_month">Monat</string>
+
   <!-- Error Messages -->
   <string name="error_band_not_paired">Gerät ist nicht mit dem Handy verbunden.</string>
   <string name="error_device_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
