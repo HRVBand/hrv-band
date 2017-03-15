@@ -10,9 +10,9 @@ import org.robolectric.annotation.Config;
 import hrv.RRData;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.control.HRVCalculatorFacade;
-import hrv.calc.frequency.psd.PowerSpectrum;
-import hrv.calc.frequency.psd.StandardPowerSpectralDensityEstimator;
-import units.TimeUnitConverter;
+import hrv.calc.psd.PowerSpectrum;
+import hrv.calc.psd.StandardPowerSpectralDensityEstimator;
+import units.TimeUnit;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -38,7 +38,7 @@ public class HRVCalculatorFacadeTest {
             sinX[i] = i * (1.0 / sampleFrequency);
         }
 
-        RRData rr = new RRData(sinX, TimeUnitConverter.TimeUnit.SECOND, sinY, TimeUnitConverter.TimeUnit.SECOND);
+        RRData rr = new RRData(sinX, TimeUnit.SECOND, sinY, TimeUnit.SECOND);
 
         HRVCalculatorFacade controller = new HRVCalculatorFacade(rr);
         assertNotNull(controller.getBaevsky());

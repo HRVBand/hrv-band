@@ -3,24 +3,25 @@ package hrv.band.app.control;
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 
-import hrv.HRVParameter;
 import hrv.RRData;
-import hrv.calc.frequency.PowerSpectrumIntegralCalculator;
-import hrv.calc.frequency.psd.PowerSpectrum;
-import hrv.calc.frequency.psd.StandardPowerSpectralDensityEstimator;
 import hrv.calc.manipulator.HRVCleanRRDataByLimits;
 import hrv.calc.manipulator.HRVCutToPowerTwoDataManipulator;
 import hrv.calc.manipulator.HRVMultiDataManipulator;
 import hrv.calc.manipulator.HRVSplineInterpolator;
 import hrv.calc.manipulator.HRVSubstractMeanManipulator;
-import hrv.calc.statistical.BaevskyCalculator;
-import hrv.calc.statistical.NN50Calculator;
-import hrv.calc.statistical.PNN50Calculator;
-import hrv.calc.statistical.RMSSDCalculator;
-import hrv.calc.statistical.SD1Calculator;
-import hrv.calc.statistical.SD1SD2Calculator;
-import hrv.calc.statistical.SD2Calculator;
-import hrv.calc.statistical.SDSDCalculator;
+import hrv.calc.parameter.BaevskyCalculator;
+import hrv.calc.parameter.HRVParameter;
+import hrv.calc.parameter.HRVParameterEnum;
+import hrv.calc.parameter.NN50Calculator;
+import hrv.calc.parameter.PNN50Calculator;
+import hrv.calc.parameter.RMSSDCalculator;
+import hrv.calc.parameter.SD1Calculator;
+import hrv.calc.parameter.SD1SD2Calculator;
+import hrv.calc.parameter.SD2Calculator;
+import hrv.calc.parameter.SDSDCalculator;
+import hrv.calc.psd.PowerSpectrum;
+import hrv.calc.psd.PowerSpectrumIntegralCalculator;
+import hrv.calc.psd.StandardPowerSpectralDensityEstimator;
 
 /**
  * Copyright (c) 2017
@@ -41,40 +42,24 @@ public class HRVCalculatorFacade {
         this.data = data;
     }
 
-    public void setLfLowerBound(double value) {
-        this.lfLowerBound = value;
-    }
-
-    public void setLfUpperBound(double value) {
-        this.lfUpperBound = value;
-    }
-
-    public void setHfLowerBound(double value) {
-        this.hfLowerBound = value;
-    }
-
-    public void setHfUpperBound(double value) {
-        this.hfUpperBound = value;
-    }
-
     public HRVParameter getLF() {
         PowerSpectrumIntegralCalculator calcLF = new PowerSpectrumIntegralCalculator(lfLowerBound, lfUpperBound);
-        return new HRVParameter("LF", calcLF.process(getPowerSpectrum()) * 1000000, "ms * ms");
+        return new HRVParameter(HRVParameterEnum.LF, calcLF.process(getPowerSpectrum()).getValue() * 1000000, "ms * ms");
     }
 
     public HRVParameter getHF() {
         PowerSpectrumIntegralCalculator calcHF = new PowerSpectrumIntegralCalculator(hfLowerBound, hfUpperBound);
-        return new HRVParameter("HF", calcHF.process(getPowerSpectrum()) * 1000000, "ms * ms");
+        return new HRVParameter(HRVParameterEnum.HF, calcHF.process(getPowerSpectrum()).getValue() * 1000000, "ms * ms");
     }
 
     public HRVParameter getMean() {
         Mean m = new Mean();
-        return new HRVParameter("Mean RR", m.evaluate(data.getValueAxis()), data.getValueAxisUnit().toString());
+        return new HRVParameter(HRVParameterEnum.MEAN, m.evaluate(data.getValueAxis()), data.getValueAxisUnit().toString());
     }
 
     public HRVParameter getSDNN() {
         StandardDeviation d = new StandardDeviation();
-        return new HRVParameter("SDNN", d.evaluate(data.getValueAxis()), "non");
+        return new HRVParameter(HRVParameterEnum.SDNN, d.evaluate(data.getValueAxis()), "non");
     }
 
     public HRVParameter getBaevsky() {

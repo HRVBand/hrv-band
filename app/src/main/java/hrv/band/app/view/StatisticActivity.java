@@ -27,7 +27,6 @@ import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.CalenderPickerFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
 import hrv.band.app.view.fragment.StatisticFragment;
-import units.TimeUnitConverter;
 
 /**
  * Copyright (c) 2017
@@ -137,7 +136,7 @@ public class StatisticActivity extends AppCompatActivity
         List<Measurement> params = storage.loadData(this, date);
 
         for (Measurement parameter : params) {
-            RRData.createFromRRInterval(parameter.getRRIntervals(), TimeUnitConverter.TimeUnit.SECOND);
+            RRData.createFromRRInterval(parameter.getRRIntervals(), units.TimeUnit.SECOND);
             Measurement.MeasurementBuilder measurementBuilder = Measurement.from(parameter.getTime(), parameter.getRRIntervals())
                     .category(parameter.getCategory())
                     .rating(parameter.getRating())

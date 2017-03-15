@@ -154,7 +154,7 @@
   <string name="settings_request_ext_write_message">Benötigt im Datei zu schreiben.</string>
 
   <string name="invalid_input">Ungültige Eingabe</string>
-  <string name="invalid_measurement_length_input">RR-Aufnahme-Dauer darf nur aus Ziffern bestehen.</string>
+  <string name="invalid_measurement_length_character">RR-Aufnahme-Dauer darf nur aus Ziffern bestehen.</string>
 
   <!-- Turorial -->
   <string name="tutorial_welcome_title">Willkommen</string>
