@@ -128,6 +128,8 @@
   <string name="website" translatable="false">Website: hrvband.de</string>
 
   <!-- Error Messages -->
+  <string name="error">Error</string>
+  <string name="error_defective_rr_data">"RR-Data was defective."</string>
   <string name="error_band_not_paired">Band isn\'t paired with your phone.</string>
   <string name="error_device_not_connected_help">"Device isn't connected. Is bluetooth on and the device in range?</string>
 
@@ -167,7 +169,8 @@
   <string name="settings_request_ext_write_message">Needed to write file.</string>
 
   <string name="invalid_input">Invalid Input</string>
-  <string name="invalid_measurement_length_input">RR-Recording-Time can only contain digits.</string>
+  <string name="invalid_measurement_length_character">RR-Recording-Time can only contain digits.</string>
+  <string name="settings_invalid_measurement_length">RR-Recording-Time has to be between 10 and 999999</string>
 
   <!-- Tutorial-->
   <string name="tutorial_welcome_title">Welcome</string>

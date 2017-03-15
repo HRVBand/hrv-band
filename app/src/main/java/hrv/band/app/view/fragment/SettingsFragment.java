@@ -56,17 +56,24 @@ public class SettingsFragment extends PreferenceFragment {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object o) {
                         String newRecordLength = (String) o;
-                        boolean integerParseResult = newRecordLength.matches("[0-9]+");
+                        boolean matchesNumber = newRecordLength.matches("[0-9]+");
+                        boolean matchesLength = newRecordLength.matches("[0-9]{2,6}+");
 
-                        if (!integerParseResult) {
+                        if (!matchesNumber) {
                             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                             alert.setTitle(R.string.invalid_input);
-                            alert.setMessage(R.string.invalid_measurement_length_input);
+                            alert.setMessage(R.string.invalid_measurement_length_character);
+                            alert.setPositiveButton(android.R.string.ok, null);
+                            alert.show();
+                        } else if(!matchesLength) {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                            alert.setTitle(R.string.invalid_input);
+                            alert.setMessage(R.string.settings_invalid_measurement_length);
                             alert.setPositiveButton(android.R.string.ok, null);
                             alert.show();
                         }
 
-                        return integerParseResult;
+                        return matchesNumber;
                     }
                 }
         );
