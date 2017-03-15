@@ -118,6 +118,8 @@
   <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
 
   <!-- Error Messages -->
+  <string name="error">Fehler</string>
+  <string name="error_defective_rr_data">"RR-Data ist fehlerhaft."</string>
   <string name="error_band_not_paired">Gerät ist nicht mit dem Handy verbunden.</string>
   <string name="error_device_not_connected_help">"Gerät ist nicht verbunden. Ist Bluetooth an und das Gerät in der Nähe?</string>
 

@@ -3,6 +3,7 @@ package hrv.band.app.view.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -392,9 +393,17 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
             double[] rrIntervals = ArrayUtils.toPrimitive(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
 
-            Intent intent = new Intent(getContext(), HRVMeasurementActivity.class);
-            intent.putExtra(HRV_PARAMETER_ID, createMeasurement(rrIntervals, new Date()));
-            startActivity(intent);
+            try {
+                Intent intent = new Intent(getContext(), HRVMeasurementActivity.class);
+                intent.putExtra(HRV_PARAMETER_ID, createMeasurement(rrIntervals, new Date()));
+                startActivity(intent);
+            } catch(IllegalArgumentException e) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.error)
+                        .setMessage(R.string.error_defective_rr_data)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
+            }
 
             hrvRRIntervalDevice.clearRRIntervals();
             resetProgress();
