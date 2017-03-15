@@ -191,7 +191,7 @@ public class Measurement implements Parcelable {
      */
     public static MeasurementBuilder from(Date time, double[] rr) {
 
-        RRData data = RRData.createFromRRInterval(rr, TimeUnitConverter.TimeUnit.SECOND);
+        RRData data = RRData.createFromRRInterval(rr, units.TimeUnit.SECOND);
         HRVCalculatorFacade calc = new HRVCalculatorFacade(data);
 
         return new MeasurementBuilder(time, rr).

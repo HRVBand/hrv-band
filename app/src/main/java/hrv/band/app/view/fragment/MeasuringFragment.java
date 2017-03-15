@@ -3,6 +3,7 @@ package hrv.band.app.view.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -26,7 +27,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Date;
 
-import hrv.HRVParameter;
 import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.control.Measurement;
@@ -36,11 +36,11 @@ import hrv.band.app.devices.HRVRRIntervalDevice;
 import hrv.band.app.devices.antplus.AntPlusRRDataDevice;
 import hrv.band.app.devices.msband.MSBandRRIntervalDevice;
 import hrv.band.app.view.HRVMeasurementActivity;
-import hrv.calc.continous.HRVContinousPulse;
+import hrv.calc.continous.HRVContinousHeartRate;
 import hrv.calc.continous.HRVParameterChangedListener;
 import hrv.calc.continous.HRVRRIntervalEvent;
 import hrv.calc.continous.HRVRRIntervalListener;
-import units.TimeUnitConverter;
+import hrv.calc.parameter.HRVParameter;
 
 /**
  * Copyright (c) 2017
@@ -77,7 +77,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     /** The animation of the progress bar. **/
     private ObjectAnimator animation;
     /** continously calculates the pulse **/
-    private HRVContinousPulse pulseCalculator;
+    private HRVContinousHeartRate pulseCalculator;
 
     /** Button to connect with the ms band. **/
     private com.github.clans.fab.FloatingActionButton connectToBandFAB;
@@ -120,7 +120,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         txtMeasureTime.setText(String.valueOf(getDuration() / 1000));
 
-        pulseCalculator = new HRVContinousPulse(10);
+        pulseCalculator = new HRVContinousHeartRate(10);
         pulseCalculator.addHRVParameterChangedListener(this);
         hrvRRIntervalDevice = getDevice(DeviceID.values()[sharedPreferences.getInt(SELECTED_DEVICE_ID, 0)]);
         if (hrvRRIntervalDevice != null) {
@@ -393,9 +393,17 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
             double[] rrIntervals = ArrayUtils.toPrimitive(hrvRRIntervalDevice.getRRIntervals().toArray(new Double[0]));
 
-            Intent intent = new Intent(getContext(), HRVMeasurementActivity.class);
-            intent.putExtra(HRV_PARAMETER_ID, createMeasurement(rrIntervals, new Date()));
-            startActivity(intent);
+            try {
+                Intent intent = new Intent(getContext(), HRVMeasurementActivity.class);
+                intent.putExtra(HRV_PARAMETER_ID, createMeasurement(rrIntervals, new Date()));
+                startActivity(intent);
+            } catch(IllegalArgumentException e) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.error)
+                        .setMessage(R.string.error_defective_rr_data)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
+            }
 
             hrvRRIntervalDevice.clearRRIntervals();
             resetProgress();
@@ -419,7 +427,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
          */
         private Measurement createMeasurement(double[] rrInterval, Date time) {
             //start calculation
-            RRData.createFromRRInterval(rrInterval, TimeUnitConverter.TimeUnit.SECOND);
+            RRData.createFromRRInterval(rrInterval, units.TimeUnit.SECOND);
 
             Measurement.MeasurementBuilder measurementBuilder = Measurement.from(time, rrInterval);
             return measurementBuilder.build();
