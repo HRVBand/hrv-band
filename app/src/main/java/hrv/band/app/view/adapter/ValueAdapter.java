@@ -8,10 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
-import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.fragment.MeasuredValueFragment;
+import hrv.calc.parameter.HRVParameter;
 
 /**
  * Copyright (c) 2017
@@ -24,11 +25,11 @@ public class ValueAdapter extends BaseAdapter {
     /** The context of activity holding the adapter. **/
     private final Context context;
     /** The hrv parameter to display. **/
-    private final Measurement parameter;
+    private final List<HRVParameter> parameters;
 
-    public ValueAdapter(Context context, Measurement parameter) {
+    public ValueAdapter(Context context, List<HRVParameter> parameters) {
         this.context = context;
-        this.parameter = parameter;
+        this.parameters = parameters;
     }
 
     @Override
@@ -47,11 +48,11 @@ public class ValueAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.descText.setText(HRVValue.values()[position].toString());
-        if (parameter != null) {
-            double value = HRVValue.getHRVValue(HRVValue.values()[position], parameter);
-            holder.valueText.setText(new DecimalFormat("#.##").format(value));
-            holder.unitText.setText(HRVValue.values()[position].getUnit());
+        if (parameters != null) {
+            HRVParameter param = (HRVParameter)getItem(position);
+            holder.descText.setText(param.getName());
+            holder.valueText.setText(new DecimalFormat("#.##").format(param.getValue()));
+            holder.unitText.setText(param.getUnit());
         }
 
         return convertView;
@@ -59,12 +60,12 @@ public class ValueAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return parameter;
+        return parameters.get(i);
     }
 
     @Override
     public int getCount() {
-        return HRVValue.values().length;
+        return parameters.size();
     }
 
     @Override

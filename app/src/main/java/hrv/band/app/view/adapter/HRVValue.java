@@ -1,6 +1,6 @@
 package hrv.band.app.view.adapter;
 
-import hrv.band.app.control.Measurement;
+import hrv.calc.parameter.HRVParameterEnum;
 
 /**
  * Copyright (c) 2017
@@ -9,14 +9,14 @@ import hrv.band.app.control.Measurement;
  * This enum holds all available HRV values.
  */
 public enum HRVValue {
-    LFHF("LFHF", "%"),
-    HF("HF", "ms²"),
-    LF("LF", "ms²"),
-    SDNN("SDNN", "ms"),
-    SD1("SD1", "ms"),
-    SD2("SD2", "ms"),
-    RMSSD("RMSSD", "ms"),
-    BAEVSKY("Baevsky", "")
+    LFHF("LFHF", "%", HRVParameterEnum.LFHF),
+    HF("HF", "ms²", HRVParameterEnum.HF),
+    LF("LF", "ms²", HRVParameterEnum.LF),
+    SDNN("SDNN", "ms", HRVParameterEnum.SDNN),
+    SD1("SD1", "ms", HRVParameterEnum.SD1),
+    SD2("SD2", "ms", HRVParameterEnum.SD2),
+    RMSSD("RMSSD", "ms", HRVParameterEnum.RMSSD),
+    BAEVSKY("Baevsky", "", HRVParameterEnum.BAEVSKY)
     ;
 
     /** Name of the value **/
@@ -24,9 +24,12 @@ public enum HRVValue {
     /** Unit in which the value is described. **/
     private final String unit;
 
-    HRVValue(final String text, final String unit) {
+    private final HRVParameterEnum hrvParam;
+
+    HRVValue(final String text, final String unit, final HRVParameterEnum hrvParam) {
         this.text = text;
         this.unit = unit;
+        this.hrvParam = hrvParam;
     }
 
     @Override
@@ -42,24 +45,5 @@ public enum HRVValue {
         return unit;
     }
 
-    /**
-     * Returns the value for the given HRV value from the given parameter.
-     * @param value the HRV value to extract from parameter.
-     * @param parameter to extract the value from.
-     * @return the extracted value.
-     */
-    public static double getHRVValue(HRVValue value, Measurement parameter) {
-        switch(value) {
-            case LFHF: return parameter.getLfhfRatio() * 100;//Convert to %
-            case SDNN: return parameter.getSdnn();
-            case SD1: return parameter.getSd1();
-            case SD2: return parameter.getSd2();
-            case BAEVSKY: return parameter.getBaevsky();
-            case RMSSD: return parameter.getRmssd();
-            case LF: return parameter.getLf();
-            case HF: return parameter.getHf();
-        }
-        return 0;
-    }
-
+    public HRVParameterEnum getHRVparam() { return hrvParam; }
 }

@@ -10,11 +10,15 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
-import hrv.band.app.control.Measurement;
+import hrv.HRVLibFacade;
+import hrv.RRData;
 import hrv.band.app.R;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.view.fragment.StatisticFragment;
+import units.TimeUnit;
 
 /**
  * Copyright (c) 2017
@@ -65,15 +69,19 @@ public class StatisticValueAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns a list containing the value of the given hrv type of a hrv parameter.
-     * @param parameters the parameter to extract the value.
-     * @param type indicates which value to extract from parameter.
-     * @return a list containing the value of the given hrv type of a hrv parameter.
+     * Returns a list containing the value of the given hrv type of all given hrv parameters.
+     * @param parameters the parameters to extract the value from.
+     * @param type indicates which value to extract from the given parameters.
+     * @return a list containing the values of the given hrv type of the given hrv parameters.
      */
     private List<String> getValues(List<Measurement> parameters, HRVValue type) {
+
         List<String> hrvValues = new ArrayList<>();
         for (int i = 0; i < parameters.size(); i++) {
-            double value = HRVValue.getHRVValue(type, parameters.get(i));
+            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(parameters.get(i).getRRIntervals(), TimeUnit.SECOND));
+            hrvCalc.setParameters(EnumSet.of(type.getHRVparam()));
+
+            double value = hrvCalc.calculateParameters().get(0).getValue();
             hrvValues.add(new DecimalFormat("#.##").format(value));
         }
         return hrvValues;

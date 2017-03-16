@@ -1,0 +1,32 @@
+package hrv.band.app.control;
+
+import java.util.EnumSet;
+import java.util.Set;
+
+import hrv.calc.parameter.HRVParameterEnum;
+
+/**
+ * Copyright (c) 2017
+ * Created by Julian on 16.03.2017.
+ */
+
+public class HRVParameterSettings {
+
+    public final Set<HRVParameterEnum> visibleHRVParameters;
+
+    public static HRVParameterSettings DefaultSettings = new HRVParameterSettings(EnumSet.of(HRVParameterEnum.BAEVSKY,
+            HRVParameterEnum.SD1,
+            HRVParameterEnum.SD2,
+            HRVParameterEnum.SD1SD2,
+            HRVParameterEnum.SDNN,
+            HRVParameterEnum.SDSD,
+            HRVParameterEnum.PNN50,
+            HRVParameterEnum.NN50,
+            HRVParameterEnum.LF,
+            HRVParameterEnum.HF,
+            HRVParameterEnum.LFHF));
+
+    public HRVParameterSettings(Set<HRVParameterEnum> visibleHRVParameters) {
+        this.visibleHRVParameters = visibleHRVParameters;
+    }
+}

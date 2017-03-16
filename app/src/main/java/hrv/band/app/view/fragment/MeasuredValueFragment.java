@@ -9,11 +9,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import hrv.band.app.control.Measurement;
+import java.util.List;
+
+import hrv.HRVLibFacade;
+import hrv.RRData;
 import hrv.band.app.R;
+import hrv.band.app.control.HRVParameterSettings;
+import hrv.band.app.control.HRVParameterUnitAdapter;
+import hrv.band.app.control.Measurement;
 import hrv.band.app.view.MainActivity;
 import hrv.band.app.view.WebActivity;
 import hrv.band.app.view.adapter.ValueAdapter;
+import hrv.calc.parameter.HRVParameter;
+import units.TimeUnit;
 
 /**
  * Copyright (c) 2017
@@ -45,8 +53,14 @@ public class MeasuredValueFragment extends Fragment {
 
         ListView listview = (ListView) rootView.findViewById(R.id.hrv_value_list);
 
+        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(parameter.getRRIntervals(), TimeUnit.SECOND));
+        hrvCalc.setParameters(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
+        List<HRVParameter> params =hrvCalc.calculateParameters();
+        HRVParameterUnitAdapter unitAdapter = new HRVParameterUnitAdapter();
+        unitAdapter.adaptParameters(params);
+
         ValueAdapter adapter = new ValueAdapter(this.getActivity(),
-                parameter);
+                params);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

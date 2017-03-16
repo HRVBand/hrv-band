@@ -17,9 +17,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import hrv.HRVLibFacade;
+import hrv.RRData;
 import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.HRVValueActivity;
@@ -32,6 +35,7 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
+import units.TimeUnit;
 
 import static hrv.band.app.view.StatisticActivity.RESULT_DELETED;
 
@@ -196,8 +200,11 @@ public class StatisticFragment extends Fragment {
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minutes = calendar.get(Calendar.MINUTE) / 15;
 
+            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(parameters.get(i).getRRIntervals(), TimeUnit.SECOND));
+            hrvCalc.setParameters(EnumSet.of(hrvType.getHRVparam()));
+
             columns[hour].getValues().set(minutes,
-                    new SubcolumnValue((float) HRVValue.getHRVValue(hrvType, parameters.get(i)),
+                    new SubcolumnValue((float) hrvCalc.calculateParameters().get(0).getValue(),
                             ContextCompat.getColor(getContext(), R.color.colorAccent)));
             chartValuesIndex.add(new int[] {hour, minutes});
             columns[hour].setHasLabels(false);
