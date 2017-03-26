@@ -192,4 +192,13 @@
   <string name="web_faq">FAQ</string>
   <string name="web_privacy">Datenschutz</string>
   <string name="web_about">Impressum</string>
+
+  <!-- Day of week shortcut -->
+  <string name="monday_sc">Mo</string>
+  <string name="tuesday_sc">Di</string>
+  <string name="wednesday_sc">Mi</string>
+  <string name="thursday_sc">Do</string>
+  <string name="friday_sc">Fr</string>
+  <string name="saturday_sc">Sa</string>
+  <string name="sunday_sc">So</string>
 </resources>

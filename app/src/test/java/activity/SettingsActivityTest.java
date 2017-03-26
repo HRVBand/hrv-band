@@ -10,7 +10,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.view.SettingsActivity;
+import hrv.band.app.view.activity.SettingsActivity;
 
 import static junit.framework.Assert.assertNotNull;
 
@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertNotNull;
  * Copyright (c) 2017
  * Created by Julian Martin on 30.01.2017
  *
- * Tests for {@link hrv.band.app.view.SettingsActivity}
+ * Tests for {@link SettingsActivity}
  */
 
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})

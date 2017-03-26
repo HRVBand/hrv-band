@@ -1,4 +1,4 @@
-package hrv.band.app.view;
+package hrv.band.app.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import hrv.band.app.view.fragment.SettingsFragment;
 /**
  * Copyright (c) 2017
  * Created by Julian Martin on 24.01.2017.
- *
+ * <p>
  * Preferences are just one single fragment that contain all options grouped by
  * category
  */
@@ -25,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // add back arrow to toolbar
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

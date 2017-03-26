@@ -14,7 +14,7 @@ import java.util.Date;
 
 import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
-import hrv.band.app.view.MainActivity;
+import hrv.band.app.view.activity.MainActivity;
 
 /**
  * Copyright (c) 2017

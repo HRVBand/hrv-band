@@ -11,8 +11,8 @@ import android.widget.ListView;
 
 import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
-import hrv.band.app.view.MainActivity;
-import hrv.band.app.view.WebActivity;
+import hrv.band.app.view.activity.MainActivity;
+import hrv.band.app.view.activity.WebActivity;
 import hrv.band.app.view.adapter.ValueAdapter;
 
 /**

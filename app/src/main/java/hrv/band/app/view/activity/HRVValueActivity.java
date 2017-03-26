@@ -1,4 +1,4 @@
-package hrv.band.app.view;
+package hrv.band.app.view.activity;
 
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -10,8 +10,6 @@ import hrv.band.app.R;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.fragment.MeasuredDetailsFragment;
-
-import static hrv.band.app.view.StatisticActivity.RESULT_DELETED;
 
 /**
  * Copyright (c) 2017
@@ -73,7 +71,7 @@ public class HRVValueActivity extends AbstractHRVActivity {
         }
         IStorage storage = new HRVSQLController();
         storage.deleteData(getApplicationContext(), getParameter());
-        setResult(RESULT_DELETED);
+        setResult(StatisticActivity.RESULT_DELETED);
         this.finish();
     }
 

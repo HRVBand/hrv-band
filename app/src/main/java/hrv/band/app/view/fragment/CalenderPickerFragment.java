@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import java.util.Calendar;
 
-import hrv.band.app.view.StatisticActivity;
+import hrv.band.app.view.activity.StatisticActivity;
 
 /**
  * Copyright (c) 2017

@@ -20,7 +20,7 @@ import java.util.Date;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
-import hrv.band.app.view.WebActivity;
+import hrv.band.app.view.activity.WebActivity;
 import hrv.band.app.view.fragment.MeasuredValueFragment;
 
 import static junit.framework.Assert.assertEquals;

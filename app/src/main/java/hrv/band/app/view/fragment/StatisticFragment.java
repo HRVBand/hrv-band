@@ -11,22 +11,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
-import hrv.band.app.view.HRVValueActivity;
-import hrv.band.app.view.MainActivity;
+import hrv.band.app.view.activity.HRVValueActivity;
+import hrv.band.app.view.activity.MainActivity;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.StatisticValueAdapter;
-import hrv.band.app.view.chart.StatisticListener;
+import hrv.band.app.view.control.StatisticListener;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
-import static hrv.band.app.view.StatisticActivity.RESULT_DELETED;
+import static hrv.band.app.view.activity.StatisticActivity.RESULT_DELETED;
 
 /**
  * Copyright (c) 2017
@@ -40,16 +38,12 @@ public class StatisticFragment extends Fragment implements Observer {
     private static final String ARG_SECTION_VALUE = "sectionValue";
     /** The adapter holding the parameters to show. **/
     private StatisticValueAdapter adapter;
-    /** The root view of this fragment. **/
-    private View rootView;
     /** The chart showing the parameters in this fragment. **/
     private ColumnChartView mChart;
     /** The hrv type that this fragment is showing. **/
     private HRVValue hrvType;
     /** The parameters this fragment should show. **/
     private List<Measurement> parameters;
-    /** The head line of listview showing actual chosen date. **/
-    private TextView date;
 
     private StatisticListener statisticListener;
 
@@ -68,17 +62,16 @@ public class StatisticFragment extends Fragment implements Observer {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.statistic_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.statistic_fragment, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.stats_measure_history);
 
-        parameters = statisticListener.getParameters();
+        if (statisticListener != null) {
+            parameters = statisticListener.getParameters();
+        }
         hrvType = (HRVValue) getArguments().getSerializable(ARG_SECTION_VALUE);
 
-        date = (TextView) rootView.findViewById(R.id.stats_date);
         TextView desc = (TextView) rootView.findViewById(R.id.stats_value_desc);
         TextView type = (TextView) rootView.findViewById(R.id.stats_type);
-
-        date.setText(formatDate(statisticListener.getDate()));
 
         desc.setText(hrvType.toString());
         type.setText(hrvType.getUnit());
@@ -95,7 +88,6 @@ public class StatisticFragment extends Fragment implements Observer {
                                     int position, long id) {
                 Intent intent = new Intent(getContext(), HRVValueActivity.class);
                 intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameters.get(position));
-                intent.putExtra(MainActivity.HRV_DATE, date.getText());
                 startActivityForResult(intent, 1);
             }
 
@@ -103,8 +95,9 @@ public class StatisticFragment extends Fragment implements Observer {
 
         mChart = (ColumnChartView) rootView.findViewById(R.id.stats_chart);
 
-        statisticListener.drawChart(parameters, mChart, hrvType, getActivity());
-
+        if (statisticListener != null) {
+            statisticListener.drawChart(mChart, hrvType, getActivity());
+        }
         return rootView;
     }
 
@@ -116,43 +109,21 @@ public class StatisticFragment extends Fragment implements Observer {
         }
     }
 
-    /**
-     * Formats the given date into the user locale.
-     * @param date the date to format.
-     * @return the formatted given date.
-     */
-    private String formatDate(Date date) {
-        DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getContext());
-        return dateFormat.format(date);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_DELETED){
-            statisticListener.updateFragments(statisticListener.getDate());
+            statisticListener.updateFragments();
         }
     }
-
-    /**
-     * Sets user chosen date of list view head.
-     */
-    private void setDate() {
-        if (rootView == null) {
-            return;
-        }
-        date.setText(formatDate(statisticListener.getDate()));
-    }
-
 
     @Override
     public void update(Observable observable, Object o) {
         parameters = statisticListener.getParameters();
         if (adapter != null) {
-            setDate();
             adapter.setDataset(parameters);
             adapter.notifyDataSetChanged();
-            statisticListener.drawChart(parameters, mChart, hrvType, getActivity());
+            statisticListener.drawChart(mChart, hrvType, getActivity());
         }
     }
 }

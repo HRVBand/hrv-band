@@ -205,5 +205,14 @@
   <string name="web_privacy">Privacy</string>
   <string name="web_about">About</string>
 
+  <!-- Day of week shortcut -->
+  <string name="monday_sc">Mo</string>
+  <string name="tuesday_sc">Tu</string>
+  <string name="wednesday_sc">Mi</string>
+  <string name="thursday_sc">Th</string>
+  <string name="friday_sc">Fr</string>
+  <string name="saturday_sc">Sa</string>
+  <string name="sunday_sc">Su</string>
+
 
 </resources>

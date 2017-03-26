@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import hrv.band.app.R;
-import hrv.band.app.view.ImprintActivity;
+import hrv.band.app.view.activity.ImprintActivity;
 
 /**
  * Copyright (c) 2017

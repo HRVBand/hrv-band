@@ -1,4 +1,4 @@
-package hrv.band.app.view;
+package hrv.band.app.view.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -21,19 +21,21 @@ import java.util.List;
 import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.control.Measurement;
-import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
-import hrv.band.app.view.chart.ChartDrawDayStrategy;
-import hrv.band.app.view.chart.ChartDrawWeekStrategy;
-import hrv.band.app.view.chart.StatisticListener;
-import hrv.band.app.view.chart.ChartStrategyContext;
+import hrv.band.app.view.control.chart.AbstractChartDrawStrategy;
+import hrv.band.app.view.control.parameter.AbstractParameterLoadStrategy;
+import hrv.band.app.view.control.chart.ChartDrawDayStrategy;
+import hrv.band.app.view.control.chart.ChartDrawMonthStrategy;
+import hrv.band.app.view.control.chart.ChartDrawWeekStrategy;
+import hrv.band.app.view.control.StatisticListener;
+import hrv.band.app.view.control.parameter.ParameterLoadDayStrategy;
+import hrv.band.app.view.control.parameter.ParameterLoadMonthStrategy;
+import hrv.band.app.view.control.parameter.ParameterLoadWeekStrategy;
 import hrv.band.app.view.fragment.CalenderPickerFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
 import hrv.band.app.view.fragment.StatisticFragment;
 import lecho.lib.hellocharts.view.ColumnChartView;
-import units.TimeUnitConverter;
 
 /**
  * Copyright (c) 2017
@@ -44,19 +46,18 @@ import units.TimeUnitConverter;
 public class StatisticActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, StatisticListener {
 
-    /** Storage object to manage the sql database. **/
-    private IStorage storage;
-    /** The Fragments this Activity holds. **/
-    private List<Fragment> fragments;
     /** Code which indicates that a HRV value was deleted. **/
     public static final int RESULT_DELETED = 42;
-
+    /** The Fragments this Activity holds. **/
+    private List<Fragment> fragments;
     private SectionPagerAdapter sectionsPagerAdapter;
-
-    private ChartStrategyContext chartContext;
-
+    /** Strategy how to draw chart. **/
+    private AbstractChartDrawStrategy chartStrategy;
+    /** Strategy how to select parameter. **/
+    private AbstractParameterLoadStrategy parameterStrategy;
+    /** Parameters to show in this activity. **/
     private List<Measurement> parameters;
-
+    /** Date that user wants to show parameters. **/
     private Date date;
 
     @Override
@@ -72,11 +73,9 @@ public class StatisticActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        storage = new HRVSQLController();
-        initFragments();
+        setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy());
 
-        chartContext = new ChartStrategyContext();
-        chartContext.setStrategy(new ChartDrawWeekStrategy());
+        initFragments();
 
         //set up viewpager
         sectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
@@ -108,6 +107,28 @@ public class StatisticActivity extends AppCompatActivity
     }
 
     /**
+     * Returns parameters of given date.
+     * @param date selected date to get all HRV values.
+     * @return parameters of given date
+     */
+    private List<Measurement> getParameters(Date date) {
+        List<Measurement> result = new ArrayList<>();
+
+        List<Measurement> params = parameterStrategy.loadParameter(this, date);
+
+        for (Measurement parameter : params) {
+            RRData.createFromRRInterval(parameter.getRRIntervals(), units.TimeUnit.SECOND);
+            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(parameter.getTime(), parameter.getRRIntervals())
+                    .category(parameter.getCategory())
+                    .rating(parameter.getRating())
+                    .note(parameter.getNote());
+            result.add(measurementBuilder.build());
+        }
+
+        return result;
+    }
+
+    /**
      * Returns the page titles of the fragments.
      * @return the page titles of the fragments.
      */
@@ -120,44 +141,6 @@ public class StatisticActivity extends AppCompatActivity
         return titles;
     }
 
-
-     //What should happen after Date is selected.
-     @Override
-     public void onDateSet(DatePicker view, int year, int month, int day) {
-         Calendar c = Calendar.getInstance();
-         c.set(year, month, day, 0, 0, 0);
-         date = c.getTime();
-         updateFragments(date);
-     }
-
-    @Override
-    public void updateFragments(Date date) {
-        parameters = getParameters(date);
-        sectionsPagerAdapter.updateFragments();
-    }
-
-    /**
-     * Returns parameters of given date.
-     * @param date selected date to get all HRV values.
-     * @return parameters of given date
-     */
-    private List<Measurement> getParameters(Date date) {
-        List<Measurement> result = new ArrayList<>();
-
-        List<Measurement> params = storage.loadData(this, date);
-
-        for (Measurement parameter : params) {
-            RRData.createFromRRInterval(parameter.getRRIntervals(), TimeUnitConverter.TimeUnit.SECOND);
-            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(parameter.getTime(), parameter.getRRIntervals())
-                    .category(parameter.getCategory())
-                    .rating(parameter.getRating())
-                    .note(parameter.getNote());
-            result.add(measurementBuilder.build());
-        }
-
-        return result;
-    }
-
     /**
      * Returns position of the given HRV value.
      * @param value the HRV value to get the position.
@@ -167,6 +150,14 @@ public class StatisticActivity extends AppCompatActivity
         return value.ordinal();
     }
 
+     //What should happen after Date is selected.
+     @Override
+     public void onDateSet(DatePicker view, int year, int month, int day) {
+         Calendar c = Calendar.getInstance();
+         c.set(year, month, day, 0, 0, 0);
+         date = c.getTime();
+         updateFragments();
+     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -180,24 +171,37 @@ public class StatisticActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.menu_ic_calender:
-                /** Opens a calender picker. **/
                 new CalenderPickerFragment().show(getSupportFragmentManager(), "datePicker");
                 return true;
             case R.id.menu_day:
+                setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy());
                 return true;
             case R.id.menu_week:
+                setDrawStrategy(new ChartDrawWeekStrategy(), new ParameterLoadWeekStrategy());
                 return true;
             case R.id.menu_month:
+                setDrawStrategy(new ChartDrawMonthStrategy(date), new ParameterLoadMonthStrategy());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    /**
+     * Sets the chart drawing and parameter selecting strategy.
+     * @param chartStrategy the chart drawing strategy.
+     * @param parameterStrategy the parameter selecting strategy.
+     */
+    private void setDrawStrategy(AbstractChartDrawStrategy chartStrategy,
+                                 AbstractParameterLoadStrategy parameterStrategy) {
+        this.parameterStrategy = parameterStrategy;
+        this.chartStrategy = chartStrategy;
+        updateFragments();
+    }
+
     @Override
-    public void drawChart(List<Measurement> parameters, ColumnChartView chart, HRVValue hrvValue,
-                          Context context) {
-        chartContext.drawChart(parameters, chart, hrvValue, context);
+    public void drawChart(ColumnChartView chart, HRVValue hrvValue, Context context) {
+        chartStrategy.drawChart(parameters, chart, hrvValue, context);
     }
 
     @Override
@@ -206,7 +210,11 @@ public class StatisticActivity extends AppCompatActivity
     }
 
     @Override
-    public Date getDate() {
-        return date;
+    public void updateFragments() {
+        if (date == null) {
+            return;
+        }
+        parameters = getParameters(date);
+        sectionsPagerAdapter.updateFragments();
     }
 }

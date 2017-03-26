@@ -14,7 +14,7 @@ import java.util.List;
 
 import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
-import hrv.band.app.view.MainActivity;
+import hrv.band.app.view.activity.MainActivity;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;

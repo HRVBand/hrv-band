@@ -1,6 +1,8 @@
 package hrv.band.app.view.adapter;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,11 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
@@ -56,12 +61,32 @@ public class StatisticValueAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        DateFormat dateFormat = android.text.format.DateFormat.getTimeFormat(context);
-        holder.time.setText(dateFormat.format(parameters.get(position).getTime()));
+        holder.time.setText(formatDateTime(parameters.get(position).getTime()));
         holder.category.setText(parameters.get(position).getCategory().getText(context.getResources()));
         holder.value.setText(values.get(position));
 
         return convertView;
+    }
+
+    /**
+     * Formats the date and time for the measurement depending on user local.
+     * @param date the date to format.
+     * @return the formatted date and time for the measurement depending on user local.
+     */
+    private String formatDateTime(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM", getCurrentLocale());
+        DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
+        return dateFormat.format(date) + ", " + timeFormat.format(date);
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private Locale getCurrentLocale(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            return context.getResources().getConfiguration().getLocales().get(0);
+        } else{
+            //noinspection deprecation
+            return context.getResources().getConfiguration().locale;
+        }
     }
 
     /**
@@ -72,9 +97,11 @@ public class StatisticValueAdapter extends BaseAdapter {
      */
     private List<String> getValues(List<Measurement> parameters, HRVValue type) {
         List<String> hrvValues = new ArrayList<>();
-        for (int i = 0; i < parameters.size(); i++) {
-            double value = HRVValue.getHRVValue(type, parameters.get(i));
-            hrvValues.add(new DecimalFormat("#.##").format(value));
+        if (parameters != null) {
+            for (int i = 0; i < parameters.size(); i++) {
+                double value = HRVValue.getHRVValue(type, parameters.get(i));
+                hrvValues.add(new DecimalFormat("#.##").format(value));
+            }
         }
         return hrvValues;
     }
@@ -96,6 +123,9 @@ public class StatisticValueAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if (parameters == null) {
+            return 0;
+        }
         return parameters.size();
     }
 
