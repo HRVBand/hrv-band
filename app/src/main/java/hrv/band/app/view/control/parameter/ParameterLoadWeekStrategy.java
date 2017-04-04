@@ -21,9 +21,8 @@ public class ParameterLoadWeekStrategy extends AbstractParameterLoadStrategy {
     @Override
     public List<Measurement> loadParameter(Context context, Date date) {
         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
-        calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendar.setTime(date);
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         List<Measurement> result = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             result.addAll(storage.loadData(context, calendar.getTime()));

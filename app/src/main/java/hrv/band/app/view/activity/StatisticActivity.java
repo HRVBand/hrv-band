@@ -177,7 +177,7 @@ public class StatisticActivity extends AppCompatActivity
                 setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy());
                 return true;
             case R.id.menu_week:
-                setDrawStrategy(new ChartDrawWeekStrategy(date), new ParameterLoadWeekStrategy());
+                setDrawStrategy(new ChartDrawWeekStrategy(), new ParameterLoadWeekStrategy());
                 return true;
             case R.id.menu_month:
                 setDrawStrategy(new ChartDrawMonthStrategy(date), new ParameterLoadMonthStrategy());
