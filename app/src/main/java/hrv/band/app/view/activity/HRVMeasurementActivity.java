@@ -1,4 +1,4 @@
-package hrv.band.app.view;
+package hrv.band.app.view.activity;
 
 import android.support.v4.app.Fragment;
 import android.view.Menu;

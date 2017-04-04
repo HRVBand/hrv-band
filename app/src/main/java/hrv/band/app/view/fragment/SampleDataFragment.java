@@ -29,7 +29,7 @@ public class SampleDataFragment extends DialogFragment {
     /** Count of rr intervals to create. **/
     private static final int RR_COUNT = 50;
     /** Count of samples to create. **/
-    private static final int SAMPLE_COUNT = 4;
+    private static final int SAMPLE_COUNT = 20;
     /** Key value that indicates if the activity calling this dialog should be closed. **/
     private static final String ARG_CLOSE_VALUE = "arg_close_value";
 
@@ -64,7 +64,7 @@ public class SampleDataFragment extends DialogFragment {
                         for (int i = 0; i < SAMPLE_COUNT; i++) {
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(new Date());
-                            cal.add(Calendar.HOUR_OF_DAY, i);
+                            cal.add(Calendar.DAY_OF_MONTH, i);
 
                             createSampleData(cal.getTime());
 

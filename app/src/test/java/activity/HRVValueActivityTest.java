@@ -23,9 +23,9 @@ import hrv.band.app.R;
 import hrv.band.app.control.Measurement;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
-import hrv.band.app.view.HRVMeasurementActivity;
-import hrv.band.app.view.HRVValueActivity;
-import hrv.band.app.view.MainActivity;
+import hrv.band.app.view.activity.HRVMeasurementActivity;
+import hrv.band.app.view.activity.HRVValueActivity;
+import hrv.band.app.view.activity.MainActivity;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;

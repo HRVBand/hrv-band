@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import hrv.band.app.R;
-import hrv.band.app.view.MainActivity;
+import hrv.band.app.view.activity.MainActivity;
 
 /**
  * Copyright (c) 2017

@@ -117,6 +117,11 @@
   <string name="developer_julian">Julian github.com/Fenox</string>
   <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
 
+  <!-- statistic activity -->
+  <string name="menu_calender_day">Tag</string>
+  <string name="menu_calender_week">Woche</string>
+  <string name="menu_calender_month">Monat</string>
+
   <!-- Error Messages -->
   <string name="error">Fehler</string>
   <string name="error_defective_rr_data">"RR-Daten sind fehlerhaft. Ist dein Gerät verbunden oder die Messdauer zu kurz?"</string>
@@ -187,4 +192,13 @@
   <string name="web_faq">FAQ</string>
   <string name="web_privacy">Datenschutz</string>
   <string name="web_about">Impressum</string>
+
+  <!-- Day of week shortcut -->
+  <string name="monday_sc">Mo</string>
+  <string name="tuesday_sc">Di</string>
+  <string name="wednesday_sc">Mi</string>
+  <string name="thursday_sc">Do</string>
+  <string name="friday_sc">Fr</string>
+  <string name="saturday_sc">Sa</string>
+  <string name="sunday_sc">So</string>
 </resources>

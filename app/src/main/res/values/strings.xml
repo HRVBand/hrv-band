@@ -76,7 +76,12 @@
   <string name="stat_val_item_std_time" translatable="false">14:00 PM</string>
   <string name="stat_val_item_std_category" translatable="false">General</string>
   <string name="stat_val_item_std_stats_value" translatable="false">12,13</string>
+
+  <!-- statistic activity -->
   <string name="menu_calender" translatable="false">Calender</string>
+  <string name="menu_calender_day">Day</string>
+  <string name="menu_calender_week">Week</string>
+  <string name="menu_calender_month">Month</string>
 
   <!-- overview list item -->
   <string name="overview_list_item_as">as</string>
@@ -199,6 +204,15 @@
   <string name="web_faq">FAQ</string>
   <string name="web_privacy">Privacy</string>
   <string name="web_about">About</string>
+
+  <!-- Day of week shortcut -->
+  <string name="monday_sc">Mo</string>
+  <string name="tuesday_sc">Tu</string>
+  <string name="wednesday_sc">Mi</string>
+  <string name="thursday_sc">Th</string>
+  <string name="friday_sc">Fr</string>
+  <string name="saturday_sc">Sa</string>
+  <string name="sunday_sc">Su</string>
 
 
 </resources>

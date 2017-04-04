@@ -1,4 +1,4 @@
-package hrv.band.app.view;
+package hrv.band.app.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

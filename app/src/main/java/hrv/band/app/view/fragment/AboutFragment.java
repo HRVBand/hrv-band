@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import hrv.band.app.R;
-import hrv.band.app.view.ImprintActivity;
+import hrv.band.app.view.activity.ImprintActivity;
 
 /**
  * Copyright (c) 2017

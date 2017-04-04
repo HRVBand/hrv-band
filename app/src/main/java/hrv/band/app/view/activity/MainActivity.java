@@ -1,4 +1,4 @@
-package hrv.band.app.view;
+package hrv.band.app.view.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
-    public static final String HRV_DATE = "HRV_DATE";
     public static final String HRV_VALUE = "hrv_rr_value";
 
     @Override

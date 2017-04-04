@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import hrv.band.app.R;
-import hrv.band.app.view.IntroActivity;
+import hrv.band.app.view.activity.IntroActivity;
 
 /**
  * Copyright (c) 2017

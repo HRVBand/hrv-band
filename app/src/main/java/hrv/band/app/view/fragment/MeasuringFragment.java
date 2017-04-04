@@ -12,6 +12,7 @@ import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ import hrv.band.app.devices.HRVRRDeviceListener;
 import hrv.band.app.devices.HRVRRIntervalDevice;
 import hrv.band.app.devices.antplus.AntPlusRRDataDevice;
 import hrv.band.app.devices.msband.MSBandRRIntervalDevice;
-import hrv.band.app.view.HRVMeasurementActivity;
+import hrv.band.app.view.activity.HRVMeasurementActivity;
 import hrv.calc.continous.HRVContinousHeartRate;
 import hrv.calc.continous.HRVParameterChangedListener;
 import hrv.calc.continous.HRVRRIntervalEvent;
@@ -399,6 +400,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
                 intent.putExtra(HRV_PARAMETER_ID, createMeasurement(rrIntervals, new Date()));
                 startActivity(intent);
             } catch(IllegalArgumentException e) {
+                Log.e(e.getClass().getName(), "IllegalArgumentException", e);
                 new AlertDialog.Builder(getContext())
                         .setTitle(R.string.error)
                         .setMessage(R.string.error_defective_rr_data)

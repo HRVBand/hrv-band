@@ -16,7 +16,7 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
-import hrv.band.app.view.StatisticActivity;
+import hrv.band.app.view.activity.StatisticActivity;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.fragment.OverviewFragment;
 

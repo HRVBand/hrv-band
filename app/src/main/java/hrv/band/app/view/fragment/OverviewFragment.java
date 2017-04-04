@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import hrv.band.app.R;
-import hrv.band.app.view.StatisticActivity;
+import hrv.band.app.view.activity.StatisticActivity;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.OverviewValueAdapter;
 
