@@ -14,7 +14,7 @@ public class HRVParameterSettings {
 
     public final Set<HRVParameterEnum> visibleHRVParameters;
 
-    public static HRVParameterSettings DefaultSettings = new HRVParameterSettings(EnumSet.of(HRVParameterEnum.BAEVSKY,
+    public static final HRVParameterSettings DefaultSettings = new HRVParameterSettings(EnumSet.of(HRVParameterEnum.BAEVSKY,
             HRVParameterEnum.SD1,
             HRVParameterEnum.SD2,
             HRVParameterEnum.SD1SD2,

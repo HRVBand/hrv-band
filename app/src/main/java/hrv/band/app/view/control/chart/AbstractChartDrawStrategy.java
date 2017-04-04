@@ -27,14 +27,14 @@ public abstract class AbstractChartDrawStrategy {
 
     /**
      * Initialized the chart and showing the given parameters.
-     * @param parameters the parameters to show in the chart.
+     * @param measurements the parameters to show in the chart.
      */
-    public void drawChart(List<Measurement> parameters, ColumnChartView mChart,
+    public void drawChart(List<Measurement> measurements, ColumnChartView mChart,
                           HRVValue hrvValue, Context context) {
 
         this.context = context;
         initChartValues();
-        setChartValues(parameters, hrvValue);
+        setChartValues(measurements, hrvValue);
         setAxis(mChart, hrvValue);
     }
 

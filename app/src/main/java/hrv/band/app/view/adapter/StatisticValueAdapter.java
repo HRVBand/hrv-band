@@ -95,27 +95,27 @@ public class StatisticValueAdapter extends BaseAdapter {
 
     /**
      * Returns a list containing the value of the given hrv type of all given hrv parameters.
-     * @param parameters the parameters to extract the value from.
+     * @param measurements the parameters to extract the value from.
      * @param type indicates which value to extract from the given parameters.
      * @return a list containing the values of the given hrv type of the given hrv parameters.
      */
-    private List<String> getValues(List<Measurement> parameters, HRVValue type) {
+    private List<String> getValues(List<Measurement> measurements, HRVValue type) {
 
         List<String> hrvValues = new ArrayList<>();
-        if (parameters != null) {
-            for (int i = 0; i < parameters.size(); i++) {
-                double value = HRVValue.getHRVValue(type, parameters.get(i));
+
+        if (measurements != null) {
+            for (Measurement measurement : measurements) {
+                HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
+                hrvCalc.setParameters(EnumSet.of(type.getHRVparam()));
+
+                double value = hrvCalc.calculateParameters().get(0).getValue();
                 hrvValues.add(new DecimalFormat("#.##").format(value));
             }
-        for (int i = 0; i < parameters.size(); i++) {
-            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(parameters.get(i).getRRIntervals(), TimeUnit.SECOND));
-            hrvCalc.setParameters(EnumSet.of(type.getHRVparam()));
-
-            double value = hrvCalc.calculateParameters().get(0).getValue();
-            hrvValues.add(new DecimalFormat("#.##").format(value));
         }
+
         return hrvValues;
     }
+
 
     /**
      * Sets a new set of parameters after something changed (e.g. delete).

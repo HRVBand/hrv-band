@@ -56,8 +56,8 @@ public class StatisticActivity extends AppCompatActivity
     /** Strategy how to select parameter. **/
     private AbstractParameterLoadStrategy parameterStrategy;
     /** Parameters to show in this activity. **/
-    private List<Measurement> parameters;
-    /** Date that user wants to show parameters. **/
+    private List<Measurement> measurements;
+    /** Date that user wants to show measurements. **/
     private Date date;
 
     @Override
@@ -100,18 +100,18 @@ public class StatisticActivity extends AppCompatActivity
         fragments = new ArrayList<>();
         date = new Date();
 
-        parameters = getParameters(date);
+        measurements = getMeasurements(date);
         for(int i = 0; i < HRVValue.values().length; i++) {
             fragments.add(StatisticFragment.newInstance(HRVValue.values()[i]));
         }
     }
 
     /**
-     * Returns parameters of given date.
+     * Returns measurements of given date.
      * @param date selected date to get all HRV values.
-     * @return parameters of given date
+     * @return measurements of given date
      */
-    private List<Measurement> getParameters(Date date) {
+    private List<Measurement> getMeasurements(Date date) {
         List<Measurement> result = new ArrayList<>();
 
         List<Measurement> params = parameterStrategy.loadParameter(this, date);
@@ -177,7 +177,7 @@ public class StatisticActivity extends AppCompatActivity
                 setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy());
                 return true;
             case R.id.menu_week:
-                setDrawStrategy(new ChartDrawWeekStrategy(), new ParameterLoadWeekStrategy());
+                setDrawStrategy(new ChartDrawWeekStrategy(date), new ParameterLoadWeekStrategy());
                 return true;
             case R.id.menu_month:
                 setDrawStrategy(new ChartDrawMonthStrategy(date), new ParameterLoadMonthStrategy());
@@ -201,12 +201,12 @@ public class StatisticActivity extends AppCompatActivity
 
     @Override
     public void drawChart(ColumnChartView chart, HRVValue hrvValue, Context context) {
-        chartStrategy.drawChart(parameters, chart, hrvValue, context);
+        chartStrategy.drawChart(measurements, chart, hrvValue, context);
     }
 
     @Override
-    public List<Measurement> getParameters() {
-        return parameters;
+    public List<Measurement> getMeasurements() {
+        return measurements;
     }
 
     @Override
@@ -214,7 +214,7 @@ public class StatisticActivity extends AppCompatActivity
         if (date == null) {
             return;
         }
-        parameters = getParameters(date);
+        measurements = getMeasurements(date);
         sectionsPagerAdapter.updateFragments();
     }
 }

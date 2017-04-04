@@ -30,7 +30,7 @@ public interface StatisticListener {
      * Returns parameters of {@link StatisticActivity}.
      * @return parameters.
      */
-    List<Measurement> getParameters();
+    List<Measurement> getMeasurements();
 
     /**
      * Updates all {@link StatisticFragment} in {@link StatisticActivity}.
