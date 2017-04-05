@@ -40,17 +40,17 @@ import static junit.framework.Assert.assertTrue;
 public class MeasuredValueFragmentTest {
 
     private MeasuredValueFragment fragment;
-    private static Measurement parameter;
+    private static Measurement measurement;
 
     @BeforeClass
     public static void init() {
         Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
-        parameter = builder.build();
+        measurement = builder.build();
     }
 
     @Before
     public void setup()  {
-        fragment = MeasuredValueFragment.newInstance(parameter);
+        fragment = MeasuredValueFragment.newInstance(measurement);
         SupportFragmentTestUtil.startVisibleFragment(fragment);
     }
 
@@ -76,8 +76,8 @@ public class MeasuredValueFragmentTest {
     @Test
     public void checkItems() throws Exception {
         ListView listView = (ListView) fragment.getActivity().findViewById(R.id.hrv_value_list);
-        for (int i = 0; i < listView.getCount(); i ++) {
-            assertEquals(parameter, listView.getItemAtPosition(i));
+        for (int i = 0; i < listView.getCount(); i++) {
+            assertEquals(measurement, listView.getItemAtPosition(i));
         }
     }
 

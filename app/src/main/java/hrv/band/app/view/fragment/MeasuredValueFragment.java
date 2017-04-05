@@ -33,13 +33,13 @@ public class MeasuredValueFragment extends Fragment {
 
     /**
      * Returns a new instance of this fragment.
-     * @param parameter the hrv parameter to get rr intervals from.
+     * @param measurement the hrv parameter to get rr intervals from.
      * @return a new instance of this fragment.
      */
-    public static MeasuredValueFragment newInstance(Measurement parameter) {
+    public static MeasuredValueFragment newInstance(Measurement measurement) {
         MeasuredValueFragment fragment = new MeasuredValueFragment();
         Bundle args = new Bundle();
-        args.putParcelable(MainActivity.HRV_VALUE, parameter);
+        args.putParcelable(MainActivity.HRV_VALUE, measurement);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,13 +49,13 @@ public class MeasuredValueFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.abstract_hrv_fragment_values, container, false);
 
-        Measurement parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
+        Measurement measurement = getArguments().getParcelable(MainActivity.HRV_VALUE);
 
         ListView listview = (ListView) rootView.findViewById(R.id.hrv_value_list);
 
-        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(parameter.getRRIntervals(), TimeUnit.SECOND));
+        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
         hrvCalc.setParameters(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
-        List<HRVParameter> params =hrvCalc.calculateParameters();
+        List<HRVParameter> params = hrvCalc.calculateParameters();
         HRVParameterUnitAdapter unitAdapter = new HRVParameterUnitAdapter();
         unitAdapter.adaptParameters(params);
 
