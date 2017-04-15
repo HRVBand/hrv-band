@@ -73,14 +73,6 @@ public class MeasuredValueFragmentTest {
         }
     }
 
-    @Test
-    public void checkItems() throws Exception {
-        ListView listView = (ListView) fragment.getActivity().findViewById(R.id.hrv_value_list);
-        for (int i = 0; i < listView.getCount(); i++) {
-            assertEquals(measurement, listView.getItemAtPosition(i));
-        }
-    }
-
     private void checkExpectedIntent(Intent expectedIntent) {
         ShadowActivity shadowActivity = Shadows.shadowOf(fragment.getActivity());
         Intent actualIntent = shadowActivity.getNextStartedActivity();

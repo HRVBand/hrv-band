@@ -23,6 +23,8 @@ import hrv.band.app.view.adapter.ValueAdapter;
 import hrv.calc.parameter.HRVParameter;
 import units.TimeUnit;
 
+import static hrv.band.app.view.util.WebsiteUrls.WEBSITE_PARAMETER_URL;
+
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
@@ -53,7 +55,9 @@ public class MeasuredValueFragment extends Fragment {
 
         ListView listview = (ListView) rootView.findViewById(R.id.hrv_value_list);
 
-        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
+        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement != null ?
+                measurement.getRRIntervals() : new double[0], TimeUnit.SECOND));
+
         hrvCalc.setParameters(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
         List<HRVParameter> params = hrvCalc.calculateParameters();
         HRVParameterUnitAdapter unitAdapter = new HRVParameterUnitAdapter();
@@ -69,7 +73,7 @@ public class MeasuredValueFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra(WebActivity.WEBSITE_URL_ID, WebActivity.WEBSITE_PARAMETER_URL);
+                intent.putExtra(WebActivity.WEBSITE_URL_ID, WEBSITE_PARAMETER_URL);
                 startActivity(intent);
             }
 

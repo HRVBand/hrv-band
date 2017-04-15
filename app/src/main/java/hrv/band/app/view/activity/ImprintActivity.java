@@ -48,8 +48,7 @@ public class ImprintActivity extends AppCompatActivity {
         fragments.add(LicenseFragment.newInstance());
         fragments.add(DisclaimerFragment.newInstance());
         fragments.add(PrivacyFragment.newInstance());
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
         SectionPagerAdapter mSectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
 
         // Set up the ViewPager with the sections adapter.
@@ -75,14 +74,13 @@ public class ImprintActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_imprint, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /** Opens a feedback dialog. **/
+        //opens a feedback dialog
         if (item.getItemId() == R.id.menu_ic_feedback) {
             FeedbackDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
             return true;

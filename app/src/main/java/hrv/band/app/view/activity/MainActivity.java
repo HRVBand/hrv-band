@@ -32,6 +32,9 @@ import hrv.band.app.view.fragment.FeedbackDialogFragment;
 import hrv.band.app.view.fragment.MeasuringFragment;
 import hrv.band.app.view.fragment.OverviewFragment;
 
+import static hrv.band.app.view.util.WebsiteUrls.WEBSITE_PRIVACY_URL;
+import static hrv.band.app.view.util.WebsiteUrls.WEBSITE_URL;
+
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
@@ -139,13 +142,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, IntroActivity.class));
         } else if (id == R.id.menu_website) {
             Intent webIntent = new Intent(this, WebActivity.class);
-            webIntent.putExtra(WebActivity.WEBSITE_URL_ID, WebActivity.WEBSITE_URL);
+            webIntent.putExtra(WebActivity.WEBSITE_URL_ID, WEBSITE_URL);
             startActivity(webIntent);
         } else if (id == R.id.menu_share) {
             openShareIntent();
         } else if (id == R.id.menu_privacy) {
             Intent webIntent = new Intent(this, WebActivity.class);
-            webIntent.putExtra(WebActivity.WEBSITE_URL_ID, WebActivity.WEBSITE_PRIVACY_URL);
+            webIntent.putExtra(WebActivity.WEBSITE_URL_ID, WEBSITE_PRIVACY_URL);
             startActivity(webIntent);
         } else if (id == R.id.menu_feedback) {
             FeedbackDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
