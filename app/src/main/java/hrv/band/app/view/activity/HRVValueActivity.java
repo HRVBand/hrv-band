@@ -7,8 +7,6 @@ import android.view.MenuItem;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.fragment.MeasuredDetailsFragment;
 
 /**
@@ -36,7 +34,7 @@ public class HRVValueActivity extends AbstractHRVActivity {
 
     @Override
     protected void addDetailsFragment(List<Fragment> fragments) {
-        fragments.add(MeasuredDetailsFragment.newInstance(getParameter()));
+        fragments.add(MeasuredDetailsFragment.newInstance(presenter.getMeasurement()));
     }
 
     @Override
@@ -52,9 +50,8 @@ public class HRVValueActivity extends AbstractHRVActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            /** Deletes the measurement. **/
             case R.id.menu_ic_delete:
-                deleteParameter();
+                deleteMeasurement();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -65,12 +62,8 @@ public class HRVValueActivity extends AbstractHRVActivity {
     /**
      * Deletes the actual parameter.
      */
-    private void deleteParameter() {
-        if (getParameter() == null) {
-            return;
-        }
-        IStorage storage = new HRVSQLController();
-        storage.deleteData(getApplicationContext(), getParameter());
+    private void deleteMeasurement() {
+        presenter.deleteMeasurement(getApplicationContext());
         setResult(StatisticActivity.RESULT_DELETED);
         this.finish();
     }

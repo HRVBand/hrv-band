@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
 import hrv.band.app.view.activity.MainActivity;
+import hrv.band.app.view.presenter.IRRPresenter;
+import hrv.band.app.view.presenter.MeasuredRRPresenter;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
@@ -31,10 +32,8 @@ public class MeasuredRRFragment extends Fragment {
 
     /** The chart showing rr intervals **/
     private ColumnChartView mChart;
-    /** The hrv parameter to extract rr intervals from. **/
-    private Measurement parameter;
-    /** The root view of this fragment. **/
-    private View rootView;
+
+    private IRRPresenter presenter;
 
     /**
      * Returns a new instance of this fragment.
@@ -52,88 +51,73 @@ public class MeasuredRRFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.abstract_hrv_fragment_rr, container, false);
+        View rootView = inflater.inflate(R.layout.abstract_hrv_fragment_rr, container, false);
 
-        parameter = getArguments().getParcelable(MainActivity.HRV_VALUE);
+        presenter = new MeasuredRRPresenter((Measurement) getArguments().getParcelable(MainActivity.HRV_VALUE));
+        presenter.calculateRRStatistic();
 
         mChart = (ColumnChartView) rootView.findViewById(R.id.rr_chart);
 
-        if (parameter != null) {
-            initChart();
-            setRRStatistic();
+        if (presenter.getMeasurement() != null) {
+            initRRChart();
+            setRRStatistic(rootView);
         }
 
         return rootView;
     }
 
-    /**
-     * Calculates rr interval statistics and sets the text views.
-     *
-     * TODO: calculating statistics should not be the responsibility of the view!!!
-     */
-    private void setRRStatistic() {
-        double[] rr = parameter.getRRIntervals();
-
-        double average = 0;
-        double min = Double.MAX_VALUE;
-        double max = 0;
-        for (double aRr : rr) {
-            average += aRr;
-            if (min > aRr) {
-                min = aRr;
-            }
-            if (max < aRr) {
-                max = aRr;
-            }
-        }
-        average /= rr.length;
+    private void setRRStatistic(View rootView) {
 
         TextView minTxt = (TextView) rootView.findViewById(R.id.rr_min);
         TextView maxTxt = (TextView) rootView.findViewById(R.id.rr_max);
         TextView averageTxt = (TextView) rootView.findViewById(R.id.rr_average);
         TextView countTxt = (TextView) rootView.findViewById(R.id.rr_count);
 
-        minTxt.setText(trimValue(min));
-        maxTxt.setText(trimValue(max));
-        averageTxt.setText(trimValue(average));
-        countTxt.setText(String.valueOf(rr.length));
-    }
-
-    /**
-     * Trims a single rr interval value into #.#### format.
-     * @param value the rr value to trim
-     * @return the trimmed rr interval value
-     */
-    private String trimValue(double value) {
-        return new DecimalFormat("#.####").format(value);
+        minTxt.setText(presenter.getRRMin());
+        maxTxt.setText(presenter.getRRMax());
+        averageTxt.setText(presenter.getRRAverage());
+        countTxt.setText(presenter.getRRCount());
     }
 
     /**
      * Initialized chart showing rr intervals from hrv measurement.
      */
-    private void initChart() {
+    private void initRRChart() {
+        List<Column> columns = createChartData();
+        setChartData(columns);
+    }
+
+    private List<Column> createChartData() {
         List<Column> columns = new ArrayList<>();
         List<SubcolumnValue> values;
-        for (int i = 0; i < parameter.getRRIntervals().length; i++) {
+        double[] rrIntervals = presenter.getMeasurement().getRRIntervals();
+        for (double rrInterval : rrIntervals) {
 
             values = new ArrayList<>();
-            values.add(new SubcolumnValue((float)parameter.getRRIntervals()[i],
+            values.add(new SubcolumnValue((float) rrInterval,
                     ContextCompat.getColor(getContext(), R.color.colorAccent)));
 
             Column column = new Column(values);
             columns.add(column);
         }
+        return columns;
+    }
 
+    private void setChartData(List<Column> columns) {
         ColumnChartData data = new ColumnChartData(columns);
 
+        setChartAxis(data);
+
+        mChart.setZoomEnabled(false);
+        mChart.setColumnChartData(data);
+    }
+
+    private void setChartAxis(ColumnChartData data) {
         Axis axisX = new Axis();
         Axis axisY = new Axis().setHasLines(true);
         axisX.setName("s");
         axisY.setName("s");
         data.setAxisXBottom(axisX);
         data.setAxisYLeft(axisY);
-
-        mChart.setZoomEnabled(false);
-        mChart.setColumnChartData(data);
     }
 }

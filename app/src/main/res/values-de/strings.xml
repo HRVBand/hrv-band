@@ -16,6 +16,8 @@
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">Ok</string>
+  <string name="common_saved">Gespeichert</string>
+
 
   <!-- Sentences -->
   <string name="sentence_how_do_you_feel">Wie fühlst du dich?</string>
@@ -73,6 +75,10 @@
   <string name="overview_list_item_as">wie</string>
 
   <!-- HRV Value Activity -->
+  <string name="hrv_activity_tab_value">HRV Werte</string>
+  <string name="hrv_activity_tab_rr">RR Intervalle</string>
+  <string name="hrv_activity_tab_details">Details</string>
+
   <string name="hrv_value_standard_date">28 August 2015</string>
   <string name="hrv_value_standard_rating">3.5 / 5</string>
   <string name="hrv_value_standard_category">Allgemein</string>

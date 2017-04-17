@@ -15,6 +15,8 @@ import hrv.band.app.R;
 import hrv.band.app.view.adapter.SectionPagerAdapter;
 import hrv.band.app.view.fragment.MeasuredRRFragment;
 import hrv.band.app.view.fragment.MeasuredValueFragment;
+import hrv.band.app.view.presenter.HRVPresenter;
+import hrv.band.app.view.presenter.IHRVPresenter;
 
 /**
  * Copyright (c) 2017
@@ -22,11 +24,11 @@ import hrv.band.app.view.fragment.MeasuredValueFragment;
  *
  * This abstract Activity holds the fragments to show a specific HRV value.
  */
-public abstract class AbstractHRVActivity extends AppCompatActivity {
-    /** The HRV parameter to show. **/
-    private Measurement parameter;
+public abstract class AbstractHRVActivity extends AppCompatActivity implements IHRVView {
     /** The Fragments this Activity holds. **/
     private List<Fragment> fragments;
+
+    protected IHRVPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,7 @@ public abstract class AbstractHRVActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        parameter = getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID);
-        fragments = new ArrayList<>();
+        presenter = new HRVPresenter((Measurement) getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID));
 
         createFragments();
 
@@ -71,9 +72,9 @@ public abstract class AbstractHRVActivity extends AppCompatActivity {
      */
     private String[] getPageTitles() {
         return new String[] {
-                "HRV Values",
-                "RR Intervals",
-                "Details"
+                getResources().getString(R.string.hrv_activity_tab_value),
+                getResources().getString(R.string.hrv_activity_tab_rr),
+                getResources().getString(R.string.hrv_activity_tab_details)
         };
     }
 
@@ -88,17 +89,10 @@ public abstract class AbstractHRVActivity extends AppCompatActivity {
      * Adds Fragments to this Activity.
      */
     private void createFragments() {
-        fragments.add(MeasuredValueFragment.newInstance(parameter));
-        fragments.add(MeasuredRRFragment.newInstance(parameter));
+        fragments = new ArrayList<>();
+        fragments.add(MeasuredValueFragment.newInstance(presenter.getMeasurement()));
+        fragments.add(MeasuredRRFragment.newInstance(presenter.getMeasurement()));
         addDetailsFragment(fragments);
-    }
-
-    /**
-     * Returns the HRV parameter to show.
-     * @return the HRV parameter to show.
-     */
-    Measurement getParameter() {
-        return parameter;
     }
 
     /**

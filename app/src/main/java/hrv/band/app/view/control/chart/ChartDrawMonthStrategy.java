@@ -26,7 +26,7 @@ import units.TimeUnit;
  */
 public class ChartDrawMonthStrategy extends AbstractChartDrawStrategy {
 
-    private static int columnCount;
+    private int columnCount;
     private static final int SUB_COLUMN_COUNT = 0;
     private static final String X_AXIS_LABEL = "Date";
 

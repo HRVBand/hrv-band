@@ -9,19 +9,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.List;
-
-import hrv.HRVLibFacade;
-import hrv.RRData;
 import hrv.band.app.R;
-import hrv.band.app.control.HRVParameterSettings;
-import hrv.band.app.control.HRVParameterUnitAdapter;
 import hrv.band.app.control.Measurement;
 import hrv.band.app.view.activity.MainActivity;
 import hrv.band.app.view.activity.WebActivity;
 import hrv.band.app.view.adapter.ValueAdapter;
-import hrv.calc.parameter.HRVParameter;
-import units.TimeUnit;
+import hrv.band.app.view.presenter.HRVParameterPresenter;
+import hrv.band.app.view.presenter.IHRVParameterPresenter;
 
 import static hrv.band.app.view.util.WebsiteUrls.WEBSITE_PARAMETER_URL;
 
@@ -33,8 +27,11 @@ import static hrv.band.app.view.util.WebsiteUrls.WEBSITE_PARAMETER_URL;
  */
 public class MeasuredValueFragment extends Fragment {
 
+    private IHRVParameterPresenter presenter;
+
     /**
      * Returns a new instance of this fragment.
+     *
      * @param measurement the hrv parameter to get rr intervals from.
      * @return a new instance of this fragment.
      */
@@ -51,22 +48,19 @@ public class MeasuredValueFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.abstract_hrv_fragment_values, container, false);
 
-        Measurement measurement = getArguments().getParcelable(MainActivity.HRV_VALUE);
+        presenter = new HRVParameterPresenter((Measurement) getArguments().getParcelable(MainActivity.HRV_VALUE));
+        presenter.calculateParameters();
 
+        setParametersListView(rootView);
+
+        return rootView;
+    }
+
+    private void setParametersListView(View rootView) {
         ListView listview = (ListView) rootView.findViewById(R.id.hrv_value_list);
+        ValueAdapter adapter = new ValueAdapter(this.getActivity(), presenter.getHRVParameters());
 
-        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement != null ?
-                measurement.getRRIntervals() : new double[0], TimeUnit.SECOND));
-
-        hrvCalc.setParameters(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
-        List<HRVParameter> params = hrvCalc.calculateParameters();
-        HRVParameterUnitAdapter unitAdapter = new HRVParameterUnitAdapter();
-        unitAdapter.adaptParameters(params);
-
-        ValueAdapter adapter = new ValueAdapter(this.getActivity(),
-                params);
         listview.setAdapter(adapter);
-
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -78,7 +72,6 @@ public class MeasuredValueFragment extends Fragment {
             }
 
         });
-
-        return rootView;
     }
+
 }

@@ -8,20 +8,17 @@ import android.widget.Toast;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.control.Measurement;
-import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.HRVSQLController;
-import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
 import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
 import hrv.band.app.view.fragment.TextDialogFragment;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
- *
+ * <p>
  * This Activity holds the Fragments which shows the actual HRV Measurement.
  */
-public class HRVMeasurementActivity extends AbstractHRVActivity {
+public class HRVMeasurementActivity extends AbstractHRVActivity implements ISavableMeasurementView {
+    private MeasuredDetailsEditFragment measuredDetailsEditFragment;
 
     @Override
     protected int getContentViewId() {
@@ -40,7 +37,8 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
 
     @Override
     protected void addDetailsFragment(List<Fragment> fragments) {
-        fragments.add(MeasuredDetailsEditFragment.newInstance());
+        measuredDetailsEditFragment = MeasuredDetailsEditFragment.newInstance();
+        fragments.add(measuredDetailsEditFragment);
     }
 
     @Override
@@ -69,49 +67,16 @@ public class HRVMeasurementActivity extends AbstractHRVActivity {
      * Saves the actual measured and calculated HRV parameter.
      */
     private void saveMeasurement() {
-        IStorage storage = new HRVSQLController();
-        storage.saveData(getApplicationContext(), createSavableMeasurement());
-        Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+        presenter.saveMeasurement(getApplicationContext(), measuredDetailsEditFragment);
+        Toast.makeText(this, R.string.common_saved, Toast.LENGTH_SHORT).show();
         finish();
-    }
-
-    /**
-     * Sets the details of the actual measured and calculated HRV parameter.
-     */
-    private Measurement createSavableMeasurement() {
-        MeasuredDetailsEditFragment fragment = getMeasuredDetailsEditFragment();
-
-        float rating = fragment != null ? fragment.getRating() : 0;
-        MeasurementCategoryAdapter.MeasureCategory category = fragment != null ? fragment.getCategory() : MeasurementCategoryAdapter.MeasureCategory.GENERAL;
-        String note = fragment != null ? fragment.getNote() : "";
-
-
-        Measurement.MeasurementBuilder measurementBuilder = new Measurement.MeasurementBuilder(getParameter())
-                .rating(rating)
-                .category(category)
-                .note(note);
-        return measurementBuilder.build();
-    }
-
-
-    private MeasuredDetailsEditFragment getMeasuredDetailsEditFragment() {
-        MeasuredDetailsEditFragment fragment = null;
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments != null) {
-            for (int i = 0; i < fragments.size(); i++) {
-                if (fragments.get(i) instanceof MeasuredDetailsEditFragment) {
-                    fragment = (MeasuredDetailsEditFragment) fragments.get(i);
-                    break;
-                }
-            }
-        }
-        return fragment;
     }
 
     @Override
     public void onBackPressed() {
         CancelMeasurementFragment.newInstance().show(getSupportFragmentManager(), "cancel");
     }
+
     /**
      * Dialog which asks the user if he wants to save the measurement.
      */
