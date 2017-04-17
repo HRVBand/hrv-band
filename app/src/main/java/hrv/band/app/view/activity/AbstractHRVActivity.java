@@ -24,7 +24,7 @@ import hrv.band.app.view.presenter.IHRVPresenter;
  *
  * This abstract Activity holds the fragments to show a specific HRV value.
  */
-public abstract class AbstractHRVActivity extends AppCompatActivity implements IHRVView {
+public abstract class AbstractHRVActivity extends AppCompatActivity {
     /** The Fragments this Activity holds. **/
     private List<Fragment> fragments;
 
