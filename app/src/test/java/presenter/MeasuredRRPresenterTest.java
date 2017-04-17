@@ -40,7 +40,7 @@ public class MeasuredRRPresenterTest {
         presenter.calculateRRStatistic();
 
         assertEquals("2", presenter.getRRCount());
-        assertEquals("1,5", presenter.getRRAverage());
+        assertEquals("1.5", presenter.getRRAverage());
         assertEquals("1", presenter.getRRMin());
         assertEquals("2", presenter.getRRMax());
     }

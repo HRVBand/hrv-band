@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Date;
 
 import hrv.band.app.control.Measurement;
@@ -30,7 +31,9 @@ public class MeasurementDetailsPresenter implements IMeasurementDetailsPresenter
 
     @Override
     public String getRating() {
-        return new DecimalFormat("#.#").format(measurement != null ? measurement.getRating() : 0).concat("/5");
+        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+        symbols.setDecimalSeparator('.');
+        return new DecimalFormat("#.#", symbols).format(measurement != null ? measurement.getRating() : 0).concat("/5");
     }
 
     @Override

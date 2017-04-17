@@ -1,6 +1,7 @@
 package hrv.band.app.view.presenter;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 import hrv.band.app.control.Measurement;
 
@@ -67,6 +68,8 @@ public class MeasuredRRPresenter implements IRRPresenter {
     }
 
     private String trimValue(double value) {
-        return new DecimalFormat("#.####").format(value);
+        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+        symbols.setDecimalSeparator('.');
+        return new DecimalFormat("#.####", symbols).format(value);
     }
 }

@@ -54,11 +54,12 @@ public class MeasurementDetailsPresenterTest {
         IMeasurementDetailsPresenter presenter = new MeasurementDetailsPresenter(builder.build(), activity);
         assertEquals("", presenter.getNote());
     }
+
     @Test
     public void getRatingTest() {
         builder.rating(1.5);
         IMeasurementDetailsPresenter presenter = new MeasurementDetailsPresenter(builder.build(), activity);
-        assertEquals("1,5/5", presenter.getRating());
+        assertEquals("1.5/5", presenter.getRating());
     }
 
     @Test
