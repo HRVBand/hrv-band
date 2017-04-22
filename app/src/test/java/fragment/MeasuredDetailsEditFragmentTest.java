@@ -15,8 +15,8 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
-import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
-import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
+import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
+import hrv.band.app.ui.view.fragment.MeasuredDetailsEditFragment;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;

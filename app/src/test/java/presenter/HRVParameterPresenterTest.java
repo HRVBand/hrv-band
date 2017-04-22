@@ -5,9 +5,9 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import hrv.band.app.control.Measurement;
-import hrv.band.app.view.presenter.HRVParameterPresenter;
-import hrv.band.app.view.presenter.IHRVParameterPresenter;
+import hrv.band.app.model.Measurement;
+import hrv.band.app.ui.presenter.HRVParameterPresenter;
+import hrv.band.app.ui.presenter.IHRVParameterPresenter;
 
 import static junit.framework.Assert.assertFalse;
 

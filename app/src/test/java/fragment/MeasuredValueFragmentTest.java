@@ -18,12 +18,11 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.control.Measurement;
 import hrv.band.app.R;
-import hrv.band.app.view.activity.WebActivity;
-import hrv.band.app.view.fragment.MeasuredValueFragment;
+import hrv.band.app.model.Measurement;
+import hrv.band.app.ui.view.activity.WebActivity;
+import hrv.band.app.ui.view.fragment.MeasuredParameterFragment;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.assertTrue;
@@ -32,15 +31,15 @@ import static junit.framework.Assert.assertTrue;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 31.01.2017
  *
- * Tests for {@link MeasuredValueFragment}
+ * Tests for {@link MeasuredParameterFragment}
  */
 
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
 @RunWith(RobolectricTestRunner.class)
 public class MeasuredValueFragmentTest {
 
-    private MeasuredValueFragment fragment;
     private static Measurement measurement;
+    private MeasuredParameterFragment fragment;
 
     @BeforeClass
     public static void init() {
@@ -50,7 +49,7 @@ public class MeasuredValueFragmentTest {
 
     @Before
     public void setup()  {
-        fragment = MeasuredValueFragment.newInstance(measurement);
+        fragment = MeasuredParameterFragment.newInstance(measurement);
         SupportFragmentTestUtil.startVisibleFragment(fragment);
     }
 

@@ -10,7 +10,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.view.activity.SplashActivity;
+import hrv.band.app.ui.view.activity.SplashActivity;
 
 import static junit.framework.Assert.assertNotNull;
 

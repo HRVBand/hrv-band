@@ -16,9 +16,9 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
-import hrv.band.app.view.activity.HistoryActivity;
-import hrv.band.app.view.adapter.HRVValue;
-import hrv.band.app.view.fragment.OverviewFragment;
+import hrv.band.app.ui.view.activity.HistoryActivity;
+import hrv.band.app.ui.view.adapter.HRVValue;
+import hrv.band.app.ui.view.fragment.OverviewFragment;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertSame;

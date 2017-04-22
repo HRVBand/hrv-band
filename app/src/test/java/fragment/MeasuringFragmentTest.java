@@ -10,7 +10,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.view.fragment.MeasuringFragment;
+import hrv.band.app.ui.view.fragment.MeasuringFragment;
 
 import static junit.framework.Assert.assertNotNull;
 

@@ -10,8 +10,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.view.adapter.HRVValue;
-import hrv.band.app.view.fragment.HistoryFragment;
+import hrv.band.app.ui.view.adapter.HRVValue;
+import hrv.band.app.ui.view.fragment.HistoryFragment;
 
 import static junit.framework.Assert.assertNotNull;
 

@@ -15,8 +15,8 @@ import org.robolectric.annotation.Config;
 import java.util.Date;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.control.Measurement;
-import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
+import hrv.band.app.model.Measurement;
+import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -31,14 +31,20 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 public class MeasurementTest {
 
-    private Measurement.MeasurementBuilder measurementBuilder;
     private static Date date;
     private static double[] rr;
+    private Measurement.MeasurementBuilder measurementBuilder;
 
     @BeforeClass
     public static void init() {
         date = new Date(1000);
         rr = new double[]{1,1,1,1};
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        date = null;
+        rr = null;
     }
 
     @Before
@@ -105,11 +111,5 @@ public class MeasurementTest {
     @After
     public void tearDownBuilder() {
         measurementBuilder = null;
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        date = null;
-        rr = null;
     }
 }

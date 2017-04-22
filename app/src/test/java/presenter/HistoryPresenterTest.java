@@ -10,12 +10,11 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Date;
 
-import hrv.band.app.control.Measurement;
-import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.HRVSQLController;
-import hrv.band.app.view.presenter.HRVParameterPresenter;
-import hrv.band.app.view.presenter.HistoryPresenter;
-import hrv.band.app.view.presenter.IHistoryPresenter;
+import hrv.band.app.model.Measurement;
+import hrv.band.app.model.storage.IStorage;
+import hrv.band.app.model.storage.sqlite.HRVSQLController;
+import hrv.band.app.ui.presenter.HistoryPresenter;
+import hrv.band.app.ui.presenter.IHistoryPresenter;
 
 import static junit.framework.Assert.assertFalse;
 

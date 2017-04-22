@@ -9,7 +9,7 @@ import org.robolectric.annotation.Config;
 
 import hrv.RRData;
 import hrv.band.app.BuildConfig;
-import hrv.band.app.control.HRVCalculatorFacade;
+import hrv.band.app.model.HRVCalculatorFacade;
 import hrv.calc.psd.PowerSpectrum;
 import hrv.calc.psd.StandardPowerSpectralDensityEstimator;
 import units.TimeUnit;

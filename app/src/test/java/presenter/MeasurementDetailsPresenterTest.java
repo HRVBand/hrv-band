@@ -11,10 +11,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.Date;
 
 import hrv.band.app.R;
-import hrv.band.app.control.Measurement;
-import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
-import hrv.band.app.view.presenter.IMeasurementDetailsPresenter;
-import hrv.band.app.view.presenter.MeasurementDetailsPresenter;
+import hrv.band.app.model.Measurement;
+import hrv.band.app.ui.presenter.IMeasurementDetailsPresenter;
+import hrv.band.app.ui.presenter.MeasurementDetailsPresenter;
+import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.when;

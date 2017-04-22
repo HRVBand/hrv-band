@@ -20,12 +20,12 @@ import java.util.Date;
 
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
-import hrv.band.app.control.Measurement;
-import hrv.band.app.storage.IStorage;
-import hrv.band.app.storage.sqlite.HRVSQLController;
-import hrv.band.app.view.activity.HRVMeasurementActivity;
-import hrv.band.app.view.activity.HRVValueActivity;
-import hrv.band.app.view.activity.MainActivity;
+import hrv.band.app.model.Measurement;
+import hrv.band.app.model.storage.IStorage;
+import hrv.band.app.model.storage.sqlite.HRVSQLController;
+import hrv.band.app.ui.view.activity.EditableMeasurementActivity;
+import hrv.band.app.ui.view.activity.MainActivity;
+import hrv.band.app.ui.view.activity.SavableMeasurementActivity;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -34,15 +34,15 @@ import static junit.framework.Assert.assertNotNull;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 30.01.2017
  *
- * Tests for {@link HRVValueActivity}
+ * Tests for {@link EditableMeasurementActivity}
  */
 
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
 @RunWith(RobolectricTestRunner.class)
 public class HRVValueActivityTest {
-    private HRVValueActivity activity;
     private static Measurement parameter;
     private static IStorage storage;
+    private EditableMeasurementActivity activity;
 
     @BeforeClass
     public static void init() {
@@ -51,13 +51,21 @@ public class HRVValueActivityTest {
         storage = new HRVSQLController();
     }
 
+    @AfterClass
+    public static void afterClassTearDown() {
+        storage = null;
+        parameter = null;
+
+    }
+
     @Before
     public void setup()  {
-        Intent intent = new Intent(ShadowApplication.getInstance().getApplicationContext(), HRVMeasurementActivity.class);
+        Intent intent = new Intent(ShadowApplication.getInstance().getApplicationContext(), SavableMeasurementActivity.class);
         intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameter);
-        activity = Robolectric.buildActivity(HRVValueActivity.class).withIntent(intent)
+        activity = Robolectric.buildActivity(EditableMeasurementActivity.class).withIntent(intent)
                 .create().visible().get();
     }
+
     @Test
     public void checkActivityNotNull() throws Exception {
         assertNotNull(activity);
@@ -80,13 +88,6 @@ public class HRVValueActivityTest {
     @After
     public void tearDown() {
         activity = null;
-    }
-
-    @AfterClass
-    public static void afterClassTearDown() {
-        storage = null;
-        parameter = null;
-
     }
 
 }

@@ -19,10 +19,10 @@ import org.robolectric.shadows.ShadowActivity;
 
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
-import hrv.band.app.view.activity.ImprintActivity;
-import hrv.band.app.view.activity.IntroActivity;
-import hrv.band.app.view.activity.MainActivity;
-import hrv.band.app.view.activity.SettingsActivity;
+import hrv.band.app.ui.view.activity.ImprintActivity;
+import hrv.band.app.ui.view.activity.IntroActivity;
+import hrv.band.app.ui.view.activity.MainActivity;
+import hrv.band.app.ui.view.activity.SettingsActivity;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;

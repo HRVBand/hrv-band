@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import hrv.band.app.view.fragment.ISettingsView;
-import hrv.band.app.view.presenter.ISettingsPresenter;
-import hrv.band.app.view.presenter.SettingsPresenter;
+import hrv.band.app.ui.presenter.ISettingsPresenter;
+import hrv.band.app.ui.presenter.SettingsPresenter;
+import hrv.band.app.ui.view.fragment.ISettingsView;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -20,10 +20,9 @@ import static junit.framework.Assert.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class SettingsPresenterTest {
 
-    private ISettingsPresenter presenter;
-
     @Mock
     ISettingsView settingsView;
+    private ISettingsPresenter presenter;
 
     @Before
     public void setup() {

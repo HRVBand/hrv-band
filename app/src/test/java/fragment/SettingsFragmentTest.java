@@ -9,7 +9,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.view.fragment.SettingsFragment;
+import hrv.band.app.ui.view.fragment.SettingsFragment;
 
 import static junit.framework.Assert.assertNotNull;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
