@@ -19,7 +19,7 @@ import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
  *
  * Fragment allowing the user to set the details of a measurement.
  */
-public class MeasuredDetailsEditFragment extends Fragment {
+public class MeasuredDetailsEditFragment extends Fragment implements IMeasuredDetails{
 
     /** rootView of this Fragment. **/
     private View rootView;
@@ -49,6 +49,7 @@ public class MeasuredDetailsEditFragment extends Fragment {
      * Returns the rating of the user for the actual measurement.
      * @return the rating of the user for the actual measurement.
      */
+    @Override
     public float getRating() {
         if (rootView == null) {
             return 0;
@@ -61,6 +62,7 @@ public class MeasuredDetailsEditFragment extends Fragment {
      * Returns the chosen category.
      * @return the chosen category.
      */
+    @Override
     public MeasurementCategoryAdapter.MeasureCategory getCategory() {
         if (rootView == null) {
             return MeasurementCategoryAdapter.MeasureCategory.GENERAL;
@@ -74,11 +76,17 @@ public class MeasuredDetailsEditFragment extends Fragment {
      * Returns the note the user entered.
      * @return the note the user entered.
      */
+    @Override
     public String getNote() {
         if (rootView == null) {
             return "";
         }
         TextView note = (TextView) rootView.findViewById(R.id.measure_note);
         return note.getText().toString();
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
     }
 }

@@ -8,17 +8,18 @@ import android.widget.Toast;
 import java.util.List;
 
 import hrv.band.app.R;
+import hrv.band.app.view.fragment.IMeasuredDetails;
 import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
 import hrv.band.app.view.fragment.TextDialogFragment;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
- * <p>
+ *
  * This Activity holds the Fragments which shows the actual HRV Measurement.
  */
 public class HRVMeasurementActivity extends AbstractHRVActivity implements ISavableMeasurementView {
-    private MeasuredDetailsEditFragment measuredDetailsEditFragment;
+    private IMeasuredDetails measuredDetailsEditFragment;
 
     @Override
     protected int getContentViewId() {
@@ -38,7 +39,7 @@ public class HRVMeasurementActivity extends AbstractHRVActivity implements ISava
     @Override
     protected void addDetailsFragment(List<Fragment> fragments) {
         measuredDetailsEditFragment = MeasuredDetailsEditFragment.newInstance();
-        fragments.add(measuredDetailsEditFragment);
+        fragments.add(measuredDetailsEditFragment.getFragment());
     }
 
     @Override

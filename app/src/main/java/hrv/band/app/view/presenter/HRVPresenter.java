@@ -7,7 +7,7 @@ import hrv.band.app.control.Measurement;
 import hrv.band.app.storage.IStorage;
 import hrv.band.app.storage.sqlite.HRVSQLController;
 import hrv.band.app.view.adapter.MeasurementCategoryAdapter;
-import hrv.band.app.view.fragment.MeasuredDetailsEditFragment;
+import hrv.band.app.view.fragment.IMeasuredDetails;
 
 /**
  * Copyright (c) 2017
@@ -29,9 +29,9 @@ public class HRVPresenter implements IHRVPresenter {
     }
 
     @Override
-    public void saveMeasurement(Context context, MeasuredDetailsEditFragment fragment) {
+    public void saveMeasurement(Context context, IMeasuredDetails details) {
         IStorage storage = new HRVSQLController();
-        storage.saveData(context, createSavableMeasurement(fragment));
+        storage.saveData(context, createSavableMeasurement(details));
     }
 
     @Override
@@ -43,11 +43,11 @@ public class HRVPresenter implements IHRVPresenter {
         storage.deleteData(context, measurement);
     }
 
-    private Measurement createSavableMeasurement(MeasuredDetailsEditFragment fragment) {
+    private Measurement createSavableMeasurement(IMeasuredDetails details) {
 
-        float rating = fragment != null ? fragment.getRating() : 0;
-        MeasurementCategoryAdapter.MeasureCategory category = fragment != null ? fragment.getCategory() : MeasurementCategoryAdapter.MeasureCategory.GENERAL;
-        String note = fragment != null ? fragment.getNote() : "";
+        float rating = details != null ? details.getRating() : 0;
+        MeasurementCategoryAdapter.MeasureCategory category = details != null ? details.getCategory() : MeasurementCategoryAdapter.MeasureCategory.GENERAL;
+        String note = details != null ? details.getNote() : "";
 
 
         Measurement.MeasurementBuilder measurementBuilder = new Measurement.MeasurementBuilder(measurement)
