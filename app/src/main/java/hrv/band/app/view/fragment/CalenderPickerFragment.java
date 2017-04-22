@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import java.util.Calendar;
 
-import hrv.band.app.view.activity.StatisticActivity;
+import hrv.band.app.view.activity.HistoryActivity;
 
 /**
  * Copyright (c) 2017
@@ -26,6 +26,6 @@ public class CalenderPickerFragment extends DialogFragment  {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             return new DatePickerDialog(getActivity(),
-                    (StatisticActivity) getActivity(), year, month, day);
+                    (HistoryActivity) getActivity(), year, month, day);
         }
 }

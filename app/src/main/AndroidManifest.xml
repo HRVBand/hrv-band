@@ -44,7 +44,7 @@
         android:value="hrv.band.app.view.activity.MainActivity" />
     </activity>
     <activity
-      android:name=".view.activity.StatisticActivity"
+      android:name=".view.activity.HistoryActivity"
       android:label="@string/title_activity_statistic"
       android:parentActivityName=".view.activity.MainActivity"
       android:screenOrientation="portrait"
@@ -56,12 +56,12 @@
     <activity
       android:name=".view.activity.HRVValueActivity"
       android:label="@string/title_activity_hrv_value"
-      android:parentActivityName=".view.activity.StatisticActivity"
+      android:parentActivityName=".view.activity.HistoryActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="hrv.band.app.view.activity.StatisticActivity" />
+        android:value="hrv.band.app.view.activity.HistoryActivity" />
     </activity>
     <activity
       android:name=".view.activity.ImprintActivity"

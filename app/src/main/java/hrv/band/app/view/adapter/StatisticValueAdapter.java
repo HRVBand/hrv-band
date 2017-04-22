@@ -22,14 +22,14 @@ import hrv.HRVLibFacade;
 import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.control.Measurement;
-import hrv.band.app.view.fragment.StatisticFragment;
+import hrv.band.app.view.fragment.HistoryFragment;
 import units.TimeUnit;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
  *
- * This adapter holds the hrv parameters to show in the {@link StatisticFragment}.
+ * This adapter holds the hrv parameters to show in the {@link HistoryFragment}.
  */
 public class StatisticValueAdapter extends BaseAdapter {
     /** The context of activity holding the adapter. **/

@@ -64,7 +64,7 @@ public class HRVValueActivity extends AbstractHRVActivity {
      */
     private void deleteMeasurement() {
         presenter.deleteMeasurement(getApplicationContext());
-        setResult(StatisticActivity.RESULT_DELETED);
+        setResult(HistoryActivity.RESULT_DELETED);
         this.finish();
     }
 

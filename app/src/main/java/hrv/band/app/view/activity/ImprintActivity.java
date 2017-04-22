@@ -1,6 +1,7 @@
 package hrv.band.app.view.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -9,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +42,27 @@ public class ImprintActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        /* The Fragments this Activity holds. */
+        SectionPagerAdapter mSectionsPagerAdapter = createSectionPagerAdapter();
+        setupViewPager(mSectionsPagerAdapter);
+    }
+
+    @NonNull
+    private SectionPagerAdapter createSectionPagerAdapter() {
+        List<Fragment> fragments = createFragments();
+        return new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
+    }
+
+    @NonNull
+    private List<Fragment> createFragments() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(AboutFragment.newInstance());
         fragments.add(LicenseFragment.newInstance());
         fragments.add(DisclaimerFragment.newInstance());
         fragments.add(PrivacyFragment.newInstance());
+        return fragments;
+    }
 
-        SectionPagerAdapter mSectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
-
-        // Set up the ViewPager with the sections adapter.
+    private void setupViewPager(SectionPagerAdapter mSectionsPagerAdapter) {
         ViewPager mViewPager = (ViewPager) findViewById(R.id.imprint_viewpager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 

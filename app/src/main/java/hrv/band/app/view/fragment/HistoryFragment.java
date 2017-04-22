@@ -21,10 +21,10 @@ import hrv.band.app.view.activity.HRVValueActivity;
 import hrv.band.app.view.activity.MainActivity;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.StatisticValueAdapter;
-import hrv.band.app.view.control.StatisticListener;
+import hrv.band.app.view.control.IHistoryView;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
-import static hrv.band.app.view.activity.StatisticActivity.RESULT_DELETED;
+import static hrv.band.app.view.activity.HistoryActivity.RESULT_DELETED;
 
 /**
  * Copyright (c) 2017
@@ -32,7 +32,7 @@ import static hrv.band.app.view.activity.StatisticActivity.RESULT_DELETED;
  *
  * Fragment allowing user to start measurement.
  */
-public class StatisticFragment extends Fragment implements Observer {
+public class HistoryFragment extends Fragment implements Observer {
 
     /** Key value for the hrv type of this fragment. **/
     private static final String ARG_SECTION_VALUE = "sectionValue";
@@ -45,14 +45,14 @@ public class StatisticFragment extends Fragment implements Observer {
     /** The parameters this fragment should show. **/
     private List<Measurement> parameters;
 
-    private StatisticListener statisticListener;
+    private IHistoryView statisticListener;
 
     /**
      * Returns a new instance of this fragment.
      * @return a new instance of this fragment.
      */
-    public static StatisticFragment newInstance(HRVValue type) {
-        StatisticFragment fragment = new StatisticFragment();
+    public static HistoryFragment newInstance(HRVValue type) {
+        HistoryFragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_SECTION_VALUE, type);
         fragment.setArguments(args);
@@ -104,8 +104,8 @@ public class StatisticFragment extends Fragment implements Observer {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof StatisticListener) {
-            statisticListener = (StatisticListener) context;
+        if (context instanceof IHistoryView) {
+            statisticListener = (IHistoryView) context;
         }
     }
 

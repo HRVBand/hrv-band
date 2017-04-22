@@ -10,14 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import hrv.band.app.R;
-import hrv.band.app.view.activity.StatisticActivity;
+import hrv.band.app.view.activity.HistoryActivity;
 import hrv.band.app.view.adapter.HRVValue;
 import hrv.band.app.view.adapter.OverviewValueAdapter;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
- *
+ * <p>
  * Fragment showing available HRV parameters.
  */
 public class OverviewFragment extends Fragment {
@@ -26,6 +26,7 @@ public class OverviewFragment extends Fragment {
 
     /**
      * Returns a new instance of this fragment.
+     *
      * @return a new instance of this fragment.
      */
     public static OverviewFragment newInstance() {
@@ -37,8 +38,7 @@ public class OverviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.main_fragment_overview, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.overview_value_list);
-        final OverviewValueAdapter adapter = new OverviewValueAdapter(getActivity()
-        );
+        final OverviewValueAdapter adapter = new OverviewValueAdapter(getActivity());
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -46,7 +46,7 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                Intent intent = new Intent(getContext(), StatisticActivity.class);
+                Intent intent = new Intent(getContext(), HistoryActivity.class);
                 intent.putExtra(VALUE_TYPE, HRVValue.values()[position]);
                 startActivity(intent);
             }
