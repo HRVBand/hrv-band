@@ -1,7 +1,6 @@
 package hrv.band.app.device.antplus;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.dsi.ant.plugins.antplus.pcc.AntPlusHeartRatePcc;
 import com.dsi.ant.plugins.antplus.pcc.defines.DeviceState;
@@ -25,12 +24,10 @@ public class AntPlusRRDataDevice
         AntPluginPcc.IPluginAccessResultReceiver<AntPlusHeartRatePcc>,
         AntPlusHeartRatePcc.ICalculatedRrIntervalReceiver {
 
-    private final Context context;
     private final Activity activity;
     private AntPlusHeartRatePcc wgtplc;
 
-    public AntPlusRRDataDevice(Context context, Activity activity) {
-        this.context = context;
+    public AntPlusRRDataDevice(Activity activity) {
         this.activity = activity;
     }
 
@@ -107,7 +104,7 @@ public class AntPlusRRDataDevice
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AntPlusHeartRatePcc.requestAccess(activity, context, helper, helper);
+                AntPlusHeartRatePcc.requestAccess(activity, activity.getApplicationContext(), helper, helper);
             }
         });
     }

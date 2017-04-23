@@ -1,8 +1,8 @@
 package hrv.band.app.ui.view.activity;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
@@ -26,14 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.app.R;
+import hrv.band.app.ui.presenter.IMainPresenter;
+import hrv.band.app.ui.presenter.MainPresenter;
 import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
 import hrv.band.app.ui.view.fragment.DisclaimerDialogFragment;
 import hrv.band.app.ui.view.fragment.FeedbackDialogFragment;
+import hrv.band.app.ui.view.fragment.IMeasuringView;
 import hrv.band.app.ui.view.fragment.MeasuringFragment;
 import hrv.band.app.ui.view.fragment.OverviewFragment;
-
-import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_PRIVACY_URL;
-import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_URL;
 
 /**
  * Copyright (c) 2017
@@ -42,14 +42,19 @@ import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_URL;
  * This Activity is the main Activity and holds the measurement and overview Fragment.
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, IMainView {
 
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
     public static final String HRV_VALUE = "hrv_rr_value";
 
+    private IMainPresenter presenter;
+    private IMeasuringView measuringView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        presenter = new MainPresenter(this);
 
         handleDisclaimer();
 
@@ -75,7 +80,8 @@ public class MainActivity extends AppCompatActivity
 
         //Fragment
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(MeasuringFragment.newInstance());
+        measuringView = MeasuringFragment.newInstance();
+        fragments.add((Fragment) measuringView);
         fragments.add(OverviewFragment.newInstance());
 
         SectionPagerAdapter mSectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
@@ -109,12 +115,8 @@ public class MainActivity extends AppCompatActivity
 
         //Close the app, if disclaimer has not yet been accepted
         int backStackCount = getFragmentManager().getBackStackEntryCount();
-        if (backStackCount != 0) {
-
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            if (!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
-                finish();
-            }
+        if (backStackCount != 0 && !presenter.agreedToDisclaimer()) {
+            finish();
         }
 
         //If the Navigation Drawer is opened, a backPressed closes the Navigation Drawer.
@@ -138,43 +140,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.menu_help:
-                startActivity(new Intent(this, IntroActivity.class));
-                break;
-            case R.id.menu_website: {
-                Intent webIntent = new Intent(this, WebActivity.class);
-                webIntent.putExtra(WebActivity.WEBSITE_URL_ID, WEBSITE_URL);
-                startActivity(webIntent);
-                break;
-            }
-            case R.id.menu_share:
-                openShareIntent();
-                break;
-            case R.id.menu_privacy: {
-                Intent webIntent = new Intent(this, WebActivity.class);
-                webIntent.putExtra(WebActivity.WEBSITE_URL_ID, WEBSITE_PRIVACY_URL);
-                startActivity(webIntent);
-                break;
-            }
-            case R.id.menu_feedback:
-                FeedbackDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
-                break;
-            case R.id.menu_imprint:
-                startActivity(new Intent(this, ImprintActivity.class));
-                break;
-            case R.id.menu_rate:
-                rateApp();
-                break;
-            case R.id.menu_Settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        assert drawer != null;
+        presenter.handleNavBar(item.getItemId());
 
-        drawer.closeDrawer(GravityCompat.START);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer != null) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
 
@@ -182,7 +153,8 @@ public class MainActivity extends AppCompatActivity
      * Opens play store hence the user can rate the app.
      * http://stackoverflow.com/questions/10816757/rate-this-app-link-in-google-play-store-app-on-the-phone
      */
-    private void rateApp() {
+    @Override
+    public void rateApp() {
         Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
         // To count with Play market backstack, After pressing back button,
@@ -204,7 +176,8 @@ public class MainActivity extends AppCompatActivity
     /**
      * Opens dialog which lists all apps the user can share a message with.
      */
-    private void openShareIntent() {
+    @Override
+    public void openShareIntent() {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         Resources resources = getResources();
@@ -217,12 +190,10 @@ public class MainActivity extends AppCompatActivity
     /**
      * Stops the measurement.
      */
+    @Override
     public void stopMeasuring() {
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        for (Fragment fragment : fragments) {
-            if (fragment instanceof MeasuringFragment) {
-                ((MeasuringFragment) fragment).stopMeasuring();
-            }
+        if (measuringView != null) {
+            measuringView.stopMeasuring();
         }
     }
 
@@ -231,11 +202,31 @@ public class MainActivity extends AppCompatActivity
      * disclaimer it will not open again.
      */
     private void handleDisclaimer() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        if (!sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false)) {
+        if (!presenter.agreedToDisclaimer()) {
             DisclaimerDialogFragment disclaimerDialogFragment = new DisclaimerDialogFragment();
             disclaimerDialogFragment.show(getFragmentManager(), "dialog");
         }
+    }
+
+    @Override
+    public void startActivity(Class<? extends Activity> activity) {
+        startActivity(new Intent(this, activity));
+    }
+
+    @Override
+    public void startActivity(Class<? extends Activity> activity, String extraId, String extra) {
+        Intent intent = new Intent(this, activity);
+        intent.putExtra(extraId, extra);
+        startActivity(intent);
+    }
+
+    @Override
+    public void startFeedbackDialog() {
+        FeedbackDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
+    }
+
+    @Override
+    public Activity getMainActivity() {
+        return this;
     }
 }

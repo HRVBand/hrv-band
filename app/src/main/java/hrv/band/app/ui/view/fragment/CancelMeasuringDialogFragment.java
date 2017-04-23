@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import hrv.band.app.R;
-import hrv.band.app.ui.view.activity.MainActivity;
+import hrv.band.app.ui.view.activity.IMainView;
 
 /**
  * Copyright (c) 2017
@@ -38,8 +38,8 @@ public class CancelMeasuringDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         Activity activity = getActivity();
-                        if (activity instanceof MainActivity) {
-                            ((MainActivity) getActivity()).stopMeasuring();
+                        if (activity instanceof IMainView) {
+                            ((IMainView) getActivity()).stopMeasuring();
                         }
                     }
                 })
