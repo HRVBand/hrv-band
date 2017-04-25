@@ -21,8 +21,8 @@ We also use the following third party libraries:
 # Icon
 [Icon](https://github.com/thomcz/hrv-band/blob/gh-pages/images/hrv_logo.png) made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
 
-# Continuous delivery
-Check our build status on [Travis Ci](https://travis-ci.org/thomcz/hrv-band) and our code quality on [SonarQube](https://sonarqube.com/dashboard/index?id=hrv-band).
+# Continuous Delivery
+Check our build status on [Travis Ci](https://travis-ci.org/HRVBand/hrv-band) and our code quality on [SonarQube](https://sonarqube.com/dashboard/index?id=hrv-band).
 
 # Get Started
 Download [Android app](https://play.google.com/store/apps/details?id=hrv.band.aurora) to get started
