@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -28,6 +27,7 @@ import hrv.band.app.device.ConnectionManager;
 import hrv.band.app.device.HRVDeviceStatus;
 import hrv.band.app.device.HRVRRDeviceListener;
 import hrv.band.app.device.HRVRRIntervalDevice;
+import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.IMeasuringPresenter;
 import hrv.band.app.ui.presenter.MeasuringPresenter;
 import hrv.band.app.ui.view.activity.SavableMeasurementActivity;
@@ -214,7 +214,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      * Starts a countdown that shows how long the measurement will go on.
      */
     private void startCountdown() {
-        countDownTimer = new CountDownTimer(presenter.getDuration(), 1000) {
+        countDownTimer = new CountDownTimer(presenter.getDuration(), 90) {
             @Override
             public void onTick(long millisUntilFinished) {
                 txtMeasureTime.setText(String.valueOf(millisUntilFinished / 1000));
@@ -427,14 +427,18 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
     @Override
     public void startMeasurementActivity() {
-        try {
-            Intent intent = new Intent(getContext(), SavableMeasurementActivity.class);
-            intent.putExtra(MeasuringFragment.HRV_PARAMETER_ID, presenter.createMeasurement(hrvRRIntervalDevice.getRRIntervals(), new Date()));
-            startActivity(intent);
-        } catch (IllegalArgumentException e) {
-            Log.e(e.getClass().getName(), "IllegalArgumentException", e);
+        Measurement measurement = presenter.createMeasurement(hrvRRIntervalDevice.getRRIntervals(), new Date());
+        if (measurement != null) {
+            startMeasurementActivity(measurement);
+        } else {
             showAlertDialog(R.string.error, R.string.error_defective_rr_data);
         }
+    }
+
+    private void startMeasurementActivity(Measurement measurement) {
+        Intent intent = new Intent(getContext(), SavableMeasurementActivity.class);
+        intent.putExtra(MeasuringFragment.HRV_PARAMETER_ID, measurement);
+        startActivity(intent);
     }
 
     private void showAlertDialog(int title, int message) {

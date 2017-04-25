@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import common.ArrayUtils;
+import hrv.HRVLibFacade;
 import hrv.RRData;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.view.fragment.IMeasuringView;
@@ -38,7 +39,12 @@ public class MeasuringPresenter implements IMeasuringPresenter {
         //start calculation
         double[] rrArray = convertListToDouble(rrInterval);
 
-        RRData.createFromRRInterval(rrArray, units.TimeUnit.SECOND);
+
+        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(rrArray, units.TimeUnit.SECOND));
+
+        if (!hrvCalc.validData()) {
+            return null;
+        }
         Measurement.MeasurementBuilder measurementBuilder = Measurement.from(time, rrArray);
         return measurementBuilder.build();
     }
