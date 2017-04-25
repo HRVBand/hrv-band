@@ -38,6 +38,10 @@ public class ChartDrawDayStrategy extends AbstractChartDrawStrategy {
             int minutes = calendar.get(Calendar.MINUTE) / 15;
 
             HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
+            if(!hrvCalc.validData()) {
+                continue;
+            }
+
             hrvCalc.setParameters(EnumSet.of(hrvValueType.getHRVparam()));
             double value = hrvCalc.calculateParameters().get(0).getValue();
 

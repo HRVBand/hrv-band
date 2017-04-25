@@ -45,6 +45,11 @@ public class ChartDrawMonthStrategy extends AbstractChartDrawStrategy {
             int day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
 
             HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
+
+            if(!hrvCalc.validData()) {
+                continue;
+            }
+
             hrvCalc.setParameters(EnumSet.of(hrvValueType.getHRVparam()));
             double value = hrvCalc.calculateParameters().get(0).getValue();
 

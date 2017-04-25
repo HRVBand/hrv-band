@@ -38,8 +38,16 @@ public class HRVParameterPresenter implements IHRVParameterPresenter {
     }
 
     private List<HRVParameter> calculateHRVParametersFromMeasurement() {
-        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement != null ?
-                measurement.getRRIntervals() : new double[0], TimeUnit.SECOND));
+        if(measurement == null) {
+            return new ArrayList<>();
+        }
+
+        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(
+                measurement.getRRIntervals(), TimeUnit.SECOND));
+
+        if(!hrvCalc.validData()) {
+            return new ArrayList<>();
+        }
 
         hrvCalc.setParameters(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
         return hrvCalc.calculateParameters();

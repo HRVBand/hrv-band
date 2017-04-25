@@ -113,14 +113,20 @@ public class StatisticValueAdapter extends BaseAdapter {
 
         List<String> hrvValues = new ArrayList<>();
 
-        if (measurements != null) {
-            for (Measurement measurement : measurements) {
-                HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
-                hrvCalc.setParameters(EnumSet.of(type.getHRVparam()));
+        if (measurements == null) {
+            return hrvValues;
+        }
 
-                double value = hrvCalc.calculateParameters().get(0).getValue();
-                hrvValues.add(new DecimalFormat("#.##").format(value));
+        for (Measurement measurement : measurements) {
+            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
+            if (!hrvCalc.validData()) {
+                continue;
             }
+
+            hrvCalc.setParameters(EnumSet.of(type.getHRVparam()));
+
+            double value = hrvCalc.calculateParameters().get(0).getValue();
+            hrvValues.add(new DecimalFormat("#.##").format(value));
         }
 
         return hrvValues;
