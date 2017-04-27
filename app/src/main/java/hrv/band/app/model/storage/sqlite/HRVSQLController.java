@@ -32,6 +32,12 @@ import hrv.band.app.model.storage.sqlite.statements.RRIntervalContract;
  */
 public class HRVSQLController implements IStorage {
 
+    private SQLiteStorageController storageController;
+
+    public HRVSQLController(Context context) {
+        this.storageController = SQLiteStorageController.getINSTANCE(context);
+    }
+
     private static Date getEndOfDay(Date date) {
         return DateUtils.addMilliseconds(DateUtils.ceiling(date, Calendar.DATE), -1);
     }
@@ -41,17 +47,15 @@ public class HRVSQLController implements IStorage {
     }
 
     @Override
-    public void saveData(Context context, List<Measurement> parameters) {
+    public void saveData(List<Measurement> parameters) {
 
         for (Measurement param : parameters) {
-            saveData(context, param);
+            saveData(param);
         }
     }
 
     @Override
-    public void saveData(Context context, Measurement parameter) {
-        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
-
+    public void saveData(Measurement parameter) {
         //Create new Entry in DB, this entry stores meta data to a given RR-Interval
         ContentValues valuesParams = new ContentValues();
         long time = parameter.getTime().getTime();
@@ -72,15 +76,17 @@ public class HRVSQLController implements IStorage {
         }
 
         //Insert new entry and get the Id of the new entry
-        SQLiteDatabase db = controller.getWritableDatabase();
+        SQLiteDatabase db = storageController.getWritableDatabase();
+        db.beginTransaction();
         long firstId = db.insert(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
                 HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID,
                 valuesParams);
-
+        db.setTransactionSuccessful();
+        db.endTransaction();
         db.close();
 
         //Store the RR-Interval-Raw-Data
-        SQLiteDatabase db2 = controller.getWritableDatabase();
+        SQLiteDatabase db2 = storageController.getWritableDatabase();
         db2.beginTransaction();
 
         for (Double rrVal : parameter.getRRIntervals()) {
@@ -98,10 +104,9 @@ public class HRVSQLController implements IStorage {
     }
 
     @Override
-    public List<Measurement> loadData(Context context, Date date) {
+    public List<Measurement> loadData(Date date) {
 
-        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
-        SQLiteDatabase db = controller.getReadableDatabase();
+        SQLiteDatabase db = storageController.getReadableDatabase();
 
         HRVParamSQLiteObjectAdapter hrvParamSelect = new HRVParamSQLiteObjectAdapter(db);
         String whereClause = HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " BETWEEN ? AND ?";
@@ -111,19 +116,16 @@ public class HRVSQLController implements IStorage {
         return hrvParamSelect.select(whereClause, whereClauseParams);
     }
 
-    private List<Measurement> loadAllHRVParams(Context context) {
-        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
-        SQLiteDatabase db = controller.getReadableDatabase();
+    private List<Measurement> loadAllHRVParams() {
+        SQLiteDatabase db = storageController.getReadableDatabase();
 
         HRVParamSQLiteObjectAdapter hrvParamSelect = new HRVParamSQLiteObjectAdapter(db);
         return hrvParamSelect.select(null, null);
     }
 
     @Override
-    public boolean deleteData(Context context, Measurement parameter) {
-        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
-
-        SQLiteDatabase db = controller.getReadableDatabase();
+    public boolean deleteData(Measurement parameter) {
+        SQLiteDatabase db = storageController.getReadableDatabase();
 
         String timeStr = Long.toString(parameter.getTime().getTime());
 
@@ -136,29 +138,27 @@ public class HRVSQLController implements IStorage {
     }
 
     @Override
-    public boolean deleteData(Context context, List<Measurement> parameters) {
+    public boolean deleteData(List<Measurement> parameters) {
         for (int i = 0; i < parameters.size(); i++) {
-            deleteData(context, parameters.get(i));
+            deleteData(parameters.get(i));
         }
 
         return true;
     }
 
-    public boolean deleteAllData(Context context) {
-        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(context);
-        SQLiteDatabase db = controller.getReadableDatabase();
-        return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME, null, null) >= 0;
+    @Override
+    public void closeDatabaseHelper() {
+        storageController.close();
     }
 
     /**
      * Tries to export the database to the users documents folder.
      * Returns whether the export was successfully or not
      *
-     * @param con Context
      * @return True if export was successful, false otherwise
      * @throws IOException
      */
-    public boolean exportDB(Context con) throws IOException {
+    public boolean exportDB() throws IOException {
 
         //Experimental zone
         if (!isExternalStorageWritable()) {
@@ -170,7 +170,7 @@ public class HRVSQLController implements IStorage {
         File documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS + "/hrvband");
         documentsDir.mkdirs();
 
-        List<Measurement> allHrvParams = loadAllHRVParams(con);
+        List<Measurement> allHrvParams = loadAllHRVParams();
 
         try {
             for (int i = 0; i < allHrvParams.size(); i++) {
@@ -227,8 +227,7 @@ public class HRVSQLController implements IStorage {
 
     public boolean importDB(String dbPath, Context con) throws IOException {
 
-        SQLiteStorageController controller = SQLiteStorageController.getINSTANCE(con);
-        String dbToImportToPath = String.valueOf(con.getDatabasePath(controller.getDatabaseName()));
+        String dbToImportToPath = String.valueOf(con.getDatabasePath(storageController.getDatabaseName()));
 
         File newDB = new File(dbPath);
         File oldDB = new File(dbToImportToPath);
@@ -237,7 +236,7 @@ public class HRVSQLController implements IStorage {
             FileUtils.copyFile(new FileInputStream(newDB), new FileOutputStream(oldDB));
             // Access the copied database so SQLiteHelper will cache it and mark
             // it as created.
-            controller.getWritableDatabase().close();
+            storageController.getWritableDatabase().close();
 
             return true;
         }

@@ -45,7 +45,7 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        presenter = new HRVPresenter((Measurement) getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID));
+        presenter = new HRVPresenter((Measurement) getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID), this);
 
         createFragments();
 

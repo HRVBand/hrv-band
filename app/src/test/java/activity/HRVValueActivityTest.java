@@ -33,7 +33,7 @@ import static junit.framework.Assert.assertNotNull;
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 30.01.2017
- *
+ * <p>
  * Tests for {@link EditableMeasurementActivity}
  */
 
@@ -46,9 +46,8 @@ public class HRVValueActivityTest {
 
     @BeforeClass
     public static void init() {
-        Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(1000), new double[] {1,1,1,1,1});
+        Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(1000), new double[]{1, 1, 1, 1, 1});
         parameter = builder.build();
-        storage = new HRVSQLController();
     }
 
     @AfterClass
@@ -59,7 +58,7 @@ public class HRVValueActivityTest {
     }
 
     @Before
-    public void setup()  {
+    public void setup() {
         Intent intent = new Intent(ShadowApplication.getInstance().getApplicationContext(), SavableMeasurementActivity.class);
         intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameter);
         activity = Robolectric.buildActivity(EditableMeasurementActivity.class).withIntent(intent)
@@ -81,8 +80,9 @@ public class HRVValueActivityTest {
     public void onOptionsItemSelectedDelete() {
         ActionMenuItemView item = (ActionMenuItemView) activity.findViewById(R.id.menu_ic_delete);
         activity.onOptionsItemSelected(item.getItemData());
+        storage = new HRVSQLController(activity);
 
-        assertEquals(0, storage.loadData(activity, new Date(1000)).size());
+        assertEquals(0, storage.loadData(new Date(1000)).size());
     }
 
     @After

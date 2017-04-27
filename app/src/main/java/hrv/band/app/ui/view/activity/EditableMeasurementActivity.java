@@ -63,7 +63,7 @@ public class EditableMeasurementActivity extends AbstractMeasurementActivity {
      * Deletes the actual parameter.
      */
     private void deleteMeasurement() {
-        presenter.deleteMeasurement(getApplicationContext());
+        presenter.deleteMeasurement();
         setResult(HistoryActivity.RESULT_DELETED);
         this.finish();
     }

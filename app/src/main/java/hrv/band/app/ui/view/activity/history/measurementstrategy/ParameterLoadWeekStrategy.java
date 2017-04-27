@@ -18,6 +18,10 @@ import hrv.band.app.model.Measurement;
  */
 public class ParameterLoadWeekStrategy extends AbstractParameterLoadStrategy {
 
+    public ParameterLoadWeekStrategy(Context context) {
+        super(context);
+    }
+
     @Override
     public List<Measurement> loadParameter(Context context, Date date) {
         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
@@ -25,7 +29,7 @@ public class ParameterLoadWeekStrategy extends AbstractParameterLoadStrategy {
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         List<Measurement> result = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            result.addAll(storage.loadData(context, calendar.getTime()));
+            result.addAll(storage.loadData(calendar.getTime()));
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
         return result;

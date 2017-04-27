@@ -1,8 +1,7 @@
 package hrv.band.app.ui.presenter;
 
-import android.content.Context;
-
 import hrv.band.app.model.Measurement;
+import hrv.band.app.model.storage.IStorage;
 import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
 
 /**
@@ -13,6 +12,8 @@ import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
 public interface IHRVPresenter {
     Measurement getMeasurement();
 
-    void saveMeasurement(Context context, IMeasuredDetailsView fragment);
-    void deleteMeasurement(Context context);
+    void saveMeasurement(IMeasuredDetailsView fragment);
+    void deleteMeasurement();
+
+    IStorage getStorage();
 }

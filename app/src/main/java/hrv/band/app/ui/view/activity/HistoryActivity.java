@@ -81,7 +81,7 @@ public class HistoryActivity extends AppCompatActivity
 
         presenter = new HistoryPresenter(this);
 
-        setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy());
+        setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy(getApplicationContext()));
 
         initFragments();
 
@@ -148,13 +148,13 @@ public class HistoryActivity extends AppCompatActivity
                 new CalenderPickerFragment().show(getSupportFragmentManager(), "datePicker");
                 return true;
             case R.id.menu_day:
-                setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy());
+                setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy(getApplicationContext()));
                 return true;
             case R.id.menu_week:
-                setDrawStrategy(new ChartDrawWeekStrategy(), new ParameterLoadWeekStrategy());
+                setDrawStrategy(new ChartDrawWeekStrategy(), new ParameterLoadWeekStrategy(getApplicationContext()));
                 return true;
             case R.id.menu_month:
-                setDrawStrategy(new ChartDrawMonthStrategy(date), new ParameterLoadMonthStrategy());
+                setDrawStrategy(new ChartDrawMonthStrategy(date), new ParameterLoadMonthStrategy(getApplicationContext()));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

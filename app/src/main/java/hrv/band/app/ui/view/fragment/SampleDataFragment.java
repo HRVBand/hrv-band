@@ -110,8 +110,8 @@ public class SampleDataFragment extends DialogFragment {
                 .note("This is a sample data")
                 .build();
 
-        IStorage storage = new HRVSQLController();
-        storage.saveData(getActivity(), hrv);
+        IStorage storage = new HRVSQLController(getActivity());
+        storage.saveData(hrv);
     }
 
     /**

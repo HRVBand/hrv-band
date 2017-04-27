@@ -17,10 +17,12 @@ import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
 public class HRVPresenter implements IHRVPresenter {
 
     private Measurement measurement;
+    private IStorage storage;
 
 
-    public HRVPresenter(Measurement measurement) {
+    public HRVPresenter(Measurement measurement, Context context) {
         this.measurement = measurement;
+        this.storage = new HRVSQLController(context);
     }
 
     @Override
@@ -29,18 +31,21 @@ public class HRVPresenter implements IHRVPresenter {
     }
 
     @Override
-    public void saveMeasurement(Context context, IMeasuredDetailsView details) {
-        IStorage storage = new HRVSQLController();
-        storage.saveData(context, createSavableMeasurement(details));
+    public void saveMeasurement(IMeasuredDetailsView details) {
+        storage.saveData(createSavableMeasurement(details));
     }
 
     @Override
-    public void deleteMeasurement(Context context) {
+    public void deleteMeasurement() {
         if (measurement == null) {
             return;
         }
-        IStorage storage = new HRVSQLController();
-        storage.deleteData(context, measurement);
+        storage.deleteData(measurement);
+    }
+
+    @Override
+    public IStorage getStorage() {
+        return storage;
     }
 
     private Measurement createSavableMeasurement(IMeasuredDetailsView details) {

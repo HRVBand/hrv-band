@@ -16,8 +16,11 @@ import hrv.band.app.model.storage.sqlite.HRVSQLController;
  * Strategy to select parameters from db.
  */
 public abstract class AbstractParameterLoadStrategy {
-    protected IStorage storage = new HRVSQLController();
+    protected IStorage storage;
 
+    public AbstractParameterLoadStrategy(Context context) {
+        this.storage = new HRVSQLController(context);
+    }
     /**
      * Loads parameters from db.
      *

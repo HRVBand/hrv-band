@@ -68,7 +68,7 @@ public class SavableMeasurementActivity extends AbstractMeasurementActivity {
      * Saves the actual measured and calculated HRV parameter.
      */
     private void saveMeasurement() {
-        presenter.saveMeasurement(getApplicationContext(), measuredDetailsEditFragment);
+        presenter.saveMeasurement(measuredDetailsEditFragment);
         Toast.makeText(this, R.string.common_saved, Toast.LENGTH_SHORT).show();
         finish();
     }

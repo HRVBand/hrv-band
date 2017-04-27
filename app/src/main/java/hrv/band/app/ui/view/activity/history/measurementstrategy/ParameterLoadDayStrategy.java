@@ -15,8 +15,12 @@ import hrv.band.app.model.Measurement;
  */
 public class ParameterLoadDayStrategy extends AbstractParameterLoadStrategy {
 
+    public ParameterLoadDayStrategy(Context context) {
+        super(context);
+    }
+
     @Override
     public List<Measurement> loadParameter(Context context, Date date) {
-        return storage.loadData(context, date);
+        return storage.loadData(date);
     }
 }

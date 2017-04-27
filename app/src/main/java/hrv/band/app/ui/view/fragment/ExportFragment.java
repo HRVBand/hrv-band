@@ -59,11 +59,11 @@ public class ExportFragment extends DialogFragment {
      * Exports the user database on the phone.
      */
     private void exportDB() {
-        HRVSQLController sql = new HRVSQLController();
+        HRVSQLController sql = new HRVSQLController(getActivity());
         try {
             int duration = Toast.LENGTH_SHORT;
 
-            if (!sql.exportDB(getActivity())) {
+            if (!sql.exportDB()) {
                 CharSequence text = getResources().getText(R.string.sentence_export_failed);
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
                 toast.show();

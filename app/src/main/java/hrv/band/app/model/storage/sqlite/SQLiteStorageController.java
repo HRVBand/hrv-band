@@ -23,13 +23,6 @@ class SQLiteStorageController extends SQLiteOpenHelper {
             + HRVParameterContract.HRVParameterEntry.TABLE_NAME
             + " (" + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_ENTRY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " INTEGER, "
-            /*+ HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD1 + COLUMN_TYPE_REAL
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SD2 + COLUMN_TYPE_REAL
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_LF + COLUMN_TYPE_REAL
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_HF + COLUMN_TYPE_REAL
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RMSSD + COLUMN_TYPE_REAL
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_SDNN + COLUMN_TYPE_REAL
-            + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_BAEVSKY + COLUMN_TYPE_REAL*/
             + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING + COLUMN_TYPE_REAL
             + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY + " STRING, "
             + HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE + " STRING, "
@@ -54,7 +47,7 @@ class SQLiteStorageController extends SQLiteOpenHelper {
     }
 
     static synchronized SQLiteStorageController getINSTANCE(Context context) {
-        if(instance == null) {
+        if (instance == null) {
             instance = new SQLiteStorageController(context);
         }
 
@@ -62,22 +55,19 @@ class SQLiteStorageController extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db)
-    {
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_HRVTABLE);
         db.execSQL(SQL_CREATE_RRINTERVALTABLE);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldversion, int newVersion)
-    {
+    public void onUpgrade(SQLiteDatabase db, int oldversion, int newVersion) {
         db.execSQL(SQL_DELETE_HRVPAARAMETERS);
         db.execSQL(SQL_DELETE_RRINTERVALS);
     }
 
     @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
 }
