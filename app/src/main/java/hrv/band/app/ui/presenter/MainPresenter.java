@@ -9,7 +9,6 @@ import hrv.band.app.ui.view.activity.ImprintActivity;
 import hrv.band.app.ui.view.activity.IntroActivity;
 import hrv.band.app.ui.view.activity.SettingsActivity;
 import hrv.band.app.ui.view.activity.WebActivity;
-import hrv.band.app.ui.view.fragment.DisclaimerDialogFragment;
 
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_PRIVACY_URL;
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_URL;
@@ -29,7 +28,7 @@ public class MainPresenter implements IMainPresenter {
     @Override
     public boolean agreedToDisclaimer() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainView.getMainActivity());
-        return sharedPreferences.getBoolean(DisclaimerDialogFragment.DISCLAIMER_AGREEMENT, false);
+        return sharedPreferences.getBoolean(DisclaimerDialogPresenter.DISCLAIMER_AGREEMENT, false);
     }
 
     @Override

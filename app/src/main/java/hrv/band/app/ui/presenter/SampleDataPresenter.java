@@ -35,8 +35,8 @@ public class SampleDataPresenter implements ISampleDataPresenter {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         for (int i = 0; i < SAMPLE_COUNT; i++) {
-            cal.add(Calendar.DAY_OF_MONTH, i);
             measurements.add(createSampleData(cal.getTime()));
+            cal.add(Calendar.DAY_OF_MONTH, 1);
         }
         storeMeasurement(measurements);
     }
