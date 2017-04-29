@@ -3,17 +3,17 @@ package hrv.band.app.ui.view.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import hrv.band.app.R;
-import hrv.band.app.model.storage.sqlite.HRVSQLController;
+import hrv.band.app.ui.presenter.ExportPresenter;
+import hrv.band.app.ui.presenter.IExportPresenter;
 
 /**
  * Copyright (c) 2017
@@ -21,7 +21,9 @@ import hrv.band.app.model.storage.sqlite.HRVSQLController;
  * <p>
  * Dialog asking the user to export his data.
  */
-public class ExportFragment extends DialogFragment {
+public class ExportFragment extends DialogFragment implements IExportView {
+
+    private IExportPresenter presenter;
 
     public static ExportFragment newInstance() {
         return new ExportFragment();
@@ -29,19 +31,25 @@ public class ExportFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        presenter = new ExportPresenter(this);
 
         final View view = View.inflate(getActivity(), R.layout.dialog_simple_text, null);
 
         TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
         textView.setText(getResources().getString(R.string.sentence_export_db));
 
+        AlertDialog.Builder builder = buildDialog(view);
+        return builder.create();
+    }
 
+    @NonNull
+    private AlertDialog.Builder buildDialog(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view)
                 .setPositiveButton(R.string.common_export, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        exportDB();
+                        presenter.exportDatabase();
                     }
                 })
                 .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
@@ -52,28 +60,16 @@ public class ExportFragment extends DialogFragment {
                     }
                 });
         builder.setTitle(getResources().getString(R.string.common_export));
-        return builder.create();
+        return builder;
     }
 
-    /**
-     * Exports the user database on the phone.
-     */
-    private void exportDB() {
-        HRVSQLController sql = new HRVSQLController(getActivity());
-        try {
-            int duration = Toast.LENGTH_SHORT;
+    @Override
+    public void showToast(CharSequence message) {
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
 
-            if (!sql.exportDB()) {
-                CharSequence text = getResources().getText(R.string.sentence_export_failed);
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
-                toast.show();
-            } else {
-                CharSequence text = getResources().getText(R.string.sentence_export_worked);
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
-                toast.show();
-            }
-        } catch (IOException e) {
-            Log.e(e.getClass().getName(), "IOException", e);
-        }
+    @Override
+    public Context getExportContext() {
+        return getActivity();
     }
 }
