@@ -1,4 +1,4 @@
-package activity;
+package ui.view.activity;
 
 import android.content.Intent;
 import android.os.Build;
@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -23,7 +22,6 @@ import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.model.storage.IStorage;
 import hrv.band.app.model.storage.sqlite.HRVSQLController;
-import hrv.band.app.ui.view.activity.EditableMeasurementActivity;
 import hrv.band.app.ui.view.activity.MainActivity;
 import hrv.band.app.ui.view.activity.SavableMeasurementActivity;
 
@@ -34,15 +32,15 @@ import static junit.framework.Assert.assertNotNull;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 30.01.2017
  * <p>
- * Tests for {@link EditableMeasurementActivity}
+ * Tests for {@link MainActivity}
  */
 
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
 @RunWith(RobolectricTestRunner.class)
-public class HRVValueActivityTest {
+public class HRVMeasurementActivityTest {
     private static Measurement parameter;
     private static IStorage storage;
-    private EditableMeasurementActivity activity;
+    private SavableMeasurementActivity activity;
 
     @BeforeClass
     public static void init() {
@@ -61,7 +59,7 @@ public class HRVValueActivityTest {
     public void setup() {
         Intent intent = new Intent(ShadowApplication.getInstance().getApplicationContext(), SavableMeasurementActivity.class);
         intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameter);
-        activity = Robolectric.buildActivity(EditableMeasurementActivity.class).withIntent(intent)
+        activity = Robolectric.buildActivity(SavableMeasurementActivity.class).withIntent(intent)
                 .create().visible().get();
     }
 
@@ -75,14 +73,13 @@ public class HRVValueActivityTest {
         activity.onBackPressed();
     }
 
-    @Ignore
     @Test
-    public void onOptionsItemSelectedDelete() {
-        ActionMenuItemView item = (ActionMenuItemView) activity.findViewById(R.id.menu_ic_delete);
+    public void onOptionsItemSelectedSave() {
+        ActionMenuItemView item = (ActionMenuItemView) activity.findViewById(R.id.menu_ic_save);
         activity.onOptionsItemSelected(item.getItemData());
         storage = new HRVSQLController(activity);
 
-        assertEquals(0, storage.loadData(new Date(1000)).size());
+        assertEquals(parameter, storage.loadData(new Date(1000)).get(0));
     }
 
     @After

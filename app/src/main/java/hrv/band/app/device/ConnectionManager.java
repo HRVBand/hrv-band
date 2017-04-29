@@ -3,7 +3,6 @@ package hrv.band.app.device;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 
 import hrv.band.app.device.antplus.AntPlusRRDataDevice;
 import hrv.band.app.device.msband.MSBandRRIntervalDevice;
@@ -31,10 +30,11 @@ public class ConnectionManager {
         return connectToIntervalDevice();
     }
 
-    @NonNull
     private HRVRRIntervalDevice connectToIntervalDevice() {
         HRVRRIntervalDevice hrvRRIntervalDevice = getDevice();
-        hrvRRIntervalDevice.connect();
+        if (hrvRRIntervalDevice != null) {
+            hrvRRIntervalDevice.connect();
+        }
         return hrvRRIntervalDevice;
     }
 

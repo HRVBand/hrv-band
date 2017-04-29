@@ -1,4 +1,4 @@
-package fragment;
+package ui.view.fragment;
 
 import android.os.Build;
 

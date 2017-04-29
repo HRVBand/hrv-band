@@ -1,4 +1,4 @@
-package control;
+package model;
 
 import android.os.Build;
 import android.os.Parcel;
@@ -25,8 +25,6 @@ import static junit.framework.Assert.assertNotNull;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 16.02.2017
  */
-
-
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
 @RunWith(RobolectricTestRunner.class)
 public class MeasurementTest {

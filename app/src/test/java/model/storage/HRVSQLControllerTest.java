@@ -1,4 +1,4 @@
-package storage;
+package model.storage;
 
 import org.junit.After;
 import org.junit.AfterClass;

@@ -61,7 +61,7 @@
   <string name="measure_cancel_title">Stop Measuring?</string>
   <string name="measure_cancel_desc">Do you really want to stop the measurement?</string>
 
-  <!-- fragment measure details -->
+  <!-- ui.view.fragment measure details -->
   <string name="measure_details_measure_category">Measurement Category</string>
   <string name="measure_detail_add_comment_msg">Add a Comment to Your Measurement</string>
 
@@ -79,7 +79,7 @@
   <string name="stat_val_item_std_category" translatable="false">General</string>
   <string name="stat_val_item_std_stats_value" translatable="false">12,13</string>
 
-  <!-- statistic activity -->
+  <!-- statistic ui.view.activity -->
   <string name="menu_calender" translatable="false">Calender</string>
   <string name="menu_calender_day">Day</string>
   <string name="menu_calender_week">Week</string>

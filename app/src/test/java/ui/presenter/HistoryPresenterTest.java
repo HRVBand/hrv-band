@@ -1,4 +1,4 @@
-package presenter;
+package ui.presenter;
 
 import android.app.Activity;
 

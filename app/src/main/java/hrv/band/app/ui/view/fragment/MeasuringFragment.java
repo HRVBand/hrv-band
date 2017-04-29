@@ -102,7 +102,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
      **/
     private CountDownTimer countDownTimer;
     /**
-     * Root view of this fragment.
+     * Root view of this ui.view.fragment.
      **/
     private View view;
 
@@ -110,9 +110,9 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
 
     /**
-     * Returns a new instance of this fragment.
+     * Returns a new instance of this ui.view.fragment.
      *
-     * @return a new instance of this fragment.
+     * @return a new instance of this ui.view.fragment.
      */
     public static MeasuringFragment newInstance() {
         return new MeasuringFragment();
@@ -140,7 +140,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     /**
      * Updates a text view in a ui thread.
      *
-     * @param activity the activity in which the thread should run.
+     * @param activity the ui.view.activity in which the thread should run.
      * @param txt      the text view to be set.
      * @param string   the string the txt should show.
      */

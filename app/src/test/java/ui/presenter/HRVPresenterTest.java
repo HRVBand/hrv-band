@@ -1,4 +1,4 @@
-package presenter;
+package ui.presenter;
 
 import org.junit.After;
 import org.junit.Before;

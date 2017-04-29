@@ -15,8 +15,8 @@
     android:label="@string/app_name"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity
-        android:name=".ui.view.activity.SplashActivity"
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.SplashActivity"
       android:label="@string/app_name"
       android:screenOrientation="portrait">
       <intent-filter>
@@ -24,67 +24,67 @@
 
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
-    </activity>
-    <activity
-        android:name=".ui.view.activity.IntroActivity"
+    </ui.view.activity>
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.IntroActivity"
       android:label="Intro" />
-    <activity
-        android:name=".ui.view.activity.MainActivity"
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.MainActivity"
       android:label="@string/app_name"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme.NoActionBar" />
-    <activity
-        android:name=".ui.view.activity.SavableMeasurementActivity"
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.SavableMeasurementActivity"
       android:label="@string/title_activity_save_values"
-        android:parentActivityName=".ui.view.activity.MainActivity"
+        android:parentActivityName=".ui.view.ui.view.activity.MainActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-          android:value=".ui.view.activity.MainActivity" />
-    </activity>
-    <activity
-        android:name=".ui.view.activity.HistoryActivity"
+          android:value=".ui.view.ui.view.activity.MainActivity" />
+    </ui.view.activity>
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.HistoryActivity"
       android:label="@string/title_activity_statistic"
-        android:parentActivityName=".ui.view.activity.MainActivity"
+        android:parentActivityName=".ui.view.ui.view.activity.MainActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-          android:value=".ui.view.activity.MainActivity" />
-    </activity>
-    <activity
-        android:name=".ui.view.activity.EditableMeasurementActivity"
+          android:value=".ui.view.ui.view.activity.MainActivity" />
+    </ui.view.activity>
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.EditableMeasurementActivity"
       android:label="@string/title_activity_hrv_value"
-        android:parentActivityName=".ui.view.activity.HistoryActivity"
+        android:parentActivityName=".ui.view.ui.view.activity.HistoryActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-          android:value=".ui.view.activity.HistoryActivity" />
-    </activity>
-    <activity
-        android:name=".ui.view.activity.ImprintActivity"
+          android:value=".ui.view.ui.view.activity.HistoryActivity" />
+    </ui.view.activity>
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.ImprintActivity"
       android:label="@string/common_imprint"
-        android:parentActivityName=".ui.view.activity.MainActivity"
+        android:parentActivityName=".ui.view.ui.view.activity.MainActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-          android:value=".ui.view.activity.MainActivity" />
-    </activity>
-    <activity
-        android:name=".ui.view.activity.SettingsActivity"
+          android:value=".ui.view.ui.view.activity.MainActivity" />
+    </ui.view.activity>
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.SettingsActivity"
       android:label="@string/main_drawer_settings"
-        android:parentActivityName=".ui.view.activity.MainActivity"
+        android:parentActivityName=".ui.view.ui.view.activity.MainActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-          android:value=".ui.view.activity.MainActivity" />
-    </activity>
-    <activity
-        android:name=".ui.view.activity.WebActivity"
+          android:value=".ui.view.ui.view.activity.MainActivity" />
+    </ui.view.activity>
+    <ui.view.activity
+        android:name=".ui.view.ui.view.activity.WebActivity"
       android:label="@string/title_activity_web_view"
       android:theme="@style/AppTheme"/>
   </application>

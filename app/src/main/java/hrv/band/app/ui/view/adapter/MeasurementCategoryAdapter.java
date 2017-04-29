@@ -19,7 +19,7 @@ import hrv.band.app.R;
 public class MeasurementCategoryAdapter extends AbstractCategoryAdapter {
 
     /**
-     * The context of the calling activity.
+     * The context of the calling ui.view.activity.
      **/
     private final Context context;
 

@@ -164,7 +164,7 @@ public class HRVSQLController implements IStorage {
         if (!isExternalStorageWritable()) {
             return false;
         }
-        //Activity has to check for write external storage permission
+        //Activity has to check for write external model.storage permission
         // try to write the file and return error if not able to write.
 
         File documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS + "/hrvband");

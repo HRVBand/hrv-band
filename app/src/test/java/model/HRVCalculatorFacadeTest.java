@@ -1,14 +1,8 @@
-package control;
-
-import android.os.Build;
+package model;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import hrv.RRData;
-import hrv.band.app.BuildConfig;
 import hrv.band.app.model.HRVCalculatorFacade;
 import hrv.calc.psd.PowerSpectrum;
 import hrv.calc.psd.StandardPowerSpectralDensityEstimator;
@@ -21,8 +15,6 @@ import static junit.framework.Assert.assertNotNull;
  * Copyright (c) 2017
  * Created by Julian on 22.02.2017.
  */
-@Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
-@RunWith(RobolectricTestRunner.class)
 public class HRVCalculatorFacadeTest {
 
     @Test

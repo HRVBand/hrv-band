@@ -59,7 +59,7 @@
   <string name="measure_cancel_title">Messung beenden?</string>
   <string name="measure_cancel_desc">Wollen Sie die Messung wirklich beenden?</string>
 
-  <!-- fragment measure details -->
+  <!-- ui.view.fragment measure details -->
   <string name="measure_details_measure_category">Kategorie der Messung</string>
   <string name="measure_detail_add_comment_msg">Füge der Messung einen Kommentar hinzu.</string>
 
@@ -123,7 +123,7 @@
   <string name="developer_julian">Julian github.com/Fenox</string>
   <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
 
-  <!-- statistic activity -->
+  <!-- statistic ui.view.activity -->
   <string name="menu_calender_day">Tag</string>
   <string name="menu_calender_week">Woche</string>
   <string name="menu_calender_month">Monat</string>

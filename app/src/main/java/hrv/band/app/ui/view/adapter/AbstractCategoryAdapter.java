@@ -60,9 +60,9 @@ public abstract class AbstractCategoryAdapter extends BaseAdapter {
     }
 
     /**
-     * Returns the context of the activity using this adapter.
+     * Returns the context of the ui.view.activity using this adapter.
      *
-     * @return the context of the activity using this adapter.
+     * @return the context of the ui.view.activity using this adapter.
      */
     protected abstract Context getContext();
 

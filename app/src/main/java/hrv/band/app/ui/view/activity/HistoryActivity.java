@@ -56,7 +56,7 @@ public class HistoryActivity extends AppCompatActivity
     private List<Fragment> fragments;
     private SectionPagerAdapter sectionsPagerAdapter;
     /**
-     * Parameters to show in this activity.
+     * Parameters to show in this ui.view.activity.
      **/
     private List<Measurement> measurements;
     /**
@@ -102,7 +102,7 @@ public class HistoryActivity extends AppCompatActivity
     }
 
     /**
-     * Creates a fragment for each HRV value.
+     * Creates a ui.view.fragment for each HRV value.
      */
     private void initFragments() {
         fragments = new ArrayList<>();
