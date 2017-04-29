@@ -8,15 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
-
 import hrv.band.app.R;
-import hrv.band.app.model.Measurement;
-import hrv.band.app.model.storage.IStorage;
-import hrv.band.app.model.storage.sqlite.HRVSQLController;
-import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
+import hrv.band.app.ui.presenter.ISampleDataPresenter;
+import hrv.band.app.ui.presenter.SampleDataPresenter;
 
 /**
  * Copyright (c) 2017
@@ -26,14 +20,8 @@ import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
  */
 public class SampleDataFragment extends DialogFragment {
 
-    /**
-     * Count of rr intervals to create.
-     **/
-    private static final int RR_COUNT = 50;
-    /**
-     * Count of samples to create.
-     **/
-    private static final int SAMPLE_COUNT = 20;
+    private ISampleDataPresenter presenter;
+
     /**
      * Key value that indicates if the activity calling this dialog should be closed.
      **/
@@ -59,6 +47,8 @@ public class SampleDataFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        presenter = new SampleDataPresenter(getActivity());
+
         final View view = View.inflate(getActivity(), R.layout.dialog_simple_text, null);
 
         TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
@@ -68,15 +58,8 @@ public class SampleDataFragment extends DialogFragment {
                 .setPositiveButton(R.string.common_create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        for (int i = 0; i < SAMPLE_COUNT; i++) {
-                            Calendar cal = Calendar.getInstance();
-                            cal.setTime(new Date());
-                            cal.add(Calendar.DAY_OF_MONTH, i);
-
-                            createSampleData(cal.getTime());
-
-                            closeCallingActivity();
-                        }
+                        presenter.createSampleData();
+                        closeCallingActivity();
                     }
                 })
                 .setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
@@ -89,41 +72,6 @@ public class SampleDataFragment extends DialogFragment {
                 });
         builder.setTitle(getResources().getString(R.string.sample_title));
         return builder.create();
-    }
-
-    /**
-     * Creates a hrv sample.
-     *
-     * @param date of the hrv sample.
-     */
-    private void createSampleData(Date date) {
-        double[] rrValues = new double[RR_COUNT];
-
-        for (int i = 0; i < rrValues.length; i++) {
-            rrValues[i] = getRandomDouble(0.5, 1.5);
-        }
-
-        Measurement.MeasurementBuilder measurementBuilder = new Measurement.MeasurementBuilder(date, rrValues);
-        Measurement hrv = measurementBuilder
-                .rating(4.4)
-                .category(MeasurementCategoryAdapter.MeasureCategory.SPORT)
-                .note("This is a sample data")
-                .build();
-
-        IStorage storage = new HRVSQLController(getActivity());
-        storage.saveData(hrv);
-    }
-
-    /**
-     * Returns a random double within the giving range.
-     *
-     * @param min value of the random value.
-     * @param max value of the random value.
-     * @return a random double within the giving range.
-     */
-    private double getRandomDouble(double min, double max) {
-        Random r = new Random();
-        return max + (min - max) * r.nextDouble();
     }
 
     /**
