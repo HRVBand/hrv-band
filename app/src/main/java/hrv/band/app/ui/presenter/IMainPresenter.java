@@ -7,5 +7,8 @@ package hrv.band.app.ui.presenter;
 
 public interface IMainPresenter {
     boolean agreedToDisclaimer();
+
     void handleNavBar(int id);
+
+    boolean askedForSurvey();
 }

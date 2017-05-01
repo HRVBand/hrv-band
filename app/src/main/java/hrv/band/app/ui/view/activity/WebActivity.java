@@ -18,7 +18,8 @@ import hrv.band.app.R;
 import hrv.band.app.ui.presenter.IWebPresenter;
 import hrv.band.app.ui.presenter.WebPresenter;
 
-import static hrv.band.app.ui.view.activity.web.WebsiteUrls.HOST_URL;
+import static hrv.band.app.ui.view.activity.web.WebsiteUrls.GOOGLE_FORMS_HOST_URL;
+import static hrv.band.app.ui.view.activity.web.WebsiteUrls.HRVBAND_HOST_URL;
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_URL;
 
 /**
@@ -53,7 +54,7 @@ public class WebActivity extends AppCompatActivity
         webView = (WebView) findViewById(R.id.webView);
 
         String url = getIntent().getStringExtra(WEBSITE_URL_ID);
-        if (!url.contains(HOST_URL)) {
+        if (!url.contains(HRVBAND_HOST_URL) && !url.contains(GOOGLE_FORMS_HOST_URL) ) {
             url = WEBSITE_URL;
         }
 

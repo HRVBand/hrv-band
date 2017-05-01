@@ -34,6 +34,7 @@ import hrv.band.app.ui.view.fragment.FeedbackDialogFragment;
 import hrv.band.app.ui.view.fragment.IMeasuringView;
 import hrv.band.app.ui.view.fragment.MeasuringFragment;
 import hrv.band.app.ui.view.fragment.OverviewFragment;
+import hrv.band.app.ui.view.fragment.SurveyDialogFragment;
 
 /**
  * Copyright (c) 2017
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity
         presenter = new MainPresenter(this);
 
         handleDisclaimer();
+
+        handleSurvey();
 
         //Needed to set default values
         PreferenceManager.setDefaultValues(this, R.xml.settings_fragment, false);
@@ -208,6 +211,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void handleSurvey() {
+        if (!presenter.askedForSurvey()) {
+            startSurveyDialog();
+        }
+    }
+
     @Override
     public void startActivity(Class<? extends Activity> activity) {
         startActivity(new Intent(this, activity));
@@ -223,6 +232,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void startFeedbackDialog() {
         FeedbackDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
+    }
+
+    @Override
+    public void startSurveyDialog() {
+        SurveyDialogFragment.newInstance().show(getSupportFragmentManager(), "Feedback");
     }
 
     @Override

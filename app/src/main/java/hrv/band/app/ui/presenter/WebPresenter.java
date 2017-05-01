@@ -7,7 +7,9 @@ import android.webkit.WebViewClient;
 import hrv.band.app.R;
 import hrv.band.app.ui.view.activity.IWebView;
 
-import static hrv.band.app.ui.view.activity.web.WebsiteUrls.HOST_URL;
+import static hrv.band.app.ui.view.activity.web.WebsiteUrls.GOOGLE_FORMS_HOST_URL;
+import static hrv.band.app.ui.view.activity.web.WebsiteUrls.HRVBAND_HOST_URL;
+import static hrv.band.app.ui.view.activity.web.WebsiteUrls.SURVEY_URL;
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_ABOUT_URL;
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_FAQ_URL;
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_PARAMETER_URL;
@@ -48,6 +50,9 @@ public class WebPresenter implements IWebPresenter {
             case R.id.web_nav_about:
                 webView.loadUrl(WEBSITE_ABOUT_URL);
                 break;
+            case R.id.web_nav_survey:
+                webView.loadUrl(SURVEY_URL);
+                break;
             default: webView.loadUrl(WEBSITE_URL);
         }
     }
@@ -64,7 +69,10 @@ public class WebPresenter implements IWebPresenter {
     private class AppWebViewClient extends WebViewClient {
         @Override @SuppressWarnings("deprecation")
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if(Uri.parse(url).getHost().startsWith(HOST_URL)) {
+            if(Uri.parse(url).getHost().startsWith(HRVBAND_HOST_URL)) {
+                return false;
+            }
+            if (Uri.parse(url).getHost().startsWith(GOOGLE_FORMS_HOST_URL)) {
                 return false;
             }
             webView.openBrowserIntent(url);

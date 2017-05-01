@@ -207,4 +207,11 @@
   <string name="friday_sc">Fr</string>
   <string name="saturday_sc">Sa</string>
   <string name="sunday_sc">So</string>
+
+  <!-- Survey -->
+  <string name="survey_title">Umfrage</string>
+  <string name="survey_desc">Danke, dass du dich für HRV Band entschieden hast :) Um die Weiterentwicklung von HRV Band zu verbessern würden wir dich gerne zu einer Umfrage einladen. Die Umfrage ist anonym und nimmt nur einen kleinen Teil deiner Zeit in Anspruch. Wenn du momentan keine Zeit hast, kannst du sie auch später starten. Du findest sie in der Side-Bar. Vielen Dank und weiterhin viel Spaß mit HRV Band ;)</string>
+  <string name="survey_take">Teilnehmen</string>
+  <string name="survey_later">Später</string>
+
 </resources>

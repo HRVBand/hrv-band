@@ -18,38 +18,16 @@ import hrv.band.app.R;
  */
 public abstract class TextDialogFragment extends DialogFragment {
 
-    /**
-     * Action to perform if the positive button is pressed.
-     */
     public abstract void positiveButton();
 
-    /**
-     * Action to perform if the negative button is pressed.
-     */
     public abstract void negativeButton();
 
-    /**
-     * Title of the dialog.
-     * @return the title of the dialog.
-     */
     public abstract String getDialogTitle();
 
-    /**
-     * The description of the dialog.
-     * @return the description of the dialog.
-     */
     public abstract String getDialogDescription();
 
-    /**
-     * The string id of the label of the positive button.
-     * @return the string id of the label of the positive button.
-     */
     public abstract int getDialogPositiveLabel();
 
-    /**
-     * The string id of the label of the negative button.
-     * @return the string id of the label of the negative button.
-     */
     public abstract int getDialogNegativeLabel();
 
     @Override

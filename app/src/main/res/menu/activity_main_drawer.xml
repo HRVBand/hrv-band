@@ -21,6 +21,10 @@
       android:id="@+id/menu_feedback"
       android:icon="@drawable/ic_feedback"
       android:title="@string/main_drawer_feedback" />
+    <item
+      android:id="@+id/menu_survey"
+      android:icon="@drawable/ic_survey"
+      android:title="@string/survey_title" />
   </group>
 
   <group

@@ -20,14 +20,17 @@ import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_URL;
 
 public class MainPresenter implements IMainPresenter {
     private IMainView mainView;
+    private SharedPreferences sharedPreferences;
+
+    private static final String SURVEY_ID = "servey_id";
 
     public MainPresenter(IMainView mainView) {
         this.mainView = mainView;
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainView.getMainActivity());
     }
 
     @Override
     public boolean agreedToDisclaimer() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainView.getMainActivity());
         return sharedPreferences.getBoolean(DisclaimerDialogPresenter.DISCLAIMER_AGREEMENT, false);
     }
 
@@ -49,6 +52,9 @@ public class MainPresenter implements IMainPresenter {
             case R.id.menu_feedback:
                 mainView.startFeedbackDialog();
                 break;
+            case R.id.menu_survey:
+                mainView.startSurveyDialog();
+                break;
             case R.id.menu_imprint:
                 mainView.startActivity(ImprintActivity.class);
                 break;
@@ -61,5 +67,16 @@ public class MainPresenter implements IMainPresenter {
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean askedForSurvey() {
+        if (!sharedPreferences.getBoolean(SURVEY_ID, false)) {
+            SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+            prefsEditor.putBoolean(SURVEY_ID, true);
+            prefsEditor.apply();
+            return false;
+        }
+        return true;
     }
 }

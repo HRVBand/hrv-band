@@ -220,5 +220,12 @@
   <string name="saturday_sc">Sa</string>
   <string name="sunday_sc">Su</string>
 
+  <!-- Survey -->
+  <string name="survey_title">Survey</string>
+  <string name="survey_desc">First of all, thanks for choosing HRV Band :) To improve the development of HRV Band we would like to invite you to take a survey. The survey is anonym and will take only a small amount of your time! If you don’t have time yet you can find the link in the side bar. Thanks and keep enjoying HRV Band ;)</string>
+  <string name="survey_take">Participate</string>
+  <string name="survey_later">Later</string>
+  <string name="survey_href" translatable="false">https://goo.gl/forms/pbvuuOZ2SuJdbSwE2</string>
+
 
 </resources>

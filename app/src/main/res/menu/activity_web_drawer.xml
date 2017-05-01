@@ -22,6 +22,10 @@
         android:icon="@drawable/ic_help"
         android:title="@string/web_faq" />
       <item
+        android:id="@+id/web_nav_survey"
+        android:icon="@drawable/ic_survey"
+        android:title="@string/survey_title" />
+      <item
         android:id="@+id/web_nav_privacy"
         android:icon="@drawable/ic_privacy"
         android:title="@string/web_privacy" />

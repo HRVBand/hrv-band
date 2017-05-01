@@ -14,6 +14,8 @@ public interface IMainView {
 
     void startFeedbackDialog();
 
+    void startSurveyDialog();
+
     Activity getMainActivity();
 
     void openShareIntent();
