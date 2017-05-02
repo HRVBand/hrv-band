@@ -9,13 +9,12 @@ import hrv.calc.parameter.HRVParameterEnum;
  * This enum holds all available HRV values.
  */
 public enum HRVValue {
-    LFHF("LFHF", "%", HRVParameterEnum.LFHF),
+    LFHF("LFHF", "", HRVParameterEnum.LFHF),
     HF("HF", "ms²", HRVParameterEnum.HF),
     LF("LF", "ms²", HRVParameterEnum.LF),
-    SDNN("SDNN", "ms", HRVParameterEnum.SDNN),
-    SD1("SD1", "ms", HRVParameterEnum.SD1),
-    SD2("SD2", "ms", HRVParameterEnum.SD2),
-    RMSSD("RMSSD", "ms", HRVParameterEnum.RMSSD),
+    SDNN("SDNN", "s", HRVParameterEnum.SDNN),
+    SD1("SD1", "s", HRVParameterEnum.SD1),
+    SD2("SD2", "s", HRVParameterEnum.SD2),
     BAEVSKY("Baevsky", "", HRVParameterEnum.BAEVSKY);
 
     /**
