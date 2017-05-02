@@ -23,6 +23,8 @@ import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.calc.parameter.HRVParameter;
+import hrv.calc.parameter.HRVParameterEnum;
 import units.TimeUnit;
 
 /**
@@ -109,7 +111,7 @@ public class StatisticValueAdapter extends BaseAdapter {
      * @param type         indicates which value to extract from the given parameters.
      * @return a list containing the values of the given hrv type of the given hrv parameters.
      */
-    private List<String> getValues(List<Measurement> measurements, HRVValue type) {
+    private List<String> getValues(List<Measurement> measurements, final HRVValue type) {
 
         List<String> hrvValues = new ArrayList<>();
 
@@ -124,12 +126,23 @@ public class StatisticValueAdapter extends BaseAdapter {
             }
 
             hrvCalc.setParameters(EnumSet.of(type.getHRVparam()));
+            HRVParameter parameter = getParameter(hrvCalc.calculateParameters(), type.getHRVparam());
 
-            double value = hrvCalc.calculateParameters().get(0).getValue();
-            hrvValues.add(new DecimalFormat("#.##").format(value));
+            if (parameter != null) {
+                hrvValues.add(new DecimalFormat("#.##").format(parameter.getValue()));
+            }
         }
 
         return hrvValues;
+    }
+
+    private HRVParameter getParameter(List<HRVParameter> parameters, HRVParameterEnum hrvType) {
+        for (HRVParameter parameter : parameters) {
+            if (parameter.getType().equals(hrvType)) {
+                return parameter;
+            }
+        }
+        return null;
     }
 
 
