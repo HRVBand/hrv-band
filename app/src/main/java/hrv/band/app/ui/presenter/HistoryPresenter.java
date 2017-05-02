@@ -1,6 +1,5 @@
 package hrv.band.app.ui.presenter;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -21,15 +20,10 @@ import hrv.band.app.ui.view.adapter.HRVValue;
 public class HistoryPresenter implements IHistoryPresenter {
     private AbstractChartDrawStrategy chartStrategy;
     private AbstractParameterLoadStrategy parameterStrategy;
-    private Activity activity;
-
-    public HistoryPresenter(Activity activity) {
-        this.activity = activity;
-    }
 
     @Override
     public List<Measurement> getMeasurements(Date date) {
-        List<Measurement> measurements = parameterStrategy.loadParameter(activity, date);
+        List<Measurement> measurements = parameterStrategy.loadParameter(date);
         return createMeasurements(measurements);
     }
 

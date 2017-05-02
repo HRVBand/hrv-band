@@ -4,12 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.model.storage.FileUtils;
 import hrv.band.app.model.storage.IStorage;
 import hrv.band.app.model.storage.sqlite.statements.HRVParamSQLiteObjectAdapter;
 import hrv.band.app.model.storage.sqlite.statements.HRVParameterContract;
@@ -56,7 +55,13 @@ public class HRVSQLController implements IStorage {
 
     @Override
     public void saveData(Measurement parameter) {
-        //Create new Entry in DB, this entry stores meta data to a given RR-Interval
+        ContentValues valuesParams = createSavableMeasurement(parameter);
+        long firstId = saveMeasurement(valuesParams);
+        saveRRData(parameter, firstId);
+    }
+
+    @NonNull
+    private ContentValues createSavableMeasurement(Measurement parameter) {
         ContentValues valuesParams = new ContentValues();
         long time = parameter.getTime().getTime();
 
@@ -74,8 +79,28 @@ public class HRVSQLController implements IStorage {
         } else {
             valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
         }
+        return valuesParams;
+    }
 
-        //Insert new entry and get the Id of the new entry
+    private void saveRRData(Measurement measurement, long id) {
+        SQLiteDatabase db = storageController.getWritableDatabase();
+        db.beginTransaction();
+
+        for (Double rrVal : measurement.getRRIntervals()) {
+            ContentValues valuesRR = new ContentValues();
+            valuesRR.put(RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID, id);
+            valuesRR.put(RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE, rrVal);
+
+            db.insert(RRIntervalContract.RRIntervalEntry.TABLE_NAME,
+                    RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE,
+                    valuesRR);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+    }
+
+    private long saveMeasurement(ContentValues valuesParams) {
         SQLiteDatabase db = storageController.getWritableDatabase();
         db.beginTransaction();
         long firstId = db.insert(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
@@ -84,34 +109,21 @@ public class HRVSQLController implements IStorage {
         db.setTransactionSuccessful();
         db.endTransaction();
         db.close();
-
-        //Store the RR-Interval-Raw-Data
-        SQLiteDatabase db2 = storageController.getWritableDatabase();
-        db2.beginTransaction();
-
-        for (Double rrVal : parameter.getRRIntervals()) {
-            ContentValues valuesRR = new ContentValues();
-            valuesRR.put(RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_ID, firstId);
-            valuesRR.put(RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE, rrVal);
-
-            db2.insert(RRIntervalContract.RRIntervalEntry.TABLE_NAME,
-                    RRIntervalContract.RRIntervalEntry.COLUMN_NAME_ENTRY_VALUE,
-                    valuesRR);
-        }
-        db2.setTransactionSuccessful();
-        db2.endTransaction();
-        db2.close();
+        return firstId;
     }
 
     @Override
     public List<Measurement> loadData(Date date) {
+        return loadData(date, date);
+    }
 
+    @Override
+    public List<Measurement> loadData(Date startDate, Date endDate) {
         SQLiteDatabase db = storageController.getReadableDatabase();
-
         HRVParamSQLiteObjectAdapter hrvParamSelect = new HRVParamSQLiteObjectAdapter(db);
         String whereClause = HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME + " BETWEEN ? AND ?";
-        String timeOfDayEndStr = Long.toString(getEndOfDay(date).getTime());
-        String timeOfDayStartStr = Long.toString(getStartOfDay(date).getTime());
+        String timeOfDayStartStr = Long.toString(getStartOfDay(startDate).getTime());
+        String timeOfDayEndStr = Long.toString(getEndOfDay(endDate).getTime());
         String[] whereClauseParams = new String[]{timeOfDayStartStr, timeOfDayEndStr};
         return hrvParamSelect.select(whereClause, whereClauseParams);
     }
@@ -133,8 +145,7 @@ public class HRVSQLController implements IStorage {
         String[] whereArgs = new String[]{timeStr};
 
         return db.delete(HRVParameterContract.HRVParameterEntry.TABLE_NAME,
-                whereClause, whereArgs
-        ) > 0;
+                whereClause, whereArgs) > 0;
     }
 
     @Override
@@ -199,6 +210,7 @@ public class HRVSQLController implements IStorage {
      */
     private boolean exportIBIFile(File documentsDir, Measurement param) throws IOException {
         final String s = param.getTime().toString();
+        //TODO: folder structure /RR/date/file.ibi
         File ibiFile = new File(documentsDir.getAbsolutePath(), "/RR" + s + ".ibi");
         ibiFile.deleteOnExit();
 
@@ -223,25 +235,6 @@ public class HRVSQLController implements IStorage {
     private boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
-    }
-
-    public boolean importDB(String dbPath, Context con) throws IOException {
-
-        String dbToImportToPath = String.valueOf(con.getDatabasePath(storageController.getDatabaseName()));
-
-        File newDB = new File(dbPath);
-        File oldDB = new File(dbToImportToPath);
-
-        if (newDB.exists()) {
-            FileUtils.copyFile(new FileInputStream(newDB), new FileOutputStream(oldDB));
-            // Access the copied database so SQLiteHelper will cache it and mark
-            // it as created.
-            storageController.getWritableDatabase().close();
-
-            return true;
-        }
-
-        return false;
     }
 }
 

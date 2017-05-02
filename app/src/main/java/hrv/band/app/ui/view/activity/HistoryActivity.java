@@ -79,7 +79,7 @@ public class HistoryActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        presenter = new HistoryPresenter(this);
+        presenter = new HistoryPresenter();
 
         setDrawStrategy(new ChartDrawDayStrategy(), new ParameterLoadDayStrategy(getApplicationContext()));
 

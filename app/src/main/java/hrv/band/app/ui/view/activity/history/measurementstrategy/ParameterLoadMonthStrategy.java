@@ -2,7 +2,6 @@ package hrv.band.app.ui.view.activity.history.measurementstrategy;
 
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -23,17 +22,15 @@ public class ParameterLoadMonthStrategy extends AbstractParameterLoadStrategy {
     }
 
     @Override
-    public List<Measurement> loadParameter(Context context, Date date) {
+    public List<Measurement> loadParameter(Date date) {
         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendar.setTime(date);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
+        Date startDate = calendar.getTime();
         int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        List<Measurement> result = new ArrayList<>();
-        for (int i = 0; i < daysInMonth; i++) {
-            result.addAll(storage.loadData(calendar.getTime()));
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        return result;
+        calendar.add(Calendar.DAY_OF_MONTH, daysInMonth - 1);
+        Date endDate = calendar.getTime();
+        return storage.loadData(startDate, endDate);
     }
 }

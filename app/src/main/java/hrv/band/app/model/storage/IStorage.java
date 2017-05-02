@@ -16,6 +16,8 @@ public interface IStorage {
 
     List<Measurement> loadData(Date date);
 
+    List<Measurement> loadData(Date startDate, Date endDate);
+
     boolean deleteData(Measurement parameter);
 
     boolean deleteData(List<Measurement> parameters);
