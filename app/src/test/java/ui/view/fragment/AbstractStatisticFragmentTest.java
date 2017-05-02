@@ -79,11 +79,4 @@ public abstract class AbstractStatisticFragmentTest {
         }
     }
 
-    public static class RMSSDStatisticTest extends AbstractStatisticFragmentTest {
-
-        @Override
-        public HRVValue getHrvType() {
-            return HRVValue.RMSSD;
-        }
-    }
 }
