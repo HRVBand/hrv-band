@@ -56,6 +56,10 @@ public class HRVParameterUnitAdapter {
         }
     }
 
+    public String getUnitOfParameter(HRVParameterEnum parameter) {
+        return unitConversion.get(parameter).getUnit();
+    }
+
     private class HRVParamAdaptionSettings {
 
         private String unit;

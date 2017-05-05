@@ -1,21 +1,25 @@
 package ui.presenter;
 
-import android.app.Activity;
+import android.content.Context;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import hrv.band.app.model.HRVParameterSettings;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.HistoryPresenter;
 import hrv.band.app.ui.presenter.IHistoryPresenter;
+import hrv.band.app.ui.view.activity.IHistoryView;
 import hrv.band.app.ui.view.activity.history.measurementstrategy.AbstractParameterLoadStrategy;
-import hrv.band.app.ui.view.adapter.HRVValue;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -24,7 +28,7 @@ import static org.mockito.Mockito.when;
  * Copyright (c) 2017
  * Created by Thomas on 22.04.2017.
  */
-
+@RunWith(RobolectricTestRunner.class)
 public class HistoryPresenterTest {
     private IHistoryPresenter presenter;
 
@@ -34,7 +38,10 @@ public class HistoryPresenterTest {
     private AbstractParameterLoadStrategy parameterLoadStrategy;
 
     @Mock
-    private Activity activity;
+    private Context context;
+
+    @Mock
+    private IHistoryView view;
 
     @Before
     public void setup() {
@@ -43,18 +50,12 @@ public class HistoryPresenterTest {
         MockitoAnnotations.initMocks(this);
         when(parameterLoadStrategy.loadParameter(date)).thenReturn(getMeasurements());
 
-        presenter = new HistoryPresenter();
-    }
-
-    @Test
-    public void getMeasurementsTest() {
-        presenter.setParameterLoadStrategy(parameterLoadStrategy);
-        assertEquals(2, presenter.getMeasurements(date).size());
+        presenter = new HistoryPresenter(view, RuntimeEnvironment.application);
     }
 
     @Test
     public void getPageTitleTest() {
-        assertEquals(HRVValue.values().length, presenter.getPageTitles().length);
+        assertEquals(HRVParameterSettings.DefaultSettings.visibleHRVParameters.size(), presenter.getPageTitles().length);
     }
 
     private List<Measurement> getMeasurements() {

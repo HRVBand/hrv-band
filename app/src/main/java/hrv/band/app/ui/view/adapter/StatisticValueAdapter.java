@@ -41,7 +41,7 @@ public class StatisticValueAdapter extends BaseAdapter {
     /**
      * The hrv type to display in the fragment.
      **/
-    private final HRVValue type;
+    private final HRVParameterEnum type;
     /**
      * The hrv values to display in fragment as string.
      **/
@@ -52,7 +52,7 @@ public class StatisticValueAdapter extends BaseAdapter {
     private List<Measurement> parameters;
 
     public StatisticValueAdapter(Context context,
-                                 HRVValue type, List<Measurement> parameters) {
+                                 HRVParameterEnum type, List<Measurement> parameters) {
         this.context = context;
         this.type = type;
         this.parameters = parameters;
@@ -111,7 +111,7 @@ public class StatisticValueAdapter extends BaseAdapter {
      * @param type         indicates which value to extract from the given parameters.
      * @return a list containing the values of the given hrv type of the given hrv parameters.
      */
-    private List<String> getValues(List<Measurement> measurements, final HRVValue type) {
+    private List<String> getValues(List<Measurement> measurements, final HRVParameterEnum type) {
 
         List<String> hrvValues = new ArrayList<>();
 
@@ -125,8 +125,8 @@ public class StatisticValueAdapter extends BaseAdapter {
                 continue;
             }
 
-            hrvCalc.setParameters(EnumSet.of(type.getHRVparam()));
-            HRVParameter parameter = getParameter(hrvCalc.calculateParameters(), type.getHRVparam());
+            hrvCalc.setParameters(EnumSet.of(type));
+            HRVParameter parameter = getParameter(hrvCalc.calculateParameters(), type);
 
             if (parameter != null) {
                 hrvValues.add(new DecimalFormat("#.##").format(parameter.getValue()));

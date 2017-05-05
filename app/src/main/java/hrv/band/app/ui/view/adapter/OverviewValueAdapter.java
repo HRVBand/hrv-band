@@ -7,8 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hrv.band.app.R;
+import hrv.band.app.model.HRVParameterSettings;
 import hrv.band.app.ui.view.fragment.OverviewFragment;
+import hrv.calc.parameter.HRVParameterEnum;
 
 /**
  * Copyright (c) 2017
@@ -23,8 +28,11 @@ public class OverviewValueAdapter extends BaseAdapter {
      **/
     private final Context context;
 
+    private List<HRVParameterEnum> parameterEnumList;
+
     public OverviewValueAdapter(Context context) {
         this.context = context;
+        parameterEnumList = new ArrayList<>(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
     }
 
     @Override
@@ -41,18 +49,18 @@ public class OverviewValueAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.firstLine.setText(HRVValue.values()[position].toString());
+        holder.firstLine.setText(parameterEnumList.get(position).toString());
         return convertView;
     }
 
     @Override
     public int getCount() {
-        return HRVValue.values().length;
+        return parameterEnumList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return HRVValue.values()[i];
+        return parameterEnumList.get(i);
     }
 
     @Override

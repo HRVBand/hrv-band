@@ -25,7 +25,7 @@ public class HRVParameterSettings {
             HRVParameterEnum.LFHF));
     public final Set<HRVParameterEnum> visibleHRVParameters;
 
-    public HRVParameterSettings(Set<HRVParameterEnum> visibleHRVParameters) {
+    private HRVParameterSettings(Set<HRVParameterEnum> visibleHRVParameters) {
         this.visibleHRVParameters = visibleHRVParameters;
     }
 }

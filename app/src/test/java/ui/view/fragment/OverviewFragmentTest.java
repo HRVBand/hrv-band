@@ -17,8 +17,8 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
 import hrv.band.app.ui.view.activity.HistoryActivity;
-import hrv.band.app.ui.view.adapter.HRVValue;
 import hrv.band.app.ui.view.fragment.OverviewFragment;
+import hrv.calc.parameter.HRVParameterEnum;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertSame;
@@ -58,10 +58,10 @@ public class OverviewFragmentTest {
                     listView.getAdapter().getItemId(i));
 
             Intent expectedIntent = new Intent(fragment.getActivity(), HistoryActivity.class);
-            checkExpectedIntent((HRVValue) listView.getAdapter().getItem(i), expectedIntent);
+            checkExpectedIntent((HRVParameterEnum) listView.getAdapter().getItem(i), expectedIntent);
         }
     }
-    private void checkExpectedIntent(HRVValue expectedHrvValue, Intent expectedIntent) {
+    private void checkExpectedIntent(HRVParameterEnum expectedHrvValue, Intent expectedIntent) {
         ShadowActivity shadowActivity = Shadows.shadowOf(fragment.getActivity());
         Intent actualIntent = shadowActivity.getNextStartedActivity();
 

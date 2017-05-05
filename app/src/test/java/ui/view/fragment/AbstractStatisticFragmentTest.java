@@ -10,8 +10,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.ui.view.adapter.HRVValue;
 import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.calc.parameter.HRVParameterEnum;
 
 import static junit.framework.Assert.assertNotNull;
 
@@ -27,7 +27,7 @@ import static junit.framework.Assert.assertNotNull;
 public abstract class AbstractStatisticFragmentTest {
     private HistoryFragment fragment;
 
-    abstract HRVValue getHrvType();
+    abstract HRVParameterEnum getHrvType();
 
     @Before
     public void setup()  {
@@ -42,40 +42,40 @@ public abstract class AbstractStatisticFragmentTest {
     public static class LFHFStatisticTest extends AbstractStatisticFragmentTest {
 
         @Override
-        public HRVValue getHrvType() {
-            return HRVValue.LFHF;
+        public HRVParameterEnum getHrvType() {
+            return HRVParameterEnum.LFHF;
         }
     }
 
     public static class BaevskyStatisticTest extends AbstractStatisticFragmentTest {
 
         @Override
-        public HRVValue getHrvType() {
-            return HRVValue.BAEVSKY;
+        public HRVParameterEnum getHrvType() {
+            return HRVParameterEnum.BAEVSKY;
         }
     }
 
     public static class SDNNStatisticTest extends AbstractStatisticFragmentTest {
 
         @Override
-        public HRVValue getHrvType() {
-            return HRVValue.SDNN;
+        public HRVParameterEnum getHrvType() {
+            return HRVParameterEnum.SDNN;
         }
     }
 
     public static class SD1StatisticTest extends AbstractStatisticFragmentTest {
 
         @Override
-        public HRVValue getHrvType() {
-            return HRVValue.SD1;
+        public HRVParameterEnum getHrvType() {
+            return HRVParameterEnum.SD1;
         }
     }
 
     public static class SD2StatisticTest extends AbstractStatisticFragmentTest {
 
         @Override
-        public HRVValue getHrvType() {
-            return HRVValue.SD2;
+        public HRVParameterEnum getHrvType() {
+            return HRVParameterEnum.SD2;
         }
     }
 

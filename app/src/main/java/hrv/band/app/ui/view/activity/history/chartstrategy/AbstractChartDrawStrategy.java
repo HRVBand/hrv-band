@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import hrv.band.app.model.HRVParameterUnitAdapter;
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.adapter.HRVValue;
+import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
@@ -31,7 +32,7 @@ public abstract class AbstractChartDrawStrategy {
      * @param measurements the parameters to show in the chart.
      */
     public void drawChart(List<Measurement> measurements, ColumnChartView mChart,
-                          HRVValue hrvValue, Context context) {
+                          HRVParameterEnum hrvValue, Context context) {
 
         this.context = context;
         initChartValues();
@@ -42,19 +43,24 @@ public abstract class AbstractChartDrawStrategy {
     /**
      * Sets the properties of the X and Y axis of the chart.
      */
-    private void setAxis(ColumnChartView mChart, HRVValue hrvValue) {
+    private void setAxis(ColumnChartView mChart, HRVParameterEnum hrvValue) {
         ColumnChartData data = new ColumnChartData(new ArrayList<>(Arrays.asList(columns)));
 
         Axis axisX = new Axis();
         Axis axisY = new Axis().setHasLines(true);
         axisX.setName(getXAxisLabel());
         axisX.setValues(getXAxisValues());
-        axisY.setName(hrvValue.getUnit());
+        axisY.setName(getUnit(hrvValue));
         data.setAxisXBottom(axisX);
         data.setAxisYLeft(axisY);
 
         mChart.setZoomEnabled(false);
         mChart.setColumnChartData(data);
+    }
+
+    private String getUnit(HRVParameterEnum hrvValue) {
+        HRVParameterUnitAdapter unitAdapter = new HRVParameterUnitAdapter();
+        return unitAdapter.getUnitOfParameter(hrvValue);
     }
 
     /**
@@ -109,7 +115,7 @@ public abstract class AbstractChartDrawStrategy {
      *
      * @param parameters the parameters to show in the chart.
      */
-    protected abstract void setChartValues(List<Measurement> parameters, HRVValue hrvValue);
+    abstract void setChartValues(List<Measurement> parameters, HRVParameterEnum hrvValue);
 
 
 }

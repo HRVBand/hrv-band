@@ -1,11 +1,14 @@
 package hrv.band.app.ui.presenter;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
+
 import java.util.Date;
 import java.util.List;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.activity.history.chartstrategy.AbstractChartDrawStrategy;
-import hrv.band.app.ui.view.activity.history.measurementstrategy.AbstractParameterLoadStrategy;
+import hrv.calc.parameter.HRVParameterEnum;
+import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
  * Copyright (c) 2017
@@ -13,13 +16,18 @@ import hrv.band.app.ui.view.activity.history.measurementstrategy.AbstractParamet
  */
 
 public interface IHistoryPresenter {
-    List<Measurement> getMeasurements(Date date);
 
-    void setDrawChartStrategy(AbstractChartDrawStrategy chartStrategy);
+    List<Measurement> getMeasurements();
 
-    void setParameterLoadStrategy(AbstractParameterLoadStrategy parameterStrategy);
+    void updateMeasurements(Date date);
 
     String[] getPageTitles();
 
-    AbstractChartDrawStrategy getChartDrawStrategy();
+    List<Fragment> createFragments();
+
+    int getTitlePosition(HRVParameterEnum value);
+
+    boolean setDrawStrategy(int id, Date date);
+
+    void drawChart(ColumnChartView chart, HRVParameterEnum hrvValue, Context context);
 }

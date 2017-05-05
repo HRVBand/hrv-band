@@ -16,12 +16,13 @@ import java.util.Observable;
 import java.util.Observer;
 
 import hrv.band.app.R;
+import hrv.band.app.model.HRVParameterUnitAdapter;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.view.activity.EditableMeasurementActivity;
 import hrv.band.app.ui.view.activity.IHistoryView;
 import hrv.band.app.ui.view.activity.MainActivity;
-import hrv.band.app.ui.view.adapter.HRVValue;
 import hrv.band.app.ui.view.adapter.StatisticValueAdapter;
+import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
 import static hrv.band.app.ui.view.activity.HistoryActivity.RESULT_DELETED;
@@ -49,20 +50,20 @@ public class HistoryFragment extends Fragment implements Observer {
     /**
      * The hrv type that this fragment is showing.
      **/
-    private HRVValue hrvType;
+    private HRVParameterEnum hrvType;
     /**
      * The parameters this fragment should show.
      **/
     private List<Measurement> parameters;
 
-    private IHistoryView statisticListener;
+    private IHistoryView historyView;
 
     /**
      * Returns a new instance of this fragment.
      *
      * @return a new instance of this fragment.
      */
-    public static HistoryFragment newInstance(HRVValue type) {
+    public static HistoryFragment newInstance(HRVParameterEnum type) {
         HistoryFragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_SECTION_VALUE, type);
@@ -76,16 +77,16 @@ public class HistoryFragment extends Fragment implements Observer {
         View rootView = inflater.inflate(R.layout.statistic_fragment, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.stats_measure_history);
 
-        if (statisticListener != null) {
-            parameters = statisticListener.getMeasurements();
+        if (historyView != null) {
+            parameters = historyView.getMeasurements();
         }
-        hrvType = (HRVValue) getArguments().getSerializable(ARG_SECTION_VALUE);
+        hrvType = (HRVParameterEnum) getArguments().getSerializable(ARG_SECTION_VALUE);
 
         TextView desc = (TextView) rootView.findViewById(R.id.stats_value_desc);
         TextView type = (TextView) rootView.findViewById(R.id.stats_type);
 
         desc.setText(hrvType.toString());
-        type.setText(hrvType.getUnit());
+        type.setText(getUnit());
 
 
         adapter = new StatisticValueAdapter(getActivity().getApplicationContext(),
@@ -106,17 +107,22 @@ public class HistoryFragment extends Fragment implements Observer {
 
         mChart = (ColumnChartView) rootView.findViewById(R.id.stats_chart);
 
-        if (statisticListener != null) {
-            statisticListener.drawChart(mChart, hrvType, getActivity());
+        if (historyView != null) {
+            historyView.drawChart(mChart, hrvType, getActivity());
         }
         return rootView;
+    }
+
+    private String getUnit() {
+        HRVParameterUnitAdapter unitAdapter = new HRVParameterUnitAdapter();
+        return unitAdapter.getUnitOfParameter(hrvType);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof IHistoryView) {
-            statisticListener = (IHistoryView) context;
+            historyView = (IHistoryView) context;
         }
     }
 
@@ -124,17 +130,17 @@ public class HistoryFragment extends Fragment implements Observer {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_DELETED) {
-            statisticListener.updateFragments();
+            historyView.updateFragments();
         }
     }
 
     @Override
     public void update(Observable observable, Object o) {
-        parameters = statisticListener.getMeasurements();
+        parameters = historyView.getMeasurements();
         if (adapter != null) {
             adapter.setDataset(parameters);
             adapter.notifyDataSetChanged();
-            statisticListener.drawChart(mChart, hrvType, getActivity());
+            historyView.drawChart(mChart, hrvType, getActivity());
         }
     }
 }

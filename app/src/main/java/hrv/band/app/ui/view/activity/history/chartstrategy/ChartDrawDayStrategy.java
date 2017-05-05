@@ -12,7 +12,7 @@ import hrv.HRVLibFacade;
 import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.adapter.HRVValue;
+import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import units.TimeUnit;
@@ -30,7 +30,7 @@ public class ChartDrawDayStrategy extends AbstractChartDrawStrategy {
     private static final String X_AXIS_LABEL = "Hour";
 
     @Override
-    protected void setChartValues(List<Measurement> measurements, HRVValue hrvValueType) {
+    protected void setChartValues(List<Measurement> measurements, HRVParameterEnum hrvValueType) {
         Calendar calendar = GregorianCalendar.getInstance();
         for (Measurement measurement : measurements) {
             calendar.setTime(measurement.getTime());
@@ -42,7 +42,7 @@ public class ChartDrawDayStrategy extends AbstractChartDrawStrategy {
                 continue;
             }
 
-            hrvCalc.setParameters(EnumSet.of(hrvValueType.getHRVparam()));
+            hrvCalc.setParameters(EnumSet.of(hrvValueType));
             double value = hrvCalc.calculateParameters().get(0).getValue();
 
             columns[hour].getValues().set(minutes,

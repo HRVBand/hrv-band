@@ -9,10 +9,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hrv.band.app.R;
+import hrv.band.app.model.HRVParameterSettings;
 import hrv.band.app.ui.view.activity.HistoryActivity;
-import hrv.band.app.ui.view.adapter.HRVValue;
 import hrv.band.app.ui.view.adapter.OverviewValueAdapter;
+import hrv.calc.parameter.HRVParameterEnum;
 
 /**
  * Copyright (c) 2017
@@ -47,7 +51,9 @@ public class OverviewFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 Intent intent = new Intent(getContext(), HistoryActivity.class);
-                intent.putExtra(VALUE_TYPE, HRVValue.values()[position]);
+                List<HRVParameterEnum> parameterEnumList = new ArrayList<>(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
+
+                intent.putExtra(VALUE_TYPE, parameterEnumList.get(position));
                 startActivity(intent);
             }
 

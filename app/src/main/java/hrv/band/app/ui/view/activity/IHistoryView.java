@@ -5,8 +5,8 @@ import android.content.Context;
 import java.util.List;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.adapter.HRVValue;
 import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
@@ -16,25 +16,10 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  * Interface between {@link HistoryActivity} and {@link HistoryFragment}.
  */
 public interface IHistoryView {
-    /**
-     * Draws chart for given hrv value.
-     *
-     * @param chart    to draw into.
-     * @param hrvValue to draw chart for.
-     * @param context  in which to draw chart.
-     */
-    void drawChart(ColumnChartView chart, HRVValue hrvValue,
-                   Context context);
 
-    /**
-     * Returns parameters of {@link HistoryActivity}.
-     *
-     * @return parameters.
-     */
+    void drawChart(ColumnChartView chart, HRVParameterEnum hrvValue, Context context);
+
     List<Measurement> getMeasurements();
 
-    /**
-     * Updates all {@link HistoryFragment} in {@link HistoryActivity}.
-     */
     void updateFragments();
 }

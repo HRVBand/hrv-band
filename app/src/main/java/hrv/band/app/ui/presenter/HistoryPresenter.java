@@ -1,16 +1,30 @@
 package hrv.band.app.ui.presenter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import hrv.RRData;
+import hrv.band.app.R;
+import hrv.band.app.model.HRVParameterSettings;
 import hrv.band.app.model.Measurement;
+import hrv.band.app.ui.view.activity.IHistoryView;
 import hrv.band.app.ui.view.activity.history.chartstrategy.AbstractChartDrawStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawWeekStrategy;
 import hrv.band.app.ui.view.activity.history.measurementstrategy.AbstractParameterLoadStrategy;
-import hrv.band.app.ui.view.adapter.HRVValue;
+import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadDayStrategy;
+import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadMonthStrategy;
+import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadWeekStrategy;
+import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.calc.parameter.HRVParameterEnum;
+import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
  * Copyright (c) 2017
@@ -18,23 +32,36 @@ import hrv.band.app.ui.view.adapter.HRVValue;
  */
 
 public class HistoryPresenter implements IHistoryPresenter {
+
+    private List<Measurement> measurements;
     private AbstractChartDrawStrategy chartStrategy;
     private AbstractParameterLoadStrategy parameterStrategy;
+    private Set<HRVParameterEnum> parameterSet;
+    private Context context;
+    private IHistoryView view;
 
-    @Override
-    public List<Measurement> getMeasurements(Date date) {
-        List<Measurement> measurements = parameterStrategy.loadParameter(date);
-        return createMeasurements(measurements);
+    public HistoryPresenter(IHistoryView view, Context context) {
+        this.view = view;
+        this.context = context;
+        parameterSet = HRVParameterSettings.DefaultSettings.visibleHRVParameters;
+        chartStrategy = new ChartDrawDayStrategy();
+        parameterStrategy = new ParameterLoadDayStrategy(context);
+        this.measurements = getMeasurements(new Date());
+
+    }
+
+    private List<Measurement> getMeasurements(Date date) {
+        return createMeasurements(parameterStrategy.loadParameter(date));
     }
 
     @Override
-    public void setDrawChartStrategy(AbstractChartDrawStrategy chartStrategy) {
-        this.chartStrategy = chartStrategy;
+    public List<Measurement> getMeasurements() {
+        return measurements;
     }
 
     @Override
-    public void setParameterLoadStrategy(AbstractParameterLoadStrategy parameterStrategy) {
-        this.parameterStrategy = parameterStrategy;
+    public void drawChart(ColumnChartView chart, HRVParameterEnum hrvValue, Context context) {
+        chartStrategy.drawChart(measurements, chart, hrvValue, context);
     }
 
     @NonNull
@@ -52,17 +79,63 @@ public class HistoryPresenter implements IHistoryPresenter {
     }
 
     @Override
+    public List<Fragment> createFragments() {
+        List<Fragment> fragments = new ArrayList<>();
+
+        for (HRVParameterEnum parameter : parameterSet) {
+            fragments.add(HistoryFragment.newInstance(parameter));
+        }
+
+        return fragments;
+    }
+
+    @Override
+    public int getTitlePosition(HRVParameterEnum value) {
+        int position = 0;
+        for (HRVParameterEnum parameterEnum : parameterSet) {
+            if (value.equals(parameterEnum)) {
+                return position;
+            }
+            position++;
+        }
+        return 0;
+    }
+
+    @Override
     public String[] getPageTitles() {
-        HRVValue[] values = HRVValue.values();
-        String[] titles = new String[values.length];
-        for (int i = 0; i < values.length; i++) {
-            titles[i] = values[i].toString();
+        String[] titles = new String[parameterSet.size()];
+        int i = 0;
+        for (HRVParameterEnum parameter : parameterSet) {
+            titles[i++] = parameter.toString();
         }
         return titles;
     }
 
+
     @Override
-    public AbstractChartDrawStrategy getChartDrawStrategy() {
-        return chartStrategy;
+    public boolean setDrawStrategy(int id, Date date) {
+        switch (id) {
+            case R.id.menu_day:
+                chartStrategy = new ChartDrawDayStrategy();
+                parameterStrategy = new ParameterLoadDayStrategy(context);
+                break;
+            case R.id.menu_week:
+                chartStrategy = new ChartDrawWeekStrategy();
+                parameterStrategy = new ParameterLoadWeekStrategy(context);
+                break;
+            case R.id.menu_month:
+                chartStrategy = new ChartDrawMonthStrategy(date);
+                parameterStrategy = new ParameterLoadMonthStrategy(context);
+                break;
+            default: break;
+        }
+        updateMeasurements(date);
+        view.updateFragments();
+        return true;
+    }
+
+    @Override
+    public void updateMeasurements(Date date) {
+        measurements = getMeasurements(date);
     }
 }

@@ -13,7 +13,7 @@ import hrv.HRVLibFacade;
 import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.adapter.HRVValue;
+import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import units.TimeUnit;
@@ -37,7 +37,7 @@ public class ChartDrawMonthStrategy extends AbstractChartDrawStrategy {
     }
 
     @Override
-    protected void setChartValues(List<Measurement> measurements, HRVValue hrvValueType) {
+    protected void setChartValues(List<Measurement> measurements, HRVParameterEnum hrvValueType) {
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         for (Measurement measurement : measurements) {
@@ -50,7 +50,7 @@ public class ChartDrawMonthStrategy extends AbstractChartDrawStrategy {
                 continue;
             }
 
-            hrvCalc.setParameters(EnumSet.of(hrvValueType.getHRVparam()));
+            hrvCalc.setParameters(EnumSet.of(hrvValueType));
             double value = hrvCalc.calculateParameters().get(0).getValue();
 
             columns[day].getValues().add(
