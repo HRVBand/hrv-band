@@ -1,21 +1,14 @@
 package hrv.band.app.ui.view.activity.history.chartstrategy;
 
-import android.support.v4.content.ContextCompat;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.EnumSet;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import hrv.HRVLibFacade;
-import hrv.RRData;
-import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
-import units.TimeUnit;
 
 /**
  * Copyright (c) 2017
@@ -37,17 +30,13 @@ public class ChartDrawDayStrategy extends AbstractChartDrawStrategy {
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minutes = calendar.get(Calendar.MINUTE) / 15;
 
-            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
-            if(!hrvCalc.validData()) {
+            double value = getValue(measurement, hrvValueType);
+            if (value < 0) {
                 continue;
             }
 
-            hrvCalc.setParameters(EnumSet.of(hrvValueType));
-            double value = hrvCalc.calculateParameters().get(0).getValue();
-
             columns[hour].getValues().set(minutes,
-                    new SubcolumnValue((float) value,
-                            ContextCompat.getColor(context, R.color.colorAccent)));
+                    new SubcolumnValue((float) value, getColor()));
             configColumnLabels(hour);
         }
     }

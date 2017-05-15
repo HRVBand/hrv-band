@@ -1,11 +1,17 @@
 package hrv.band.app.ui.view.activity.history.chartstrategy;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
+import hrv.HRVLibFacade;
+import hrv.RRData;
+import hrv.band.app.R;
 import hrv.band.app.model.HRVParameterUnitAdapter;
 import hrv.band.app.model.Measurement;
 import hrv.calc.parameter.HRVParameterEnum;
@@ -15,6 +21,7 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
+import units.TimeUnit;
 
 /**
  * Copyright (c) 2017
@@ -23,7 +30,7 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  * Strategy to draw parameters into chart.
  */
 public abstract class AbstractChartDrawStrategy {
-    protected Context context;
+    private Context context;
     Column[] columns;
 
     /**
@@ -33,7 +40,6 @@ public abstract class AbstractChartDrawStrategy {
      */
     public void drawChart(List<Measurement> measurements, ColumnChartView mChart,
                           HRVParameterEnum hrvValue, Context context) {
-
         this.context = context;
         initChartValues();
         setChartValues(measurements, hrvValue);
@@ -85,6 +91,24 @@ public abstract class AbstractChartDrawStrategy {
     void configColumnLabels(int index) {
         columns[index].setHasLabels(false);
         columns[index].setHasLabelsOnlyForSelected(false);
+    }
+
+    int getColor() {
+        return ContextCompat.getColor(context, R.color.colorAccent);
+    }
+
+    Resources getResources() {
+        return context.getResources();
+    }
+
+    double getValue(Measurement measurement, HRVParameterEnum hrvValueType) {
+        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
+        if(!hrvCalc.validData()) {
+            return -1;
+        }
+
+        hrvCalc.setParameters(EnumSet.of(hrvValueType));
+        return hrvCalc.calculateParameters().get(0).getValue();
     }
 
     /**

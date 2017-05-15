@@ -1,22 +1,17 @@
 package hrv.band.app.ui.view.activity.history.chartstrategy;
 
 import android.content.res.Resources;
-import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.EnumSet;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import hrv.HRVLibFacade;
-import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
-import units.TimeUnit;
 
 /**
  * Copyright (c) 2017
@@ -45,18 +40,13 @@ public class ChartDrawWeekStrategy extends AbstractChartDrawStrategy {
                 day = 6;
             }
 
-            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
-
-            if(!hrvCalc.validData()) {
+            double value = getValue(measurement, hrvValueType);
+            if (value < 0) {
                 continue;
             }
 
-            hrvCalc.setParameters(EnumSet.of(hrvValueType));
-            double value = hrvCalc.calculateParameters().get(0).getValue();
-
             columns[day].getValues().add(
-                    new SubcolumnValue((float) value,
-                            ContextCompat.getColor(context, R.color.colorAccent)));
+                    new SubcolumnValue((float) value, getColor()));
             configColumnLabels(day);
         }
     }
@@ -78,7 +68,7 @@ public class ChartDrawWeekStrategy extends AbstractChartDrawStrategy {
 
     @Override
     protected List<AxisValue> getXAxisValues() {
-        Resources resources = context.getResources();
+        Resources resources = getResources();
         List<AxisValue> values = new ArrayList<>();
         AxisValue value = new AxisValue(0);
         values.add(value.setLabel(resources.getString(R.string.monday_sc)));

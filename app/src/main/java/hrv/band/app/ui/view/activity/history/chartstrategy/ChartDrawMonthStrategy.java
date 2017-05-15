@@ -1,22 +1,15 @@
 package hrv.band.app.ui.view.activity.history.chartstrategy;
 
-import android.support.v4.content.ContextCompat;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.EnumSet;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import hrv.HRVLibFacade;
-import hrv.RRData;
-import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
-import units.TimeUnit;
 
 /**
  * Copyright (c) 2017
@@ -44,18 +37,13 @@ public class ChartDrawMonthStrategy extends AbstractChartDrawStrategy {
             calendar.setTime(measurement.getTime());
             int day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
 
-            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
-
-            if(!hrvCalc.validData()) {
+            double value = getValue(measurement, hrvValueType);
+            if (value < 0) {
                 continue;
             }
 
-            hrvCalc.setParameters(EnumSet.of(hrvValueType));
-            double value = hrvCalc.calculateParameters().get(0).getValue();
-
             columns[day].getValues().add(
-                    new SubcolumnValue((float) value,
-                            ContextCompat.getColor(context, R.color.colorAccent)));
+                    new SubcolumnValue((float) value, getColor()));
             configColumnLabels(day);
         }
     }

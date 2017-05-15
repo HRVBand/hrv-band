@@ -1,6 +1,7 @@
 package hrv.band.app.ui.view.activity.history.measurementstrategy;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,12 +24,26 @@ public class ParameterLoadWeekStrategy extends AbstractParameterLoadStrategy {
 
     @Override
     public List<Measurement> loadParameter(Date date) {
-        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
-        calendar.setTime(date);
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        Date startDate = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_MONTH, 6);
-        Date endDate = calendar.getTime();
+        Calendar calendar = getCalenderFromDate(date);
+        Date startDate = getStartOfTheWeek(calendar);
+        Date endDate = getEndOfWeekDate(calendar);
         return storage.loadData(startDate, endDate);
+    }
+
+    private Date getStartOfTheWeek(Calendar calendar) {
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        return calendar.getTime();
+    }
+
+    private Date getEndOfWeekDate(Calendar calendar) {
+        calendar.add(Calendar.DAY_OF_MONTH, 6);
+        return calendar.getTime();
+    }
+
+    @NonNull
+    private Calendar getCalenderFromDate(Date date) {
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
     }
 }
