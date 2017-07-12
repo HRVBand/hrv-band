@@ -123,7 +123,7 @@
   <string name="developer_julian">Julian github.com/Fenox</string>
   <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
 
-  <!-- statistic ui.view.activity -->
+  <!-- statistic ui.view.context -->
   <string name="menu_calender_day">Tag</string>
   <string name="menu_calender_week">Woche</string>
   <string name="menu_calender_month">Monat</string>

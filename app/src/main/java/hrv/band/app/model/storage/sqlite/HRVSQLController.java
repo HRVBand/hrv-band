@@ -34,7 +34,10 @@ public class HRVSQLController implements IStorage {
     private SQLiteStorageController storageController;
 
     public HRVSQLController(Context context) {
-        this.storageController = SQLiteStorageController.getINSTANCE(context);
+        this.storageController = new SQLiteStorageController(context);
+    }
+    public HRVSQLController(SQLiteStorageController storageController) {
+        this.storageController = storageController;
     }
 
     private static Date getEndOfDay(Date date) {
@@ -67,18 +70,9 @@ public class HRVSQLController implements IStorage {
 
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_TIME, time);
         valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_RATING, parameter.getRating());
+        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().toString());
+        valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
 
-        if (parameter.getCategory() != null) {
-            valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY, parameter.getCategory().toString());
-        } else {
-            valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_CATEGORY);
-        }
-
-        if (parameter.getNote() != null) {
-            valuesParams.put(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE, parameter.getNote());
-        } else {
-            valuesParams.putNull(HRVParameterContract.HRVParameterEntry.COLUMN_NAME_NOTE);
-        }
         return valuesParams;
     }
 

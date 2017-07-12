@@ -20,6 +20,7 @@ import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Copyright (c) 2017
@@ -96,6 +97,16 @@ public class MeasurementTest {
         for (int i = 0; i < size; i++) {
             assertEquals(parameter.getRRIntervals()[i], createFromParcel.getRRIntervals()[i]);
         }
+    }
+
+    @Test
+    public void equalsTest() {
+        Measurement measurement = measurementBuilder.build();
+
+        assertNotEquals(measurement, null);
+        assertEquals(measurement, measurement);
+        assertEquals(measurement.hashCode(), measurement.hashCode());
+        assertNotEquals(measurement, measurementBuilder);
     }
 
     @Test

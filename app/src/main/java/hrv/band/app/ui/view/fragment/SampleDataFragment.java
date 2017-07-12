@@ -47,7 +47,7 @@ public class SampleDataFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        presenter = new SampleDataPresenter(getActivity());
+        presenter = new SampleDataPresenter(getActivity().getApplicationContext());
 
         final View view = View.inflate(getActivity(), R.layout.dialog_simple_text, null);
 

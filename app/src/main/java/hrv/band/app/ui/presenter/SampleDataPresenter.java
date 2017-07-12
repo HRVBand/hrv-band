@@ -1,6 +1,6 @@
 package hrv.band.app.ui.presenter;
 
-import android.app.Activity;
+import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,13 +20,13 @@ import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 
 public class SampleDataPresenter implements ISampleDataPresenter {
 
-    private Activity activity;
+    private Context context;
 
     private static final int RR_COUNT = 50;
     private static final int SAMPLE_COUNT = 20;
 
-    public SampleDataPresenter(Activity activity) {
-        this.activity = activity;
+    public SampleDataPresenter(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class SampleDataPresenter implements ISampleDataPresenter {
     }
 
     private void storeMeasurement(List<Measurement> measurements) {
-        IStorage storage = new HRVSQLController(activity);
+        IStorage storage = new HRVSQLController(context);
         storage.saveData(measurements);
     }
 

@@ -16,6 +16,7 @@ import java.util.List;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.model.storage.IStorage;
 import hrv.band.app.model.storage.sqlite.HRVSQLController;
+import hrv.band.app.model.storage.sqlite.SQLiteStorageController;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -24,15 +25,18 @@ import static junit.framework.Assert.assertTrue;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 27.04.2017
  */
-
 @RunWith(RobolectricTestRunner.class)
 public class HRVSQLControllerTest {
+
+    private SQLiteStorageController storageController;
     private IStorage storage;
+
     private static Measurement measurement;
     private static List<Measurement> measurements;
 
     @BeforeClass
     public static void setupMeasurements() {
+
         Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(), new double[]{1, 1, 1, 1, 1});
         measurement = builder.build();
 
@@ -43,12 +47,27 @@ public class HRVSQLControllerTest {
 
     @Before
     public void setupDB() {
-        storage = new HRVSQLController(RuntimeEnvironment.application);
+        storageController = new SQLiteStorageController(RuntimeEnvironment.application);
+        storageController.clearDatabaseAndRecreate();
+        storage = new HRVSQLController(storageController);
     }
 
     @Test
     public void saveSingleMeasurementTest() {
-        saveSingleMeasurement();
+        saveSingleMeasurement(measurement);
+    }
+
+    @Test
+    public void saveMeasurementWithNullCategoryTest() {
+        Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(), new double[]{1, 1, 1, 1, 1});
+        builder.category(null);
+        saveSingleMeasurement(builder.build());
+    }
+    @Test
+    public void saveMeasurementWithNullNoteTest() {
+        Measurement.MeasurementBuilder builder = new Measurement.MeasurementBuilder(new Date(), new double[]{1, 1, 1, 1, 1});
+        builder.note(null);
+        saveSingleMeasurement(builder.build());
     }
 
     @Test
@@ -58,7 +77,8 @@ public class HRVSQLControllerTest {
 
     private void saveListOfMeasurements() {
         storage.saveData(measurements);
-        assertEquals(2, storage.loadData(new Date()).size());
+        assertEquals(measurements.size(), storage.loadData(new Date()).size());
+        assertEquals(measurements, storage.loadData(new Date()));
     }
 
     @Test
@@ -69,14 +89,15 @@ public class HRVSQLControllerTest {
 
     @Test
     public void deleteMeasurementTest() {
-        saveSingleMeasurement();
+        saveSingleMeasurement(measurement);
         storage.deleteData(measurement);
         assertTrue(storage.loadData(new Date()).isEmpty());
     }
 
-    private void saveSingleMeasurement() {
+    private void saveSingleMeasurement(Measurement measurement) {
         storage.saveData(measurement);
         assertEquals(1, storage.loadData(new Date()).size());
+        assertEquals(measurement, storage.loadData(new Date()).get(0));
     }
 
     @Test
@@ -88,7 +109,7 @@ public class HRVSQLControllerTest {
 
     @After
     public void tearDownDB() {
-        storage.closeDatabaseHelper();
+        storageController.clearDatabase();
     }
 
     @AfterClass

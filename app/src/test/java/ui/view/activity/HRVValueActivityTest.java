@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -37,7 +36,7 @@ import static junit.framework.Assert.assertNotNull;
  * Tests for {@link EditableMeasurementActivity}
  */
 
-@Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
+@Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP})
 @RunWith(RobolectricTestRunner.class)
 public class HRVValueActivityTest {
     private static Measurement parameter;
@@ -75,7 +74,7 @@ public class HRVValueActivityTest {
         activity.onBackPressed();
     }
 
-    @Ignore
+
     @Test
     public void onOptionsItemSelectedDelete() {
         ActionMenuItemView item = (ActionMenuItemView) activity.findViewById(R.id.menu_ic_delete);

@@ -11,7 +11,7 @@ import hrv.band.app.model.storage.sqlite.statements.RRIntervalContract;
  * Copyright (c) 2017
  * Created by Julian Martin on 23.06.2016.
  */
-class SQLiteStorageController extends SQLiteOpenHelper {
+public class SQLiteStorageController extends SQLiteOpenHelper {
 
 
     private static final int DATABASE_VERSION = 1;
@@ -40,18 +40,9 @@ class SQLiteStorageController extends SQLiteOpenHelper {
     private static final String SQL_DELETE_HRVPAARAMETERS =
             "DROP TABLE IF EXISTS " + HRVParameterContract.HRVParameterEntry.TABLE_NAME;
 
-    private static SQLiteStorageController instance;
 
-    private SQLiteStorageController(Context context) {
+    public SQLiteStorageController(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    static synchronized SQLiteStorageController getINSTANCE(Context context) {
-        if (instance == null) {
-            instance = new SQLiteStorageController(context);
-        }
-
-        return instance;
     }
 
     @Override
@@ -70,4 +61,16 @@ class SQLiteStorageController extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
+
+    public void clearDatabaseAndRecreate() {
+        clearDatabase();
+        onCreate(getWritableDatabase());
+    }
+
+    public void clearDatabase() {
+        getWritableDatabase().execSQL(SQL_DELETE_HRVPAARAMETERS);
+        getWritableDatabase().execSQL(SQL_DELETE_RRINTERVALS);
+    }
+
+
 }

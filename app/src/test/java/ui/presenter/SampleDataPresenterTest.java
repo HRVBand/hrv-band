@@ -36,7 +36,7 @@ public class SampleDataPresenterTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        presenter = new SampleDataPresenter(activity);
+        presenter = new SampleDataPresenter(RuntimeEnvironment.application);
         storage = new HRVSQLController(RuntimeEnvironment.application);
     }
 
