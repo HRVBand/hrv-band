@@ -55,7 +55,7 @@ public class SavableMeasurementActivity extends AbstractMeasurementActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            /** Saves the measurement. **/
+            // Saves the measurement.
             case R.id.menu_ic_save:
                 saveMeasurement();
                 return true;

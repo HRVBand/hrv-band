@@ -36,7 +36,7 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         // add back arrow to toolbar
@@ -59,11 +59,11 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
      * Sets the ViewPager of this Activity.
      */
     private void setViewPager() {
-        ViewPager mViewPager = (ViewPager) findViewById(getViewPagerID());
+        ViewPager mViewPager = findViewById(getViewPagerID());
         SectionPagerAdapter sectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
         mViewPager.setAdapter(sectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(getTabID());
+        TabLayout tabLayout = findViewById(getTabID());
         tabLayout.setupWithViewPager(mViewPager);
     }
 

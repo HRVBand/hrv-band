@@ -166,17 +166,17 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
         presenter = new MeasuringPresenter(this);
         ConnectionManager connectionManager = new ConnectionManager(getActivity());
 
-        rrStatus = (TextView) rootView.findViewById(R.id.rrStatus);
-        pulse = (TextView) rootView.findViewById(R.id.pulseValue);
-        txtStatus = (TextView) rootView.findViewById(R.id.measure_status);
-        txtMeasureTime = (TextView) rootView.findViewById(R.id.measureTime);
+        rrStatus = rootView.findViewById(R.id.rrStatus);
+        pulse = rootView.findViewById(R.id.pulseValue);
+        txtStatus = rootView.findViewById(R.id.measure_status);
+        txtMeasureTime = rootView.findViewById(R.id.measureTime);
 
-        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        progressBar = rootView.findViewById(R.id.progressBar);
 
-        menuDown = (com.github.clans.fab.FloatingActionMenu) getActivity().findViewById(R.id.menu_down);
-        connectToBandFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_band_float_button);
-        connectToAntPlusFAB = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.connect_antplus_float_button);
-        disconnectDevices = (com.github.clans.fab.FloatingActionButton) getActivity().findViewById(R.id.disconnect_devices);
+        menuDown = getActivity().findViewById(R.id.menu_down);
+        connectToBandFAB = getActivity().findViewById(R.id.connect_band_float_button);
+        connectToAntPlusFAB = getActivity().findViewById(R.id.connect_antplus_float_button);
+        disconnectDevices = getActivity().findViewById(R.id.disconnect_devices);
 
         txtMeasureTime.setText(String.valueOf(presenter.getDuration() / 1000));
 

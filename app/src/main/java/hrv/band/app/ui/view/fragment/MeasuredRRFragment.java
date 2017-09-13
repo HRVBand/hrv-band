@@ -59,7 +59,7 @@ public class MeasuredRRFragment extends Fragment {
         presenter = new MeasuredRRPresenter((Measurement) getArguments().getParcelable(MainActivity.HRV_VALUE));
         presenter.calculateRRStatistic();
 
-        mChart = (ColumnChartView) rootView.findViewById(R.id.rr_chart);
+        mChart = rootView.findViewById(R.id.rr_chart);
 
         if (presenter.getMeasurement() != null) {
             initRRChart();
@@ -71,10 +71,10 @@ public class MeasuredRRFragment extends Fragment {
 
     private void setRRStatistic(View rootView) {
 
-        TextView minTxt = (TextView) rootView.findViewById(R.id.rr_min);
-        TextView maxTxt = (TextView) rootView.findViewById(R.id.rr_max);
-        TextView averageTxt = (TextView) rootView.findViewById(R.id.rr_average);
-        TextView countTxt = (TextView) rootView.findViewById(R.id.rr_count);
+        TextView minTxt = rootView.findViewById(R.id.rr_min);
+        TextView maxTxt = rootView.findViewById(R.id.rr_max);
+        TextView averageTxt = rootView.findViewById(R.id.rr_average);
+        TextView countTxt = rootView.findViewById(R.id.rr_count);
 
         minTxt.setText(presenter.getRRMin());
         maxTxt.setText(presenter.getRRMax());

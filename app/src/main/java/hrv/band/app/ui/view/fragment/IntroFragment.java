@@ -53,9 +53,9 @@ public class IntroFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.intro_fragment, container, false);
 
-        TextView title = (TextView) rootView.findViewById(R.id.intro_title);
-        ImageView image = (ImageView) rootView.findViewById(R.id.intro_image);
-        TextView desc = (TextView) rootView.findViewById(R.id.intro_desc);
+        TextView title = rootView.findViewById(R.id.intro_title);
+        ImageView image = rootView.findViewById(R.id.intro_image);
+        TextView desc = rootView.findViewById(R.id.intro_desc);
 
         title.setText(getArguments().getString(INTRO_TITLE_ID));
 

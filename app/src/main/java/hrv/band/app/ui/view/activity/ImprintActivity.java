@@ -34,7 +34,7 @@ public class ImprintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imprint);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -63,10 +63,10 @@ public class ImprintActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(SectionPagerAdapter mSectionsPagerAdapter) {
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.imprint_viewpager);
+        ViewPager mViewPager = findViewById(R.id.imprint_viewpager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.imprint_tabs);
+        TabLayout tabLayout = findViewById(R.id.imprint_tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 

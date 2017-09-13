@@ -35,7 +35,7 @@ public class ExportFragment extends DialogFragment implements IExportView {
 
         final View view = View.inflate(getActivity(), R.layout.dialog_simple_text, null);
 
-        TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
+        TextView textView = view.findViewById(R.id.dialog_textview);
         textView.setText(getResources().getString(R.string.sentence_export_db));
 
         AlertDialog.Builder builder = buildDialog(view);

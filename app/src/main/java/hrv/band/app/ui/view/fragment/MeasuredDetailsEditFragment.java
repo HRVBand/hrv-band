@@ -40,7 +40,7 @@ public class MeasuredDetailsEditFragment extends Fragment implements IMeasuredDe
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.hrv_measurement_fragment_details, container, false);
 
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.measure_categories);
+        Spinner spinner = rootView.findViewById(R.id.measure_categories);
         AbstractCategoryAdapter spinnerArrayAdapter = new MeasurementCategoryAdapter(getContext());
 
         spinner.setAdapter(spinnerArrayAdapter);
@@ -58,7 +58,7 @@ public class MeasuredDetailsEditFragment extends Fragment implements IMeasuredDe
         if (rootView == null) {
             return 0;
         }
-        RatingBar ratingbar = (RatingBar) rootView.findViewById(R.id.measure_rating);
+        RatingBar ratingbar = rootView.findViewById(R.id.measure_rating);
         return ratingbar.getRating();
     }
 
@@ -72,7 +72,7 @@ public class MeasuredDetailsEditFragment extends Fragment implements IMeasuredDe
         if (rootView == null) {
             return MeasurementCategoryAdapter.MeasureCategory.GENERAL;
         }
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.measure_categories);
+        Spinner spinner = rootView.findViewById(R.id.measure_categories);
         int position = spinner.getSelectedItemPosition();
         return MeasurementCategoryAdapter.MeasureCategory.values()[position];
     }
@@ -87,7 +87,7 @@ public class MeasuredDetailsEditFragment extends Fragment implements IMeasuredDe
         if (rootView == null) {
             return "";
         }
-        TextView note = (TextView) rootView.findViewById(R.id.measure_note);
+        TextView note = rootView.findViewById(R.id.measure_note);
         return note.getText().toString();
     }
 

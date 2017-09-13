@@ -65,18 +65,18 @@ public class MainActivity extends AppCompatActivity
         PreferenceManager.setDefaultValues(this, R.xml.settings_fragment, false);
 
         setContentView(R.layout.navbar_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //NavigationDrawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         assert drawer != null;
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         assert navigationView != null;
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -90,12 +90,12 @@ public class MainActivity extends AppCompatActivity
         SectionPagerAdapter mSectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
 
         // Set up the ViewPager with the sections adapter.
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
+        ViewPager mViewPager = findViewById(R.id.main_viewpager);
         assert mViewPager != null;
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tabs);
+        TabLayout tabLayout = findViewById(R.id.main_tabs);
         assert tabLayout != null;
 
         tabLayout.setupWithViewPager(mViewPager);
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         //If the Navigation Drawer is opened, a backPressed closes the Navigation Drawer.
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         assert drawer != null;
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         presenter.handleNavBar(item.getItemId());
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer != null) {
             drawer.closeDrawer(GravityCompat.START);
         }

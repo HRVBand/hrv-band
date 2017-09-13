@@ -85,19 +85,19 @@ public class FeedbackDialogFragment extends DialogFragment implements IFeedbackD
      * @param view te view holding the spinner.
      */
     private void setSpinnerValues(View view) {
-        Spinner spinner = (Spinner) view.findViewById(R.id.feedback_category);
+        Spinner spinner = view.findViewById(R.id.feedback_category);
         spinner.setAdapter(new FeedbackCategoryAdapter(getActivity().getApplicationContext()));
     }
 
     @Override
     public String getSubjectText() {
-        Spinner spinner = (Spinner) view.findViewById(R.id.feedback_category);
+        Spinner spinner = view.findViewById(R.id.feedback_category);
         return FeedbackCategoryAdapter.FeedbackCategory.values()[spinner.getSelectedItemPosition()].getText(getResources());
     }
 
     @Override
     public String getMessageText() {
-        EditText text = (EditText) view.findViewById(R.id.feedback_text);
+        EditText text = view.findViewById(R.id.feedback_text);
         return text.getText().toString();
     }
 }

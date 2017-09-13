@@ -33,7 +33,7 @@ public class LicenseFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.imprint_fragment_license, container, false);
 
-        ListView listview = (ListView) rootView.findViewById(R.id.licence_list);
+        ListView listview = rootView.findViewById(R.id.licence_list);
         LicenseAdapter adapter = new LicenseAdapter(this.getActivity());
         listview.setAdapter(adapter);
 

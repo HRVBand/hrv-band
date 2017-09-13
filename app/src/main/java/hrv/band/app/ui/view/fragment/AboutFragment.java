@@ -30,7 +30,7 @@ public class AboutFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.imprint_fragment_about, container, false);
         IAboutPresenter presenter = new AboutPresenter(getActivity());
 
-        TextView version = (TextView) rootView.findViewById(R.id.about_version);
+        TextView version = rootView.findViewById(R.id.about_version);
         version.setText(presenter.getVersion());
 
         return rootView;

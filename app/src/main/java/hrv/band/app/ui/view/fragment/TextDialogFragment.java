@@ -36,7 +36,7 @@ public abstract class TextDialogFragment extends DialogFragment {
 
         final View view =  View.inflate(getActivity(), R.layout.dialog_simple_text, null);
 
-        TextView textView = (TextView) view.findViewById(R.id.dialog_textview);
+        TextView textView = view.findViewById(R.id.dialog_textview);
         textView.setText(getDialogDescription());
 
         builder.setView(view)

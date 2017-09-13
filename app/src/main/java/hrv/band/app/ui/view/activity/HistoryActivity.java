@@ -56,10 +56,10 @@ public class HistoryActivity extends AppCompatActivity
 
         //set up viewpager
         sectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), presenter.createFragments(), presenter.getPageTitles());
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.statistic_viewpager);
+        ViewPager mViewPager = findViewById(R.id.statistic_viewpager);
         mViewPager.setAdapter(sectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.statistic_tabs);
+        TabLayout tabLayout = findViewById(R.id.statistic_tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         HRVParameterEnum type = (HRVParameterEnum)
@@ -117,7 +117,7 @@ public class HistoryActivity extends AppCompatActivity
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

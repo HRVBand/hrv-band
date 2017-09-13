@@ -44,11 +44,11 @@ public class MeasuredDetailsFragment extends Fragment {
         IMeasurementDetailsPresenter presenter = new MeasurementDetailsPresenter(
                 (Measurement) getArguments().getParcelable(MainActivity.HRV_VALUE), getActivity());
 
-        TextView dateTxt = (TextView) rootView.findViewById(R.id.hrv_date);
-        TextView ratingTxt = (TextView) rootView.findViewById(R.id.hrv_rating);
-        TextView categoryTxt = (TextView) rootView.findViewById(R.id.hrv_category);
-        ImageView categoryIcon = (ImageView) rootView.findViewById(R.id.hrv_category_icon);
-        TextView commentTxt = (TextView) rootView.findViewById(R.id.hrv_comment);
+        TextView dateTxt = rootView.findViewById(R.id.hrv_date);
+        TextView ratingTxt = rootView.findViewById(R.id.hrv_rating);
+        TextView categoryTxt = rootView.findViewById(R.id.hrv_category);
+        ImageView categoryIcon = rootView.findViewById(R.id.hrv_category_icon);
+        TextView commentTxt = rootView.findViewById(R.id.hrv_comment);
 
         dateTxt.setText(presenter.getDate());
         ratingTxt.setText(presenter.getRating());

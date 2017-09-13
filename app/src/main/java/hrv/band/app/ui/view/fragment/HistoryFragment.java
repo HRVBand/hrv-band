@@ -75,15 +75,15 @@ public class HistoryFragment extends Fragment implements Observer {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.statistic_fragment, container, false);
-        ListView listView = (ListView) rootView.findViewById(R.id.stats_measure_history);
+        ListView listView = rootView.findViewById(R.id.stats_measure_history);
 
         if (historyView != null) {
             parameters = historyView.getMeasurements();
         }
         hrvType = (HRVParameterEnum) getArguments().getSerializable(ARG_SECTION_VALUE);
 
-        TextView desc = (TextView) rootView.findViewById(R.id.stats_value_desc);
-        TextView type = (TextView) rootView.findViewById(R.id.stats_type);
+        TextView desc = rootView.findViewById(R.id.stats_value_desc);
+        TextView type = rootView.findViewById(R.id.stats_type);
 
         desc.setText(hrvType.toString());
         type.setText(getUnit());
@@ -105,7 +105,7 @@ public class HistoryFragment extends Fragment implements Observer {
 
         });
 
-        mChart = (ColumnChartView) rootView.findViewById(R.id.stats_chart);
+        mChart = rootView.findViewById(R.id.stats_chart);
 
         if (historyView != null) {
             historyView.drawChart(mChart, hrvType, getActivity());

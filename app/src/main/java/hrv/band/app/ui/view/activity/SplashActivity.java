@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
      * Make sure that the logo fades in.
      */
     private void animateLogo() {
-        ImageView imageView = (ImageView) findViewById(R.id.splash_logo);
+        ImageView imageView = findViewById(R.id.splash_logo);
         Animation startAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_animation);
         imageView.startAnimation(startAnimation);
     }
