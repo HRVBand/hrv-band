@@ -3,6 +3,7 @@
   <string name="development_studio">for MS Band 2 and Ant+</string>
 
   <!-- Common words -->
+  <string name="common_tips">Tips</string>
   <string name="common_help">Help</string>
   <string name="common_rate">Rate</string>
   <string name="common_share">Share</string>

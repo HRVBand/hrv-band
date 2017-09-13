@@ -10,6 +10,7 @@ import hrv.band.app.ui.view.activity.IntroActivity;
 import hrv.band.app.ui.view.activity.SettingsActivity;
 import hrv.band.app.ui.view.activity.WebActivity;
 
+import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_FAQ_URL;
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_PRIVACY_URL;
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_URL;
 
@@ -37,6 +38,9 @@ public class MainPresenter implements IMainPresenter {
     @Override
     public void handleNavBar(int id) {
         switch (id) {
+            case R.id.menu_tips:
+                mainView.startActivity(WebActivity.class, WebActivity.WEBSITE_URL_ID, WEBSITE_FAQ_URL);
+                break;
             case R.id.menu_help:
                 mainView.startActivity(IntroActivity.class);
                 break;

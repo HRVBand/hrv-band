@@ -1,5 +1,7 @@
 package hrv.band.app.ui.presenter;
 
+import org.apache.commons.math3.exception.NumberIsTooSmallException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,11 @@ public class HRVParameterPresenter implements IHRVParameterPresenter {
         }
 
         hrvCalc.setParameters(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
-        return hrvCalc.calculateParameters();
+        try {
+            return hrvCalc.calculateParameters();
+        } catch (NumberIsTooSmallException e) {
+            return new ArrayList<>();
+        }
     }
 
     private void setUnitOfParameters() {

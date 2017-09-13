@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -396,15 +397,22 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
 
     @Override
     public void deviceStatusChanged(HRVDeviceStatus status) {
+        if (getActivity() == null) {
+            return;
+        }
+        Resources resources = getResources();
         switch (status) {
             case CONNECTING:
-                updateTextView(getActivity(), txtStatus, getResources().getString(R.string.msg_connecting));
+                updateTextView(getActivity(), txtStatus, resources.getString(R.string.msg_connecting));
                 break;
             case CONNECTED:
-                updateTextView(getActivity(), txtStatus, getResources().getString(R.string.title_activity_start_measuring));
+                updateTextView(getActivity(), txtStatus, resources.getString(R.string.title_activity_start_measuring));
                 break;
             case DISCONNECTED:
-                updateTextView(getActivity(), txtStatus, getResources().getString(R.string.error_band_not_paired));
+                updateTextView(getActivity(), txtStatus, resources.getString(R.string.error_band_not_paired));
+                break;
+            default:
+                break;
         }
     }
 
