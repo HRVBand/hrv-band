@@ -21,6 +21,6 @@ public class ParameterLoadDayStrategy extends AbstractParameterLoadStrategy {
 
     @Override
     public List<Measurement> loadParameter(Date date) {
-        return storage.loadData(date);
+        return database.measurementDao().loadData(date);
     }
 }

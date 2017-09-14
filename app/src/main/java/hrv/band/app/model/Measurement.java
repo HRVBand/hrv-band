@@ -1,5 +1,8 @@
 package hrv.band.app.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -14,6 +17,7 @@ import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
  *
  * Created by Julian on 11.06.2016.
  */
+@Entity
 public class Measurement implements Parcelable {
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -27,15 +31,48 @@ public class Measurement implements Parcelable {
             return new Measurement[size];
         }
     };
-    private final Date time;
-    private final double[] rrIntervals;
-    private final double rating;
-    private final MeasurementCategoryAdapter.MeasureCategory category;
-    private final String note;
 
-    // example constructor that takes a Parcel and gives you an object populated with it's values
-    private Measurement(Parcel in) {
-        this.time = (Date) in.readValue(getClass().getClassLoader());
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
+    private Date date;
+
+    public double[] getRrIntervals() {
+        return rrIntervals;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setRrIntervals(double[] rrIntervals) {
+        this.rrIntervals = rrIntervals;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setCategory(MeasurementCategoryAdapter.MeasureCategory category) {
+        this.category = category;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    private double[] rrIntervals;
+    private double rating;
+    private MeasurementCategoryAdapter.MeasureCategory category;
+    private String note;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Ignore// example constructor that takes a Parcel and gives you an object populated with it's values
+    protected Measurement(Parcel in) {
+        this.date = (Date) in.readValue(getClass().getClassLoader());
 
         int rrIntervalLength= in.readInt();
         this.rrIntervals = new double[rrIntervalLength];
@@ -45,8 +82,13 @@ public class Measurement implements Parcelable {
         this.note = in.readString();
     }
 
+    public Measurement() {
+
+    }
+
+    @Ignore
     public Measurement(MeasurementBuilder builder) {
-        this.time = builder.time;
+        this.date = builder.time;
         this.rrIntervals = builder.rrIntervals;
         this.rating = builder.rating;
         this.category = builder.category;
@@ -55,7 +97,7 @@ public class Measurement implements Parcelable {
 
     /**
      * Creates a new HRVParameter-Object from a ALLHRVIndiceCalculator object
-     * At the time the data unit can not be changed according to the incoming data
+     * At the date the data unit can not be changed according to the incoming data
      * thats why the data has to be converted to the units given in the HRVValue class
      *
      * @param time Time when the measurement began
@@ -75,7 +117,7 @@ public class Measurement implements Parcelable {
     // write your object's data to the passed-in Parcel
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeValue(time);
+        out.writeValue(date);
         out.writeInt(rrIntervals.length);
         out.writeDoubleArray(rrIntervals);
         out.writeDouble(rating);
@@ -83,8 +125,8 @@ public class Measurement implements Parcelable {
         out.writeString(note);
     }
 
-    public Date getTime() {
-        return time;
+    public Date getDate() {
+        return date;
     }
 
     public double[] getRRIntervals() {
@@ -124,12 +166,12 @@ public class Measurement implements Parcelable {
 
         Measurement param = (Measurement)other;
 
-        return param.getTime().equals(this.getTime());
+        return param.getDate().equals(this.getDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getTime());
+        return Objects.hashCode(getDate());
     }
 
     /**
@@ -148,7 +190,7 @@ public class Measurement implements Parcelable {
         }
 
         public MeasurementBuilder(Measurement parameter) {
-            this.time = parameter.getTime();
+            this.time = parameter.getDate();
             this.rrIntervals = parameter.getRRIntervals();
         }
 

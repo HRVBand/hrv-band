@@ -1,11 +1,9 @@
 package hrv.band.app.ui.presenter;
 
-
 import android.content.Context;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.model.storage.IStorage;
-import hrv.band.app.model.storage.sqlite.HRVSQLController;
+import hrv.band.app.model.storage.room.AppDatabase;
 import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
 
@@ -17,12 +15,12 @@ import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
 public class HRVPresenter implements IHRVPresenter {
 
     private Measurement measurement;
-    private IStorage storage;
+    private AppDatabase database;
 
 
     public HRVPresenter(Measurement measurement, Context context) {
         this.measurement = measurement;
-        this.storage = new HRVSQLController(context);
+        this.database = AppDatabase.getDatabaseInstance(context);
     }
 
     @Override
@@ -32,7 +30,7 @@ public class HRVPresenter implements IHRVPresenter {
 
     @Override
     public void saveMeasurement(IMeasuredDetailsView details) {
-        storage.saveData(createSavableMeasurement(details));
+        database.measurementDao().saveData(createSavableMeasurement(details));
     }
 
     @Override
@@ -40,12 +38,7 @@ public class HRVPresenter implements IHRVPresenter {
         if (measurement == null) {
             return;
         }
-        storage.deleteData(measurement);
-    }
-
-    @Override
-    public IStorage getStorage() {
-        return storage;
+        database.measurementDao().deleteData(measurement);
     }
 
     private Measurement createSavableMeasurement(IMeasuredDetailsView details) {

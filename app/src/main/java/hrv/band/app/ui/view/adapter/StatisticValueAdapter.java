@@ -75,7 +75,7 @@ public class StatisticValueAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.time.setText(formatDateTime(parameters.get(position).getTime()));
+        holder.time.setText(formatDateTime(parameters.get(position).getDate()));
         holder.category.setText(parameters.get(position).getCategory().getText(context.getResources()));
         holder.value.setText(values.get(position));
 

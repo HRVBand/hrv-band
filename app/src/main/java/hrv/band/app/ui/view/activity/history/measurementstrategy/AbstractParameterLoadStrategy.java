@@ -1,13 +1,13 @@
 package hrv.band.app.ui.view.activity.history.measurementstrategy;
 
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import java.util.Date;
 import java.util.List;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.model.storage.IStorage;
-import hrv.band.app.model.storage.sqlite.HRVSQLController;
+import hrv.band.app.model.storage.room.AppDatabase;
 
 /**
  * Copyright (c) 2017
@@ -16,10 +16,10 @@ import hrv.band.app.model.storage.sqlite.HRVSQLController;
  * Strategy to select parameters from db.
  */
 public abstract class AbstractParameterLoadStrategy {
-    protected IStorage storage;
+    protected AppDatabase database;
 
     AbstractParameterLoadStrategy(Context context) {
-        this.storage = new HRVSQLController(context);
+        this.database = AppDatabase.getDatabaseInstance(context);
     }
 
     public abstract List<Measurement> loadParameter(Date date);

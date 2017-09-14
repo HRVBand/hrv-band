@@ -1,7 +1,6 @@
 package hrv.band.app.ui.presenter;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.model.storage.IStorage;
 import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
 
 /**
@@ -14,6 +13,4 @@ public interface IHRVPresenter {
 
     void saveMeasurement(IMeasuredDetailsView fragment);
     void deleteMeasurement();
-
-    IStorage getStorage();
 }

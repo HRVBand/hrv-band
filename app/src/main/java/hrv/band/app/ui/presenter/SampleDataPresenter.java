@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.model.storage.IStorage;
-import hrv.band.app.model.storage.sqlite.HRVSQLController;
+import hrv.band.app.model.storage.room.AppDatabase;
 import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 
 /**
@@ -47,8 +46,8 @@ public class SampleDataPresenter implements ISampleDataPresenter {
     }
 
     private void storeMeasurement(List<Measurement> measurements) {
-        IStorage storage = new HRVSQLController(context);
-        storage.saveData(measurements);
+        AppDatabase storage = AppDatabase.getDatabaseInstance(context);
+        storage.measurementDao().saveData(measurements);
     }
 
     private Measurement createMeasurement(Date date, double[] rrValues) {

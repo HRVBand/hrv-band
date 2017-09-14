@@ -31,7 +31,7 @@ public class ChartDrawWeekStrategy extends AbstractChartDrawStrategy {
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
 
         for (Measurement measurement : measurements) {
-            calendar.setTime(measurement.getTime());
+            calendar.setTime(measurement.getDate());
 
             //Minus 2 because get always returns 1 for sunday.
             int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;

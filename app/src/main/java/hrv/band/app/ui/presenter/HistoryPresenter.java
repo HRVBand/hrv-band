@@ -69,7 +69,7 @@ public class HistoryPresenter implements IHistoryPresenter {
         List<Measurement> result = new ArrayList<>();
         for (Measurement parameter : params) {
             RRData.createFromRRInterval(parameter.getRRIntervals(), units.TimeUnit.SECOND);
-            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(parameter.getTime(), parameter.getRRIntervals())
+            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(parameter.getDate(), parameter.getRRIntervals())
                     .category(parameter.getCategory())
                     .rating(parameter.getRating())
                     .note(parameter.getNote());

@@ -6,7 +6,6 @@ import android.util.Log;
 import java.io.IOException;
 
 import hrv.band.app.R;
-import hrv.band.app.model.storage.sqlite.HRVSQLController;
 import hrv.band.app.ui.view.fragment.IExportView;
 
 /**
@@ -24,7 +23,7 @@ public class ExportPresenter implements IExportPresenter {
     @Override
     public void exportDatabase() {
         Context context = view.getExportContext();
-        HRVSQLController sql = new HRVSQLController(context);
+       /* HRVSQLController sql = new HRVSQLController(context);
         try {
             CharSequence text;
             if (!sql.exportDB()) {
@@ -35,6 +34,6 @@ public class ExportPresenter implements IExportPresenter {
             view.showToast(text);
         } catch (IOException e) {
             Log.e(e.getClass().getName(), "IOException", e);
-        }
+        }*/
     }
 }

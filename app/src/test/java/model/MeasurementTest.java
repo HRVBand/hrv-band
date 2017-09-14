@@ -56,7 +56,7 @@ public class MeasurementTest {
     public void buildSimpleMeasurement() {
         Measurement parameter = measurementBuilder.build();
         assertNotNull(parameter);
-        assertEquals(date, parameter.getTime());
+        assertEquals(date, parameter.getDate());
         assertEquals(rr, parameter.getRRIntervals());
     }
 
@@ -89,7 +89,7 @@ public class MeasurementTest {
         parcel.setDataPosition(0);
 
         Measurement createFromParcel = Measurement.CREATOR.createFromParcel(parcel);
-        assertEquals(parameter.getTime(), createFromParcel.getTime());
+        assertEquals(parameter.getDate(), createFromParcel.getDate());
 
         assertEquals(parameter.getRRIntervals().length, createFromParcel.getRRIntervals().length);
 

@@ -26,7 +26,7 @@ public class MeasurementDetailsPresenter implements IMeasurementDetailsPresenter
 
     @Override
     public String getDate() {
-        return formatDateTime(measurement != null ? measurement.getTime() : null);
+        return formatDateTime(measurement != null ? measurement.getDate() : null);
     }
 
     @Override

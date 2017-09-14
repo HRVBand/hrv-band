@@ -26,7 +26,7 @@ public class ChartDrawDayStrategy extends AbstractChartDrawStrategy {
     protected void setChartValues(List<Measurement> measurements, HRVParameterEnum hrvValueType) {
         Calendar calendar = GregorianCalendar.getInstance();
         for (Measurement measurement : measurements) {
-            calendar.setTime(measurement.getTime());
+            calendar.setTime(measurement.getDate());
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minutes = calendar.get(Calendar.MINUTE) / 15;
 

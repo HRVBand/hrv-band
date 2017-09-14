@@ -34,7 +34,7 @@ public class ChartDrawMonthStrategy extends AbstractChartDrawStrategy {
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         for (Measurement measurement : measurements) {
-            calendar.setTime(measurement.getTime());
+            calendar.setTime(measurement.getDate());
             int day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
 
             double value = getValue(measurement, hrvValueType);

@@ -27,7 +27,7 @@ public class ParameterLoadWeekStrategy extends AbstractParameterLoadStrategy {
         Calendar calendar = getCalenderFromDate(date);
         Date startDate = getStartOfTheWeek(calendar);
         Date endDate = getEndOfWeekDate(calendar);
-        return storage.loadData(startDate, endDate);
+        return database.measurementDao().loadData(startDate, endDate);
     }
 
     private Date getStartOfTheWeek(Calendar calendar) {
