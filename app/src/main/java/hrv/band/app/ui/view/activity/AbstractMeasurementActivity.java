@@ -1,5 +1,6 @@
 package hrv.band.app.ui.view.activity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,8 +13,7 @@ import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.presenter.HRVPresenter;
-import hrv.band.app.ui.presenter.IHRVPresenter;
+import hrv.band.app.ui.presenter.MeasurementViewModel;
 import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
 import hrv.band.app.ui.view.fragment.MeasuredParameterFragment;
 import hrv.band.app.ui.view.fragment.MeasuredRRFragment;
@@ -25,7 +25,10 @@ import hrv.band.app.ui.view.fragment.MeasuredRRFragment;
  * This abstract Activity holds the fragments to show a specific HRV value.
  */
 public abstract class AbstractMeasurementActivity extends AppCompatActivity {
-    protected IHRVPresenter presenter;
+    //protected IHRVPresenter presenter;
+    protected MeasurementViewModel measurementViewModel;
+    protected Measurement measurement; //TODO change to id and create viewmodel to get measurement by id
+    protected int id;
     /**
      * The Fragments this Activity holds.
      **/
@@ -45,8 +48,13 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        presenter = new HRVPresenter((Measurement) getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID), this);
+        measurement = getIntent().getParcelableExtra(MainActivity.HRV_PARAMETER_ID);
+        id = getIntent().getIntExtra(MainActivity.HRV_PARAMETER_ID_ID, -1);
 
+        measurement.setId(id);
+        //presenter = new HRVPresenter(measurement, this);
+
+        measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
         createFragments();
 
         setViewPager();
@@ -92,8 +100,8 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
      */
     private void createFragments() {
         fragments = new ArrayList<>();
-        fragments.add(MeasuredParameterFragment.newInstance(presenter.getMeasurement()));
-        fragments.add(MeasuredRRFragment.newInstance(presenter.getMeasurement()));
+        fragments.add(MeasuredParameterFragment.newInstance(measurement));
+        fragments.add(MeasuredRRFragment.newInstance(measurement));
         addDetailsFragment(fragments);
     }
 

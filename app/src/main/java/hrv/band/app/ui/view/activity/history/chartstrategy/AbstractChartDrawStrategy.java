@@ -102,7 +102,7 @@ public abstract class AbstractChartDrawStrategy {
     }
 
     double getValue(Measurement measurement, HRVParameterEnum hrvValueType) {
-        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
+        HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRrIntervals(), TimeUnit.SECOND));
         if(!hrvCalc.validData()) {
             return -1;
         }

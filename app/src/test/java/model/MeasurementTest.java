@@ -57,7 +57,7 @@ public class MeasurementTest {
         Measurement parameter = measurementBuilder.build();
         assertNotNull(parameter);
         assertEquals(date, parameter.getDate());
-        assertEquals(rr, parameter.getRRIntervals());
+        assertEquals(rr, parameter.getRrIntervals());
     }
 
     @Test
@@ -91,11 +91,11 @@ public class MeasurementTest {
         Measurement createFromParcel = Measurement.CREATOR.createFromParcel(parcel);
         assertEquals(parameter.getDate(), createFromParcel.getDate());
 
-        assertEquals(parameter.getRRIntervals().length, createFromParcel.getRRIntervals().length);
+        assertEquals(parameter.getRrIntervals().length, createFromParcel.getRrIntervals().length);
 
-        int size = parameter.getRRIntervals().length;
+        int size = parameter.getRrIntervals().length;
         for (int i = 0; i < size; i++) {
-            assertEquals(parameter.getRRIntervals()[i], createFromParcel.getRRIntervals()[i]);
+            assertEquals(parameter.getRrIntervals()[i], createFromParcel.getRrIntervals()[i]);
         }
     }
 

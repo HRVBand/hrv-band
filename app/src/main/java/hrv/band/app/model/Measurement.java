@@ -37,9 +37,6 @@ public class Measurement implements Parcelable {
 
     private Date date;
 
-    public double[] getRrIntervals() {
-        return rrIntervals;
-    }
 
     public void setDate(Date date) {
         this.date = date;
@@ -68,6 +65,10 @@ public class Measurement implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Ignore// example constructor that takes a Parcel and gives you an object populated with it's values
@@ -129,7 +130,7 @@ public class Measurement implements Parcelable {
         return date;
     }
 
-    public double[] getRRIntervals() {
+    public double[] getRrIntervals() {
         return rrIntervals;
     }
 
@@ -191,7 +192,7 @@ public class Measurement implements Parcelable {
 
         public MeasurementBuilder(Measurement parameter) {
             this.time = parameter.getDate();
-            this.rrIntervals = parameter.getRRIntervals();
+            this.rrIntervals = parameter.getRrIntervals();
         }
 
 

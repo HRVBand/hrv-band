@@ -67,9 +67,9 @@ public class StatisticValueAdapter extends BaseAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.statistic_value_item, parent, false);
             holder = new ViewHolder();
-            holder.value = (TextView) convertView.findViewById(R.id.stats_value);
-            holder.time = (TextView) convertView.findViewById(R.id.stats_time);
-            holder.category = (TextView) convertView.findViewById(R.id.stats_category);
+            holder.value = convertView.findViewById(R.id.stats_value);
+            holder.time = convertView.findViewById(R.id.stats_time);
+            holder.category = convertView.findViewById(R.id.stats_category);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -120,7 +120,7 @@ public class StatisticValueAdapter extends BaseAdapter {
         }
 
         for (Measurement measurement : measurements) {
-            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRRIntervals(), TimeUnit.SECOND));
+            HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(measurement.getRrIntervals(), TimeUnit.SECOND));
             if (!hrvCalc.validData()) {
                 continue;
             }

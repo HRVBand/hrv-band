@@ -46,12 +46,13 @@ public class HistoryPresenter implements IHistoryPresenter {
         parameterSet = HRVParameterSettings.DefaultSettings.visibleHRVParameters;
         chartStrategy = new ChartDrawDayStrategy();
         parameterStrategy = new ParameterLoadDayStrategy(context);
-        this.measurements = getMeasurements(new Date());
+        //this.measurements = getMeasurements(new Date());
 
     }
 
     private List<Measurement> getMeasurements(Date date) {
-        return createMeasurements(parameterStrategy.loadParameter(date));
+        //return createMeasurements(parameterStrategy.loadParameter(date).getValue());
+        return null;
     }
 
     @Override
@@ -61,15 +62,15 @@ public class HistoryPresenter implements IHistoryPresenter {
 
     @Override
     public void drawChart(ColumnChartView chart, HRVParameterEnum hrvValue, Context context) {
-        chartStrategy.drawChart(measurements, chart, hrvValue, context);
+        //chartStrategy.drawChart(measurements, chart, hrvValue, context);
     }
 
     @NonNull
     private List<Measurement> createMeasurements(List<Measurement> params) {
         List<Measurement> result = new ArrayList<>();
         for (Measurement parameter : params) {
-            RRData.createFromRRInterval(parameter.getRRIntervals(), units.TimeUnit.SECOND);
-            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(parameter.getDate(), parameter.getRRIntervals())
+            RRData.createFromRRInterval(parameter.getRrIntervals(), units.TimeUnit.SECOND);
+            Measurement.MeasurementBuilder measurementBuilder = Measurement.from(parameter.getDate(), parameter.getRrIntervals())
                     .category(parameter.getCategory())
                     .rating(parameter.getRating())
                     .note(parameter.getNote());

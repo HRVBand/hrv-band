@@ -1,5 +1,6 @@
 package hrv.band.app.ui.view.activity.history.measurementstrategy;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ public class ParameterLoadDayStrategy extends AbstractParameterLoadStrategy {
     }
 
     @Override
-    public List<Measurement> loadParameter(Date date) {
+    public LiveData<List<Measurement>> loadParameter(Date date) {
         return database.measurementDao().loadData(date);
     }
 }

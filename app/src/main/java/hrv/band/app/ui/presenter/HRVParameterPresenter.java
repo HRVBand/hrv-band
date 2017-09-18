@@ -45,7 +45,7 @@ public class HRVParameterPresenter implements IHRVParameterPresenter {
         }
 
         HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(
-                measurement.getRRIntervals(), TimeUnit.SECOND));
+                measurement.getRrIntervals(), TimeUnit.SECOND));
 
         if(!hrvCalc.validData()) {
             return new ArrayList<>();

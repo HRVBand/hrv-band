@@ -34,7 +34,7 @@ public class EditableMeasurementActivity extends AbstractMeasurementActivity {
 
     @Override
     protected void addDetailsFragment(List<Fragment> fragments) {
-        fragments.add(MeasuredDetailsFragment.newInstance(presenter.getMeasurement()));
+        fragments.add(MeasuredDetailsFragment.newInstance(measurement));
     }
 
     @Override
@@ -63,8 +63,7 @@ public class EditableMeasurementActivity extends AbstractMeasurementActivity {
      * Deletes the actual parameter.
      */
     private void deleteMeasurement() {
-        presenter.deleteMeasurement();
-        setResult(HistoryActivity.RESULT_DELETED);
+        measurementViewModel.deleteMeasurement(measurement);
         this.finish();
     }
 

@@ -93,7 +93,7 @@ public class MeasuredRRFragment extends Fragment {
     private List<Column> createChartData() {
         List<Column> columns = new ArrayList<>();
         List<SubcolumnValue> values;
-        double[] rrIntervals = presenter.getMeasurement().getRRIntervals();
+        double[] rrIntervals = presenter.getMeasurement().getRrIntervals();
         for (double rrInterval : rrIntervals) {
 
             values = new ArrayList<>();

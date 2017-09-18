@@ -1,5 +1,6 @@
 package hrv.band.app.ui.view.activity.history.measurementstrategy;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
@@ -22,5 +23,5 @@ public abstract class AbstractParameterLoadStrategy {
         this.database = AppDatabase.getDatabaseInstance(context);
     }
 
-    public abstract List<Measurement> loadParameter(Date date);
+    public abstract LiveData<List<Measurement>> loadParameter(Date date);
 }

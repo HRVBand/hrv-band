@@ -48,7 +48,7 @@ public class HistoryPresenterTest {
         date = new Date();
 
         MockitoAnnotations.initMocks(this);
-        when(parameterLoadStrategy.loadParameter(date)).thenReturn(getMeasurements());
+        //when(parameterLoadStrategy.loadParameter(date)).thenReturn(getMeasurements());
 
         presenter = new HistoryPresenter(view, RuntimeEnvironment.application);
     }

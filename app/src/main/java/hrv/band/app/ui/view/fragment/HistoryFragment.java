@@ -1,27 +1,28 @@
 package hrv.band.app.ui.view.fragment;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import hrv.band.app.R;
 import hrv.band.app.model.HRVParameterUnitAdapter;
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.activity.EditableMeasurementActivity;
+import hrv.band.app.ui.presenter.HistoryViewModel;
 import hrv.band.app.ui.view.activity.IHistoryView;
-import hrv.band.app.ui.view.activity.MainActivity;
-import hrv.band.app.ui.view.adapter.StatisticValueAdapter;
+import hrv.band.app.ui.view.adapter.HistoryViewAdapter;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
@@ -33,7 +34,7 @@ import static hrv.band.app.ui.view.activity.HistoryActivity.RESULT_DELETED;
  * <p>
  * Fragment allowing user to start measurement.
  */
-public class HistoryFragment extends Fragment implements Observer {
+public class HistoryFragment extends Fragment {
 
     /**
      * Key value for the hrv type of this fragment.
@@ -42,7 +43,7 @@ public class HistoryFragment extends Fragment implements Observer {
     /**
      * The adapter holding the parameters to show.
      **/
-    private StatisticValueAdapter adapter;
+    private HistoryViewAdapter adapter;
     /**
      * The chart showing the parameters in this fragment.
      **/
@@ -51,12 +52,10 @@ public class HistoryFragment extends Fragment implements Observer {
      * The hrv type that this fragment is showing.
      **/
     private HRVParameterEnum hrvType;
-    /**
-     * The parameters this fragment should show.
-     **/
-    private List<Measurement> parameters;
 
     private IHistoryView historyView;
+
+    private HistoryViewModel historyViewModel;
 
     /**
      * Returns a new instance of this fragment.
@@ -75,11 +74,7 @@ public class HistoryFragment extends Fragment implements Observer {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.statistic_fragment, container, false);
-        ListView listView = rootView.findViewById(R.id.stats_measure_history);
-
-        if (historyView != null) {
-            parameters = historyView.getMeasurements();
-        }
+        RecyclerView recyclerView = rootView.findViewById(R.id.stats_measure_history);
         hrvType = (HRVParameterEnum) getArguments().getSerializable(ARG_SECTION_VALUE);
 
         TextView desc = rootView.findViewById(R.id.stats_value_desc);
@@ -89,20 +84,17 @@ public class HistoryFragment extends Fragment implements Observer {
         type.setText(getUnit());
 
 
-        adapter = new StatisticValueAdapter(getActivity().getApplicationContext(),
-                hrvType, parameters);
-        listView.setAdapter(adapter);
+        adapter = new HistoryViewAdapter(hrvType, new ArrayList<Measurement>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        historyViewModel = ViewModelProviders.of(HistoryFragment.this).get(HistoryViewModel.class);
 
+        historyViewModel.getMeasurements(new Date()).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                Intent intent = new Intent(getContext(), EditableMeasurementActivity.class);
-                intent.putExtra(MainActivity.HRV_PARAMETER_ID, parameters.get(position));
-                startActivityForResult(intent, 1);
+            public void onChanged(@Nullable List<Measurement> measurements) {
+                adapter.addItems(measurements);
             }
-
         });
 
         mChart = rootView.findViewById(R.id.stats_chart);
@@ -134,7 +126,7 @@ public class HistoryFragment extends Fragment implements Observer {
         }
     }
 
-    @Override
+    /*@Override
     public void update(Observable observable, Object o) {
         parameters = historyView.getMeasurements();
         if (adapter != null) {
@@ -142,5 +134,5 @@ public class HistoryFragment extends Fragment implements Observer {
             adapter.notifyDataSetChanged();
             historyView.drawChart(mChart, hrvType, getActivity());
         }
-    }
+    }*/
 }

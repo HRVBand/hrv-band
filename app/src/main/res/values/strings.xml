@@ -1,232 +1,233 @@
 <resources>
-  <string name="app_name" translatable="false">HRV Band</string>
-  <string name="development_studio">for MS Band 2 and Ant+</string>
+    <string name="app_name" translatable="false">HRV Band</string>
+    <string name="development_studio">for MS Band 2 and Ant+</string>
 
-  <!-- Common words -->
-  <string name="common_tips">Tips</string>
-  <string name="common_help">Help</string>
-  <string name="common_rate">Rate</string>
-  <string name="common_share">Share</string>
-  <string name="common_imprint">Imprint</string>
-  <string name="common_close">Close</string>
-  <string name="common_bold_measure">MEASURE</string>
-  <string name="common_bold_overview">OVERVIEW</string>
-  <string name="common_export">Export</string>
-  <string name="common_import">Import</string>
-  <string name="common_cancel">Cancel</string>
-  <string name="common_create">Create</string>
-  <string name="common_yes">Yes</string>
-  <string name="common_no">No</string>
-  <string name="common_ok">OK</string>
-  <string name="common_saved">Saved</string>
-
-
-  <!-- Sentences -->
-  <string name="sentence_how_do_you_feel">How Do You Feel?</string>
-  <string name="sentence_export_db">Exports the Database into the Documents Folder.</string>
-
-  <!-- Navigation Drawer -->
-  <string name="navigation_drawer_open">Open navigation drawer</string>
-  <string name="navigation_drawer_close">Close navigation drawer</string>
-
-  <!-- Activity Main Drawer -->
-  <string name="main_drawer_website">Website</string>
-  <string name="main_drawer_feedback" translatable="false">Feedback</string>
-  <string name="main_drawer_privacy_policy">Privacy Policy</string>
-  <string name="main_drawer_settings">Settings</string>
-
-  <!-- Title Activity-->
-  <string name="title_activity_save_values">Measurement Details</string>
-  <string name="title_activity_start_measuring">Press To Start Measurement</string>
-  <string name="title_activity_statistic">Measure History</string>
-  <string name="title_activity_hrv_value">Measure Details</string>
-  <string name="title_activity_web_view">Website</string>
-
-  <!-- Measurement Categories-->
-  <string name="measure_category_general">General</string>
-  <string name="measure_category_relaxed">Relaxed</string>
-  <string name="measure_category_work">Work</string>
-  <string name="measure_category_stressed">Stressed</string>
-  <string name="measure_category_sport">Sport</string>
-
-  <!-- Measure Fragment -->
-  <string name="measure_fragment_min">min:</string>
-  <string name="measure_fragment_time_unit" translatable="false"> s</string>
-  <string name="measure_fragment_max">max:</string>
-  <string name="measure_fragment_avg">average:</string>
-  <string name="measure_fragment_count">count:</string>
-  <string name="measure_fragment_press_to_start">Press To Start Measurement</string>
-  <string name="measure_fragment_bpm">bpm</string>
-  <string name="measure_fragment_standard_pulse_value">0</string>
-
-  <string name="measure_cancel_title">Stop Measuring?</string>
-  <string name="measure_cancel_desc">Do you really want to stop the measurement?</string>
-
-  <!-- ui.view.fragment measure details -->
-  <string name="measure_details_measure_category">Measurement Category</string>
-  <string name="measure_detail_add_comment_msg">Add a Comment to Your Measurement</string>
-
-  <!-- content measure -->
-  <string name="measure_content_rr_status_standard">0,00</string>
-  <string name="measure_content_rr" translatable="false">RR-I</string>
-  <string name="measure_content_time_unit">sec</string>
-
-  <!-- measure list item -->
-  <string name="measure_list_item_std_hrv">12,13</string>
-  <string name="measure_list_item_unit">ms</string>
-
-  <!-- statistic value item -->
-  <string name="stat_val_item_std_time" translatable="false">14:00 PM</string>
-  <string name="stat_val_item_std_category" translatable="false">General</string>
-  <string name="stat_val_item_std_stats_value" translatable="false">12,13</string>
-
-  <!-- statistic ui.view.context -->
-  <string name="menu_calender" translatable="false">Calender</string>
-  <string name="menu_calender_day">Day</string>
-  <string name="menu_calender_week">Week</string>
-  <string name="menu_calender_month">Month</string>
-
-  <!-- overview list item -->
-  <string name="overview_list_item_as">as</string>
-
-  <!-- HRV Value Activity -->
-  <string name="hrv_activity_tab_value">HRV Values</string>
-  <string name="hrv_activity_tab_rr">RR Intervals</string>
-  <string name="hrv_activity_tab_details">Details</string>
-
-  <string name="hrv_value_standard_date">28 August 2015</string>
-  <string name="hrv_value_standard_rating">3.5 / 5</string>
-  <string name="hrv_value_standard_category">General</string>
-  <string name="hrv_value_comment">That was a great measurement</string>
-
-  <string name="hrv_measurement_cancel_title">Cancel Measurement?</string>
-  <string name="hrv_measurement_cancel_desc">Do you want to NOT save the measurement?</string>
-
-  <!-- overview add items footer -->
-
-  <!-- Share Dialog -->
-  <string name="share_subject">New Universal Health App</string>
-  <string name="share_body">Hey checkout this new App HRV Band! It can measure your hear rate variability with your Microsoft Band 2 or an Ant+ compatible device!! https://play.google.com/store/apps/details?id=hrv.band.aurora&amp;hl=de</string>
-  <string name="share_via">Share via</string>
-
-  <!-- Feedback Dialog -->
-  <string name="feedback_send">Send</string>
-  <string name="feedback_cancel">Cancel</string>
-  <string name="feedback_itsa">It is a:</string>
-  <string name="feedback_textview">Love it? Hate it? Would you like to suggest a new feature or report a big? We would love to hear from you!</string>
-  <string name="feedback_category_bug">Bug</string>
-  <string name="feedback_category_idea">Idea</string>
-  <string name="feedback_category_question">Question</string>
-  <string name="feedback_your_comment" translatable="false">Your Comment</string>
-
-  <!-- Sample Data Fragment -->
-  <string name="sample_title">Create Sample Data</string>
-  <string name="sample_text">Do you want to create sample data to use functionality that is only usable if you connect a supported device? You can show the data in the overview. Afterwards you need to remove it manually!</string>
-
-  <!-- HRV Explanations -->
-
-  <!-- Imprint -->
-  <string name="tab_about">About</string>
-  <string name="tab_license">License</string>
-  <string name="tab_disclaimer">Disclaimer</string>
-  <string name="tab_privacy">Privacy</string>
-
-  <string name="icon" translatable="false">Icon made by Freepik from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
-
-  <string name="developers">Developers</string>
-  <string name="developer_thomas">Thomas github.com/thomcz</string>
-  <string name="developer_julian">Julian github.com/Fenox</string>
-  <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
-  <string name="website" translatable="false">Website: hrvband.de</string>
-
-  <!-- Error Messages -->
-  <string name="error">Error</string>
-  <string name="error_defective_rr_data">"RR-Data was defective. Is your device connected or your measure time to low?"</string>
-  <string name="error_band_not_paired">Band isn\'t paired with your phone.</string>
-  <string name="error_device_not_connected_help">"Device isn't connected. Is bluetooth on and the device in range?</string>
-
-  <!-- Connect Devices -->
-  <string name="connect_to_band">Connect to MS Band</string>
-  <string name="connect_to_antplus">Connect to ANT+</string>
-  <string name="disconnect_devices">Disconnect Device</string>
+    <!-- Common words -->
+    <string name="common_tips">Tips</string>
+    <string name="common_help">Help</string>
+    <string name="common_rate">Rate</string>
+    <string name="common_share">Share</string>
+    <string name="common_imprint">Imprint</string>
+    <string name="common_close">Close</string>
+    <string name="common_bold_measure">MEASURE</string>
+    <string name="common_bold_overview">OVERVIEW</string>
+    <string name="common_export">Export</string>
+    <string name="common_import">Import</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_create">Create</string>
+    <string name="common_yes">Yes</string>
+    <string name="common_no">No</string>
+    <string name="common_ok">OK</string>
+    <string name="common_saved">Saved</string>
 
 
-  <!-- Messages -->
-  <string name="msg_connecting">Connecting to Device…</string>
-  <string name="msg_disconnecting">Device Disconnected</string>
-  <string name="msg_hold_still">Hold Still During Measurement.</string>
-  <string name="msg_select_device">Select a Device</string>
-  <string name="sentence_import_failed">Could not import Database.</string>
-  <string name="sentence_import_worked" translatable="false">Imported Database</string>
-  <string name="sentence_export_worked" translatable="false">Exported Database</string>
-  <string name="sentence_export_failed">Could not Export Database</string>
-  <string name="disclaimer">Disclaimer</string>
-  <string name="disclaimerText">This application offers health information for informational purposes only. The application do not offer medical advice nor professional advice for medical diagnosis or treatment and you should not rely on the information in this application. If you have any medical condition consult a doctor before using this application. All the information contained in the application or website are similar to that of textbooks or other health resources. We do not accept any responsibility for the correctness of the provided information. You agree to use the service at your own sole risk</string>
-  <string name="agree">Agree</string>
-  <string name="disagree">Disagree</string>
-  <string name="privacyText">HRV Band does save all your data on your smart phone. Nothing is sent to any server! </string>
+    <!-- Sentences -->
+    <string name="sentence_how_do_you_feel">How Do You Feel?</string>
+    <string name="sentence_export_db">Exports the Database into the Documents Folder.</string>
 
-  <!--HRV Value Desc -->
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
-  <!-- Settings -->
-  <string name="settings_record_length">RR-Recording-Time (s)</string>
-  <string name="settings_record_length_summary">Record length should be larger than 64 seconds to ensure proper results.</string>
-  <string name="settings_group_other">Other</string>
-  <string name="settings_export">Export</string>
-  <string name="settings_export_summary">Data gets exported to the documents folder.</string>
-  <string name="settings_import">Import</string>
-  <string name="settings_sample">Create Sample Data</string>
-  <string name="settings_sample_summary">Create a set of sample data to view them in the overview.</string>
-  <string name="settings_group_measurement">Measurement</string>
-  <string name="settings_request_ext_write_message">Needed to write file.</string>
+    <!-- Activity Main Drawer -->
+    <string name="main_drawer_website">Website</string>
+    <string name="main_drawer_feedback" translatable="false">Feedback</string>
+    <string name="main_drawer_privacy_policy">Privacy Policy</string>
+    <string name="main_drawer_settings">Settings</string>
 
-  <string name="invalid_input">Invalid Input</string>
-  <string name="invalid_measurement_length_character">RR-Recording-Time can only contain digits.</string>
-  <string name="settings_invalid_measurement_length">RR-Recording-Time has to be between 10 and 999999</string>
+    <!-- Title Activity-->
+    <string name="title_activity_save_values">Measurement Details</string>
+    <string name="title_activity_start_measuring">Press To Start Measurement</string>
+    <string name="title_activity_statistic">Measure History</string>
+    <string name="title_activity_hrv_value">Measure Details</string>
+    <string name="title_activity_web_view">Website</string>
 
-  <!-- Tutorial-->
-  <string name="tutorial_welcome_title">Welcome</string>
-  <string name="tutorial_welcome_desc">Welcome to HRV Band! This app helps you to keep track of your heart rate variability (HRV).</string>
-  <string name="tutorial_connecting_title">Connecting</string>
-  <string name="tutorial_connecting_desc">To start a measurement put on your device and configure it with your phone as it says on your device instruction!</string>
-  <string name="tutorial_measurement_title">Start</string>
-  <string name="tutorial_measurement_desc">Now you can press the big measure button in the middle of the screen to start measurement. Before your first measurement you need to select your device.</string>
-  <string name="tutorial_saving_title">Save</string>
-  <string name="tutorial_saving_desc">Save your measurement and the calculated HRV parameters by pressing the save button.</string>
-  <string name="tutorial_personalize_title">Personalize</string>
-  <string name="tutorial_personalize_desc">You can extend your measurement by rating, selecting a category and adding a note to it.</string>
-  <string name="tutorial_values_title">Values</string>
-  <string name="tutorial_values_desc">HRV Band calculates multiple HRV parameters which can indicate stress or other issues! Explore the app to learn more!</string>
-  <string name="tutorial_monitor_title">Monitor</string>
-  <string name="tutorial_monitor_desc">Monitor your measurements and analyze single measurements by clicking on them.</string>
+    <!-- Measurement Categories-->
+    <string name="measure_category_general">General</string>
+    <string name="measure_category_relaxed">Relaxed</string>
+    <string name="measure_category_work">Work</string>
+    <string name="measure_category_stressed">Stressed</string>
+    <string name="measure_category_sport">Sport</string>
 
-  <string name="tutorial_cancel_title">Cancel The Tutorial?</string>
-  <string name="tutorial_cancel_desc">Do you really want to cancel the tutorial?</string>
+    <!-- Measure Fragment -->
+    <string name="measure_fragment_min">min:</string>
+    <string name="measure_fragment_time_unit" translatable="false"> s</string>
+    <string name="measure_fragment_max">max:</string>
+    <string name="measure_fragment_avg">average:</string>
+    <string name="measure_fragment_count">count:</string>
+    <string name="measure_fragment_press_to_start">Press To Start Measurement</string>
+    <string name="measure_fragment_bpm">bpm</string>
+    <string name="measure_fragment_standard_pulse_value">0</string>
 
-  <!-- Web Activity -->
-  <string name="web_back">Return</string>
-  <string name="web_navigation">Navigation</string>
-  <string name="web_home">Home</string>
-  <string name="web_background">Background</string>
-  <string name="web_faq">FAQ</string>
-  <string name="web_privacy">Privacy</string>
-  <string name="web_about">About</string>
+    <string name="measure_cancel_title">Stop Measuring?</string>
+    <string name="measure_cancel_desc">Do you really want to stop the measurement?</string>
 
-  <!-- Day of week shortcut -->
-  <string name="monday_sc">Mo</string>
-  <string name="tuesday_sc">Tu</string>
-  <string name="wednesday_sc">Mi</string>
-  <string name="thursday_sc">Th</string>
-  <string name="friday_sc">Fr</string>
-  <string name="saturday_sc">Sa</string>
-  <string name="sunday_sc">Su</string>
+    <!-- ui.view.fragment measure details -->
+    <string name="measure_details_measure_category">Measurement Category</string>
+    <string name="measure_detail_add_comment_msg">Add a Comment to Your Measurement</string>
 
-  <!-- Survey -->
-  <string name="survey_title">Survey</string>
-  <string name="survey_desc">First of all, thanks for choosing HRV Band :) To improve the development of HRV Band we would like to invite you to take a survey. The survey is anonym and will take only a small amount of your time! If you don’t have time yet you can find the link in the side bar. Thanks and keep enjoying HRV Band ;)</string>
-  <string name="survey_take">Participate</string>
-  <string name="survey_later">Later</string>
-  <string name="survey_href" translatable="false">https://goo.gl/forms/pbvuuOZ2SuJdbSwE2</string>
+    <!-- content measure -->
+    <string name="measure_content_rr_status_standard">0,00</string>
+    <string name="measure_content_rr" translatable="false">RR-I</string>
+    <string name="measure_content_time_unit">sec</string>
+
+    <!-- measure list item -->
+    <string name="measure_list_item_std_hrv">12,13</string>
+    <string name="measure_list_item_unit">ms</string>
+
+    <!-- statistic value item -->
+    <string name="stat_val_item_std_time" translatable="false">14:00 PM</string>
+    <string name="stat_val_item_std_category" translatable="false">General</string>
+    <string name="stat_val_item_std_stats_value" translatable="false">12,13</string>
+
+    <!-- statistic ui.view.context -->
+    <string name="menu_calender" translatable="false">Calender</string>
+    <string name="menu_calender_day">Day</string>
+    <string name="menu_calender_week">Week</string>
+    <string name="menu_calender_month">Month</string>
+
+    <!-- overview list item -->
+    <string name="overview_list_item_as">as</string>
+
+    <!-- HRV Value Activity -->
+    <string name="hrv_activity_tab_value">HRV Values</string>
+    <string name="hrv_activity_tab_rr">RR Intervals</string>
+    <string name="hrv_activity_tab_details">Details</string>
+
+    <string name="hrv_value_standard_date">28 August 2015</string>
+    <string name="hrv_value_standard_rating">3.5 / 5</string>
+    <string name="hrv_value_standard_category">General</string>
+    <string name="hrv_value_comment">That was a great measurement</string>
+
+    <string name="hrv_measurement_cancel_title">Cancel Measurement?</string>
+    <string name="hrv_measurement_cancel_desc">Do you want to NOT save the measurement?</string>
+
+    <!-- overview add items footer -->
+
+    <!-- Share Dialog -->
+    <string name="share_subject">New Universal Health App</string>
+    <string name="share_body">Hey checkout this new App HRV Band! It can measure your hear rate variability with your Microsoft Band 2 or an Ant+ compatible device!! https://play.google.com/store/apps/details?id=hrv.band.aurora&amp;hl=de</string>
+    <string name="share_via">Share via</string>
+
+    <!-- Feedback Dialog -->
+    <string name="feedback_send">Send</string>
+    <string name="feedback_cancel">Cancel</string>
+    <string name="feedback_itsa">It is a:</string>
+    <string name="feedback_textview">Love it? Hate it? Would you like to suggest a new feature or report a big? We would love to hear from you!</string>
+    <string name="feedback_category_bug">Bug</string>
+    <string name="feedback_category_idea">Idea</string>
+    <string name="feedback_category_question">Question</string>
+    <string name="feedback_your_comment" translatable="false">Your Comment</string>
+
+    <!-- Sample Data Fragment -->
+    <string name="sample_title">Create Sample Data</string>
+    <string name="sample_text">Do you want to create sample data to use functionality that is only usable if you connect a supported device? You can show the data in the overview. Afterwards you need to remove it manually!</string>
+
+    <!-- HRV Explanations -->
+
+    <!-- Imprint -->
+    <string name="tab_about">About</string>
+    <string name="tab_license">License</string>
+    <string name="tab_disclaimer">Disclaimer</string>
+    <string name="tab_privacy">Privacy</string>
+
+    <string name="icon" translatable="false">Icon made by Freepik from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></string>
+
+    <string name="developers">Developers</string>
+    <string name="developer_thomas">Thomas github.com/thomcz</string>
+    <string name="developer_julian">Julian github.com/Fenox</string>
+    <string name="developer_matthaeus">Matthäus github.com/Thaeus</string>
+    <string name="website" translatable="false">Website: hrvband.de</string>
+
+    <!-- Error Messages -->
+    <string name="error">Error</string>
+    <string name="error_defective_rr_data">"RR-Data was defective. Is your device connected or your measure time to low?"</string>
+    <string name="error_band_not_paired">Band isn\'t paired with your phone.</string>
+    <string name="error_device_not_connected_help">"Device isn't connected. Is bluetooth on and the device in range?</string>
+
+    <!-- Connect Devices -->
+    <string name="connect_to_band">Connect to MS Band</string>
+    <string name="connect_to_antplus">Connect to ANT+</string>
+    <string name="disconnect_devices">Disconnect Device</string>
+
+
+    <!-- Messages -->
+    <string name="msg_connecting">Connecting to Device…</string>
+    <string name="msg_disconnecting">Device Disconnected</string>
+    <string name="msg_hold_still">Hold Still During Measurement.</string>
+    <string name="msg_select_device">Select a Device</string>
+    <string name="sentence_import_failed">Could not import Database.</string>
+    <string name="sentence_import_worked" translatable="false">Imported Database</string>
+    <string name="sentence_export_worked" translatable="false">Exported Database</string>
+    <string name="sentence_export_failed">Could not Export Database</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="disclaimerText">This application offers health information for informational purposes only. The application do not offer medical advice nor professional advice for medical diagnosis or treatment and you should not rely on the information in this application. If you have any medical condition consult a doctor before using this application. All the information contained in the application or website are similar to that of textbooks or other health resources. We do not accept any responsibility for the correctness of the provided information. You agree to use the service at your own sole risk</string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
+    <string name="privacyText">HRV Band does save all your data on your smart phone. Nothing is sent to any server! </string>
+
+    <!--HRV Value Desc -->
+
+    <!-- Settings -->
+    <string name="settings_record_length">RR-Recording-Time (s)</string>
+    <string name="settings_record_length_summary">Record length should be larger than 64 seconds to ensure proper results.</string>
+    <string name="settings_group_other">Other</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_export_summary">Data gets exported to the documents folder.</string>
+    <string name="settings_import">Import</string>
+    <string name="settings_sample">Create Sample Data</string>
+    <string name="settings_sample_summary">Create a set of sample data to view them in the overview.</string>
+    <string name="settings_group_measurement">Measurement</string>
+    <string name="settings_request_ext_write_message">Needed to write file.</string>
+
+    <string name="invalid_input">Invalid Input</string>
+    <string name="invalid_measurement_length_character">RR-Recording-Time can only contain digits.</string>
+    <string name="settings_invalid_measurement_length">RR-Recording-Time has to be between 10 and 999999</string>
+
+    <!-- Tutorial-->
+    <string name="tutorial_welcome_title">Welcome</string>
+    <string name="tutorial_welcome_desc">Welcome to HRV Band! This app helps you to keep track of your heart rate variability (HRV).</string>
+    <string name="tutorial_connecting_title">Connecting</string>
+    <string name="tutorial_connecting_desc">To start a measurement put on your device and configure it with your phone as it says on your device instruction!</string>
+    <string name="tutorial_measurement_title">Start</string>
+    <string name="tutorial_measurement_desc">Now you can press the big measure button in the middle of the screen to start measurement. Before your first measurement you need to select your device.</string>
+    <string name="tutorial_saving_title">Save</string>
+    <string name="tutorial_saving_desc">Save your measurement and the calculated HRV parameters by pressing the save button.</string>
+    <string name="tutorial_personalize_title">Personalize</string>
+    <string name="tutorial_personalize_desc">You can extend your measurement by rating, selecting a category and adding a note to it.</string>
+    <string name="tutorial_values_title">Values</string>
+    <string name="tutorial_values_desc">HRV Band calculates multiple HRV parameters which can indicate stress or other issues! Explore the app to learn more!</string>
+    <string name="tutorial_monitor_title">Monitor</string>
+    <string name="tutorial_monitor_desc">Monitor your measurements and analyze single measurements by clicking on them.</string>
+
+    <string name="tutorial_cancel_title">Cancel The Tutorial?</string>
+    <string name="tutorial_cancel_desc">Do you really want to cancel the tutorial?</string>
+
+    <!-- Web Activity -->
+    <string name="web_back">Return</string>
+    <string name="web_navigation">Navigation</string>
+    <string name="web_home">Home</string>
+    <string name="web_background">Background</string>
+    <string name="web_faq">FAQ</string>
+    <string name="web_privacy">Privacy</string>
+    <string name="web_about">About</string>
+
+    <!-- Day of week shortcut -->
+    <string name="monday_sc">Mo</string>
+    <string name="tuesday_sc">Tu</string>
+    <string name="wednesday_sc">Mi</string>
+    <string name="thursday_sc">Th</string>
+    <string name="friday_sc">Fr</string>
+    <string name="saturday_sc">Sa</string>
+    <string name="sunday_sc">Su</string>
+
+    <!-- Survey -->
+    <string name="survey_title">Survey</string>
+    <string name="survey_desc">First of all, thanks for choosing HRV Band :) To improve the development of HRV Band we would like to invite you to take a survey. The survey is anonym and will take only a small amount of your time! If you don’t have time yet you can find the link in the side bar. Thanks and keep enjoying HRV Band ;)</string>
+    <string name="survey_take">Participate</string>
+    <string name="survey_later">Later</string>
+    <string name="survey_href" translatable="false">https://goo.gl/forms/pbvuuOZ2SuJdbSwE2</string>
+    <string name="title_activity_history2">HistoryActivity2</string>
 
 
 </resources>

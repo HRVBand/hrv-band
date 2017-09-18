@@ -1,5 +1,6 @@
 package hrv.band.app.ui.view.activity.history.measurementstrategy;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -23,7 +24,7 @@ public class ParameterLoadMonthStrategy extends AbstractParameterLoadStrategy {
     }
 
     @Override
-    public List<Measurement> loadParameter(Date date) {
+    public LiveData<List<Measurement>> loadParameter(Date date) {
         Calendar calendar = getCalenderFromDate(date);
         Date startDate = getStartOfMonthDate(calendar);
         Date endDate = getEndOfMonthDate(calendar);

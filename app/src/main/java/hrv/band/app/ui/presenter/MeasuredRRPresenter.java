@@ -31,7 +31,7 @@ public class MeasuredRRPresenter implements IRRPresenter {
         if (measurement == null) {
             return;
         }
-        double[] rrIntervals = measurement.getRRIntervals();
+        double[] rrIntervals = measurement.getRrIntervals();
         rrCount = rrIntervals.length;
         rrMin = Double.MAX_VALUE;
 

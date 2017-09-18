@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IMainView {
 
     public static final String HRV_PARAMETER_ID = "HRV_PARAMETER";
+    public static final String HRV_PARAMETER_ID_ID = "HRV_PARAMETER_ID";
     public static final String HRV_VALUE = "hrv_rr_value";
 
     private IMainPresenter presenter;
@@ -243,4 +244,5 @@ public class MainActivity extends AppCompatActivity
     public Activity getMainActivity() {
         return this;
     }
+
 }
