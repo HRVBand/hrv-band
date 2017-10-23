@@ -30,5 +30,4 @@
     android:text="@string/measure_list_item_unit"
     android:textSize="18sp"
     android:padding="6dip"/>
-
 </LinearLayout>

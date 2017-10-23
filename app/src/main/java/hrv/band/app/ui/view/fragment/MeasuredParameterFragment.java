@@ -15,7 +15,7 @@ import hrv.band.app.ui.presenter.HRVParameterPresenter;
 import hrv.band.app.ui.presenter.IHRVParameterPresenter;
 import hrv.band.app.ui.view.activity.MainActivity;
 import hrv.band.app.ui.view.activity.WebActivity;
-import hrv.band.app.ui.view.adapter.ValueAdapter;
+import hrv.band.app.ui.view.adapter.MeasurementResultListAdapter;
 
 import static hrv.band.app.ui.view.activity.web.WebsiteUrls.WEBSITE_PARAMETER_URL;
 
@@ -58,7 +58,7 @@ public class MeasuredParameterFragment extends Fragment {
 
     private void setParametersListView(View rootView) {
         ListView listview = rootView.findViewById(R.id.hrv_value_list);
-        ValueAdapter adapter = new ValueAdapter(this.getActivity(), presenter.getHRVParameters());
+        MeasurementResultListAdapter adapter = new MeasurementResultListAdapter(this.getActivity(), presenter.getHRVParameters(), presenter.getMeasurement());
 
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:layout_margin="5dp"
+              android:minHeight="?android:attr/listPreferredItemHeight"
+              android:background="@drawable/background_gradient">
+
+   <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:background="@drawable/measurement_result_header_background"
+     android:padding="7dp">
+
+      <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFFFF"
+        android:textSize="@dimen/measurement_result_item_header_text_size"
+        android:text="@string/measurement_result_item_header_frequency"/>
+   </RelativeLayout>
+
+   <lecho.lib.hellocharts.view.LineChartView
+     android:id="@+id/frequency_chart"
+     android:layout_width="match_parent"
+     android:layout_height="100dp"
+     android:layout_margin="10dp"/>
+
+   <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:layout_margin="5dp"
+     android:padding="7dp">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+         <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="@string/measurement_result_item_lf"
+           android:textColor="@color/colorAccent"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_lf"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_unit_lf"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="5dp"
+           android:text="@string/lf_time_unit"
+           android:textSize="18sp"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+         <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="@string/measurement_result_item_hf"
+           android:textColor="@color/colorAccent"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_hf"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_unit_hf"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="5dp"
+           android:text="@string/lf_time_unit"
+           android:textSize="18sp"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+         <TextView
+           android:id="@+id/textView4"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="@string/measurement_result_item_lfhf"
+           android:textColor="@color/colorAccent"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_lfhf"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_unit_lfhf"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="5dp"
+           android:textSize="18sp"/>
+      </LinearLayout>
+   </LinearLayout>
+</LinearLayout>

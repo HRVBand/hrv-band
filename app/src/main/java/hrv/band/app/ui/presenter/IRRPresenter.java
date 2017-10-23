@@ -1,6 +1,10 @@
 package hrv.band.app.ui.presenter;
 
+import java.util.List;
+
 import hrv.band.app.model.Measurement;
+import hrv.calc.manipulator.HRVDataManipulator;
+import hrv.calc.parameter.HRVParameter;
 
 /**
  * Copyright (c) 2017
@@ -19,4 +23,10 @@ public interface IRRPresenter {
     String getRRMax();
 
     String getRRCount();
+
+    List<HRVParameter> getParameters();
+
+    double[] getFilteredData();
+
+    void setFilter(HRVDataManipulator filter);
 }
