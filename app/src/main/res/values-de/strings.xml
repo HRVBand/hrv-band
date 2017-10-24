@@ -215,4 +215,22 @@
   <string name="survey_take">Teilnehmen</string>
   <string name="survey_later">Später</string>
 
+  <!-- Measurement Result List View -->
+  <string name="baevsky_stress_index">Baevsky Stress Index</string>
+  <string name="rr_measurement_result_item_header">RR Intervalle</string>
+  <string name="measurement_result_list_item_stress_text">Stress</string>
+  <string name="measurement_result_item_header_frequency">Frequenz-Analyse</string>
+  <string name="measurement_result_item_lf">LF</string>
+  <string name="measurement_result_item_hf">HF</string>
+  <string name="measurement_result_item_lfhf">LFHF</string>
+  <string name="sdnn">SDNN</string>
+  <string name="sd1">SD1</string>
+  <string name="sd2">SD2</string>
+  <string name="sd1sd2">SD1SD2</string>
+  <string name="sdsd">SDSD</string>
+  <string name="sd_measurement_result_item_header">SD Werte</string>
+  <string name="measurement_result_item_header_filter">Filter</string>
+  <string name="no_filter">Kein Filter</string>
+  <string name="weak_filter">Schwach</string>
+  <string name="strong_filter">Stark</string>
 </resources>

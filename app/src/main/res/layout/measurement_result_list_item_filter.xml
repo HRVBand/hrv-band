@@ -36,7 +36,7 @@
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:background="@drawable/round_corner_button_background_not_pressed"
-        android:text="No Filter"/>
+        android:text="@string/no_filter"/>
 
       <Button
         android:id="@+id/weak_filter_button"
@@ -47,7 +47,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Weak"
+        android:text="@string/weak_filter"
         android:layout_weight="1"
         />
 
@@ -60,6 +60,6 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Strong"/>
+        android:text="@string/strong_filter"/>
    </LinearLayout>
 </LinearLayout>

@@ -59,8 +59,7 @@
            android:id="@+id/measurement_result_unit_lf"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_marginLeft="5dp"
-           android:text="@string/lf_time_unit"
+           android:layout_marginStart="5dp"
            android:textSize="18sp"/>
       </LinearLayout>
 
@@ -88,8 +87,7 @@
            android:id="@+id/measurement_result_unit_hf"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_marginLeft="5dp"
-           android:text="@string/lf_time_unit"
+           android:layout_marginStart="5dp"
            android:textSize="18sp"/>
       </LinearLayout>
 
@@ -117,7 +115,7 @@
            android:id="@+id/measurement_result_unit_lfhf"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_marginLeft="5dp"
+           android:layout_marginStart="5dp"
            android:textSize="18sp"/>
       </LinearLayout>
    </LinearLayout>
