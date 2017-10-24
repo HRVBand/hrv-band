@@ -16,7 +16,6 @@ import hrv.band.app.ui.presenter.HRVPresenter;
 import hrv.band.app.ui.presenter.IHRVPresenter;
 import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
 import hrv.band.app.ui.view.fragment.MeasuredParameterFragment;
-import hrv.band.app.ui.view.fragment.MeasuredRRFragment;
 
 /**
  * Copyright (c) 2017
@@ -75,7 +74,6 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
     private String[] getPageTitles() {
         return new String[]{
                 getResources().getString(R.string.hrv_activity_tab_value),
-                getResources().getString(R.string.hrv_activity_tab_rr),
                 getResources().getString(R.string.hrv_activity_tab_details)
         };
     }
@@ -93,7 +91,6 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
     private void createFragments() {
         fragments = new ArrayList<>();
         fragments.add(MeasuredParameterFragment.newInstance(presenter.getMeasurement()));
-        fragments.add(MeasuredRRFragment.newInstance(presenter.getMeasurement()));
         addDetailsFragment(fragments);
     }
 
