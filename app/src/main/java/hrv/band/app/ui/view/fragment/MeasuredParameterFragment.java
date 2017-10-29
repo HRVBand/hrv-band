@@ -58,7 +58,7 @@ public class MeasuredParameterFragment extends Fragment {
 
     private void setParametersListView(View rootView) {
         ListView listview = rootView.findViewById(R.id.hrv_value_list);
-        MeasurementResultListAdapter adapter = new MeasurementResultListAdapter(this.getActivity(), presenter.getHRVParameters(), presenter.getMeasurement());
+        MeasurementResultListAdapter adapter = new MeasurementResultListAdapter(this.getActivity(), getActivity(), presenter.getMeasurement());
 
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

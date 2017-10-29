@@ -1,5 +1,6 @@
 package hrv.band.app.ui.view.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -19,8 +21,10 @@ import hrv.HRVLibFacade;
 import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
+import hrv.band.app.ui.presenter.IMeasurementDetailsPresenter;
 import hrv.band.app.ui.presenter.IRRPresenter;
 import hrv.band.app.ui.presenter.MeasuredRRPresenter;
+import hrv.band.app.ui.presenter.MeasurementDetailsPresenter;
 import hrv.band.app.ui.view.fragment.MeasuredParameterFragment;
 import hrv.calc.Histogram;
 import hrv.calc.manipulator.HRVDataManipulator;
@@ -58,12 +62,13 @@ public class MeasurementResultListAdapter extends BaseAdapter {
 
     private Dictionary<Integer, HRVDataManipulator> filters = new Hashtable<>();
 
+    private Activity activity;
 
     private IRRPresenter presenter;
 
-    public MeasurementResultListAdapter(Context context, List<HRVParameter> parameters, Measurement measurement) {
+    public MeasurementResultListAdapter(Context context, Activity activity, Measurement measurement) {
         this.context = context;
-
+        this.activity = activity;
         this.presenter = new MeasuredRRPresenter(measurement);
 
         HRVDataManipulator noFilter = new NoWindow();
@@ -95,7 +100,38 @@ public class MeasurementResultListAdapter extends BaseAdapter {
             convertView = createFrequencyInfoItem(parent);
         } else if(position == 4) {
             convertView = createSDInfoItem(parent);
+        } else if(position == 5) {
+            convertView = createAdditionalInfoItem(parent);
         }
+        return convertView;
+    }
+
+    private View createAdditionalInfoItem(ViewGroup parent) {
+        View convertView;
+
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        convertView = inflater.inflate(
+                R.layout.measurement_result_list_item_additional_info, parent, false);
+
+        IMeasurementDetailsPresenter presenter = new MeasurementDetailsPresenter(
+                this.presenter.getMeasurement(), activity);
+
+        AdditionalInfoViewHolder holder = new AdditionalInfoViewHolder();
+        holder.date = convertView.findViewById(R.id.hrv_date);
+        holder.rating = convertView.findViewById(R.id.hrv_rating);
+        holder.category= convertView.findViewById(R.id.hrv_category);
+        holder.categoryImg = convertView.findViewById(R.id.hrv_category_icon);
+        holder.comment = convertView.findViewById(R.id.hrv_comment);
+        convertView.setTag(holder);
+
+        holder.date.setText(presenter.getDate());
+        holder.rating.setText(presenter.getRating());
+        holder.category.setText(presenter.getCategory());
+        holder.categoryImg.setImageDrawable(presenter.getCategoryIcon());
+        holder.comment.setText(presenter.getNote());
+
         return convertView;
     }
 
@@ -169,7 +205,7 @@ public class MeasurementResultListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -434,7 +470,14 @@ public class MeasurementResultListAdapter extends BaseAdapter {
         private TextView sd2;
         private TextView sd2Unit;
         private TextView sd1sd2;
+    }
 
+    private static class AdditionalInfoViewHolder {
+        private TextView date;
+        private TextView rating;
+        private TextView category;
+        private TextView comment;
+        private ImageView categoryImg;
     }
 }
 

@@ -53,7 +53,7 @@
            android:id="@+id/measurement_result_item_sdnn_unit"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_marginLeft="5dp"
+           android:layout_marginStart="5dp"
            android:textSize="18sp"/>
       </LinearLayout>
 

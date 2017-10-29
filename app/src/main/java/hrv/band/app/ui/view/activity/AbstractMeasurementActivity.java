@@ -73,8 +73,7 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
      */
     private String[] getPageTitles() {
         return new String[]{
-                getResources().getString(R.string.hrv_activity_tab_value),
-                getResources().getString(R.string.hrv_activity_tab_details)
+                getResources().getString(R.string.hrv_activity_tab_value)
         };
     }
 
@@ -91,7 +90,6 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
     private void createFragments() {
         fragments = new ArrayList<>();
         fragments.add(MeasuredParameterFragment.newInstance(presenter.getMeasurement()));
-        addDetailsFragment(fragments);
     }
 
     /**
