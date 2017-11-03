@@ -3,7 +3,7 @@ apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "hrv.band.aurora"
@@ -47,6 +47,7 @@ repositories {
 
 dependencies {
     // Room
+    // Don't or update carefully these versions! Could break app!
     compile 'android.arch.persistence.room:runtime:1.0.0-alpha9-1'
     compile 'android.arch.persistence.room:rxjava2:1.0.0-alpha9-1'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha9-1"
@@ -57,7 +58,7 @@ dependencies {
 }
 
 dependencies {
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
     compile 'com.android.support:support-fragment:26.1.0'
 
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
@@ -76,7 +77,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:preference-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
     compile 'com.android.support:recyclerview-v7:26.1.0'
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
@@ -108,8 +109,8 @@ sonarqube {
         property "sonar.jacoco.reportPaths", "${buildDir}/jacoco/testDebugUnitTest.exec"
     }
 }
-dependencies {
+/*dependencies {
     compile 'com.android.support.constraint:constraint-layout:+'
-}
+}*/
 
 

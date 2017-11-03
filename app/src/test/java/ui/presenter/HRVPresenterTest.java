@@ -7,12 +7,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.Date;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.presenter.HRVPresenter;
 import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
 
