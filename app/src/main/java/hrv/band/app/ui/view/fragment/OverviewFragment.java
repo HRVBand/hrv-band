@@ -1,32 +1,39 @@
 package hrv.band.app.ui.view.fragment;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import hrv.band.app.R;
-import hrv.band.app.model.HRVParameterSettings;
+import hrv.band.app.model.Measurement;
+import hrv.band.app.ui.presenter.HistoryViewModel;
 import hrv.band.app.ui.view.activity.HistoryActivity;
-import hrv.band.app.ui.view.adapter.OverviewValueAdapter;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawWeekStrategy;
 import hrv.calc.parameter.HRVParameterEnum;
+import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
  * <p>
- * Fragment showing available HRV parameters.
+ * Fragment allowing user to start measurement.
  */
-public class OverviewFragment extends Fragment {
+public class OverviewFragment extends Fragment implements View.OnClickListener {
 
-    public static final String VALUE_TYPE = "value_type";
+    private HistoryViewModel historyViewModel;
+    private ColumnChartView todayChart;
+    private ColumnChartView weekChart;
+    private ColumnChartView monthChart;
 
     /**
      * Returns a new instance of this fragment.
@@ -40,25 +47,40 @@ public class OverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.main_fragment_overview, container, false);
-        ListView listView = rootView.findViewById(R.id.overview_value_list);
-        final OverviewValueAdapter adapter = new OverviewValueAdapter(getActivity());
-        listView.setAdapter(adapter);
+        View rootView = inflater.inflate(R.layout.main_fragment_overview, container, false);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        historyViewModel = ViewModelProviders.of(OverviewFragment.this).get(HistoryViewModel.class);
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                Intent intent = new Intent(getContext(), HistoryActivity.class);
-                List<HRVParameterEnum> parameterEnumList = new ArrayList<>(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
-
-                intent.putExtra(VALUE_TYPE, parameterEnumList.get(position));
-                startActivity(intent);
-            }
-
-        });
+        todayChart = rootView.findViewById(R.id.overview_chart_today);
+        weekChart = rootView.findViewById(R.id.overview_chart_week);
+        monthChart = rootView.findViewById(R.id.overview_chart_month);
+        todayChart.setOnClickListener(this);
+        weekChart.setOnClickListener(this);
+        monthChart.setOnClickListener(this);
+        getMeasurements(new Date());
 
         return rootView;
+    }
+
+    private void drawCharts(List<Measurement> measurements, Date date) {
+        historyViewModel.drawChart(new ChartDrawDayStrategy(), todayChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
+        historyViewModel.drawChart(new ChartDrawWeekStrategy(), weekChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
+        historyViewModel.drawChart(new ChartDrawMonthStrategy(date), monthChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
+    }
+
+    private void getMeasurements(final Date date) {
+        LiveData<List<Measurement>> measurements = historyViewModel.getMeasurements(date);
+        measurements.observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+            @Override
+            public void onChanged(@Nullable List<Measurement> measurements) {
+                drawCharts(measurements, date);
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(getContext(), HistoryActivity.class);
+        startActivity(intent);
     }
 }

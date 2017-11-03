@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
@@ -13,7 +13,7 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 13.03.2017
  * <p>
- * Interface between {@link HistoryActivity} and {@link HistoryFragment}.
+ * Interface between {@link HistoryActivity} and {@link OverviewFragment}.
  */
 public interface IHistoryView {
 

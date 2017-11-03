@@ -17,7 +17,6 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
 import hrv.band.app.ui.view.activity.HistoryActivity;
-import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.calc.parameter.HRVParameterEnum;
 
 import static junit.framework.Assert.assertNotNull;

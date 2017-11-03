@@ -10,7 +10,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import hrv.band.app.BuildConfig;
-import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.calc.parameter.HRVParameterEnum;
 
 import static junit.framework.Assert.assertNotNull;
@@ -19,19 +19,19 @@ import static junit.framework.Assert.assertNotNull;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 30.01.2017
  *
- * Tests for {@link HistoryFragment}.
+ * Tests for {@link OverviewFragment}.
  */
 
 @Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
 @RunWith(RobolectricTestRunner.class)
 public abstract class AbstractStatisticFragmentTest {
-    private HistoryFragment fragment;
+    private OverviewFragment fragment;
 
     abstract HRVParameterEnum getHrvType();
 
     @Before
     public void setup()  {
-        fragment = HistoryFragment.newInstance(getHrvType());
+        fragment = OverviewFragment.newInstance(getHrvType());
         SupportFragmentTestUtil.startVisibleFragment(fragment);
     }
     @Test

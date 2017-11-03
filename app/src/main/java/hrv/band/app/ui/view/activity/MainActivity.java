@@ -31,9 +31,9 @@ import hrv.band.app.ui.presenter.MainPresenter;
 import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
 import hrv.band.app.ui.view.fragment.DisclaimerDialogFragment;
 import hrv.band.app.ui.view.fragment.FeedbackDialogFragment;
+import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.band.app.ui.view.fragment.IMeasuringView;
 import hrv.band.app.ui.view.fragment.MeasuringFragment;
-import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.band.app.ui.view.fragment.SurveyDialogFragment;
 
 /**

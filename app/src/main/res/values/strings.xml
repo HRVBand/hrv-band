@@ -19,7 +19,9 @@
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
     <string name="common_saved">Saved</string>
-
+    <string name="common_today">Today</string>
+    <string name="common_week">Week</string>
+    <string name="common_month">Month</string>
 
     <!-- Sentences -->
     <string name="sentence_how_do_you_feel">How Do You Feel?</string>

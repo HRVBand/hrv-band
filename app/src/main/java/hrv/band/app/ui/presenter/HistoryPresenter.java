@@ -22,7 +22,7 @@ import hrv.band.app.ui.view.activity.history.measurementstrategy.AbstractParamet
 import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadDayStrategy;
 import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadMonthStrategy;
 import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadWeekStrategy;
-import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
@@ -84,7 +84,7 @@ public class HistoryPresenter implements IHistoryPresenter {
         List<Fragment> fragments = new ArrayList<>();
 
         for (HRVParameterEnum parameter : parameterSet) {
-            fragments.add(HistoryFragment.newInstance(parameter));
+            fragments.add(OverviewFragment.newInstance());
         }
 
         return fragments;

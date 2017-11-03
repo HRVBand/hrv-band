@@ -22,7 +22,7 @@ import hrv.HRVLibFacade;
 import hrv.RRData;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.calc.parameter.HRVParameter;
 import hrv.calc.parameter.HRVParameterEnum;
 import units.TimeUnit;
@@ -31,7 +31,7 @@ import units.TimeUnit;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
  * <p>
- * This adapter holds the hrv parameters to show in the {@link HistoryFragment}.
+ * This adapter holds the hrv parameters to show in the {@link OverviewFragment}.
  */
 public class StatisticValueAdapter extends BaseAdapter {
     /**

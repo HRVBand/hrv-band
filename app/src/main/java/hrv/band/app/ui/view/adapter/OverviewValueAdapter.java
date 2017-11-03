@@ -12,7 +12,6 @@ import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.model.HRVParameterSettings;
-import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.calc.parameter.HRVParameterEnum;
 
 /**
