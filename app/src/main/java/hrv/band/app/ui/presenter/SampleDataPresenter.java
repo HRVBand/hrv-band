@@ -19,17 +19,12 @@ import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 
 public class SampleDataPresenter implements ISampleDataPresenter {
 
-    private Context context;
 
     private static final int RR_COUNT = 50;
     private static final int SAMPLE_COUNT = 20;
 
-    public SampleDataPresenter(Context context) {
-        this.context = context;
-    }
-
     @Override
-    public void createSampleData() {
+    public void createSampleData(MeasurementViewModel viewModel) {
         List<Measurement> measurements = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
@@ -37,7 +32,7 @@ public class SampleDataPresenter implements ISampleDataPresenter {
             measurements.add(createSampleData(cal.getTime()));
             cal.add(Calendar.DAY_OF_MONTH, 1);
         }
-        storeMeasurement(measurements);
+        storeMeasurement(measurements, viewModel);
     }
 
     private Measurement createSampleData(Date date) {
@@ -45,9 +40,8 @@ public class SampleDataPresenter implements ISampleDataPresenter {
         return createMeasurement(date, rrValues);
     }
 
-    private void storeMeasurement(List<Measurement> measurements) {
-        AppDatabase storage = AppDatabase.getDatabaseInstance(context);
-        storage.measurementDao().saveData(measurements);
+    private void storeMeasurement(List<Measurement> measurements, MeasurementViewModel measurementViewModel) {
+        measurementViewModel.addMeasurements(measurements);
     }
 
     private Measurement createMeasurement(Date date, double[] rrValues) {

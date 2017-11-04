@@ -1,5 +1,6 @@
 package hrv.band.app.ui.view.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import hrv.band.app.R;
 import hrv.band.app.ui.presenter.ISampleDataPresenter;
 import hrv.band.app.ui.presenter.SampleDataPresenter;
+import hrv.band.app.ui.view.activity.ISettings;
 
 /**
  * Copyright (c) 2017
@@ -47,7 +49,7 @@ public class SampleDataFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        presenter = new SampleDataPresenter(getActivity().getApplicationContext());
+        presenter = new SampleDataPresenter();
 
         final View view = View.inflate(getActivity(), R.layout.dialog_simple_text, null);
 
@@ -58,7 +60,10 @@ public class SampleDataFragment extends DialogFragment {
                 .setPositiveButton(R.string.common_create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        presenter.createSampleData();
+                        Activity activity = getActivity();
+                        if (activity instanceof ISettings) {
+                            ((ISettings) activity).createSampleData();
+                        }
                         closeCallingActivity();
                     }
                 })

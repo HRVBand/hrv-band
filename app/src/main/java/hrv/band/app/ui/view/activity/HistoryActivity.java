@@ -57,9 +57,9 @@ public class HistoryActivity extends AppCompatActivity
         date = new Date();
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(HistoryFragment.newInstance());
-        fragments.add(HistoryFragment.newInstance());
-        fragments.add(HistoryFragment.newInstance());
+        fragments.add(HistoryFragment.HistoryTodayFragment.newInstance());
+        fragments.add(HistoryFragment.HistoryWeekFragment.newInstance());
+        fragments.add(HistoryFragment.HistoryMonthFragment.newInstance());
         //set up viewpager
         sectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
         ViewPager mViewPager = findViewById(R.id.statistic_viewpager);
@@ -137,6 +137,7 @@ public class HistoryActivity extends AppCompatActivity
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
         }
     }
 }

@@ -6,5 +6,5 @@ package hrv.band.app.ui.presenter;
  */
 
 public interface ISampleDataPresenter {
-    void createSampleData();
+    void createSampleData(MeasurementViewModel viewModel);
 }

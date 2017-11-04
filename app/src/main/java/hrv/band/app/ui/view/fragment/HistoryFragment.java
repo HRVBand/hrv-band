@@ -2,6 +2,7 @@ package hrv.band.app.ui.view.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,10 @@ import java.util.List;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.HistoryViewModel;
+import hrv.band.app.ui.view.activity.history.chartstrategy.AbstractChartDrawStrategy;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawWeekStrategy;
 import hrv.band.app.ui.view.adapter.HistoryViewAdapter;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
@@ -28,14 +32,12 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  */
 
 
-public class HistoryFragment extends Fragment {
+public abstract class HistoryFragment extends Fragment {
     private HistoryViewModel historyViewModel;
     private ColumnChartView chart;
     private HistoryViewAdapter adapter;
 
-    public static HistoryFragment newInstance() {
-        return new HistoryFragment();
-    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,10 +60,40 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<Measurement> measurements) {
                 adapter.addItems(measurements);
-                historyViewModel.drawChart(new ChartDrawDayStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getActivity());
+                historyViewModel.drawChart(getChartStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getActivity());
             }
         });
 
         return rootView;
+    }
+
+    public abstract AbstractChartDrawStrategy getChartStrategy();
+
+    public static class HistoryTodayFragment extends HistoryFragment {
+        public static HistoryFragment newInstance() {
+            return new HistoryTodayFragment();
+        }
+        @Override
+        public AbstractChartDrawStrategy getChartStrategy() {
+            return new ChartDrawDayStrategy();
+        }
+    }
+    public static class HistoryWeekFragment extends HistoryFragment {
+        public static HistoryFragment newInstance() {
+            return new HistoryWeekFragment();
+        }
+        @Override
+        public AbstractChartDrawStrategy getChartStrategy() {
+            return new ChartDrawWeekStrategy();
+        }
+    }
+    public static class HistoryMonthFragment extends HistoryFragment {
+        public static HistoryFragment newInstance() {
+            return new HistoryMonthFragment();
+        }
+        @Override
+        public AbstractChartDrawStrategy getChartStrategy() {
+            return new ChartDrawMonthStrategy(new Date());
+        }
     }
 }
