@@ -49,7 +49,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main_fragment_overview, container, false);
 
-        historyViewModel = ViewModelProviders.of(OverviewFragment.this).get(HistoryViewModel.class);
+        historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
 
         todayChart = rootView.findViewById(R.id.overview_chart_today);
         weekChart = rootView.findViewById(R.id.overview_chart_week);
@@ -62,18 +62,23 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
-    private void drawCharts(List<Measurement> measurements, Date date) {
-        historyViewModel.drawChart(new ChartDrawDayStrategy(), todayChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
-        historyViewModel.drawChart(new ChartDrawWeekStrategy(), weekChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
-        historyViewModel.drawChart(new ChartDrawMonthStrategy(date), monthChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
-    }
-
     private void getMeasurements(final Date date) {
-        LiveData<List<Measurement>> measurements = historyViewModel.getMeasurements(date);
-        measurements.observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+        historyViewModel.getTodayMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
             @Override
             public void onChanged(@Nullable List<Measurement> measurements) {
-                drawCharts(measurements, date);
+                historyViewModel.drawChart(new ChartDrawDayStrategy(), todayChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
+            }
+        });
+        historyViewModel.getWeekMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+            @Override
+            public void onChanged(@Nullable List<Measurement> measurements) {
+                historyViewModel.drawChart(new ChartDrawWeekStrategy(), weekChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
+            }
+        });
+        historyViewModel.getMonthMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+            @Override
+            public void onChanged(@Nullable List<Measurement> measurements) {
+                historyViewModel.drawChart(new ChartDrawMonthStrategy(date), monthChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
             }
         });
     }

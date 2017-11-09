@@ -1,20 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.view.ui.view.context.HistoryActivity">
+    tools:context=".ui.view.activity.HistoryActivity">
   <item
-    android:id="@+id/menu_ic_calender"
-    android:icon="@drawable/ic_calender"
+      android:id="@+id/menu_ic_calender"
+      android:icon="@drawable/ic_calender"
+      android:title="@string/menu_calender"
+      app:showAsAction="ifRoom" />
+  <item
+    android:id="@+id/menu_ic_value_settings"
+    android:icon="@drawable/ic_list"
+    android:iconTint="@android:color/white"
     android:title="@string/menu_calender"
     app:showAsAction="ifRoom" />
-  <group
-    android:id="@+id/group_calender_view_chooser">
-    <item android:id="@+id/menu_day"
-      android:title="@string/menu_calender_day"/>
-    <item android:id="@+id/menu_week"
-      android:title="@string/menu_calender_week" />
-    <item android:id="@+id/menu_month"
-      android:title="@string/menu_calender_month" />
-  </group>
+
 
 </menu>

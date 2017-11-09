@@ -1,6 +1,7 @@
 package hrv.band.app.model.storage.room;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -34,8 +35,8 @@ public interface MeasurementDao {
     @Query("SELECT * From Measurement WHERE date = :date")
     LiveData<List<Measurement>> loadData(Date date);
 
-    @Query("SELECT * From Measurement WHERE date BETWEEN :startDate AND :endDate")
-    LiveData<List<Measurement>> loadData(Date startDate, Date endDate);
+    @Query("SELECT * From Measurement WHERE date BETWEEN :startDate AND :endDate ORDER BY date ASC")
+    List<Measurement> loadData(Date startDate, Date endDate);
 
     @Delete
     void deleteData(Measurement parameter);

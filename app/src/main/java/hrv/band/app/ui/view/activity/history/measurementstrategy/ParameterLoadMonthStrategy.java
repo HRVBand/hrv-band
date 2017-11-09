@@ -28,7 +28,8 @@ public class ParameterLoadMonthStrategy extends AbstractParameterLoadStrategy {
         Calendar calendar = getCalenderFromDate(date);
         Date startDate = getStartOfMonthDate(calendar);
         Date endDate = getEndOfMonthDate(calendar);
-        return database.measurementDao().loadData(startDate, endDate);
+       // return database.measurementDao().loadData(startDate, endDate);
+        return null;
     }
 
     private Date getStartOfMonthDate(Calendar calendar) {

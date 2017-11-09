@@ -115,21 +115,7 @@ public class HistoryPresenter implements IHistoryPresenter {
 
     @Override
     public boolean setDrawStrategy(int id, Date date) {
-        switch (id) {
-            case R.id.menu_day:
-                chartStrategy = new ChartDrawDayStrategy();
-                parameterStrategy = new ParameterLoadDayStrategy(context);
-                break;
-            case R.id.menu_week:
-                chartStrategy = new ChartDrawWeekStrategy();
-                parameterStrategy = new ParameterLoadWeekStrategy(context);
-                break;
-            case R.id.menu_month:
-                chartStrategy = new ChartDrawMonthStrategy(date);
-                parameterStrategy = new ParameterLoadMonthStrategy(context);
-                break;
-            default: break;
-        }
+
         updateMeasurements(date);
         view.updateFragments();
         return true;

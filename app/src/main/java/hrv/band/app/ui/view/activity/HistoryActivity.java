@@ -1,6 +1,7 @@
 package hrv.band.app.ui.view.activity;
 
 import android.app.DatePickerDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -21,6 +22,7 @@ import java.util.List;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.HistoryPresenter;
+import hrv.band.app.ui.presenter.HistoryViewModel;
 import hrv.band.app.ui.presenter.IHistoryPresenter;
 import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
 import hrv.band.app.ui.view.fragment.CalenderPickerFragment;
@@ -44,6 +46,8 @@ public class HistoryActivity extends AppCompatActivity
     private Date date;
 
     private IHistoryPresenter presenter;
+    private HistoryViewModel historyViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,7 @@ public class HistoryActivity extends AppCompatActivity
         setupToolbar();
 
         presenter = new HistoryPresenter(this, getApplicationContext());
+        historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
 
         date = new Date();
 
@@ -90,6 +95,7 @@ public class HistoryActivity extends AppCompatActivity
         Calendar c = Calendar.getInstance();
         c.set(year, month, day, 0, 0, 0);
         date = c.getTime();
+        historyViewModel.setMeasurements(c.getTime());
         updateFragments();
     }
 
@@ -123,11 +129,11 @@ public class HistoryActivity extends AppCompatActivity
 
     @Override
     public void updateFragments() {
-        if (date == null) {
+        /*if (date == null) {
             return;
         }
         presenter.updateMeasurements(date);
-        sectionsPagerAdapter.updateFragments();
+        sectionsPagerAdapter.updateFragments();*/
     }
 
     private void setupToolbar() {

@@ -2,7 +2,6 @@ package hrv.band.app.ui.view.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,9 +32,9 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 
 
 public abstract class HistoryFragment extends Fragment {
-    private HistoryViewModel historyViewModel;
-    private ColumnChartView chart;
-    private HistoryViewAdapter adapter;
+    protected HistoryViewModel historyViewModel;
+    protected ColumnChartView chart;
+    protected HistoryViewAdapter adapter;
 
 
     @Override
@@ -43,7 +42,7 @@ public abstract class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.history_fragment, container, false);
 
-        historyViewModel = ViewModelProviders.of(HistoryFragment.this).get(HistoryViewModel.class);
+        historyViewModel = ViewModelProviders.of(getActivity()).get(HistoryViewModel.class);
 
         chart = rootView.findViewById(R.id.history_chart);
 
@@ -54,20 +53,14 @@ public abstract class HistoryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
-        historyViewModel = ViewModelProviders.of(HistoryFragment.this).get(HistoryViewModel.class);
-
-        historyViewModel.getMeasurements(new Date()).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
-            @Override
-            public void onChanged(@Nullable List<Measurement> measurements) {
-                adapter.addItems(measurements);
-                historyViewModel.drawChart(getChartStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getActivity());
-            }
-        });
+        getMeasurements();
 
         return rootView;
     }
 
-    public abstract AbstractChartDrawStrategy getChartStrategy();
+    protected abstract AbstractChartDrawStrategy getChartStrategy();
+
+    protected abstract void getMeasurements();
 
     public static class HistoryTodayFragment extends HistoryFragment {
         public static HistoryFragment newInstance() {
@@ -76,6 +69,17 @@ public abstract class HistoryFragment extends Fragment {
         @Override
         public AbstractChartDrawStrategy getChartStrategy() {
             return new ChartDrawDayStrategy();
+        }
+
+        @Override
+        protected void getMeasurements() {
+            historyViewModel.getTodayMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+                @Override
+                public void onChanged(@Nullable List<Measurement> measurements) {
+                    adapter.addItems(measurements);
+                    historyViewModel.drawChart(getChartStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getActivity());
+                }
+            });
         }
     }
     public static class HistoryWeekFragment extends HistoryFragment {
@@ -86,6 +90,16 @@ public abstract class HistoryFragment extends Fragment {
         public AbstractChartDrawStrategy getChartStrategy() {
             return new ChartDrawWeekStrategy();
         }
+        @Override
+        protected void getMeasurements() {
+            historyViewModel.getWeekMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+                @Override
+                public void onChanged(@Nullable List<Measurement> measurements) {
+                    adapter.addItems(measurements);
+                    historyViewModel.drawChart(getChartStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getActivity());
+                }
+            });
+        }
     }
     public static class HistoryMonthFragment extends HistoryFragment {
         public static HistoryFragment newInstance() {
@@ -94,6 +108,16 @@ public abstract class HistoryFragment extends Fragment {
         @Override
         public AbstractChartDrawStrategy getChartStrategy() {
             return new ChartDrawMonthStrategy(new Date());
+        }
+        @Override
+        protected void getMeasurements() {
+            historyViewModel.getMonthMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+                @Override
+                public void onChanged(@Nullable List<Measurement> measurements) {
+                    adapter.addItems(measurements);
+                    historyViewModel.drawChart(getChartStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getActivity());
+                }
+            });
         }
     }
 }
