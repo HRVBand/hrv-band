@@ -39,6 +39,10 @@ public class HRVParameterPresenter implements IHRVParameterPresenter {
         setUnitOfParameters();
     }
 
+    public Measurement getMeasurement() {
+        return measurement;
+    }
+
     private List<HRVParameter> calculateHRVParametersFromMeasurement() {
         if(measurement == null) {
             return new ArrayList<>();

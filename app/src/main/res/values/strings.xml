@@ -232,5 +232,22 @@
     <string name="survey_href" translatable="false">https://goo.gl/forms/pbvuuOZ2SuJdbSwE2</string>
     <string name="title_activity_history2">HistoryActivity2</string>
 
-
+  <!-- Measurement Result List View -->
+  <string name="baevsky_stress_index">Baevsky Stress Index</string>
+  <string name="rr_measurement_result_item_header">RR Intervals</string>
+  <string name="measurement_result_list_item_stress_text">Stress</string>
+  <string name="measurement_result_item_header_frequency">Frequency Analysis</string>
+  <string name="measurement_result_item_lf">LF</string>
+  <string name="measurement_result_item_hf">HF</string>
+  <string name="measurement_result_item_lfhf">LFHF</string>
+  <string name="sdnn">SDNN</string>
+  <string name="sd1">SD1</string>
+  <string name="sd2">SD2</string>
+  <string name="sd1sd2">SD1SD2</string>
+  <string name="sdsd">SDSD</string>
+  <string name="sd_measurement_result_item_header">SD Values</string>
+  <string name="measurement_result_item_header_filter">Filter</string>
+  <string name="no_filter">No Filter</string>
+  <string name="weak_filter">Weak</string>
+  <string name="strong_filter">Strong</string>
 </resources>

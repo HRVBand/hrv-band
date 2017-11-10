@@ -2,6 +2,7 @@ package hrv.band.app.ui.presenter;
 
 import java.util.List;
 
+import hrv.band.app.model.Measurement;
 import hrv.calc.parameter.HRVParameter;
 
 /**
@@ -12,4 +13,5 @@ import hrv.calc.parameter.HRVParameter;
 public interface IHRVParameterPresenter {
     List<HRVParameter> getHRVParameters();
     void calculateParameters();
+    Measurement getMeasurement();
 }

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:layout_margin="5dp"
+              android:minHeight="?android:attr/listPreferredItemHeight"
+              android:background="@drawable/background_gradient">
+
+   <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:background="@drawable/measurement_result_header_background"
+     android:padding="7dp">
+
+      <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFFFF"
+        android:textSize="@dimen/measurement_result_item_header_text_size"
+        android:text="@string/sd_measurement_result_item_header"/>
+   </RelativeLayout>
+
+   <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:layout_margin="5dp"
+     android:padding="7dp">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+         <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="@string/sdnn"
+           android:textColor="@color/colorAccent"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_sdnn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_sdnn_unit"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="5dp"
+           android:textSize="18sp"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+         <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="@string/sd1"
+           android:textColor="@color/colorAccent"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_sd1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_sd1_unit"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="5dp"
+           android:textSize="18sp"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+         <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="@string/sd2"
+           android:textColor="@color/colorAccent"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_sd2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_sd2_unit"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="5dp"
+           android:textSize="18sp"/>
+      </LinearLayout>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+         <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="@string/sd1sd2"
+           android:textColor="@color/colorAccent"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_sd1sd2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+         <TextView
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="@string/sdsd"
+           android:textColor="@color/colorAccent"
+           android:textSize="18sp"/>
+
+         <TextView
+           android:id="@+id/measurement_result_item_sdsd"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"/>
+      </LinearLayout>
+   </LinearLayout>
+</LinearLayout>
