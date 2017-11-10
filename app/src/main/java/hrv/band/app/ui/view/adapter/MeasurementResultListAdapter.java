@@ -362,7 +362,7 @@ public class MeasurementResultListAdapter extends BaseAdapter {
         List<Line> lines = new ArrayList<>();
         List<PointValue> points = new ArrayList<>();
         HRVLibFacade hrvCalc = new HRVLibFacade(RRData.createFromRRInterval(
-                presenter.getMeasurement().getRRIntervals(), units.TimeUnit.SECOND));
+                presenter.getMeasurement().getRrIntervals(), units.TimeUnit.SECOND));
 
         PowerSpectrum ps = hrvCalc.getPowerSpectrum(RRData.createFromRRInterval(
                 presenter.getFilteredData(), TimeUnit.SECOND));

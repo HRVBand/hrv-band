@@ -65,9 +65,9 @@ public class StatisticValueAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.statistic_value_item, parent, false);
+            convertView = inflater.inflate(R.layout.history_value_item, parent, false);
             holder = new ViewHolder();
-            holder.value = convertView.findViewById(R.id.stats_value);
+            //holder.value = convertView.findViewById(R.id.stats_value);
             holder.time = convertView.findViewById(R.id.stats_time);
             holder.category = convertView.findViewById(R.id.stats_category);
             convertView.setTag(holder);

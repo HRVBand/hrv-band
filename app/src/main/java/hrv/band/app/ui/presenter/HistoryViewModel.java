@@ -27,9 +27,9 @@ import hrv.band.app.ui.view.util.DateUtil;
 public class HistoryViewModel extends AndroidViewModel {
 
     private AppDatabase appDatabase;
-    private static MutableLiveData<List<Measurement>> todayMeasurements = new MutableLiveData<>();
-    private static MutableLiveData<List<Measurement>> weekMeasurements = new MutableLiveData<>();
-    private static MutableLiveData<List<Measurement>> monthMeasurements = new MutableLiveData<>();
+    private LiveData<List<Measurement>> todayMeasurements;
+    private LiveData<List<Measurement>> weekMeasurements ;
+    private LiveData<List<Measurement>> monthMeasurements;
 
     public HistoryViewModel(Application application) {
         super(application);
@@ -41,7 +41,9 @@ public class HistoryViewModel extends AndroidViewModel {
 
 
     public void setMeasurements(Date date) {
-        new SetMeasurementAsyncTask(appDatabase).execute(date);
+        todayMeasurements = appDatabase.measurementDao().loadData(DateUtil.getStartOfDay(date), DateUtil.getEndOfDay(date));
+        weekMeasurements = appDatabase.measurementDao().loadData(DateUtil.getStartOfWeek(date), DateUtil.getEndOfWeek(date));
+        monthMeasurements = appDatabase.measurementDao().loadData(DateUtil.getStartOfMonth(date), DateUtil.getEndOfMonth(date));
     }
 
     public LiveData<List<Measurement>> getTodayMeasurements() {
@@ -54,28 +56,18 @@ public class HistoryViewModel extends AndroidViewModel {
         return monthMeasurements;
     }
 
+    public LiveData<List<Measurement>> getTodayMeasurements(Date date) {
+        return appDatabase.measurementDao().loadData(DateUtil.getStartOfDay(date), DateUtil.getEndOfDay(date));
+    }
+    public LiveData<List<Measurement>> getWeekMeasurements(Date date) {
+        return appDatabase.measurementDao().loadData(DateUtil.getStartOfWeek(date), DateUtil.getEndOfWeek(date));
+    }
+    public LiveData<List<Measurement>> getMonthMeasurements(Date date) {
+        return appDatabase.measurementDao().loadData(DateUtil.getStartOfMonth(date), DateUtil.getEndOfMonth(date));
+    }
+
     public void drawChart(AbstractChartDrawStrategy chartStrategy, ColumnChartView chart,
                           List<Measurement> measurements, HRVParameterEnum hrvValue, Context context) {
         chartStrategy.drawChart(measurements, chart, hrvValue, context);
     }
-
-    private static class SetMeasurementAsyncTask extends AsyncTask<Date, Void, Void> {
-        private AppDatabase db;
-
-        SetMeasurementAsyncTask(AppDatabase appDatabase) {
-            db = appDatabase;
-        }
-
-        @Override
-        protected Void doInBackground(final Date... date) {
-            todayMeasurements.postValue(db.measurementDao().loadData(DateUtil.getStartOfDay(date[0]), DateUtil.getEndOfDay(date[0])));
-            weekMeasurements.postValue(db.measurementDao().loadData(DateUtil.getStartOfWeek(date[0]), DateUtil.getEndOfWeek(date[0])));
-            monthMeasurements.postValue(db.measurementDao().loadData(DateUtil.getStartOfMonth(date[0]), DateUtil.getEndOfMonth(date[0])));
-            return null;
-        }
-    }
-
-
-
-
 }

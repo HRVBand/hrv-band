@@ -1,0 +1,37 @@
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <TextView
+      android:id="@+id/stats_time"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:text="@string/stat_val_item_std_time"
+      android:padding="16dip"
+      android:textSize="20sp"
+      android:textColor="@color/textColorSecondary"/>
+  <ImageView
+      android:id="@+id/stats_image"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:src="@drawable/ic_relaxed"
+      android:tint="@color/colorAccent"/>
+  <TextView
+      android:id="@+id/stats_category"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:text="@string/stat_val_item_std_category"
+      android:padding="16dip"
+      android:textSize="20sp"
+      android:textColor="@color/textColorSecondary"
+      android:layout_weight="1"/>
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:src="@drawable/ic_navigate"
+      android:padding="16dip"
+      android:tint="@android:color/darker_gray"/>
+
+
+</LinearLayout>

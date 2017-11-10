@@ -117,7 +117,6 @@ public class HistoryPresenter implements IHistoryPresenter {
     public boolean setDrawStrategy(int id, Date date) {
 
         updateMeasurements(date);
-        view.updateFragments();
         return true;
     }
 

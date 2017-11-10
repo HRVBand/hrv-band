@@ -36,7 +36,7 @@ public interface MeasurementDao {
     LiveData<List<Measurement>> loadData(Date date);
 
     @Query("SELECT * From Measurement WHERE date BETWEEN :startDate AND :endDate ORDER BY date ASC")
-    List<Measurement> loadData(Date startDate, Date endDate);
+    LiveData<List<Measurement>> loadData(Date startDate, Date endDate);
 
     @Delete
     void deleteData(Measurement parameter);

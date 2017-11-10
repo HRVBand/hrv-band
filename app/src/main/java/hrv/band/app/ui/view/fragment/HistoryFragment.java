@@ -17,6 +17,7 @@ import java.util.List;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.HistoryViewModel;
+import hrv.band.app.ui.view.activity.IHistoryView;
 import hrv.band.app.ui.view.activity.history.chartstrategy.AbstractChartDrawStrategy;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
@@ -49,7 +50,7 @@ public abstract class HistoryFragment extends Fragment {
         RecyclerView recyclerView = rootView.findViewById(R.id.history_values);
 
 
-        adapter = new HistoryViewAdapter(HRVParameterEnum.BAEVSKY, new ArrayList<Measurement>());
+        adapter = new HistoryViewAdapter(new ArrayList<Measurement>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 

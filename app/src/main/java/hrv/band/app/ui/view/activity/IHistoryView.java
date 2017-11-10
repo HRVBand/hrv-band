@@ -2,6 +2,7 @@ package hrv.band.app.ui.view.activity;
 
 import android.content.Context;
 
+import java.util.Date;
 import java.util.List;
 
 import hrv.band.app.model.Measurement;
@@ -17,9 +18,6 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  */
 public interface IHistoryView {
 
-    void drawChart(ColumnChartView chart, HRVParameterEnum hrvValue, Context context);
+    void updateMeasurements(Date date);
 
-    List<Measurement> getMeasurements();
-
-    void updateFragments();
 }

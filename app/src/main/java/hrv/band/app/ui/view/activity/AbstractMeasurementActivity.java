@@ -16,7 +16,6 @@ import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.MeasurementViewModel;
 import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
 import hrv.band.app.ui.view.fragment.MeasuredParameterFragment;
-import hrv.band.app.ui.view.fragment.MeasuredRRFragment;
 
 /**
  * Copyright (c) 2017
@@ -101,8 +100,6 @@ public abstract class AbstractMeasurementActivity extends AppCompatActivity {
     private void createFragments() {
         fragments = new ArrayList<>();
         fragments.add(MeasuredParameterFragment.newInstance(measurement));
-        fragments.add(MeasuredRRFragment.newInstance(measurement));
-        addDetailsFragment(fragments);
     }
 
     /**
