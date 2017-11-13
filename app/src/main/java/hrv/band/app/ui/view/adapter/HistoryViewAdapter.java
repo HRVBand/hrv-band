@@ -42,7 +42,7 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.
     @Override
     public void onBindViewHolder(final HistoryViewAdapter.RecyclerViewHolder holder, int position) {
         Measurement measurement = measurements.get(position);
-        holder.time.setText(DateUtil.formatTime(context, measurements.get(position).getDate()));
+        holder.time.setText(DateUtil.formatDateTime(context, measurements.get(position).getDate()));
         holder.categoryImage.setImageDrawable(measurement.getCategory().getIcon(context.getResources()));
         holder.category.setText(measurement.getCategory().toString());
         holder.itemView.setTag(measurement);

@@ -63,7 +63,7 @@ public abstract class HistoryFragment extends Fragment {
 
     protected abstract void getMeasurements();
 
-    public static class HistoryTodayFragment extends HistoryFragment {
+    /*public static class HistoryTodayFragment extends HistoryFragment {
         public static HistoryFragment newInstance() {
             return new HistoryTodayFragment();
         }
@@ -120,5 +120,5 @@ public abstract class HistoryFragment extends Fragment {
                 }
             });
         }
-    }
+    }*/
 }

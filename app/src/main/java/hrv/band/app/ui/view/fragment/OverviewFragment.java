@@ -1,6 +1,6 @@
 package hrv.band.app.ui.view.fragment;
 
-import android.arch.lifecycle.LiveData;
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +28,7 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  * <p>
  * Fragment allowing user to start measurement.
  */
-public class OverviewFragment extends Fragment implements View.OnClickListener {
+public class OverviewFragment extends Fragment {
 
     private HistoryViewModel historyViewModel;
     private ColumnChartView todayChart;
@@ -54,28 +54,29 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         todayChart = rootView.findViewById(R.id.overview_chart_today);
         weekChart = rootView.findViewById(R.id.overview_chart_week);
         monthChart = rootView.findViewById(R.id.overview_chart_month);
-        todayChart.setOnClickListener(this);
-        weekChart.setOnClickListener(this);
-        monthChart.setOnClickListener(this);
+        todayChart.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryTodayActivity.class));
+        weekChart.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryWeekActivity.class));
+        monthChart.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryMonthActivity.class));
+
         getMeasurements(new Date());
 
         return rootView;
     }
 
     private void getMeasurements(final Date date) {
-        historyViewModel.getTodayMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+        historyViewModel.getTodayMeasurements(date).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
             @Override
             public void onChanged(@Nullable List<Measurement> measurements) {
                 historyViewModel.drawChart(new ChartDrawDayStrategy(), todayChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
             }
         });
-        historyViewModel.getWeekMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+        historyViewModel.getWeekMeasurements(date).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
             @Override
             public void onChanged(@Nullable List<Measurement> measurements) {
                 historyViewModel.drawChart(new ChartDrawWeekStrategy(), weekChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
             }
         });
-        historyViewModel.getMonthMeasurements().observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+        historyViewModel.getMonthMeasurements(date).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
             @Override
             public void onChanged(@Nullable List<Measurement> measurements) {
                 historyViewModel.drawChart(new ChartDrawMonthStrategy(date), monthChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
@@ -83,9 +84,22 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(getContext(), HistoryActivity.class);
-        startActivity(intent);
+
+
+    private static class OnClickChartListener implements View.OnClickListener {
+        private Class<? extends HistoryActivity> historyActivity;
+        private Activity activity;
+
+        OnClickChartListener(Activity activity, Class<? extends HistoryActivity> historyActivity) {
+            this.activity = activity;
+            this.historyActivity = historyActivity;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(activity, historyActivity);
+            activity.startActivity(intent);
+        }
+
     }
 }

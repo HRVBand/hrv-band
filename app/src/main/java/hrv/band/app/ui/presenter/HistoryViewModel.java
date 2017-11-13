@@ -27,33 +27,11 @@ import hrv.band.app.ui.view.util.DateUtil;
 public class HistoryViewModel extends AndroidViewModel {
 
     private AppDatabase appDatabase;
-    private LiveData<List<Measurement>> todayMeasurements;
-    private LiveData<List<Measurement>> weekMeasurements ;
-    private LiveData<List<Measurement>> monthMeasurements;
 
     public HistoryViewModel(Application application) {
         super(application);
 
         appDatabase = AppDatabase.getDatabaseInstance(this.getApplication());
-
-        setMeasurements(new Date());
-    }
-
-
-    public void setMeasurements(Date date) {
-        todayMeasurements = appDatabase.measurementDao().loadData(DateUtil.getStartOfDay(date), DateUtil.getEndOfDay(date));
-        weekMeasurements = appDatabase.measurementDao().loadData(DateUtil.getStartOfWeek(date), DateUtil.getEndOfWeek(date));
-        monthMeasurements = appDatabase.measurementDao().loadData(DateUtil.getStartOfMonth(date), DateUtil.getEndOfMonth(date));
-    }
-
-    public LiveData<List<Measurement>> getTodayMeasurements() {
-        return todayMeasurements;
-    }
-    public LiveData<List<Measurement>> getWeekMeasurements() {
-        return weekMeasurements;
-    }
-    public LiveData<List<Measurement>> getMonthMeasurements() {
-        return monthMeasurements;
     }
 
     public LiveData<List<Measurement>> getTodayMeasurements(Date date) {

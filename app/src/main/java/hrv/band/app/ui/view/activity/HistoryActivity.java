@@ -4,11 +4,14 @@ import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +27,10 @@ import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.HistoryPresenter;
 import hrv.band.app.ui.presenter.HistoryViewModel;
 import hrv.band.app.ui.presenter.IHistoryPresenter;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
+import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawWeekStrategy;
+import hrv.band.app.ui.view.adapter.HistoryViewAdapter;
 import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
 import hrv.band.app.ui.view.fragment.CalenderPickerFragment;
 import hrv.band.app.ui.view.fragment.HistoryFragment;
@@ -36,16 +43,13 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  * <p>
  * This Activity holds the fragments which each shows a HRV value.
  */
-public class HistoryActivity extends AppCompatActivity
+public abstract class HistoryActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener {
 
-    public static final String FRAGMENT_ID = "fragment_id";
+    protected HistoryViewModel historyViewModel;
 
-    private SectionPagerAdapter sectionsPagerAdapter;
-
-    private Date date;
-
-    private HistoryViewModel historyViewModel;
+    protected ColumnChartView chart;
+    protected HistoryViewAdapter adapter;
 
 
     @Override
@@ -57,43 +61,25 @@ public class HistoryActivity extends AppCompatActivity
 
         historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
 
-        date = new Date();
+        chart = findViewById(R.id.history_chart);
 
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(HistoryFragment.HistoryTodayFragment.newInstance());
-        fragments.add(HistoryFragment.HistoryWeekFragment.newInstance());
-        fragments.add(HistoryFragment.HistoryMonthFragment.newInstance());
-        //set up viewpager
-        sectionsPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), fragments, getPageTitles());
-        ViewPager mViewPager = findViewById(R.id.statistic_viewpager);
-        mViewPager.setAdapter(sectionsPagerAdapter);
+        RecyclerView recyclerView = findViewById(R.id.history_values);
 
-        TabLayout tabLayout = findViewById(R.id.statistic_tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        adapter = new HistoryViewAdapter(new ArrayList<Measurement>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
-        /*HRVParameterEnum type = (HRVParameterEnum)
-               // getIntent().getSerializableExtra(OverviewFragment.VALUE_TYPE);
-
-        if (type != null) {
-            mViewPager.setCurrentItem(presenter.getTitlePosition(type));
-        }*/
+        setMeasurementsObserver(new Date());
     }
 
-    private String[] getPageTitles() {
-        return new String[]{
-                getResources().getString(R.string.common_today),
-                getResources().getString(R.string.common_week),
-                getResources().getString(R.string.common_month)
-        };
-    }
+    public abstract void setMeasurementsObserver(Date date);
 
     //What should happen after Date is selected.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
         Calendar c = Calendar.getInstance();
         c.set(year, month, day, 0, 0, 0);
-        date = c.getTime();
-        historyViewModel.setMeasurements(c.getTime());
+        setMeasurementsObserver(c.getTime());
     }
 
     @Override
@@ -126,6 +112,46 @@ public class HistoryActivity extends AppCompatActivity
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+        }
+    }
+
+    public static class HistoryTodayActivity extends HistoryActivity {
+
+        @Override
+        public void setMeasurementsObserver(final Date date) {
+            historyViewModel.getTodayMeasurements(date).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
+                @Override
+                public void onChanged(@Nullable List<Measurement> measurements) {
+                    adapter.addItems(measurements);
+                    historyViewModel.drawChart(new ChartDrawDayStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                }
+            });
+        }
+    }
+    public static class HistoryWeekActivity extends HistoryActivity {
+
+        @Override
+        public void setMeasurementsObserver(final Date date) {
+            historyViewModel.getWeekMeasurements(date).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
+                @Override
+                public void onChanged(@Nullable List<Measurement> measurements) {
+                    adapter.addItems(measurements);
+                    historyViewModel.drawChart(new ChartDrawWeekStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                }
+            });
+        }
+    }
+    public static class HistoryMonthActivity extends HistoryActivity {
+
+        @Override
+        public void setMeasurementsObserver(final Date date) {
+            historyViewModel.getMonthMeasurements(date).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
+                @Override
+                public void onChanged(@Nullable List<Measurement> measurements) {
+                    adapter.addItems(measurements);
+                    historyViewModel.drawChart(new ChartDrawMonthStrategy(date), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                }
+            });
         }
     }
 }

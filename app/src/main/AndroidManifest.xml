@@ -45,7 +45,27 @@
                 android:value=".ui.view.activity.MainActivity"/>
         </activity>
         <activity
-            android:name=".ui.view.activity.HistoryActivity"
+            android:name=".ui.view.activity.HistoryActivity$HistoryTodayActivity"
+            android:label="@string/title_activity_statistic"
+            android:parentActivityName=".ui.view.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.view.activity.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.view.activity.HistoryActivity$HistoryWeekActivity"
+            android:label="@string/title_activity_statistic"
+            android:parentActivityName=".ui.view.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.view.activity.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.view.activity.HistoryActivity$HistoryMonthActivity"
             android:label="@string/title_activity_statistic"
             android:parentActivityName=".ui.view.activity.MainActivity"
             android:screenOrientation="portrait"
@@ -57,12 +77,8 @@
         <activity
             android:name=".ui.view.activity.EditableMeasurementActivity"
             android:label="@string/title_activity_hrv_value"
-            android:parentActivityName=".ui.view.activity.HistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.view.activity.HistoryActivity"/>
         </activity>
         <activity
             android:name=".ui.view.activity.ImprintActivity"
