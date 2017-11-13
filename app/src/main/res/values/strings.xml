@@ -105,7 +105,11 @@
     <string name="hrv_measurement_cancel_title">Cancel Measurement?</string>
     <string name="hrv_measurement_cancel_desc">Do you want to NOT save the measurement?</string>
 
-    <!-- overview add items footer -->
+    <!-- overview -->
+    <string name="overview_fragment_today">Today</string>
+    <string name="overview_fragment_week">Week</string>
+    <string name="overview_fragment_month">Month</string>
+    <string name="overview_fragment_more">More</string>
 
     <!-- Share Dialog -->
     <string name="share_subject">New Universal Health App</string>

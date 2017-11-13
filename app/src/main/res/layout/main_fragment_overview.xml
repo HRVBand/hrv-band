@@ -11,23 +11,121 @@
   android:paddingTop="@dimen/activity_vertical_margin"
   app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.view.activity.MainActivity">
+  <!--https://www.toptal.com/android/android-customization-how-to-build-a-ui-component-that-does-what-you-want-->
   <LinearLayout
     android:id="@+id/overview_value_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <lecho.lib.hellocharts.view.ColumnChartView
-        android:id="@+id/overview_chart_today"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <lecho.lib.hellocharts.view.ColumnChartView
-        android:id="@+id/overview_chart_week"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-    <lecho.lib.hellocharts.view.ColumnChartView
-        android:id="@+id/overview_chart_month"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginBottom="?attr/actionBarSize"/>
+        android:layout_marginBottom="20dp">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:padding="7dp"
+              android:layout_weight="1"
+              android:textColor="@android:color/darker_gray"
+              android:text="@string/overview_fragment_today"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="7dp"
+              android:drawableEnd="@drawable/ic_navigate"
+              android:textColor="@android:color/darker_gray"
+              android:text="@string/overview_fragment_more"/>
+        </LinearLayout>
+
+        <lecho.lib.hellocharts.view.ColumnChartView
+            android:id="@+id/overview_chart_today"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+      </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20dp">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:layout_weight="1"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/overview_fragment_week"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:drawableEnd="@drawable/ic_navigate"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/overview_fragment_more"/>
+      </LinearLayout>
+    <lecho.lib.hellocharts.view.ColumnChartView
+          android:id="@+id/overview_chart_week"
+          android:padding="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+      </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="60dp">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:layout_weight="1"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/overview_fragment_month"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:drawableEnd="@drawable/ic_navigate"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/overview_fragment_more"/>
+      </LinearLayout>
+      <lecho.lib.hellocharts.view.ColumnChartView
+          android:id="@+id/overview_chart_month"
+          android:padding="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+      </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <hrv.band.app.ui.OverviewChart
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </hrv.band.app.ui.OverviewChart>
   </LinearLayout>
 </ScrollView>

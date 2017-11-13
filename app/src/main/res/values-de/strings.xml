@@ -90,7 +90,11 @@
   <string name="hrv_measurement_cancel_title">Messung abbrechen?</string>
   <string name="hrv_measurement_cancel_desc">Willst du die Messung NICHT speichern?</string>
 
-  <!-- overview add items footer -->
+  <!-- overview -->
+  <string name="overview_fragment_today">Heute</string>
+  <string name="overview_fragment_week">Woche</string>
+  <string name="overview_fragment_month">Monat</string>
+  <string name="overview_fragment_more">Mehr</string>
 
   <!-- Share Dialog -->
   <string name="share_subject">Neue Health App</string>
