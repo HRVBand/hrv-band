@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hrv.band.app.R;
+import hrv.band.app.device.ConnectionManager;
 import hrv.band.app.ui.presenter.IMainPresenter;
 import hrv.band.app.ui.presenter.MainPresenter;
 import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
@@ -51,13 +52,14 @@ public class MainActivity extends AppCompatActivity
 
     private IMainPresenter presenter;
     private IMeasuringView measuringView;
+    private ConnectionManager connectionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         presenter = new MainPresenter(this);
-
+        connectionManager = new ConnectionManager(this);
         handleDisclaimer();
 
         handleSurvey();
@@ -139,6 +141,26 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.connect_ant_menu:
+                measuringView.setHrvRrIntervalDevice(connectionManager.connectToAnt());
+                measuringView.addDeviceListeners();
+                break;
+            case R.id.connect_band_menu:
+                measuringView.setHrvRrIntervalDevice(connectionManager.connectToMSBand());
+                measuringView.addDeviceListeners();
+                break;
+            case R.id.disconnect_devices_menu:
+                measuringView.setHrvRrIntervalDevice(connectionManager.disconnectDevices(measuringView.getHrvRrIntervalDevice()));
+                measuringView.makeToast(R.string.msg_disconnecting);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

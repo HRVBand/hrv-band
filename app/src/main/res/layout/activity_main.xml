@@ -43,7 +43,8 @@
     app:menu_colorNormal="@color/colorAccent"
     app:menu_fab_size="normal"
       app:menu_icon="@drawable/ic_communication"
-    app:menu_openDirection="up">
+    app:menu_openDirection="up"
+      android:paddingBottom="100dp">
 
     <com.github.clans.fab.FloatingActionButton
       android:id="@+id/disconnect_devices"

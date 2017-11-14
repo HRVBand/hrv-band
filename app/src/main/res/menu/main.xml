@@ -1,8 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu>
-    <!--<item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/common_settings"
-        app:showAsAction="never" />-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".ui.view.activity.MainActivity">
+    <item
+        android:id="@+id/menu_ic_value_settings"
+        android:icon="@drawable/ic_communication"
+        android:title="@string/error_device_not_connected_help"
+        app:showAsAction="ifRoom" >
+    <menu>
+        <item
+            android:id="@+id/disconnect_devices_menu"
+            android:icon="@drawable/ic_cancel"
+            app:showAsAction="ifRoom"
+            android:title="@string/disconnect_devices"/>
+        <item
+            android:id="@+id/connect_band_menu"
+            android:icon="@drawable/ic_watch"
+            app:showAsAction="ifRoom"
+            android:title="@string/connect_to_band"/>
+        <item
+            android:id="@+id/connect_ant_menu"
+            android:icon="@drawable/ic_bluetooth"
+            app:showAsAction="ifRoom"
+            android:title="@string/connect_to_antplus"/>
+    </menu>
+    </item>
 </menu>
