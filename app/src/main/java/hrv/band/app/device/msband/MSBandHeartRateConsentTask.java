@@ -42,7 +42,7 @@ class MSBandHeartRateConsentTask extends AsyncTask<Void, Void, Void> {
                     client.getSensorManager().requestHeartRateConsent(activityWeakReference.get(), new HeartRateConsentListener() {
                         @Override
                         public void userAccepted(boolean consentGiven) {
-                            msBandRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.CONNECTED);
+                            msBandRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.CONNECTED, "Connected");
                         }
                     });
                 }

@@ -45,15 +45,13 @@ public class AntPlusRRDataDevice
         switch(requestAccessResult) {
             case SUCCESS:
                 wgtplc = antPlusHeartRatePcc;
-                notifyDeviceStatusChanged(HRVDeviceStatus.CONNECTED);
+                notifyDeviceStatusChanged(HRVDeviceStatus.CONNECTED, requestAccessResult.toString());
                 break;
-            case USER_CANCELLED:
-            case SEARCH_TIMEOUT:
             case OTHER_FAILURE:
-                notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED);
+                notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED, requestAccessResult.toString());
                 break;
             default:
-                notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED);
+                notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED, requestAccessResult.toString());
         }
     }
 
@@ -74,7 +72,7 @@ public class AntPlusRRDataDevice
     public void stopMeasuring() {
         if(wgtplc != null) {
             wgtplc.releaseAccess();
-            notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED);
+            notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED, "Disconnected");
         }
     }
 
@@ -95,7 +93,7 @@ public class AntPlusRRDataDevice
 
     @Override
     public void connect() {
-        notifyDeviceStatusChanged(HRVDeviceStatus.CONNECTING);
+        notifyDeviceStatusChanged(HRVDeviceStatus.CONNECTING, "Connecting");
 
         //Release the old access
         if(wgtplc != null) {

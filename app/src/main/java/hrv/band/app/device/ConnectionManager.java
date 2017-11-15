@@ -52,7 +52,7 @@ public class ConnectionManager {
     public HRVRRIntervalDevice disconnectDevices(HRVRRIntervalDevice hrvRRIntervalDevice) {
         setDevice(Device.NONE);
         if (hrvRRIntervalDevice != null) {
-            hrvRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED);
+            hrvRRIntervalDevice.notifyDeviceStatusChanged(HRVDeviceStatus.DISCONNECTED, "Disconnected");
         }
         return null;
     }
