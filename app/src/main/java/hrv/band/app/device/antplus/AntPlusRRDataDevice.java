@@ -59,9 +59,14 @@ public class AntPlusRRDataDevice
 
     @Override
     public void onNewCalculatedRrInterval(long l, EnumSet<EventFlag> enumSet, BigDecimal bigDecimal, AntPlusHeartRatePcc.RrFlag rrFlag) {
-        double rr = bigDecimal.longValue() / 1000.0;
-        this.rrMeasurements.add(rr);
-        notifyRRIntervalListeners(rr);
+
+        //Data source cached and data source page 4 are valid sources for rr-data
+        if(rrFlag == AntPlusHeartRatePcc.RrFlag.DATA_SOURCE_CACHED ||
+                rrFlag == AntPlusHeartRatePcc.RrFlag.DATA_SOURCE_PAGE_4) {
+            double rr = bigDecimal.longValue() / 1000.0;
+            this.rrMeasurements.add(rr);
+            notifyRRIntervalListeners(rr);
+        }
     }
 
 
