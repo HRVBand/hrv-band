@@ -27,9 +27,11 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.
 
     private List<Measurement> measurements;
     private Context context;
+    private boolean setDate;
 
-    public HistoryViewAdapter(List<Measurement> measurements) {
+    public HistoryViewAdapter(List<Measurement> measurements, boolean setDate) {
         this.measurements = measurements;
+        this.setDate = setDate;
     }
 
     @Override
@@ -42,9 +44,12 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.
     @Override
     public void onBindViewHolder(final HistoryViewAdapter.RecyclerViewHolder holder, int position) {
         Measurement measurement = measurements.get(position);
-        holder.time.setText(DateUtil.formatDateTime(context, measurements.get(position).getDate()));
+        holder.time.setText(DateUtil.formatTime(context, measurements.get(position).getDate()));
+        if (setDate) {
+            holder.date.setText(DateUtil.formatDate(context, measurements.get(position).getDate(), "dd.MM"));
+        }
         holder.categoryImage.setImageDrawable(measurement.getCategory().getIcon(context.getResources()));
-        holder.category.setText(measurement.getCategory().toString());
+        holder.category.setText(measurement.getCategory().getText(context.getResources()));
         holder.itemView.setTag(measurement);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,11 +74,13 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.
 
     static class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView time;
+        private TextView date;
         private ImageView categoryImage;
         private TextView category;
 
         RecyclerViewHolder(View view) {
             super(view);
+            date = view.findViewById(R.id.stats_date);
             time = view.findViewById(R.id.stats_time);
             categoryImage = view.findViewById(R.id.stats_image);
             category = view.findViewById(R.id.stats_category);

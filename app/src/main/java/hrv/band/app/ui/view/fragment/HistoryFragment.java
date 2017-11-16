@@ -50,7 +50,7 @@ public abstract class HistoryFragment extends Fragment {
         RecyclerView recyclerView = rootView.findViewById(R.id.history_values);
 
 
-        adapter = new HistoryViewAdapter(new ArrayList<Measurement>());
+        adapter = new HistoryViewAdapter(new ArrayList<Measurement>(), false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 

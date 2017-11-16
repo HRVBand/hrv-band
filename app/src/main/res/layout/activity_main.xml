@@ -33,47 +33,4 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-  <!--<include layout="@layout/content_main" />-->
-  <com.github.clans.fab.FloatingActionMenu
-    android:id="@+id/menu_down"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_margin="@dimen/fab_margin"
-    app:menu_colorNormal="@color/colorAccent"
-    app:menu_fab_size="normal"
-      app:menu_icon="@drawable/ic_communication"
-    app:menu_openDirection="up"
-      android:paddingBottom="100dp">
-
-    <com.github.clans.fab.FloatingActionButton
-      android:id="@+id/disconnect_devices"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_cancel"
-        app:fab_colorNormal="@color/colorAccent"
-        app:fab_label="@string/disconnect_devices"
-        app:fab_size="mini" />
-
-    <com.github.clans.fab.FloatingActionButton
-      android:id="@+id/connect_band_float_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_watch"
-        app:fab_colorNormal="@color/colorAccent"
-        app:fab_label="@string/connect_to_band"
-        app:fab_size="mini" />
-
-    <com.github.clans.fab.FloatingActionButton
-      android:id="@+id/connect_antplus_float_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_bluetooth"
-        app:fab_colorNormal="@color/colorAccent"
-        app:fab_label="@string/connect_to_antplus"
-        app:fab_size="mini" />
-
-  </com.github.clans.fab.FloatingActionMenu>
-
-
 </android.support.design.widget.CoordinatorLayout>

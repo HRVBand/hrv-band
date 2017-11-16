@@ -24,7 +24,7 @@ public class ConnectionClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
+        /*switch (view.getId()) {
             case R.id.connect_antplus_float_button:
                 measuringView.setHrvRrIntervalDevice(connectionManager.connectToAnt());
                 measuringView.addDeviceListeners();
@@ -40,6 +40,6 @@ public class ConnectionClickListener implements View.OnClickListener {
             default:
                 break;
         }
-        measuringView.toggleDeviceMenuButton(true);
+        measuringView.toggleDeviceMenuButton(true);*/
     }
 }
