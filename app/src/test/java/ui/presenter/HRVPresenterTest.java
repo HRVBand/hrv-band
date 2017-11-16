@@ -14,8 +14,6 @@ import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 /**

@@ -10,18 +10,13 @@ import java.util.List;
 import java.util.Set;
 
 import hrv.RRData;
-import hrv.band.app.R;
 import hrv.band.app.model.HRVParameterSettings;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.view.activity.IHistoryView;
 import hrv.band.app.ui.view.activity.history.chartstrategy.AbstractChartDrawStrategy;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
-import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
-import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawWeekStrategy;
 import hrv.band.app.ui.view.activity.history.measurementstrategy.AbstractParameterLoadStrategy;
 import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadDayStrategy;
-import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadMonthStrategy;
-import hrv.band.app.ui.view.activity.history.measurementstrategy.ParameterLoadWeekStrategy;
 import hrv.band.app.ui.view.fragment.OverviewFragment;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;

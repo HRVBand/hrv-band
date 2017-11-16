@@ -31,8 +31,7 @@ import hrv.band.app.device.HRVRRIntervalDevice;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.IMeasuringPresenter;
 import hrv.band.app.ui.presenter.MeasuringPresenter;
-import hrv.band.app.ui.view.activity.SavableMeasurementActivity;
-import hrv.band.app.ui.view.fragment.measuring.listener.ConnectionClickListener;
+import hrv.band.app.ui.view.activity.MeasurementActivity;
 import hrv.band.app.ui.view.fragment.measuring.listener.MeasurementClickListener;
 import hrv.band.app.ui.view.fragment.measuring.listener.ProgressBarAnimatorListener;
 import hrv.calc.continous.HRVContinousHeartRate;
@@ -409,7 +408,7 @@ public class MeasuringFragment extends Fragment implements HRVRRDeviceListener, 
     }
 
     private void startMeasurementActivity(Measurement measurement) {
-        Intent intent = new Intent(getContext(), SavableMeasurementActivity.class);
+        Intent intent = new Intent(getContext(), MeasurementActivity.class);
         intent.putExtra(MeasuringFragment.HRV_PARAMETER_ID, measurement);
         startActivity(intent);
     }

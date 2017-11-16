@@ -1,7 +1,6 @@
 package hrv.band.app.ui.view.activity.history.measurementstrategy;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import java.util.Date;

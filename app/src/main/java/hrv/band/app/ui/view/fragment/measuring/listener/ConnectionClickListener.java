@@ -2,7 +2,6 @@ package hrv.band.app.ui.view.fragment.measuring.listener;
 
 import android.view.View;
 
-import hrv.band.app.R;
 import hrv.band.app.device.ConnectionManager;
 import hrv.band.app.ui.view.fragment.IMeasuringView;
 

@@ -21,7 +21,6 @@ import hrv.band.app.BuildConfig;
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.view.activity.MainActivity;
-import hrv.band.app.ui.view.activity.SavableMeasurementActivity;
 
 import static junit.framework.Assert.assertNotNull;
 

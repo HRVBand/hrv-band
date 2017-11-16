@@ -13,8 +13,8 @@ import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.view.activity.EditableMeasurementActivity;
 import hrv.band.app.ui.view.activity.MainActivity;
+import hrv.band.app.ui.view.activity.MeasurementActivity;
 import hrv.band.app.ui.view.util.DateUtil;
 
 /**
@@ -54,7 +54,7 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), EditableMeasurementActivity.class);
+                Intent intent = new Intent(view.getContext(), MeasurementActivity.class);
                 intent.putExtra(MainActivity.HRV_PARAMETER_ID, measurements.get(holder.getAdapterPosition()));
                 intent.putExtra(MainActivity.HRV_PARAMETER_ID_ID, measurements.get(holder.getAdapterPosition()).getId());
                 view.getContext().startActivity(intent);

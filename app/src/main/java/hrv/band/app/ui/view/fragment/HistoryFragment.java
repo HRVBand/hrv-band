@@ -2,7 +2,6 @@ package hrv.band.app.ui.view.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,19 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.HistoryViewModel;
-import hrv.band.app.ui.view.activity.IHistoryView;
 import hrv.band.app.ui.view.activity.history.chartstrategy.AbstractChartDrawStrategy;
-import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
-import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
-import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawWeekStrategy;
 import hrv.band.app.ui.view.adapter.HistoryViewAdapter;
-import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**

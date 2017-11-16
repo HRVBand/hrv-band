@@ -1,6 +1,6 @@
 package hrv.band.app.ui.presenter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import java.text.DateFormat;
@@ -17,11 +17,12 @@ import hrv.band.app.model.Measurement;
 public class MeasurementDetailsPresenter implements IMeasurementDetailsPresenter {
 
     private Measurement measurement;
-    private Activity activity;
+    private Context context;
+    //private Activity activity;
 
-    public MeasurementDetailsPresenter(Measurement measurement, Activity activity) {
+    public MeasurementDetailsPresenter(Measurement measurement, Context context) {
         this.measurement = measurement;
-        this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -43,17 +44,17 @@ public class MeasurementDetailsPresenter implements IMeasurementDetailsPresenter
 
     @Override
     public String getCategory() {
-        return measurement != null ? measurement.getCategory().getText(activity.getResources()) : null;
+        return measurement != null ? measurement.getCategory().getText(context.getResources()) : null;
     }
 
     @Override
     public Drawable getCategoryIcon() {
-        return measurement != null ? measurement.getCategory().getIcon(activity.getResources()) : null;
+        return measurement != null ? measurement.getCategory().getIcon(context.getResources()) : null;
     }
 
     private String formatDateTime(Date date) {
-        DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(activity);
-        DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
+        DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(context);
+        DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
         return dateFormat.format(date) + ", " + timeFormat.format(date);
     }
 }

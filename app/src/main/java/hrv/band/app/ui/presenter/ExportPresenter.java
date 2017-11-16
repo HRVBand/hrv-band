@@ -1,11 +1,7 @@
 package hrv.band.app.ui.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
-import java.io.IOException;
-
-import hrv.band.app.R;
 import hrv.band.app.ui.view.fragment.IExportView;
 
 /**
