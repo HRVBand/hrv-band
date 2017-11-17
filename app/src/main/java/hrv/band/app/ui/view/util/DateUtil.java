@@ -19,6 +19,10 @@ import java.util.Locale;
 
 
 public class DateUtil {
+
+    private DateUtil() {
+        //hide implicit public constructor
+    }
     /**
      * Formats the date and time for the measurement depending on user local.
      *
@@ -52,25 +56,43 @@ public class DateUtil {
 
     public static Date getStartOfWeek(Date date) {
         Calendar calendar = getCalenderFromDate(date);
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        clearTime(calendar);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
         return calendar.getTime();
     }
 
+    private static void clearTime(Calendar calendar) {
+        calendar.clear(Calendar.HOUR_OF_DAY);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MILLISECOND);
+    }
+
     public static Date getEndOfWeek(Date date) {
-        Calendar calendar = getCalenderFromDate(date);
+        Calendar calendar = getCalenderFromDate(getStartOfWeek(date));
+        setMaxTime(calendar);
         calendar.add(Calendar.DAY_OF_WEEK, 6);
         return calendar.getTime();
     }
 
+    private static void setMaxTime(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+    }
+
     public static Date getStartOfMonth(Date date) {
         Calendar calendar = getCalenderFromDate(date);
+        clearTime(calendar);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         return calendar.getTime();
     }
 
     public static Date getEndOfMonth(Date date) {
-        Calendar calendar = getCalenderFromDate(date);
+        Calendar calendar = getCalenderFromDate(getStartOfMonth(date));
         int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        setMaxTime(calendar);
         calendar.add(Calendar.DAY_OF_MONTH, daysInMonth - 1);
         return calendar.getTime();
     }
