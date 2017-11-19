@@ -34,8 +34,9 @@ public class MeasurementClickListener implements View.OnClickListener {
             if (hrvRrIntervalDevice != null) {
                 hrvRrIntervalDevice.tryStartRRIntervalMeasuring();
             } else {
+                //TODO was wenn kein device selected
                 measuringView.makeToast(R.string.msg_select_device);
-                measuringView.toggleDeviceMenuButton(true);
+                //measuringView.toggleDeviceMenuButton(true);
             }
         }
     }

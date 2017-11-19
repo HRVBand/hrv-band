@@ -22,7 +22,6 @@ import hrv.band.app.ui.view.activity.IHistoryView;
 import hrv.band.app.ui.view.activity.history.measurementstrategy.AbstractParameterLoadStrategy;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 /**
  * Copyright (c) 2017

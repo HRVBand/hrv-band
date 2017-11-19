@@ -18,8 +18,6 @@ public interface IMeasuringView {
 
     void setHrvRrIntervalDevice(HRVRRIntervalDevice hrvRrIntervalDevice);
 
-    void toggleDeviceMenuButton(boolean toggle);
-
     void showCancelDialog();
 
     boolean isAnimationRunning();

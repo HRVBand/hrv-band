@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +55,12 @@ public class OverviewFragment extends Fragment {
         todayChart = rootView.findViewById(R.id.overview_chart_today);
         weekChart = rootView.findViewById(R.id.overview_chart_week);
         monthChart = rootView.findViewById(R.id.overview_chart_month);
-        todayChart.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryTodayActivity.class));
-        weekChart.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryWeekActivity.class));
-        monthChart.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryMonthActivity.class));
+        CardView todayCard = rootView.findViewById(R.id.overview_card_today);
+        CardView weekCard = rootView.findViewById(R.id.overview_card_week);
+        CardView monthCard = rootView.findViewById(R.id.overview_card_month);
+        todayCard.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryTodayActivity.class));
+        weekCard.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryWeekActivity.class));
+        monthCard.setOnClickListener(new OnClickChartListener(getActivity(), HistoryActivity.HistoryMonthActivity.class));
 
         getMeasurements(new Date());
 

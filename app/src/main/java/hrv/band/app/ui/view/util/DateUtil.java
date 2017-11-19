@@ -29,8 +29,12 @@ public class DateUtil {
         DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
         return timeFormat.format(date);
     }
-    public static String formatDate( Context context, Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", getCurrentLocale(context));
+    public static String formatDate( Context context, Date date, String pattern) {
+        DateFormat dateFormat = new SimpleDateFormat(pattern, getCurrentLocale(context));
+        return dateFormat.format(date);
+    }
+    public static String formatDateMonth( Context context, Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("MM.yyyy", getCurrentLocale(context));
         return dateFormat.format(date);
     }
     public static String formatDateTime( Context context, Date date) {
@@ -54,7 +58,7 @@ public class DateUtil {
 
     public static Date getEndOfWeek(Date date) {
         Calendar calendar = getCalenderFromDate(date);
-        calendar.add(Calendar.DAY_OF_MONTH, 6);
+        calendar.add(Calendar.DAY_OF_WEEK, 6);
         return calendar.getTime();
     }
 

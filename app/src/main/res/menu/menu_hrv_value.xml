@@ -6,5 +6,15 @@
     android:id="@+id/menu_ic_delete"
     android:icon="@drawable/ic_delete"
     android:title="@string/menu_calender"
-    app:showAsAction="ifRoom" />
+    app:showAsAction="always" />
+  <item
+    android:id="@+id/menu_ic_save"
+    android:icon="@drawable/ic_save"
+    android:title="@string/menu_calender"
+    app:showAsAction="always" />
+  <item
+    android:id="@+id/menu_ic_edit"
+    android:icon="@drawable/ic_comment"
+    android:title="@string/menu_calender"
+    app:showAsAction="always" />
 </menu>

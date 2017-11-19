@@ -159,8 +159,10 @@ public class MainActivity extends AppCompatActivity
                 measuringView.setHrvRrIntervalDevice(connectionManager.disconnectDevices(measuringView.getHrvRrIntervalDevice()));
                 measuringView.makeToast(R.string.msg_disconnecting);
                 break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override

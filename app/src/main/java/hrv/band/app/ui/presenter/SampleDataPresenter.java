@@ -1,7 +1,5 @@
 package hrv.band.app.ui.presenter;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 import hrv.band.app.model.Measurement;
-import hrv.band.app.model.storage.room.AppDatabase;
 import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
 
 /**

@@ -11,12 +11,8 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-import java.util.Date;
-
 import hrv.band.app.ui.presenter.ISampleDataPresenter;
 import hrv.band.app.ui.presenter.SampleDataPresenter;
-
-import static junit.framework.Assert.assertNotNull;
 
 /**
  * Copyright (c) 2017

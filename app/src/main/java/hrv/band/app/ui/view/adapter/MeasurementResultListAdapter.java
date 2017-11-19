@@ -1,6 +1,5 @@
 package hrv.band.app.ui.view.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -62,13 +61,13 @@ public class MeasurementResultListAdapter extends BaseAdapter {
 
     private Dictionary<Integer, HRVDataManipulator> filters = new Hashtable<>();
 
-    private Activity activity;
+    //private Activity activity;
 
     private IRRPresenter presenter;
 
-    public MeasurementResultListAdapter(Context context, Activity activity, Measurement measurement) {
+    public MeasurementResultListAdapter(Context context, Measurement measurement) {
         this.context = context;
-        this.activity = activity;
+        //this.activity = activity;
         this.presenter = new MeasuredRRPresenter(measurement);
 
         HRVDataManipulator noFilter = new NoWindow();
@@ -116,7 +115,7 @@ public class MeasurementResultListAdapter extends BaseAdapter {
                 R.layout.measurement_result_list_item_additional_info, parent, false);
 
         IMeasurementDetailsPresenter presenter = new MeasurementDetailsPresenter(
-                this.presenter.getMeasurement(), activity);
+                this.presenter.getMeasurement(), context);
 
         AdditionalInfoViewHolder holder = new AdditionalInfoViewHolder();
         holder.date = convertView.findViewById(R.id.hrv_date);

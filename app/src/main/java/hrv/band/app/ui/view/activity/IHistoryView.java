@@ -1,14 +1,8 @@
 package hrv.band.app.ui.view.activity;
 
-import android.content.Context;
-
 import java.util.Date;
-import java.util.List;
 
-import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.view.fragment.OverviewFragment;
-import hrv.calc.parameter.HRVParameterEnum;
-import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
  * Copyright (c) 2017

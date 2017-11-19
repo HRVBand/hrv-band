@@ -2,12 +2,8 @@ package hrv.band.app.ui.view.activity;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,18 +21,17 @@ import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
-import hrv.band.app.ui.presenter.HistoryPresenter;
 import hrv.band.app.ui.presenter.HistoryViewModel;
-import hrv.band.app.ui.presenter.IHistoryPresenter;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawWeekStrategy;
 import hrv.band.app.ui.view.adapter.HistoryViewAdapter;
-import hrv.band.app.ui.view.adapter.SectionPagerAdapter;
 import hrv.band.app.ui.view.fragment.CalenderPickerFragment;
-import hrv.band.app.ui.view.fragment.HistoryFragment;
+import hrv.band.app.ui.view.util.DateUtil;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
+
+import static hrv.band.app.ui.view.util.DateUtil.formatDate;
 
 /**
  * Copyright (c) 2017
@@ -49,6 +45,7 @@ public abstract class HistoryActivity extends AppCompatActivity
     protected HistoryViewModel historyViewModel;
 
     protected ColumnChartView chart;
+    protected TextView dateView;
     protected HistoryViewAdapter adapter;
 
 
@@ -62,10 +59,11 @@ public abstract class HistoryActivity extends AppCompatActivity
         historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
 
         chart = findViewById(R.id.history_chart);
+        dateView = findViewById(R.id.history_date);
 
         RecyclerView recyclerView = findViewById(R.id.history_values);
 
-        adapter = new HistoryViewAdapter(new ArrayList<Measurement>());
+        adapter = new HistoryViewAdapter(new ArrayList<Measurement>(), shouldDateBeDisplayedInList());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -73,6 +71,7 @@ public abstract class HistoryActivity extends AppCompatActivity
     }
 
     public abstract void setMeasurementsObserver(Date date);
+    public abstract boolean shouldDateBeDisplayedInList();
 
     //What should happen after Date is selected.
     @Override
@@ -124,8 +123,14 @@ public abstract class HistoryActivity extends AppCompatActivity
                 public void onChanged(@Nullable List<Measurement> measurements) {
                     adapter.addItems(measurements);
                     historyViewModel.drawChart(new ChartDrawDayStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                    dateView.setText(formatDate(getApplicationContext(), date, "dd.MM.yyyy"));
                 }
             });
+        }
+
+        @Override
+        public boolean shouldDateBeDisplayedInList() {
+            return false;
         }
     }
     public static class HistoryWeekActivity extends HistoryActivity {
@@ -137,8 +142,15 @@ public abstract class HistoryActivity extends AppCompatActivity
                 public void onChanged(@Nullable List<Measurement> measurements) {
                     adapter.addItems(measurements);
                     historyViewModel.drawChart(new ChartDrawWeekStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                    Date startOfWeek = DateUtil.getStartOfWeek(date);
+                    Date endOfWeek = DateUtil.getEndOfWeek(date);
+                    dateView.setText(DateUtil.formatDate(getApplicationContext(), startOfWeek, "dd.MM") + " - " + DateUtil.formatDate(getApplicationContext(), endOfWeek, "dd.MM.yyyy"));
                 }
             });
+        }
+        @Override
+        public boolean shouldDateBeDisplayedInList() {
+            return true;
         }
     }
     public static class HistoryMonthActivity extends HistoryActivity {
@@ -150,8 +162,13 @@ public abstract class HistoryActivity extends AppCompatActivity
                 public void onChanged(@Nullable List<Measurement> measurements) {
                     adapter.addItems(measurements);
                     historyViewModel.drawChart(new ChartDrawMonthStrategy(date), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                    dateView.setText(DateUtil.formatDate(getApplicationContext(), date, "MM.yyyy"));
                 }
             });
+        }
+        @Override
+        public boolean shouldDateBeDisplayedInList() {
+            return true;
         }
     }
 }

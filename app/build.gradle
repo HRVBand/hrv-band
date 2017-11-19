@@ -48,13 +48,13 @@ repositories {
 dependencies {
     // Room
     // Don't or update carefully these versions! Could break app!
-    compile 'android.arch.persistence.room:runtime:1.0.0-alpha9-1'
-    compile 'android.arch.persistence.room:rxjava2:1.0.0-alpha9-1'
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha9-1"
+    compile 'android.arch.persistence.room:runtime:1.0.0'
+    compile 'android.arch.persistence.room:rxjava2:1.0.0'
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
-    compile "android.arch.lifecycle:runtime:1.0.0"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha9-1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha9-1"
+    compile "android.arch.lifecycle:runtime:1.0.3"
+    compile "android.arch.lifecycle:extensions:1.0.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
 }
 
 dependencies {
@@ -63,7 +63,6 @@ dependencies {
 
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
     compile files('libs/antpluginlib_3-5-0.jar')
-    compile 'com.github.clans:fab:1.6.4'
     compile files('libs/hrvlib.jar')
 }
 
