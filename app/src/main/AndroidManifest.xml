@@ -94,6 +94,11 @@
             android:name=".ui.view.activity.WebActivity"
             android:label="@string/title_activity_web_view"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".ui.view.activity.ParameterSelectionActivity"
+            android:label="@string/title_activity_parameter_selection"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

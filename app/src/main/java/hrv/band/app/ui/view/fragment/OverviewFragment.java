@@ -20,6 +20,7 @@ import hrv.band.app.ui.view.activity.HistoryActivity;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawMonthStrategy;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawWeekStrategy;
+import hrv.band.app.ui.view.util.DateUtil;
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
@@ -68,19 +69,19 @@ public class OverviewFragment extends Fragment {
     }
 
     private void getMeasurements(final Date date) {
-        historyViewModel.getTodayMeasurements(date).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+        historyViewModel.getMeasurements(DateUtil.getStartOfDay(date), DateUtil.getEndOfDay(date)).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
             @Override
             public void onChanged(@Nullable List<Measurement> measurements) {
                 historyViewModel.drawChart(new ChartDrawDayStrategy(), todayChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
             }
         });
-        historyViewModel.getWeekMeasurements(date).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+        historyViewModel.getMeasurements(DateUtil.getStartOfWeek(date), DateUtil.getEndOfWeek(date)).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
             @Override
             public void onChanged(@Nullable List<Measurement> measurements) {
                 historyViewModel.drawChart(new ChartDrawWeekStrategy(), weekChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());
             }
         });
-        historyViewModel.getMonthMeasurements(date).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
+        historyViewModel.getMeasurements(DateUtil.getStartOfMonth(date), DateUtil.getStartOfMonth(date)).observe(getActivity(), new android.arch.lifecycle.Observer<List<Measurement>>() {
             @Override
             public void onChanged(@Nullable List<Measurement> measurements) {
                 historyViewModel.drawChart(new ChartDrawMonthStrategy(date), monthChart, measurements, HRVParameterEnum.BAEVSKY ,getActivity());

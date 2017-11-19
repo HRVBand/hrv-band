@@ -2,7 +2,10 @@ package hrv.band.app.ui.view.activity;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import hrv.band.app.R;
+import hrv.band.app.model.HRVParameterSettings;
 import hrv.band.app.model.Measurement;
 import hrv.band.app.ui.presenter.HistoryViewModel;
 import hrv.band.app.ui.view.activity.history.chartstrategy.ChartDrawDayStrategy;
@@ -42,11 +46,21 @@ import static hrv.band.app.ui.view.util.DateUtil.formatDate;
 public abstract class HistoryActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener {
 
+    public static final String PARAMETER_VALUE = "parameter_value";
+    public static final String DATE_VALUE = "date_value";
+    public static final String SELECTION_VALUE = "selection_value";
+    public static final int PARAMETER_VALUE_REQUEST = 1;
     protected HistoryViewModel historyViewModel;
 
     protected ColumnChartView chart;
     protected TextView dateView;
+    protected TextView parameterTextView;
     protected HistoryViewAdapter adapter;
+
+    protected HRVParameterEnum hrvParameter;
+    protected Date date;
+
+
 
 
     @Override
@@ -67,7 +81,28 @@ public abstract class HistoryActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        setMeasurementsObserver(new Date());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        hrvParameter = new ArrayList<>(HRVParameterSettings.DefaultSettings.visibleHRVParameters).get(sharedPreferences.getInt(PARAMETER_VALUE, 0));
+
+        parameterTextView = findViewById(R.id.history_parameter);
+        parameterTextView.setText(hrvParameter.toString());
+        date = new Date();
+        setMeasurementsObserver(date);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == PARAMETER_VALUE_REQUEST && resultCode == RESULT_OK) {
+            long longDate = data.getLongExtra(DATE_VALUE, 0);
+            hrvParameter = new ArrayList<>(HRVParameterSettings.DefaultSettings.visibleHRVParameters).get(data.getIntExtra(SELECTION_VALUE, 0));
+            if (longDate != 0) {
+                date = new Date(longDate);
+            } else {
+                date = new Date();
+            }
+            setMeasurementsObserver(date);
+        }
     }
 
     public abstract void setMeasurementsObserver(Date date);
@@ -78,7 +113,8 @@ public abstract class HistoryActivity extends AppCompatActivity
     public void onDateSet(DatePicker view, int year, int month, int day) {
         Calendar c = Calendar.getInstance();
         c.set(year, month, day, 0, 0, 0);
-        setMeasurementsObserver(c.getTime());
+        date = c.getTime();
+        setMeasurementsObserver(date);
     }
 
     @Override
@@ -97,6 +133,11 @@ public abstract class HistoryActivity extends AppCompatActivity
                 return true;
             case R.id.menu_ic_calender:
                 new CalenderPickerFragment().show(getSupportFragmentManager(), "datePicker");
+                return true;
+            case R.id.menu_ic_value_settings:
+                Intent intent = new Intent(this, ParameterSelectionActivity.class);
+                intent.putExtra(DATE_VALUE, date.getTime());
+                startActivityForResult(intent, PARAMETER_VALUE_REQUEST);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -118,33 +159,38 @@ public abstract class HistoryActivity extends AppCompatActivity
 
         @Override
         public void setMeasurementsObserver(final Date date) {
-            historyViewModel.getTodayMeasurements(date).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
+            historyViewModel.getMeasurements(DateUtil.getStartOfDay(date), DateUtil.getEndOfDay(date)).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
+
                 @Override
                 public void onChanged(@Nullable List<Measurement> measurements) {
                     adapter.addItems(measurements);
-                    historyViewModel.drawChart(new ChartDrawDayStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                    historyViewModel.drawChart(new ChartDrawDayStrategy(), chart, measurements, hrvParameter, getApplicationContext());
                     dateView.setText(formatDate(getApplicationContext(), date, "dd.MM.yyyy"));
+                    parameterTextView.setText(hrvParameter.toString());
                 }
             });
         }
+
+
 
         @Override
         public boolean shouldDateBeDisplayedInList() {
             return false;
         }
+
     }
     public static class HistoryWeekActivity extends HistoryActivity {
-
         @Override
         public void setMeasurementsObserver(final Date date) {
-            historyViewModel.getWeekMeasurements(date).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
+            historyViewModel.getMeasurements(DateUtil.getStartOfWeek(date), DateUtil.getEndOfWeek(date)).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
                 @Override
                 public void onChanged(@Nullable List<Measurement> measurements) {
                     adapter.addItems(measurements);
-                    historyViewModel.drawChart(new ChartDrawWeekStrategy(), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                    historyViewModel.drawChart(new ChartDrawWeekStrategy(), chart, measurements, hrvParameter, getApplicationContext());
                     Date startOfWeek = DateUtil.getStartOfWeek(date);
                     Date endOfWeek = DateUtil.getEndOfWeek(date);
-                    dateView.setText(DateUtil.formatDate(getApplicationContext(), startOfWeek, "dd.MM") + " - " + DateUtil.formatDate(getApplicationContext(), endOfWeek, "dd.MM.yyyy"));
+                    dateView.setText(String.format("%s - %s", DateUtil.formatDate(getApplicationContext(), startOfWeek, "dd.MM"), DateUtil.formatDate(getApplicationContext(), endOfWeek, "dd.MM.yyyy")));
+                    parameterTextView.setText(hrvParameter.toString());
                 }
             });
         }
@@ -154,15 +200,15 @@ public abstract class HistoryActivity extends AppCompatActivity
         }
     }
     public static class HistoryMonthActivity extends HistoryActivity {
-
         @Override
         public void setMeasurementsObserver(final Date date) {
-            historyViewModel.getMonthMeasurements(date).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
+            historyViewModel.getMeasurements(DateUtil.getStartOfMonth(date), DateUtil.getEndOfMonth(date)).observe(this, new android.arch.lifecycle.Observer<List<Measurement>>() {
                 @Override
                 public void onChanged(@Nullable List<Measurement> measurements) {
                     adapter.addItems(measurements);
-                    historyViewModel.drawChart(new ChartDrawMonthStrategy(date), chart, measurements, HRVParameterEnum.BAEVSKY, getApplicationContext());
+                    historyViewModel.drawChart(new ChartDrawMonthStrategy(date), chart, measurements, hrvParameter, getApplicationContext());
                     dateView.setText(DateUtil.formatDate(getApplicationContext(), date, "MM.yyyy"));
+                    parameterTextView.setText(hrvParameter.toString());
                 }
             });
         }

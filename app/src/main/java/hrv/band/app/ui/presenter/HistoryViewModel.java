@@ -14,8 +14,6 @@ import hrv.band.app.ui.view.activity.history.chartstrategy.AbstractChartDrawStra
 import hrv.calc.parameter.HRVParameterEnum;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
-import hrv.band.app.ui.view.util.DateUtil;
-
 /**
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 17.09.2017
@@ -32,14 +30,8 @@ public class HistoryViewModel extends AndroidViewModel {
         appDatabase = AppDatabase.getDatabaseInstance(this.getApplication());
     }
 
-    public LiveData<List<Measurement>> getTodayMeasurements(Date date) {
-        return appDatabase.measurementDao().loadData(DateUtil.getStartOfDay(date), DateUtil.getEndOfDay(date));
-    }
-    public LiveData<List<Measurement>> getWeekMeasurements(Date date) {
-        return appDatabase.measurementDao().loadData(DateUtil.getStartOfWeek(date), DateUtil.getEndOfWeek(date));
-    }
-    public LiveData<List<Measurement>> getMonthMeasurements(Date date) {
-        return appDatabase.measurementDao().loadData(DateUtil.getStartOfMonth(date), DateUtil.getEndOfMonth(date));
+    public LiveData<List<Measurement>> getMeasurements(Date startDate, Date endDate) {
+        return appDatabase.measurementDao().loadData(startDate, endDate);
     }
 
     public void drawChart(AbstractChartDrawStrategy chartStrategy, ColumnChartView chart,
