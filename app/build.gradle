@@ -46,6 +46,18 @@ repositories {
 }
 
 dependencies {
+    // Room
+    // Don't or update carefully these versions! Could break app!
+    compile 'android.arch.persistence.room:runtime:1.0.0'
+    compile 'android.arch.persistence.room:rxjava2:1.0.0'
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+
+    compile "android.arch.lifecycle:runtime:1.1.0"
+    compile "android.arch.lifecycle:extensions:1.1.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+}
+
+dependencies {
     compile 'com.android.support:multidex:1.0.3'
 
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
