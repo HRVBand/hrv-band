@@ -6,9 +6,9 @@ jdk: oraclejdk8
 
 env:
   global:
-    - ANDROID_API_LEVEL=26
+    - ANDROID_API_LEVEL=27
     - EMULATOR_API_LEVEL=21
-    - ANDROID_BUILD_TOOLS_VERSION=26.0.1
+    - ANDROID_BUILD_TOOLS_VERSION=27.0.3
     - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
 
 android:
@@ -51,7 +51,3 @@ script:
 after_success:
   # upload project with coverage report to sonarqube
   - ./gradlew sonarqube --stacktrace
-
-branches:
-  only:
-    - master
