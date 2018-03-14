@@ -29,13 +29,13 @@ public class SampleDataPresenterTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        presenter = new SampleDataPresenter(RuntimeEnvironment.application);
+        //presenter = new SampleDataPresenter(RuntimeEnvironment.application);
         //storage = new HRVSQLController(RuntimeEnvironment.application);
     }
 
     @Test
     public void createSampleDataTest() {
-        presenter.createSampleData();
+       // presenter.createSampleData();
         //assertNotNull(storage.loadData(new Date()));
 
     }
