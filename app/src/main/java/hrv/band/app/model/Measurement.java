@@ -1,10 +1,12 @@
 package hrv.band.app.model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.Date;
 import java.util.Objects;
@@ -17,7 +19,7 @@ import hrv.band.app.ui.view.adapter.MeasurementCategoryAdapter;
  *
  * Created by Julian on 11.06.2016.
  */
-@Entity
+@Entity//(tableName = "HRVEntry")
 public class Measurement implements Parcelable {
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -33,8 +35,9 @@ public class Measurement implements Parcelable {
     };
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     public int id;
-
+    @ColumnInfo(name = "time")
     private Date date;
 
 
@@ -58,9 +61,13 @@ public class Measurement implements Parcelable {
         this.note = note;
     }
 
+    @ColumnInfo(name = "rrIntervals")
     private double[] rrIntervals;
+    @ColumnInfo(name = "rating")
     private double rating;
+    @ColumnInfo(name = "category")
     private MeasurementCategoryAdapter.MeasureCategory category;
+    @ColumnInfo(name = "note")
     private String note;
 
     public void setId(int id) {

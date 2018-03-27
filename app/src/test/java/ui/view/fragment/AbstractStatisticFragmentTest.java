@@ -31,7 +31,7 @@ public abstract class AbstractStatisticFragmentTest {
 
     @Before
     public void setup()  {
-        fragment = OverviewFragment.newInstance(getHrvType());
+        fragment = OverviewFragment.newInstance();
         SupportFragmentTestUtil.startVisibleFragment(fragment);
     }
     @Test

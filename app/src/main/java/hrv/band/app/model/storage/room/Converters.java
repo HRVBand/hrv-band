@@ -26,6 +26,9 @@ public class Converters {
 
     @TypeConverter
     public static double[] fromStringToDoubleArray(String value) {
+        if (value == null) {
+            return new double[0];
+        }
         String[] values = value.substring(1, value.length() - 2).split(",");
         double[] result = new double[values.length];
         for (int i = 0; i < values.length; i++) {

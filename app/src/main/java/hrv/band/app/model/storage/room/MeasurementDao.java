@@ -25,16 +25,16 @@ public interface MeasurementDao {
     @Insert
     void saveData(List<Measurement> parameter);
 
-    @Query("SELECT * From Measurement")
+    @Query("SELECT * From MEASUREMENT")
     LiveData<List<Measurement>> loadData();
 
-    @Query("SELECT * From Measurement WHERE id = :id")
+    @Query("SELECT * From MEASUREMENT WHERE id = :id")
     LiveData<Measurement> loadData(int id);
 
-    @Query("SELECT * From Measurement WHERE date = :date")
+    @Query("SELECT * From MEASUREMENT WHERE time = :date")
     LiveData<List<Measurement>> loadData(Date date);
 
-    @Query("SELECT * From Measurement WHERE date BETWEEN :startDate AND :endDate ORDER BY date ASC")
+    @Query("SELECT * From MEASUREMENT WHERE time BETWEEN :startDate AND :endDate ORDER BY time ASC")
     LiveData<List<Measurement>> loadData(Date startDate, Date endDate);
 
     @Delete

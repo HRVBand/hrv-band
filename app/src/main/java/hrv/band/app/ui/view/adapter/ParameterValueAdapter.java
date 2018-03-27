@@ -18,9 +18,9 @@ import hrv.calc.parameter.HRVParameterEnum;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 19.01.2017
  * <p>
- * Adapter for displaying available HRV values in the {@link OverviewFragment}.
+ * Adapter for displaying available HRV values in the {@link hrv.band.app.ui.view.activity.ParameterSelectionActivity}.
  */
-public class OverviewValueAdapter extends BaseAdapter {
+public class ParameterValueAdapter extends BaseAdapter {
 
     /**
      * The context of the activity holding this adapter.
@@ -29,7 +29,7 @@ public class OverviewValueAdapter extends BaseAdapter {
 
     private List<HRVParameterEnum> parameterEnumList;
 
-    public OverviewValueAdapter(Context context) {
+    public ParameterValueAdapter(Context context) {
         this.context = context;
         parameterEnumList = new ArrayList<>(HRVParameterSettings.DefaultSettings.visibleHRVParameters);
     }
@@ -42,13 +42,13 @@ public class OverviewValueAdapter extends BaseAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.overview_value_item, parent, false);
             holder = new ViewHolder();
-            holder.firstLine = (TextView) convertView.findViewById(R.id.firstLine);
+            holder.parameterText = convertView.findViewById(R.id.parameter_value_text);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.firstLine.setText(parameterEnumList.get(position).toString());
+        holder.parameterText.setText(parameterEnumList.get(position).toString());
         return convertView;
     }
 
@@ -71,6 +71,6 @@ public class OverviewValueAdapter extends BaseAdapter {
      * The ViewHolder of this adapter.
      */
     private static class ViewHolder {
-        private TextView firstLine;
+        private TextView parameterText;
     }
 }
