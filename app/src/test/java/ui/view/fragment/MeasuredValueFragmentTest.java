@@ -59,8 +59,8 @@ public class MeasuredValueFragmentTest {
     }
 
     @Test
-    public void checkItemClicked() throws Exception {
-        ListView listView = (ListView) fragment.getActivity().findViewById(R.id.hrv_value_list);
+    public void checkItemClicked() {
+        ListView listView = fragment.getActivity().findViewById(R.id.hrv_value_list);
         for (int i = 0; i < listView.getCount(); i ++) {
             listView.performItemClick(
                     listView.getAdapter().getView(i, null, null),
@@ -79,8 +79,8 @@ public class MeasuredValueFragmentTest {
         assertTrue(actualIntent.filterEquals(expectedIntent));
     }
     @Test
-    public void checkIfViewIsRecycled() throws Exception {
-        ListView listView = (ListView) fragment.getActivity().findViewById(R.id.hrv_value_list);
+    public void checkIfViewIsRecycled() {
+        ListView listView = fragment.getActivity().findViewById(R.id.hrv_value_list);
 
         for (int index = 0; index < listView.getCount(); index++) {
             View view = getViewAtIndex(index, null, listView);

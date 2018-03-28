@@ -21,7 +21,7 @@ public class MeasuredRRPresenterTest {
 
     @Before
     public void setup() {
-        Measurement measurement = new Measurement.MeasurementBuilder(new Date(1000), new double[]{1, 2}).build();
+        Measurement measurement = new Measurement.MeasurementBuilder(new Date(1000), new double[]{1, 2, 3, 4}).build();
         presenter = new MeasuredRRPresenter(measurement);
     }
 
@@ -39,9 +39,9 @@ public class MeasuredRRPresenterTest {
     public void calculateStatisticsTest() {
         presenter.calculateRRStatistic();
 
-        assertEquals("2", presenter.getRRCount());
-        assertEquals("1.5", presenter.getRRAverage());
+        assertEquals("4", presenter.getRRCount());
+        assertEquals("2.5", presenter.getRRAverage());
         assertEquals("1", presenter.getRRMin());
-        assertEquals("2", presenter.getRRMax());
+        assertEquals("4", presenter.getRRMax());
     }
 }

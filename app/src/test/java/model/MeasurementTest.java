@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotEquals;
  * Copyright (c) 2017
  * Created by Thomas Czogalik on 16.02.2017
  */
-@Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP/*, Build.VERSION_CODES.KITKAT*/})
+@Config(constants = BuildConfig.class, sdk = {Build.VERSION_CODES.LOLLIPOP})
 @RunWith(RobolectricTestRunner.class)
 public class MeasurementTest {
 
