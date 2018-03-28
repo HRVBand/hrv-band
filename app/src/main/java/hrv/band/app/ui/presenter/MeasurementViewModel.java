@@ -35,7 +35,7 @@ public class MeasurementViewModel extends AndroidViewModel {
         new addAsyncTask(appDatabase).execute(measurements);
     }
 
-    private void updateMeasurement(Measurement measurement) {
+    public void updateMeasurement(Measurement measurement) {
         new updateAsyncTask(appDatabase).execute(measurement);
     }
 
