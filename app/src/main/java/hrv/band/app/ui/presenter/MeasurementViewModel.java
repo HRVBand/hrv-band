@@ -17,7 +17,6 @@ import hrv.band.app.ui.view.fragment.IMeasuredDetailsView;
  * Created by Thomas Czogalik on 18.09.2017
  */
 
-
 public class MeasurementViewModel extends AndroidViewModel {
 
     private AppDatabase appDatabase;
@@ -35,8 +34,22 @@ public class MeasurementViewModel extends AndroidViewModel {
     public void addMeasurements(List<Measurement> measurements) {
         new addAsyncTask(appDatabase).execute(measurements);
     }
+
+    public void updateMeasurement(Measurement measurement) {
+        new updateAsyncTask(appDatabase).execute(measurement);
+    }
+
     public void deleteMeasurement(Measurement measurement) {
         new deleteAsyncTask(appDatabase).execute(measurement);
+    }
+
+    public void saveMeasurement(Measurement measurement) {
+        if(measurement.hasId()) {
+            updateMeasurement(measurement);
+        } else {
+            measurement.setId(0);
+            addMeasurement(measurement);
+        }
     }
 
     private Measurement createSavableMeasurement(IMeasuredDetailsView details, Measurement measurement) {
@@ -68,6 +81,7 @@ public class MeasurementViewModel extends AndroidViewModel {
             return null;
         }
     }
+
     private static class deleteAsyncTask extends AsyncTask<Measurement, Void, Void> {
         private AppDatabase db;
 
@@ -78,6 +92,21 @@ public class MeasurementViewModel extends AndroidViewModel {
         @Override
         protected Void doInBackground(final Measurement... params) {
             db.measurementDao().deleteData(params[0]);
+            return null;
+        }
+    }
+
+
+    private static class updateAsyncTask extends AsyncTask<Measurement, Void, Void> {
+        private AppDatabase db;
+
+        updateAsyncTask(AppDatabase appDatabase) {
+            db = appDatabase;
+        }
+
+        @Override
+        protected Void doInBackground(Measurement... measurements) {
+            db.measurementDao().update(measurements[0]);
             return null;
         }
     }

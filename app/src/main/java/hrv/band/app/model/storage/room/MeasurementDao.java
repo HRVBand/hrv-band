@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,9 @@ public interface MeasurementDao {
 
     @Query("SELECT * From MEASUREMENT WHERE time BETWEEN :startDate AND :endDate ORDER BY time ASC")
     LiveData<List<Measurement>> loadData(Date startDate, Date endDate);
+
+    @Update
+    void update(Measurement measurement);
 
     @Delete
     void deleteData(Measurement parameter);

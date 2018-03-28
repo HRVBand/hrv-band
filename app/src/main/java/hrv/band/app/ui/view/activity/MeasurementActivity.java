@@ -3,7 +3,6 @@ package hrv.band.app.ui.view.activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,8 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.util.List;
 
 import hrv.band.app.R;
 import hrv.band.app.model.Measurement;
@@ -36,12 +33,8 @@ public class MeasurementActivity extends AppCompatActivity {
     private IHRVParameterPresenter presenter;
 
     protected MeasurementViewModel measurementViewModel;
-    protected Measurement measurement; //TODO change to id and create viewmodel to get measurement by id
+    protected Measurement measurement; //TODO change to id and create viewmodel to get measurement by id, therefore measurement has to be in the database already
     protected int id;
-    /**
-     * The Fragments this Activity holds.
-     **/
-    private List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,14 +101,14 @@ public class MeasurementActivity extends AppCompatActivity {
      */
     private void deleteMeasurement() {
         measurementViewModel.deleteMeasurement(measurement);
-        this.finish();
+        finish();
     }
 
     /**
      * Saves the actual measured and calculated HRV parameter.
      */
     private void saveMeasurement() {
-        measurementViewModel.addMeasurement(createSavableMeasurement(measurement));
+        measurementViewModel.saveMeasurement(createSavableMeasurement(measurement));
         Toast.makeText(this, R.string.common_saved, Toast.LENGTH_SHORT).show();
         finish();
     }

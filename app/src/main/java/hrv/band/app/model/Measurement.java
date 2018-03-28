@@ -6,7 +6,6 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import java.util.Date;
 import java.util.Objects;
@@ -36,7 +35,7 @@ public class Measurement implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    public int id;
+    public int id = -1;
     @ColumnInfo(name = "time")
     private Date date;
 
@@ -78,6 +77,8 @@ public class Measurement implements Parcelable {
         return id;
     }
 
+    public boolean hasId() {return id != -1; }
+
     @Ignore// example constructor that takes a Parcel and gives you an object populated with it's values
     protected Measurement(Parcel in) {
         this.date = (Date) in.readValue(getClass().getClassLoader());
@@ -101,6 +102,7 @@ public class Measurement implements Parcelable {
         this.rating = builder.rating;
         this.category = builder.category;
         this.note = builder.note;
+        this.id = builder.id;
     }
 
     /**
@@ -191,6 +193,7 @@ public class Measurement implements Parcelable {
         private double rating;
         private MeasurementCategoryAdapter.MeasureCategory category;
         private String note;
+        private int id;
 
         public MeasurementBuilder(Date time, double[] rrIntervals) {
             this.time = time;
@@ -199,6 +202,8 @@ public class Measurement implements Parcelable {
 
         public MeasurementBuilder(Measurement parameter) {
             this.time = parameter.getDate();
+            this.rrIntervals = parameter.getRrIntervals();
+            this.id = parameter.getId();
             this.rrIntervals = parameter.getRrIntervals();
         }
 
