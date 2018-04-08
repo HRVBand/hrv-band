@@ -17,7 +17,7 @@ We also use the following third party libraries:
 - [AppIntro](https://github.com/apl-devs/AppIntro) by Paolo Rotolo & Maximilian Narr
 
 # Icon
-[Icon](https://github.com/thomcz/hrv-band/blob/gh-pages/images/hrv_logo.png) made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
+[Icon](https://www.flaticon.com/free-icon/cardiogram_249205) made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
 
 # Continuous Delivery
 Check our build status on [Travis Ci](https://travis-ci.org/HRVBand/hrv-band) and our code quality on [SonarQube](https://sonarqube.com/dashboard/index?id=hrv-band).
